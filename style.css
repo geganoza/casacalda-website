@@ -73,7 +73,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 }
 .nav__logo { height: 24px; display: flex; align-items: center; }
 .nav__logo img { height: 100%; width: auto; transition: filter .3s; }
-.nav--scrolled .nav__logo img,
+.nav--scrolled .nav__logo img { filter: brightness(0); }
 .nav__links { display: flex; gap: 24px; }
 .nav__links a {
     font-size: 13px; font-weight: 700; color: #fff;
