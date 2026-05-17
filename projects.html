@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>პროექტები — თბილი სახლი</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="pg-projects">
+
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+        <a href="index.html" class="nav__logo"><img src="assets/logo-light.svg" alt="Casa Calda"></a>
+        <div class="nav__links">
+            <a href="index.html">მთავარი</a>
+            <a href="services.html">სერვისები</a>
+            <a href="projects.html" style="color:var(--orange)">პროექტები</a>
+            <a href="team.html">გუნდი</a>
+            <a href="about.html">კომპანია</a>
+            <a href="contact.html">კონტაქტი</a>
+        </div>
+        <a href="contact.html" class="nav__cta">დაგვიკავშირდი</a>
+        <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+    </nav>
+
+    <div class="mob-nav" id="mobNav">
+        <a href="index.html">მთავარი</a>
+        <a href="services.html">სერვისები</a>
+        <a href="projects.html">პროექტები</a>
+        <a href="team.html">გუნდი</a>
+        <a href="about.html">კომპანია</a>
+        <a href="contact.html">კონტაქტი</a>
+        <a href="contact.html" class="nav__cta mob-nav__cta">დაგვიკავშირდი</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hud-hero">
+        <div class="wrap">
+            <p class="hud-hero__eyebrow anim">პორტფოლიო</p>
+            <h1 class="hud-hero__title anim">პროექტები</h1>
+            <p class="hud-hero__sub anim">უკვე მრავალი წელია რაც ვქმნით ჯანსაღ და კომფორტულ სივრცეებს საქართველოში. ყოველი პროექტი ჩვენთვის უნიკალურია.</p>
+        </div>
+    </section>
+
+    <!-- PROJECT SWITCHER -->
+    <div class="hud-switcher anim">
+        <button class="hud-switcher__btn" id="hudPrev">
+            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="hud-switcher__label" id="hudLabel">
+            EAST POINT
+            <span class="hud-switcher__count" id="hudCount">01 / 04</span>
+        </div>
+        <button class="hud-switcher__btn" id="hudNext">
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+    </div>
+
+    <!-- HUD VIEWPORT -->
+    <div class="hud-viewport anim--scale" id="hudViewport">
+        <img class="hud-viewport__img" id="hudImg" src="assets/project-main.jpg" alt="">
+
+        <!-- Scan line -->
+        <div class="hud-scan"></div>
+
+        <!-- Corner brackets -->
+        <div class="hud-corner--bl"></div>
+        <div class="hud-corner--br"></div>
+
+        <!-- Hotspots with angled elbow connectors -->
+
+        <!-- 1: roof (32%,30%) → diagonal up-left → label top-left -->
+        <div class="hotspot" style="left:32%;top:30%">
+            <div class="hotspot__pin"></div>
+            <svg class="hotspot__connector" style="position:absolute;left:-130px;top:-80px;width:140px;height:85px">
+                <line x1="135" y1="80" x2="80" y2="12"/>
+                <line x1="80" y1="12" x2="0" y2="12"/>
+                <circle cx="80" cy="12" r="2"/>
+            </svg>
+            <div class="hotspot__label" style="left:-270px;top:-100px">
+                <span class="hotspot__key">მდებარეობა</span>
+                <span class="hotspot__val" id="hud-loc">თბილისი, საქართველო</span>
+            </div>
+        </div>
+
+        <!-- 2: facade (55%,20%) → diagonal up-right → label top-right -->
+        <div class="hotspot" style="left:55%;top:20%">
+            <div class="hotspot__pin"></div>
+            <svg class="hotspot__connector" style="position:absolute;left:5px;top:-70px;width:130px;height:75px">
+                <line x1="0" y1="70" x2="50" y2="10"/>
+                <line x1="50" y1="10" x2="125" y2="10"/>
+                <circle cx="50" cy="10" r="2"/>
+            </svg>
+            <div class="hotspot__label" style="left:135px;top:-82px">
+                <span class="hotspot__key">ფართობი</span>
+                <span class="hotspot__val" id="hud-area">45,000 მ²</span>
+            </div>
+        </div>
+
+        <!-- 3: left wing (20%,56%) → diagonal down-left → label bottom-left -->
+        <div class="hotspot" style="left:20%;top:56%">
+            <div class="hotspot__pin"></div>
+            <svg class="hotspot__connector" style="position:absolute;left:-120px;top:8px;width:125px;height:75px">
+                <line x1="120" y1="0" x2="70" y2="60"/>
+                <line x1="70" y1="60" x2="0" y2="60"/>
+                <circle cx="70" cy="60" r="2"/>
+            </svg>
+            <div class="hotspot__label" style="left:-275px;top:46px">
+                <span class="hotspot__key">სერვისები</span>
+                <span class="hotspot__val" id="hud-svc">ელექტრო · HVAC · უსაფრთხოება</span>
+            </div>
+        </div>
+
+        <!-- 4: right area (68%,44%) → diagonal down-right → label mid-right -->
+        <div class="hotspot" style="left:68%;top:44%">
+            <div class="hotspot__pin"></div>
+            <svg class="hotspot__connector" style="position:absolute;left:5px;top:8px;width:120px;height:65px">
+                <line x1="0" y1="0" x2="45" y2="50"/>
+                <line x1="45" y1="50" x2="115" y2="50"/>
+                <circle cx="45" cy="50" r="2"/>
+            </svg>
+            <div class="hotspot__label" style="left:125px;top:36px">
+                <span class="hotspot__key">სტატუსი</span>
+                <span class="hotspot__val" id="hud-status">დასრულებული · 2024</span>
+            </div>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="hud-info-panel">
+            <div class="hud-info-panel__tag" id="hudTag">სრული სერვისი</div>
+            <h3 class="hud-info-panel__title" id="hudTitle">EAST POINT</h3>
+            <div class="hud-info-panel__row">
+                <span class="hud-info-panel__key">კლიენტი</span>
+                <span class="hud-info-panel__value" id="hudClient">East Point Group</span>
+            </div>
+            <div class="hud-info-panel__row">
+                <span class="hud-info-panel__key">კატეგორია</span>
+                <span class="hud-info-panel__value" id="hudCat">კომერციული</span>
+            </div>
+            <div class="hud-info-panel__row">
+                <span class="hud-info-panel__key">წელი</span>
+                <span class="hud-info-panel__value" id="hudYear">2024</span>
+            </div>
+            <div class="hud-info-panel__row">
+                <span class="hud-info-panel__key">ხანგრძლივობა</span>
+                <span class="hud-info-panel__value" id="hudDur">18 თვე</span>
+            </div>
+            <a href="project.html" class="hud-info-panel__btn">
+                დეტალურად
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="hud-stats">
+        <div class="hud-stat">
+            <span class="hud-stat__num" data-count="2000">0</span><span class="hud-stat__suffix">+</span>
+            <span class="hud-stat__label">წარმატებული პროექტი</span>
+        </div>
+        <div class="hud-stat">
+            <span class="hud-stat__num" data-count="45">0</span><span class="hud-stat__suffix">K მ&sup2;</span>
+            <span class="hud-stat__label">მაქსიმალური ფართობი</span>
+        </div>
+        <div class="hud-stat">
+            <span class="hud-stat__num" data-count="23">0</span><span class="hud-stat__suffix">+</span>
+            <span class="hud-stat__label">წლიანი გამოცდილება</span>
+        </div>
+        <div class="hud-stat">
+            <span class="hud-stat__num" data-count="4">0</span><span class="hud-stat__suffix"></span>
+            <span class="hud-stat__label">საინჟინრო მიმართულება</span>
+        </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="hud-desc anim" id="hudDesc">
+        <div>
+            <p class="eyebrow">პროექტის მიმოხილვა</p>
+            <h2 id="hudDescTitle">კომერციული სივრცის სრული საინჟინრო ტრანსფორმაცია</h2>
+            <p id="hudDescText">East Point სავაჭრო ცენტრის პროექტი მოიცავდა სრული საინჟინრო ინფრასტრუქტურის დაპროექტებას და მონტაჟს. ჩვენი გუნდი პასუხისმგებელი იყო ელექტრო სისტემების, წყალგაყვანილობის, HVAC და უსაფრთხოების სისტემების კომპლექსურ ინტეგრაციაზე.</p>
+        </div>
+        <div>
+            <p class="eyebrow">მიწოდებული სერვისები</p>
+            <div class="hud-desc__services" id="hudSvcTags">
+                <span class="hud-desc__tag">ელექტროობა</span>
+                <span class="hud-desc__tag">წყალგაყვანილობა</span>
+                <span class="hud-desc__tag">HVAC</span>
+                <span class="hud-desc__tag">უსაფრთხოება</span>
+                <span class="hud-desc__tag">ავტომატიზაცია</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="hud-gallery anim">
+        <div class="hud-gallery__grid" id="hudGallery">
+            <div class="hud-gallery__item hud-gallery__item--wide">
+                <img src="assets/project-main.jpg" alt="" loading="lazy">
+            </div>
+            <div class="hud-gallery__item">
+                <img src="assets/project-2.jpg" alt="" loading="lazy">
+            </div>
+            <div class="hud-gallery__item">
+                <img src="assets/project-3.jpg" alt="" loading="lazy">
+            </div>
+            <div class="hud-gallery__item">
+                <img src="assets/about-photo.jpg" alt="" loading="lazy">
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECT NAV -->
+    <div class="hud-proj-nav">
+        <a href="#" class="hud-proj-nav__link" id="hudNavPrev">
+            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            <div>
+                <span>წინა პროექტი</span>
+                ბიზნეს ცენტრი ვერე
+            </div>
+        </a>
+        <a href="#" class="hud-proj-nav__link" id="hudNavNext">
+            <div style="text-align:right">
+                <span>შემდეგი პროექტი</span>
+                პრემიუმ სასტუმრო ბათუმი
+            </div>
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="wrap">
+            <div class="footer__top">
+                <div class="footer__brand">
+                    <img src="assets/logo-footer.svg" alt="Casa Calda">
+                    <p>ჩვენ ვგემავთ და ვაშენებთ<br>თქვენს სიმყუდროვეს</p>
+                </div>
+                <div class="footer__cols">
+                    <div class="footer__col">
+                        <h5>ნავიგაცია</h5>
+                        <a href="services.html">სერვისები</a>
+                        <a href="projects.html">პროექტები</a>
+                        <a href="team.html">გუნდი</a>
+                        <a href="about.html">კომპანია</a>
+                    </div>
+                    <div class="footer__col">
+                        <h5>სერვისები</h5>
+                        <a href="services.html#electricity">ელექტროობა</a>
+                        <a href="services.html#plumbing">წყალგაყვანილობა</a>
+                        <a href="services.html#safety">უსაფრთხოება</a>
+                        <a href="services.html#mechanical">მექანიკური სისტემები</a>
+                    </div>
+                    <div class="footer__col">
+                        <h5>კონტაქტი</h5>
+                        <span>საქართველო, თბილისი</span>
+                        <span>0186, ვაჟა-ფშაველას 6</span>
+                        <a href="mailto:info@casacalda.ge">info@casacalda.ge</a>
+                        <a href="tel:+995322311325">+995 32 2 311 325</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <span class="footer__copy">&copy; 2026 თბილი სახლი</span>
+                <div class="footer__social">
+                    <a href="#"><img src="assets/social-fb.svg" alt="Facebook"></a>
+                    <a href="#"><img src="assets/social-ig.svg" alt="Instagram"></a>
+                    <a href="#"><img src="assets/social-li.svg" alt="LinkedIn"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="btt" id="btt" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 15l-6-6-6 6"/></svg></button>
+    <script src="main.js"></script>
+    <script>
+    (function(){
+        // Project data
+        var projects = [
+            {
+                name: 'EAST POINT', img: 'assets/project-main.jpg', tag: 'სრული სერვისი',
+                client: 'East Point Group', cat: 'კომერციული', year: '2024', dur: '18 თვე',
+                loc: 'თბილისი, საქართველო', area: '45,000 მ²', svc: 'ელექტრო · HVAC · უსაფრთხოება',
+                status: 'დასრულებული · 2024',
+                descTitle: 'კომერციული სივრცის სრული საინჟინრო ტრანსფორმაცია',
+                descText: 'East Point სავაჭრო ცენტრის პროექტი მოიცავდა სრული საინჟინრო ინფრასტრუქტურის დაპროექტებას და მონტაჟს. ჩვენი გუნდი პასუხისმგებელი იყო ელექტრო სისტემების, წყალგაყვანილობის, HVAC და უსაფრთხოების სისტემების კომპლექსურ ინტეგრაციაზე.',
+                tags: ['ელექტროობა','წყალგაყვანილობა','HVAC','უსაფრთხოება','ავტომატიზაცია'],
+                gallery: ['assets/project-main.jpg','assets/project-2.jpg','assets/project-3.jpg','assets/about-photo.jpg']
+            },
+            {
+                name: 'ბიზნეს ცენტრი ვერე', img: 'assets/project-2.jpg', tag: 'ელექტრო სისტემა',
+                client: 'Vere Group', cat: 'კომერციული', year: '2023', dur: '12 თვე',
+                loc: 'თბილისი, ვერე', area: '28,000 მ²', svc: 'ელექტრო · განათება',
+                status: 'დასრულებული · 2023',
+                descTitle: 'ბიზნეს ცენტრის ელექტრო ინფრასტრუქტურა',
+                descText: 'ვერეს ბიზნეს ცენტრის პროექტი მოიცავდა სრული ელექტრო ინფრასტრუქტურის განახლებას, სარეზერვო ენერგომომარაგების სისტემის მონტაჟს და თანამედროვე განათების ინტეგრაციას.',
+                tags: ['ელექტროობა','განათება','სარეზერვო გენერატორი'],
+                gallery: ['assets/project-2.jpg','assets/project-main.jpg','assets/about-photo.jpg','assets/project-3.jpg']
+            },
+            {
+                name: 'პრემიუმ სასტუმრო ბათუმი', img: 'assets/project-3.jpg', tag: 'სრული სერვისი',
+                client: 'Batumi Hotels LLC', cat: 'სასტუმრო', year: '2024', dur: '24 თვე',
+                loc: 'ბათუმი, საქართველო', area: '62,000 მ²', svc: 'სრული ინჟინერინგი',
+                status: 'მიმდინარე · 2024',
+                descTitle: 'პრემიუმ კლასის სასტუმროს სრული ინჟინერინგი',
+                descText: 'ბათუმის ახალი 5-ვარსკვლავიანი სასტუმროს პროექტი მოიცავს ყველა საინჟინრო მიმართულებას — ელექტროობა, წყალგაყვანილობა, HVAC, უსაფრთხოება და ჭკვიანი შენობის ავტომატიზაცია.',
+                tags: ['ელექტროობა','წყალგაყვანილობა','HVAC','უსაფრთხოება','Smart Building'],
+                gallery: ['assets/project-3.jpg','assets/project-2.jpg','assets/project-main.jpg','assets/about-photo.jpg']
+            },
+            {
+                name: 'საწარმოო კომპლექსი', img: 'assets/about-photo.jpg', tag: 'მექანიკური სისტემა',
+                client: 'Industrial Georgia', cat: 'ინდუსტრიული', year: '2023', dur: '14 თვე',
+                loc: 'რუსთავი, საქართველო', area: '35,000 მ²', svc: 'HVAC · მექანიკა',
+                status: 'დასრულებული · 2023',
+                descTitle: 'ინდუსტრიული ობიექტის მექანიკური სისტემების ავტომატიზაცია',
+                descText: 'რუსთავის საწარმოო კომპლექსისთვის დავაპროექტეთ და დავამონტაჟეთ სრული HVAC სისტემა, სამრეწველო ვენტილაცია და ხანძარსაწინააღმდეგო სისტემები.',
+                tags: ['HVAC','ვენტილაცია','სახანძრო','ავტომატიზაცია'],
+                gallery: ['assets/about-photo.jpg','assets/project-main.jpg','assets/project-3.jpg','assets/project-2.jpg']
+            }
+        ];
+
+        var idx = 0;
+        var prevBtn = document.getElementById('hudPrev');
+        var nextBtn = document.getElementById('hudNext');
+
+        function render(i) {
+            var p = projects[i];
+            document.getElementById('hudImg').src = p.img;
+            document.getElementById('hudLabel').innerHTML = p.name + '<span class="hud-switcher__count">' + String(i+1).padStart(2,'0') + ' / ' + String(projects.length).padStart(2,'0') + '</span>';
+            document.getElementById('hudTitle').textContent = p.name;
+            document.getElementById('hudTag').textContent = p.tag;
+            document.getElementById('hudClient').textContent = p.client;
+            document.getElementById('hudCat').textContent = p.cat;
+            document.getElementById('hudYear').textContent = p.year;
+            document.getElementById('hudDur').textContent = p.dur;
+            document.getElementById('hud-loc').textContent = p.loc;
+            document.getElementById('hud-area').textContent = p.area;
+            document.getElementById('hud-svc').textContent = p.svc;
+            document.getElementById('hud-status').textContent = p.status;
+            document.getElementById('hudDescTitle').textContent = p.descTitle;
+            document.getElementById('hudDescText').textContent = p.descText;
+            var tagsHtml = '';
+            p.tags.forEach(function(t){ tagsHtml += '<span class="hud-desc__tag">' + t + '</span>'; });
+            document.getElementById('hudSvcTags').innerHTML = tagsHtml;
+            var galHtml = '';
+            p.gallery.forEach(function(src, gi){
+                galHtml += '<div class="hud-gallery__item' + (gi===0 ? ' hud-gallery__item--wide' : '') + '"><img src="' + src + '" alt="" loading="lazy"></div>';
+            });
+            document.getElementById('hudGallery').innerHTML = galHtml;
+            // prev/next nav labels
+            var pi = (i - 1 + projects.length) % projects.length;
+            var ni = (i + 1) % projects.length;
+            document.getElementById('hudNavPrev').querySelector('div').innerHTML = '<span>წინა პროექტი</span>' + projects[pi].name;
+            document.getElementById('hudNavNext').querySelector('div').innerHTML = '<span>შემდეგი პროექტი</span>' + projects[ni].name;
+        }
+
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', function(){ idx = (idx - 1 + projects.length) % projects.length; render(idx); });
+            nextBtn.addEventListener('click', function(){ idx = (idx + 1) % projects.length; render(idx); });
+            document.getElementById('hudNavPrev').addEventListener('click', function(e){ e.preventDefault(); idx = (idx - 1 + projects.length) % projects.length; render(idx); window.scrollTo({top:0,behavior:'smooth'}); });
+            document.getElementById('hudNavNext').addEventListener('click', function(e){ e.preventDefault(); idx = (idx + 1) % projects.length; render(idx); window.scrollTo({top:0,behavior:'smooth'}); });
+        }
+    })();
+    </script>
+</body>
+</html>
