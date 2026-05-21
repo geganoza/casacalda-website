@@ -223,6 +223,27 @@
         });
     }
 
+    // ---- ABOUT PAGE SCROLLSPY ----
+    var spyLinks = document.querySelectorAll('[data-spy]');
+    if (spyLinks.length) {
+        var spySections = [];
+        spyLinks.forEach(function (link) {
+            var sec = document.getElementById(link.dataset.spy);
+            if (sec) spySections.push({ el: sec, link: link });
+        });
+        function updateSpy() {
+            var scrollY = window.scrollY + 160;
+            var active = spySections[0];
+            for (var i = 0; i < spySections.length; i++) {
+                if (spySections[i].el.offsetTop <= scrollY) active = spySections[i];
+            }
+            spyLinks.forEach(function (l) { l.classList.remove('about-sidebar__link--active'); });
+            if (active) active.link.classList.add('about-sidebar__link--active');
+        }
+        window.addEventListener('scroll', updateSpy, { passive: true });
+        updateSpy();
+    }
+
     // ---- BACK TO TOP ----
     var btt = document.getElementById('btt');
     if (btt) {
