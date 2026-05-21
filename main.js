@@ -161,12 +161,22 @@
         var cards = ribbonTrack.querySelectorAll('.ribbon__card');
         var count = cards.length;
         var rIdx = 0;
-        var IDLE_W = 320, GAP = 20;
-        var STEP = IDLE_W + GAP;
+        var GAP = 20;
         var DUR = 1200;
-        var AUTO_DELAY = 7000; // longer pause between auto-advances
+        var AUTO_DELAY = 7000;
         var rAuto = null;
-        var rLocked = false; // prevent rapid-fire clicks during transition
+        var rLocked = false;
+
+        // Measure idle card width from the DOM — works at any viewport
+        function getStep() {
+            // Find a non-active card to measure idle width
+            for (var i = 0; i < cards.length; i++) {
+                if (cards[i].getAttribute('data-offset') !== '0') {
+                    return cards[i].offsetWidth + GAP;
+                }
+            }
+            return 340; // fallback
+        }
 
         function setRibbon(idx) {
             if (rLocked) return;
@@ -179,12 +189,16 @@
                 c.setAttribute('data-offset', i - idx);
             });
 
-            ribbonTrack.style.transition = 'transform ' + DUR + 'ms cubic-bezier(.22,1,.36,1)';
-            ribbonTrack.style.transform = 'translate3d(' + (-idx * STEP) + 'px, 0, 0)';
+            // Wait a frame so the browser applies the new data-offset widths,
+            // then measure the idle card width and slide the track
+            requestAnimationFrame(function () {
+                var step = getStep();
+                ribbonTrack.style.transition = 'transform ' + DUR + 'ms cubic-bezier(.22,1,.36,1)';
+                ribbonTrack.style.transform = 'translate3d(' + (-idx * step) + 'px, 0, 0)';
+            });
 
             if (ribbonCounter) ribbonCounter.textContent = (idx + 1) + '\u2014' + count;
 
-            // Unlock after transition finishes
             setTimeout(function () { rLocked = false; }, DUR);
         }
 
