@@ -973,8 +973,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     box-shadow: 0 8px 32px rgba(0,0,0,.06);
 }
 .contact-info__icon {
-    width: 48px; height: 48px; background: var(--navy);
-    border-radius: 12px; display: flex;
+    width: 48px; height: 48px; background: var(--orange);
+    border-radius: 50%; display: flex;
     align-items: center; justify-content: center; flex-shrink: 0;
 }
 .contact-info__icon svg { width: 22px; height: 22px; color: #fff; fill: none; stroke: currentColor; stroke-width: 1.8; }
@@ -995,12 +995,16 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 }
 .contact-social a {
     width: 44px; height: 44px; border-radius: 12px;
-    background: #fff; display: flex; align-items: center; justify-content: center;
+    background: var(--bg); display: flex; align-items: center; justify-content: center;
     transition: background .3s, transform .3s;
 }
-.contact-social a:hover { background: var(--navy); transform: translateY(-2px); }
-.contact-social img { width: 18px; height: 18px; transition: filter .3s; }
-.contact-social a:hover img { filter: brightness(100); }
+.contact-social a:hover { background: var(--orange); transform: translateY(-2px); }
+.contact-social img {
+    width: 18px; height: 18px;
+    filter: brightness(0); /* make white SVGs black */
+    transition: filter .3s;
+}
+.contact-social a:hover img { filter: brightness(100); /* back to white on orange bg */ }
 
 /* Right column: form card */
 .contact-form {
