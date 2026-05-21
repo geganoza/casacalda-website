@@ -222,10 +222,19 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     display: flex; gap: 16px; overflow-x: auto;
     scrollbar-width: none; -ms-overflow-style: none;
     scroll-snap-type: x mandatory;
-    /* Left padding aligns with .wrap content, right lets cards peek off-screen */
-    padding-left: max(48px, calc((100% - var(--max)) / 2 + 48px));
     padding-right: 48px;
     margin-top: 20px;
+}
+/* Align left edge with .wrap content */
+.services .svc-cards {
+    max-width: 100%; margin-left: auto; margin-right: 0;
+    padding-left: calc((100vw - 1406px) / 2 + 48px);
+}
+@media (max-width: 1500px) {
+    .services .svc-cards { padding-left: 48px; }
+}
+@media (max-width: 600px) {
+    .services .svc-cards { padding-left: 16px; padding-right: 16px; }
 }
 .svc-cards::-webkit-scrollbar { display: none; }
 .svc-card {
