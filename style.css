@@ -258,13 +258,14 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 /* ============ PROJECTS — Ribbon carousel ============ */
 .projects {
     background: var(--g50); padding: 120px 0;
+    overflow: hidden;
 }
 .ribbon {
-    margin-top: 40px; padding-left: calc((100vw - 1406px) / 2);
+    margin-top: 40px; padding-left: max(48px, calc((100% - 1406px) / 2 + 48px));
 }
 .ribbon__controls {
     display: flex; justify-content: space-between; align-items: center;
-    padding-right: calc((100vw - 1406px) / 2); margin-bottom: 20px;
+    padding-right: max(48px, calc((100% - 1406px) / 2 + 48px)); margin-bottom: 20px;
 }
 .ribbon__counter {
     font-variant-numeric: tabular-nums; font-size: 14px;
@@ -319,7 +320,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .ribbon__viewport { height: 420px; }
     .ribbon__controls { padding-right: 20px; }
     .ribbon__card { width: 200px; }
-    .ribbon__card[data-offset="0"] { width: calc(100vw - 60px); }
+    .ribbon__card[data-offset="0"] { width: 75vw; }
     .ribbon__media { height: 200px; }
     .ribbon__card[data-offset="0"] .ribbon__media { height: 340px; }
     .ribbon__title { font-size: 18px; }
@@ -327,7 +328,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 @media (max-width: 600px) {
     .ribbon__viewport { height: 360px; }
     .ribbon__card { width: 140px; }
-    .ribbon__card[data-offset="0"] { width: calc(100vw - 48px); }
+    .ribbon__card[data-offset="0"] { width: 80vw; }
     .ribbon__media { height: 140px; }
     .ribbon__card[data-offset="0"] .ribbon__media { height: 280px; }
     .ribbon__title { font-size: 16px; }
@@ -2072,8 +2073,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .team-card:hover .team-card__img { height: 160px; }
     .team-card__img img { height: 240px; }
     .team-card__name { font-size: 15px; }
-    .ribbon__card { width: calc(140px + (calc(100vw - 40px) - 140px) * var(--rp)); }
-    .ribbon__media { height: calc(140px + (240px - 140px) * var(--rp)); }
+    .ribbon__card { width: 120px; }
+    .ribbon__card[data-offset="0"] { width: 85vw; }
+    .ribbon__media { height: 120px; }
+    .ribbon__card[data-offset="0"] .ribbon__media { height: 220px; }
     .ribbon__viewport { height: 310px; }
     .ribbon__title { font-size: 14px; }
     .ribbon__controls { margin-bottom: 12px; }
