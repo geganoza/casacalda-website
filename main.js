@@ -163,7 +163,7 @@
         var rIdx = 0;
         var IDLE_W = 320, GAP = 20;
         var STEP = IDLE_W + GAP;
-        var DUR = 2000; // slower transition
+        var DUR = 1200;
         var AUTO_DELAY = 7000; // longer pause between auto-advances
         var rAuto = null;
         var rLocked = false; // prevent rapid-fire clicks during transition
