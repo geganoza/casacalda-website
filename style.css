@@ -222,7 +222,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     display: flex; gap: 16px; overflow-x: auto;
     scrollbar-width: none; -ms-overflow-style: none;
     scroll-snap-type: x mandatory;
-    padding: 0 48px;
+    /* Left padding aligns with .wrap content, right lets cards peek off-screen */
+    padding-left: max(48px, calc((100% - var(--max)) / 2 + 48px));
+    padding-right: 48px;
+    margin-top: 20px;
 }
 .svc-cards::-webkit-scrollbar { display: none; }
 .svc-card {
