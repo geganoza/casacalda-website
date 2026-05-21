@@ -158,17 +158,26 @@
     var ribbon = document.getElementById('ribbon');
 
     if (ribbonTrack) {
-        // Read CSS vars for sizing
-        var rs = getComputedStyle(document.documentElement);
-        function px(v) { return parseFloat(rs.getPropertyValue(v)) || 0; }
-
-        var IDLE_W = px('--r-idle') || 360;
-        var GAP = px('--r-gap') || 24;
-        var PAD = px('--r-pad') || 48;
-        var STEP = IDLE_W + GAP;
         var DUR = 2000;
         var AUTO_DELAY = 7000;
         var COPIES = 5;
+        var IDLE_W, GAP, PAD, STEP;
+
+        // Measure actual pixel values from the DOM — works with vw/px/any unit
+        function measure() {
+            // Temporarily create a sizer div that inherits the CSS var
+            var sizer = document.createElement('div');
+            sizer.style.cssText = 'position:absolute;visibility:hidden;width:var(--r-idle);height:0;';
+            document.body.appendChild(sizer);
+            IDLE_W = sizer.offsetWidth || 360;
+            document.body.removeChild(sizer);
+
+            var trackStyle = getComputedStyle(ribbonTrack);
+            GAP = parseFloat(trackStyle.gap) || 24;
+            PAD = parseFloat(getComputedStyle(ribbon || ribbonTrack.parentElement).paddingLeft) || 48;
+            STEP = IDLE_W + GAP;
+        }
+        measure();
 
         // Clone slides for infinite loop
         var origCards = ribbonTrack.querySelectorAll('.ribbon__card');
@@ -257,14 +266,14 @@
             ribbon.addEventListener('mouseleave', function () { startAuto(); });
         }
 
-        // Handle resize — re-read CSS vars and reposition
+        // Handle resize — re-measure actual pixel sizes and reposition
+        var resizeTimer;
         window.addEventListener('resize', function () {
-            rs = getComputedStyle(document.documentElement);
-            IDLE_W = px('--r-idle') || 360;
-            GAP = px('--r-gap') || 24;
-            PAD = px('--r-pad') || 48;
-            STEP = IDLE_W + GAP;
-            render(false);
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                measure();
+                render(false);
+            }, 100);
         });
 
         // Init
