@@ -166,40 +166,52 @@
         var AUTO_DELAY = 7000;
         var rAuto = null;
         var rLocked = false;
+        var idleW = 0; // cached idle card width
 
-        // Measure idle card width from the DOM — works at any viewport
-        function getStep() {
-            // Find a non-active card to measure idle width
+        // Measure idle width once, and on resize
+        function measureIdle() {
             for (var i = 0; i < cards.length; i++) {
                 if (cards[i].getAttribute('data-offset') !== '0') {
-                    return cards[i].offsetWidth + GAP;
+                    idleW = cards[i].offsetWidth;
+                    return;
                 }
             }
-            return 340; // fallback
+            idleW = 320; // fallback
         }
+        measureIdle();
+        window.addEventListener('resize', function () {
+            measureIdle();
+            // Re-position track instantly after resize
+            ribbonTrack.style.transition = 'none';
+            ribbonTrack.style.transform = 'translate3d(' + (-rIdx * (idleW + GAP)) + 'px, 0, 0)';
+        });
 
         function setRibbon(idx) {
             if (rLocked) return;
             if (idx < 0) idx = count - 1;
             if (idx >= count) idx = 0;
-            rIdx = idx;
             rLocked = true;
 
+            // 1. Calculate target position BEFORE changing anything
+            var step = idleW + GAP;
+            var targetX = -idx * step;
+
+            // 2. Set the track sliding first (uses current idle widths)
+            ribbonTrack.style.transition = 'transform ' + DUR + 'ms cubic-bezier(.22,1,.36,1)';
+            ribbonTrack.style.transform = 'translate3d(' + targetX + 'px, 0, 0)';
+
+            // 3. Then update card states so width/height transitions happen in parallel
+            rIdx = idx;
             cards.forEach(function (c, i) {
                 c.setAttribute('data-offset', i - idx);
             });
 
-            // Wait a frame so the browser applies the new data-offset widths,
-            // then measure the idle card width and slide the track
-            requestAnimationFrame(function () {
-                var step = getStep();
-                ribbonTrack.style.transition = 'transform ' + DUR + 'ms cubic-bezier(.22,1,.36,1)';
-                ribbonTrack.style.transform = 'translate3d(' + (-idx * step) + 'px, 0, 0)';
-            });
-
             if (ribbonCounter) ribbonCounter.textContent = (idx + 1) + '\u2014' + count;
 
-            setTimeout(function () { rLocked = false; }, DUR);
+            setTimeout(function () {
+                rLocked = false;
+                measureIdle(); // re-cache after cards settle
+            }, DUR);
         }
 
         // Auto-advance — restarts fresh after every interaction
