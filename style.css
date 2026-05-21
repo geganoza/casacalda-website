@@ -147,7 +147,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 
 /* ============ BIG STATEMENT ============ */
 .statement {
-    text-align: center; padding: 160px 0 80px;
+    text-align: center; padding: 164px 0 164px;
     position: relative;
 }
 .statement__text {
@@ -160,12 +160,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     font-style: normal; color: var(--orange);
     position: relative;
 }
-/* Decorative line */
-.statement__line {
-    display: block; width: 60px; height: 3px;
-    background: var(--orange); border-radius: 2px;
-    margin: 0 auto 32px;
-}
+/* Decorative line — hidden */
+.statement__line { display: none; }
 /* Words animate in individually */
 .statement__word {
     display: inline-block; opacity: 0; transform: translateY(30px);
@@ -1497,7 +1493,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .hero__actions { flex-wrap: wrap; justify-content: center; }
     .hero__content { padding: 0 24px; text-align: center; }
     .hero__eyebrow { text-align: center; }
-    .statement__text { font-size: 32px; }
+    .statement__text { font-size: 40px; }
+    .statement { padding: 120px 0; }
     .statement { padding: 80px 0 0; }
     .sec-head { flex-direction: column; gap: 12px; align-items: flex-start; }
     .sec-head--split { flex-direction: row; align-items: flex-end; }
@@ -1557,7 +1554,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .hero__eyebrow { font-size: 11px; letter-spacing: 1px; text-align: center; }
     .btn-pill { height: 46px; padding: 0 24px; font-size: 13px; }
     .hero__actions { gap: 10px; justify-content: center; }
-    .statement__text { font-size: 22px; }
+    .statement__text { font-size: 32px; }
+    .statement { padding: 100px 0; }
     .statement { padding: 60px 0 0; }
     .eyebrow { font-size: 13px; letter-spacing: 1px; }
     .sec-title { font-size: 26px; line-height: 34px; }
@@ -2084,7 +2082,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .wrap { padding: 0 14px; }
     .hero__title { font-size: 24px; line-height: 28px; }
     .hero__eyebrow { font-size: 10px; }
-    .statement__text { font-size: 20px; }
+    .statement__text { font-size: 26px; }
+    .statement { padding: 80px 0; }
     .sec-title { font-size: 22px; line-height: 30px; }
     .eyebrow { font-size: 12px; }
     .btn-pill { height: 44px; padding: 0 20px; font-size: 13px; }
