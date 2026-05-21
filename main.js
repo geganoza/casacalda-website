@@ -223,6 +223,34 @@
         });
     }
 
+    // ---- ABOUT TIMELINE SCROLL-FILL ----
+    var timeline = document.getElementById('aboutTimeline');
+    var tlFill = document.getElementById('tlFill');
+    if (timeline && tlFill) {
+        var tlItems = timeline.querySelectorAll('.about-tl');
+        function updateTimeline() {
+            var rect = timeline.getBoundingClientRect();
+            var timelineTop = timeline.offsetTop;
+            var timelineH = timeline.offsetHeight;
+            // How far the viewport center has traveled through the timeline
+            var scrollCenter = window.scrollY + window.innerHeight * 0.45;
+            var progress = (scrollCenter - timelineTop) / timelineH;
+            progress = Math.min(Math.max(progress, 0), 1);
+            tlFill.style.height = (progress * timelineH) + 'px';
+            // Mark items as reached
+            tlItems.forEach(function (item) {
+                var itemTop = item.offsetTop + timelineTop;
+                if (scrollCenter >= itemTop) {
+                    item.classList.add('about-tl--reached');
+                } else {
+                    item.classList.remove('about-tl--reached');
+                }
+            });
+        }
+        window.addEventListener('scroll', updateTimeline, { passive: true });
+        updateTimeline();
+    }
+
     // ---- ABOUT PAGE SCROLLSPY ----
     var spyLinks = document.querySelectorAll('[data-spy]');
     if (spyLinks.length) {
