@@ -263,8 +263,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 }
 .ribbon {
     margin-top: 40px; padding-left: calc((100vw - 1406px) / 2);
-    /* Fixed height so section doesn't jump when active card shrinks */
-    min-height: 580px;
 }
 .ribbon__controls {
     display: flex; justify-content: space-between; align-items: center;
@@ -274,7 +272,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     font-variant-numeric: tabular-nums; font-size: 14px;
     color: var(--g400); letter-spacing: .04em;
 }
-.ribbon__viewport { width: 100%; overflow: hidden; }
+/* Fixed height = active card height (500) + meta gap (14) + meta text (~50) */
+.ribbon__viewport { width: 100%; overflow: hidden; height: 570px; }
 .ribbon__track {
     display: flex; align-items: flex-start; gap: 20px;
     will-change: transform;
@@ -320,7 +319,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .ribbon__controls { padding-right: 48px; }
 }
 @media (max-width: 900px) {
-    .ribbon { padding-left: 20px; min-height: 430px; }
+    .ribbon { padding-left: 20px; min-height: auto; }
+    .ribbon__viewport { height: 410px; }
     .ribbon__controls { padding-right: 20px; }
     .ribbon__card {
         width: calc(220px + (calc(100vw - 60px) - 220px) * var(--rp));
@@ -331,7 +331,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .ribbon__title { font-size: 18px; }
 }
 @media (max-width: 600px) {
-    .ribbon { min-height: 370px; }
+    .ribbon__viewport { height: 350px; }
     .ribbon__card {
         width: calc(160px + (calc(100vw - 48px) - 160px) * var(--rp));
     }
