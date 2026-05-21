@@ -1,22 +1,18 @@
 (function () {
     'use strict';
 
-    // ---- NAV SCROLL — all pages ----
+    // ---- NAV SCROLL ----
     var nav = document.getElementById('nav');
-    var hasHero = document.querySelector('.hero'); // full-screen hero = homepage
+    var hasHero = document.querySelector('.hero'); // full-screen hero = homepage only
     if (nav) {
         if (hasHero) {
-            // Homepage: glass pill → solid on scroll
+            // Homepage: glass pill → solid on scroll past 60px
             window.addEventListener('scroll', function () {
                 nav.classList.toggle('nav--scrolled', window.scrollY > 60);
             }, { passive: true });
         } else {
-            // Inner pages: start scrolled immediately
+            // All other pages: always solid, no toggle
             nav.classList.add('nav--scrolled');
-            // Still listen so if user scrolls to very top it stays solid
-            window.addEventListener('scroll', function () {
-                nav.classList.toggle('nav--scrolled', window.scrollY >= 0);
-            }, { passive: true });
         }
     }
 
