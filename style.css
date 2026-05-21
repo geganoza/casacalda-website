@@ -145,41 +145,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 }
 .btn-pill--ghost:hover { background: rgba(255,255,255,0.2); }
 
-/* ============ SECTION CONNECTORS ============ */
-.connectors {
-    position: absolute; top: 0; left: 0;
-    width: 100%; pointer-events: none; z-index: 0;
-    overflow: visible;
-}
-/* Ensure all sections sit above the connector lines */
-.statement, .services, .stats, .projects, .about, .team, .cta-band, .footer {
-    position: relative; z-index: 2;
-}
-.connector {
-    fill: none;
-    stroke: var(--navy);
-    stroke-width: 2;
-    stroke-dasharray: var(--conn-len, 3000);
-    stroke-dashoffset: var(--conn-len, 3000);
-    opacity: .12;
-}
-/* Bounding boxes */
-.conn-rect {
-    fill: none;
-    stroke: var(--navy);
-    stroke-width: 2;
-    opacity: 0;
-    transition: opacity .6s var(--ease);
-}
-.conn-rect--visible { opacity: .12; }
-/* Connection dots */
-.connectors circle {
-    fill: var(--navy); opacity: .2;
-}
-
-@media (max-width: 900px) {
-    .connectors { display: none; }
-}
 
 /* ============ BIG STATEMENT ============ */
 .statement {
