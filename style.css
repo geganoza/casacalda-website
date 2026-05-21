@@ -813,19 +813,82 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 }
 .about-tl__body p { font-size: 14px; color: var(--g500); line-height: 1.7; }
 
-/* Services list */
-.about-svc-list { display: flex; flex-direction: column; }
-.about-svc-item {
-    display: flex; align-items: center; gap: 16px;
-    padding: 14px 0; border-bottom: 1px solid var(--g100);
-    font-size: 15px; font-weight: 600; color: var(--black);
-    transition: color .3s, padding-left .3s;
+/* Services — icon card grid */
+.about-svc-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
 }
-.about-svc-item:first-child { border-top: 1px solid var(--g100); }
-.about-svc-item:hover { color: var(--orange); padding-left: 8px; }
-.about-svc-item__num { font-size: 12px; font-weight: 800; color: var(--orange); min-width: 24px; }
-.about-svc-item__arrow { margin-left: auto; font-size: 18px; color: var(--g200); transition: color .3s, transform .3s; }
-.about-svc-item:hover .about-svc-item__arrow { color: var(--orange); transform: translateX(4px); }
+.about-svc-card {
+    background: #fff; border-radius: 12px; padding: 24px 20px;
+    transition: transform .3s var(--ease), box-shadow .3s;
+}
+.about-svc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,.06);
+}
+.about-svc-card__icon {
+    width: 40px; height: 40px; margin-bottom: 14px;
+}
+.about-svc-card__icon img { width: 100%; height: 100%; object-fit: contain; }
+.about-svc-card h4 {
+    font-family: var(--font-display); font-size: 15px; font-weight: 800;
+    color: var(--black); margin-bottom: 6px;
+}
+.about-svc-card p {
+    font-size: 13px; color: var(--g500); line-height: 1.55;
+}
+
+/* Project preview cards */
+.about-proj-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+}
+.about-proj-card {
+    position: relative; border-radius: 12px; overflow: hidden;
+    aspect-ratio: 4/3;
+}
+.about-proj-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .5s var(--ease);
+}
+.about-proj-card:hover img { transform: scale(1.05); }
+.about-proj-card__info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 20px; z-index: 2;
+    background: linear-gradient(to top, rgba(10,17,35,.85), transparent);
+}
+.about-proj-card__info span {
+    font-size: 11px; font-weight: 700; color: var(--orange);
+    text-transform: uppercase; letter-spacing: .5px;
+    display: block; margin-bottom: 4px;
+}
+.about-proj-card__info h4 {
+    font-family: var(--font-display); font-size: 16px; font-weight: 800; color: #fff;
+}
+
+/* Partner logo strip */
+.partners-strip {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
+}
+.partner-logo {
+    background: #fff; border-radius: 12px;
+    height: 72px; display: flex; align-items: center; justify-content: center;
+    transition: transform .3s var(--ease);
+}
+.partner-logo:hover { transform: translateY(-2px); }
+.partner-logo span {
+    font-family: var(--font-display); font-size: 15px; font-weight: 800;
+    color: var(--g400); text-transform: uppercase; letter-spacing: .5px;
+}
+
+@media (max-width: 1024px) {
+    .about-svc-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-proj-grid { grid-template-columns: repeat(2, 1fr); }
+    .partners-strip { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+    .about-svc-grid { grid-template-columns: 1fr; }
+    .about-proj-grid { grid-template-columns: 1fr; }
+    .partners-strip { grid-template-columns: repeat(2, 1fr); }
+}
 
 /* Team grid inside about */
 .about-team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }

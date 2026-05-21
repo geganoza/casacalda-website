@@ -56,6 +56,8 @@
                 <a href="#values" class="about-sidebar__link" data-spy="values">ღირებულებები</a>
                 <a href="#history" class="about-sidebar__link" data-spy="history">ისტორია</a>
                 <a href="#services" class="about-sidebar__link" data-spy="services">მომსახურება</a>
+                <a href="#projects-preview" class="about-sidebar__link" data-spy="projects-preview">პროექტები</a>
+                <a href="#partners" class="about-sidebar__link" data-spy="partners">პარტნიორები</a>
                 <a href="#team" class="about-sidebar__link" data-spy="team">გუნდი</a>
             </nav>
         </aside>
@@ -198,23 +200,94 @@
                 </div>
             </section>
 
-            <!-- SERVICES -->
+            <!-- SERVICES — icon cards grid -->
             <section class="about-section" id="services">
                 <div class="anim">
                     <p class="eyebrow">მომსახურება</p>
-                    <h2 class="sec-title" style="margin-bottom:24px">რას ვაკეთებთ</h2>
-                    <p class="about-split__body" style="margin-bottom:32px">ჩვენ ვფარავთ საინჟინრო სამუშაოების სრულ სპექტრს — დაპროექტებიდან მონტაჟამდე.</p>
+                    <h2 class="sec-title" style="margin-bottom:12px">რას ვაკეთებთ</h2>
+                    <p class="about-split__body" style="margin-bottom:32px">დაპროექტებიდან მონტაჟამდე — საინჟინრო სამუშაოების სრული სპექტრი.</p>
                 </div>
-                <div class="about-svc-list anim">
-                    <a href="services.html#electricity" class="about-svc-item"><span class="about-svc-item__num">01</span><span>ელექტროობა</span><span class="about-svc-item__arrow">&rarr;</span></a>
-                    <a href="services.html#plumbing" class="about-svc-item"><span class="about-svc-item__num">02</span><span>წყალგაყვანილობა</span><span class="about-svc-item__arrow">&rarr;</span></a>
-                    <a href="services.html#safety" class="about-svc-item"><span class="about-svc-item__num">03</span><span>უსაფრთხოება</span><span class="about-svc-item__arrow">&rarr;</span></a>
-                    <a href="services.html#mechanical" class="about-svc-item"><span class="about-svc-item__num">04</span><span>მექანიკური სისტემები</span><span class="about-svc-item__arrow">&rarr;</span></a>
-                    <a href="services.html#automation" class="about-svc-item"><span class="about-svc-item__num">05</span><span>ავტომატიზაცია</span><span class="about-svc-item__arrow">&rarr;</span></a>
-                    <a href="services.html#consulting" class="about-svc-item"><span class="about-svc-item__num">06</span><span>კონსულტაცია</span><span class="about-svc-item__arrow">&rarr;</span></a>
+                <div class="about-svc-grid anim">
+                    <a href="services.html#electricity" class="about-svc-card">
+                        <div class="about-svc-card__icon"><img src="assets/icon-flash.svg" alt=""></div>
+                        <h4>ელექტროობა</h4>
+                        <p>ელექტრო სისტემების დაპროექტება და მონტაჟი</p>
+                    </a>
+                    <a href="services.html#plumbing" class="about-svc-card">
+                        <div class="about-svc-card__icon"><img src="assets/icon-water.svg" alt=""></div>
+                        <h4>წყალგაყვანილობა</h4>
+                        <p>წყალმომარაგების და კანალიზაციის სისტემები</p>
+                    </a>
+                    <a href="services.html#safety" class="about-svc-card">
+                        <div class="about-svc-card__icon"><img src="assets/icon-shield.svg" alt=""></div>
+                        <h4>უსაფრთხოება</h4>
+                        <p>სახანძრო და სათვალთვალო სისტემები</p>
+                    </a>
+                    <a href="services.html#mechanical" class="about-svc-card">
+                        <div class="about-svc-card__icon"><img src="assets/icon-setting.svg" alt=""></div>
+                        <h4>მექანიკური სისტემები</h4>
+                        <p>HVAC, ვენტილაცია და კონდიცირება</p>
+                    </a>
+                    <a href="services.html#automation" class="about-svc-card">
+                        <div class="about-svc-card__icon"><img src="assets/icon-flash2.svg" alt=""></div>
+                        <h4>ავტომატიზაცია</h4>
+                        <p>BMS და ჭკვიანი შენობის სისტემები</p>
+                    </a>
+                    <a href="services.html#consulting" class="about-svc-card">
+                        <div class="about-svc-card__icon"><img src="assets/icon-shield.svg" alt=""></div>
+                        <h4>კონსულტაცია</h4>
+                        <p>საინჟინრო აუდიტი და ზედამხედველობა</p>
+                    </a>
                 </div>
-                <div class="about-section__img anim" style="margin-top:40px">
-                    <img src="assets/project-main.jpg" alt="" style="aspect-ratio:16/9">
+            </section>
+
+            <!-- PROJECTS PREVIEW -->
+            <section class="about-section" id="projects-preview" style="border-bottom:1px solid var(--g100)">
+                <div class="anim">
+                    <p class="eyebrow">პორტფოლიო</p>
+                    <h2 class="sec-title" style="margin-bottom:32px">გამორჩეული პროექტები</h2>
+                </div>
+                <div class="about-proj-grid anim">
+                    <a href="project.html" class="about-proj-card">
+                        <img src="assets/project-main.jpg" alt="">
+                        <div class="about-proj-card__info">
+                            <span>სრული სერვისი</span>
+                            <h4>EAST POINT</h4>
+                        </div>
+                    </a>
+                    <a href="projects.html" class="about-proj-card">
+                        <img src="assets/project-2.jpg" alt="">
+                        <div class="about-proj-card__info">
+                            <span>ელექტრო სისტემა</span>
+                            <h4>ბიზნეს ცენტრი ვერე</h4>
+                        </div>
+                    </a>
+                    <a href="projects.html" class="about-proj-card">
+                        <img src="assets/project-3.jpg" alt="">
+                        <div class="about-proj-card__info">
+                            <span>სრული სერვისი</span>
+                            <h4>პრემიუმ სასტუმრო</h4>
+                        </div>
+                    </a>
+                </div>
+                <div style="margin-top:24px">
+                    <a href="projects.html" class="btn-text-pill">ყველა პროექტი &rarr;</a>
+                </div>
+            </section>
+
+            <!-- PARTNERS -->
+            <section class="about-section" id="partners" style="border-bottom:1px solid var(--g100)">
+                <div class="anim">
+                    <p class="eyebrow">პარტნიორები</p>
+                    <h2 class="sec-title" style="margin-bottom:32px">ჩვენ გვენდობიან</h2>
+                </div>
+                <div class="partners-strip anim">
+                    <div class="partner-logo"><span>East Point</span></div>
+                    <div class="partner-logo"><span>Axis Towers</span></div>
+                    <div class="partner-logo"><span>Redix</span></div>
+                    <div class="partner-logo"><span>M2</span></div>
+                    <div class="partner-logo"><span>Archi</span></div>
+                    <div class="partner-logo"><span>TBC</span></div>
                 </div>
             </section>
 
