@@ -38,14 +38,11 @@
         });
     }
 
-    // ---- SECTION CONNECTORS ----
+    // ---- SECTION CONNECTORS (blueprint style) ----
     var connSvg = document.getElementById('connectors');
     if (connSvg && window.innerWidth > 900) {
-        var stmtEl = document.getElementById('statementText');
-        var svcSec = document.getElementById('services');
-        var statsSec = document.querySelector('.stats');
 
-        function sizeConnectors() {
+        function sizeConn() {
             var h = document.body.scrollHeight;
             var w = document.body.clientWidth;
             connSvg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
@@ -53,112 +50,137 @@
             connSvg.style.width = w + 'px';
         }
 
-        function rect(el) {
-            var r = el.getBoundingClientRect();
+        function r(el) {
+            if (!el) return null;
+            var b = el.getBoundingClientRect();
             var sy = window.scrollY;
-            return { l: r.left, r: r.right, t: r.top + sy, b: r.bottom + sy, cx: r.left + r.width / 2, cy: r.top + sy + r.height / 2 };
+            return { l: b.left, r: b.right, t: b.top + sy, b: b.bottom + sy,
+                     cx: b.left + b.width / 2, cy: b.top + sy + b.height / 2,
+                     w: b.width, h: b.height };
         }
 
-        function layoutPaths() {
-            sizeConnectors();
-            var w = document.body.clientWidth;
-            // Gutter lines run along the outside edges
-            var gL = 40;           // left gutter
-            var gR = w - 40;       // right gutter
+        function makeRect(x, y, w, h, rx) {
+            var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            el.setAttribute('x', x); el.setAttribute('y', y);
+            el.setAttribute('width', w); el.setAttribute('height', h);
+            if (rx) el.setAttribute('rx', rx);
+            el.setAttribute('class', 'conn-rect');
+            connSvg.appendChild(el);
+            return el;
+        }
 
-            // Remove old extra elements
+        function makeDot(x, y) {
+            var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', '5');
+            connSvg.appendChild(c);
+        }
+
+        function layout() {
+            sizeConn();
+            // Clear dynamic elements
             connSvg.querySelectorAll('circle,.conn-rect').forEach(function (el) { el.remove(); });
 
-            // Statement bounding box
-            if (stmtEl) {
-                var sr = rect(stmtEl);
-                var pad = 28;
-                var bx = sr.l - pad, by = sr.t - pad, bw = sr.r - sr.l + pad * 2, bh = sr.b - sr.t + pad * 2;
-                var r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                r.setAttribute('x', bx); r.setAttribute('y', by);
-                r.setAttribute('width', bw); r.setAttribute('height', bh);
-                r.setAttribute('rx', '12');
-                r.setAttribute('class', 'conn-rect');
-                connSvg.insertBefore(r, connSvg.firstChild);
+            var w = document.body.clientWidth;
+            var gL = 32, gR = w - 32; // gutters
 
-                // Path 1: from statement box top-right corner → up along right gutter → across top
-                var p1 = document.getElementById('conn1');
-                var topY = by - 60;
+            var stmtEl = document.getElementById('statementText');
+            var svcWrap = document.querySelector('.svc-cards');
+            var statsGrid = document.querySelector('.stats__grid');
+            var projSec = document.querySelector('.projects');
+
+            // --- Box 1: Statement text ---
+            var stR = r(stmtEl);
+            if (stR) {
+                var pad = 40;
+                makeRect(stR.l - pad, stR.t - pad, stR.w + pad * 2, stR.h + pad * 2, 16);
+            }
+
+            // --- Box 2: Service cards area ---
+            var svR = r(svcWrap);
+            if (svR) {
+                makeRect(svR.l - 12, svR.t - 12, svR.w + 24, svR.h + 24, 14);
+            }
+
+            // --- Box 3: Stats grid ---
+            var stgR = r(statsGrid);
+            if (stgR) {
+                makeRect(stgR.l - 16, stgR.t - 16, stgR.w + 32, stgR.h + 32, 10);
+            }
+
+            // --- Connector 1: Statement box bottom → left gutter → service cards box top-left ---
+            var p1 = document.getElementById('conn1');
+            if (stR && svR) {
+                var y1 = stR.b + 40;
+                var y2 = svR.t - 12;
                 p1.setAttribute('d',
-                    'M' + (bx + bw) + ',' + (by + bh * 0.3) +
-                    ' L' + gR + ',' + (by + bh * 0.3) +
-                    ' L' + gR + ',' + topY +
-                    ' L' + (bx + bw * 0.5) + ',' + topY +
-                    ' L' + (bx + bw * 0.5) + ',' + by
+                    'M' + stR.cx + ',' + y1 +
+                    ' L' + stR.cx + ',' + (y1 + 40) +
+                    ' L' + gL + ',' + (y1 + 40) +
+                    ' L' + gL + ',' + (y2 - 30) +
+                    ' L' + (svR.l - 12) + ',' + (y2 - 30) +
+                    ' L' + (svR.l - 12) + ',' + y2
                 );
                 p1.style.setProperty('--conn-len', p1.getTotalLength());
-                addDot(bx + bw, by + bh * 0.3);
+                makeDot(stR.cx, y1);
+                makeDot(svR.l - 12, y2);
+            }
 
-                // Path 2: from statement box bottom-left → down left gutter → services
-                if (svcSec) {
-                    var svr = rect(svcSec);
-                    var p2 = document.getElementById('conn2');
-                    p2.setAttribute('d',
-                        'M' + bx + ',' + (by + bh * 0.7) +
-                        ' L' + gL + ',' + (by + bh * 0.7) +
-                        ' L' + gL + ',' + (svr.t + 40) +
-                        ' L' + (svr.l + 48) + ',' + (svr.t + 40)
-                    );
-                    p2.style.setProperty('--conn-len', p2.getTotalLength());
-                    addDot(bx, by + bh * 0.7);
-                    addDot(svr.l + 48, svr.t + 40);
-                }
+            // --- Connector 2: Service cards box bottom-right → right gutter → stats box right ---
+            var p2 = document.getElementById('conn2');
+            if (svR && stgR) {
+                var y1 = svR.b + 12;
+                var y2 = stgR.t - 16;
+                p2.setAttribute('d',
+                    'M' + (svR.r + 12) + ',' + (svR.cy) +
+                    ' L' + gR + ',' + (svR.cy) +
+                    ' L' + gR + ',' + (y2 - 30) +
+                    ' L' + (stgR.r + 16) + ',' + (y2 - 30) +
+                    ' L' + (stgR.r + 16) + ',' + stgR.cy
+                );
+                p2.style.setProperty('--conn-len', p2.getTotalLength());
+                makeDot(svR.r + 12, svR.cy);
+                makeDot(stgR.r + 16, stgR.cy);
+            }
 
-                // Path 3: from services bottom-right → right gutter → stats
-                if (svcSec && statsSec) {
-                    var svr2 = rect(svcSec);
-                    var str = rect(statsSec);
-                    var p3 = document.getElementById('conn3');
-                    p3.setAttribute('d',
-                        'M' + (svr2.r - 48) + ',' + svr2.b +
-                        ' L' + (svr2.r - 48) + ',' + (svr2.b + 30) +
-                        ' L' + gR + ',' + (svr2.b + 30) +
-                        ' L' + gR + ',' + (str.t + str.cy - str.t) +
-                        ' L' + (str.r - 48) + ',' + (str.cy)
-                    );
-                    p3.style.setProperty('--conn-len', p3.getTotalLength());
-                    addDot(svr2.r - 48, svr2.b);
-                    addDot(str.r - 48, str.cy);
-                }
+            // --- Connector 3: Stats box bottom → center → projects top ---
+            var p3 = document.getElementById('conn3');
+            var pjR = r(projSec);
+            if (stgR && pjR) {
+                var y1 = stgR.b + 16;
+                var y2 = pjR.t;
+                p3.setAttribute('d',
+                    'M' + stgR.cx + ',' + y1 +
+                    ' L' + stgR.cx + ',' + (y1 + (y2 - y1) * 0.5) +
+                    ' L' + gL + ',' + (y1 + (y2 - y1) * 0.5) +
+                    ' L' + gL + ',' + y2
+                );
+                p3.style.setProperty('--conn-len', p3.getTotalLength());
+                makeDot(stgR.cx, y1);
+                makeDot(gL, y2);
             }
         }
 
-        function addDot(x, y) {
-            var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            dot.setAttribute('cx', x); dot.setAttribute('cy', y); dot.setAttribute('r', '4');
-            connSvg.appendChild(dot);
-        }
-
-        function drawConnectors() {
-            var scrollBot = window.scrollY + window.innerHeight * 0.7;
-            connSvg.querySelectorAll('.connector').forEach(function (path) {
-                var len = parseFloat(path.style.getPropertyValue('--conn-len')) || 2000;
-                var bbox = path.getBBox();
-                if (bbox.height === 0) return;
-                var progress = (scrollBot - bbox.y) / (bbox.height + 150);
-                progress = Math.min(Math.max(progress, 0), 1);
-                path.style.strokeDashoffset = len * (1 - progress);
+        function draw() {
+            var scrollBot = window.scrollY + window.innerHeight * 0.75;
+            // Draw paths
+            connSvg.querySelectorAll('.connector').forEach(function (p) {
+                var len = parseFloat(p.style.getPropertyValue('--conn-len')) || 3000;
+                var bb = p.getBBox();
+                if (bb.height === 0) return;
+                var prog = (scrollBot - bb.y) / (bb.height + 100);
+                prog = Math.min(Math.max(prog, 0), 1);
+                p.style.strokeDashoffset = len * (1 - prog);
             });
-            // Fade in the bounding rect
-            var rects = connSvg.querySelectorAll('.conn-rect');
-            rects.forEach(function (r) {
-                var ry = parseFloat(r.getAttribute('y'));
-                r.style.opacity = scrollBot > ry ? '1' : '0';
+            // Show bounding boxes
+            connSvg.querySelectorAll('.conn-rect').forEach(function (rect) {
+                var ry = parseFloat(rect.getAttribute('y'));
+                rect.classList.toggle('conn-rect--visible', scrollBot > ry + 50);
             });
         }
 
-        // Delay layout until fonts/images settle
-        setTimeout(function () {
-            layoutPaths();
-            drawConnectors();
-        }, 300);
-        window.addEventListener('scroll', drawConnectors, { passive: true });
-        window.addEventListener('resize', function () { layoutPaths(); drawConnectors(); });
+        setTimeout(function () { layout(); draw(); }, 400);
+        window.addEventListener('scroll', draw, { passive: true });
+        window.addEventListener('resize', function () { layout(); draw(); });
     }
 
     // ---- STATEMENT WORD SPLIT ----

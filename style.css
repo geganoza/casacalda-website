@@ -157,23 +157,24 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 }
 .connector {
     fill: none;
-    stroke: var(--g200);
-    stroke-width: 1;
-    stroke-dasharray: var(--conn-len, 2000);
-    stroke-dashoffset: var(--conn-len, 2000);
+    stroke: var(--navy);
+    stroke-width: 2;
+    stroke-dasharray: var(--conn-len, 3000);
+    stroke-dashoffset: var(--conn-len, 3000);
+    opacity: .12;
 }
-/* Bounding box around statement */
+/* Bounding boxes */
 .conn-rect {
     fill: none;
-    stroke: var(--g200);
-    stroke-width: 1;
-    stroke-dasharray: 6 4;
+    stroke: var(--navy);
+    stroke-width: 2;
     opacity: 0;
     transition: opacity .6s var(--ease);
 }
+.conn-rect--visible { opacity: .12; }
 /* Connection dots */
 .connectors circle {
-    fill: var(--g200); r: 3.5;
+    fill: var(--navy); opacity: .2;
 }
 
 @media (max-width: 900px) {
