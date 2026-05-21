@@ -39,7 +39,7 @@
     }
 
     // ---- SCROLL REVEAL ----
-    var anims = document.querySelectorAll('.anim, .anim--scale, .anim--fade, .anim--left, .anim--right, .svc-cards, .svc-page-grid, .process-grid, .stats__grid, .proj-slider__track, .team__cards, .vals, .values-grid, .cta-band, .team-grid, .timeline__line, .hud-stats, .contact-map, .about-svc-grid, .about-proj-grid, .partners-strip, .about-stats-grid, .about-values');
+    var anims = document.querySelectorAll('.anim, .anim--scale, .anim--fade, .anim--left, .anim--right, .svc-cards, .svc-page-grid, .process-grid, .stats__grid, .ribbon__track, .team__cards, .vals, .values-grid, .cta-band, .team-grid, .timeline__line, .hud-stats, .contact-map, .about-svc-grid, .about-proj-grid, .partners-strip, .about-stats-grid, .about-values');
     if ('IntersectionObserver' in window) {
         var obs = new IntersectionObserver(function (entries) {
             entries.forEach(function (e) {
@@ -150,37 +150,57 @@
         });
     }
 
-    // ---- PROJECT EXPANDABLE ACCORDION ----
-    var projSlides = document.querySelectorAll('.proj-slide');
-    var projPrev = document.getElementById('projPrev');
-    var projNext = document.getElementById('projNext');
-    var activeProj = 0;
+    // ---- RIBBON PROJECT CAROUSEL ----
+    var ribbonTrack = document.getElementById('ribbonTrack');
+    var ribbonPrev = document.getElementById('ribbonPrev');
+    var ribbonNext = document.getElementById('ribbonNext');
+    var ribbonCounter = document.getElementById('ribbonCounter');
+    var ribbon = document.getElementById('ribbon');
 
-    function setActiveProj(idx) {
-        if (idx < 0) idx = projSlides.length - 1;
-        if (idx >= projSlides.length) idx = 0;
-        activeProj = idx;
-        projSlides.forEach(function (s, i) {
-            s.classList.toggle('proj-slide--active', i === idx);
-        });
-    }
+    if (ribbonTrack) {
+        var cards = ribbonTrack.querySelectorAll('.ribbon__card');
+        var count = cards.length;
+        var rIdx = 0;
+        var IDLE_W = 320, GAP = 20;
+        var STEP = IDLE_W + GAP;
+        var DUR = 1600;
 
-    if (projSlides.length) {
-        projSlides.forEach(function (s, i) {
-            s.addEventListener('click', function () { setActiveProj(i); });
+        function setRibbon(idx) {
+            if (idx < 0) idx = count - 1;
+            if (idx >= count) idx = 0;
+            rIdx = idx;
+            // Update data-offset on all cards
+            cards.forEach(function (c, i) {
+                c.setAttribute('data-offset', i - idx);
+            });
+            // Slide the track so active card is at the left edge
+            ribbonTrack.style.transition = 'transform ' + DUR + 'ms cubic-bezier(.22,1,.36,1)';
+            ribbonTrack.style.transform = 'translate3d(' + (-idx * STEP) + 'px, 0, 0)';
+            // Update counter
+            if (ribbonCounter) ribbonCounter.textContent = (idx + 1) + '\u2014' + count;
+        }
+
+        // Click any card to activate
+        cards.forEach(function (c, i) {
+            c.addEventListener('click', function () {
+                if (i !== rIdx) setRibbon(i);
+            });
         });
-        if (projPrev) projPrev.addEventListener('click', function () { setActiveProj(activeProj - 1); });
-        if (projNext) projNext.addEventListener('click', function () { setActiveProj(activeProj + 1); });
+
+        if (ribbonPrev) ribbonPrev.addEventListener('click', function () { setRibbon(rIdx - 1); });
+        if (ribbonNext) ribbonNext.addEventListener('click', function () { setRibbon(rIdx + 1); });
 
         // Auto-advance every 5s, pause on hover
-        var projAuto = setInterval(function () { setActiveProj(activeProj + 1); }, 5000);
-        var projSlider = document.getElementById('projSlider');
-        if (projSlider) {
-            projSlider.addEventListener('mouseenter', function () { clearInterval(projAuto); });
-            projSlider.addEventListener('mouseleave', function () {
-                projAuto = setInterval(function () { setActiveProj(activeProj + 1); }, 5000);
+        var rAuto = setInterval(function () { setRibbon(rIdx + 1); }, 5000);
+        if (ribbon) {
+            ribbon.addEventListener('mouseenter', function () { clearInterval(rAuto); });
+            ribbon.addEventListener('mouseleave', function () {
+                rAuto = setInterval(function () { setRibbon(rIdx + 1); }, 5000);
             });
         }
+
+        // Init
+        setRibbon(0);
     }
 
     // ---- TEAM: hover bio reveal ----

@@ -255,76 +255,88 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     line-height: 21px;
 }
 
-/* ============ PROJECTS — Figma-style expandable ============ */
+/* ============ PROJECTS — Ribbon carousel ============ */
+@property --rp { syntax: "<number>"; inherits: true; initial-value: 0; }
+
 .projects {
     background: var(--g50); padding: 120px 0;
 }
-.proj-slider {
-    overflow: hidden; margin-top: 40px;
+.ribbon {
+    margin-top: 40px; padding-left: calc((100vw - 1406px) / 2);
+    min-height: 0;
 }
-.proj-slider__track {
-    display: flex; gap: 16px; align-items: flex-end;
-    padding: 0 calc((100vw - 1406px) / 2);
+.ribbon__controls {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-right: calc((100vw - 1406px) / 2); margin-bottom: 20px;
 }
-/* Inactive: short card */
-.proj-slide {
-    flex: 0 0 456px; height: 292px;
-    min-width: 0; position: relative;
-    border-radius: 16px; overflow: hidden;
-    cursor: pointer;
-    transition: flex .6s var(--ease), height .6s var(--ease);
+.ribbon__counter {
+    font-variant-numeric: tabular-nums; font-size: 14px;
+    color: var(--g400); letter-spacing: .04em;
 }
-/* Active: tall + wide */
-.proj-slide--active {
-    flex: 0 0 932px; height: 471px;
-    cursor: default;
+.ribbon__viewport { width: 100%; overflow: hidden; }
+.ribbon__track {
+    display: flex; align-items: flex-start; gap: 20px;
+    will-change: transform;
 }
-.proj-slide img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%; object-fit: cover;
+/* Card: uses --rp (0=idle, 1=active) to interpolate width & height */
+.ribbon__card {
+    flex-shrink: 0; display: flex; flex-direction: column; gap: 14px;
+    cursor: pointer; --rp: 0;
+    /* idle width=320, active width=880, idle height=320, active height=500 */
+    width: calc(320px + (880px - 320px) * var(--rp));
+    transition: --rp 1.6s cubic-bezier(.22,1,.36,1);
 }
-/* Dark gradient on all slides */
-.proj-slide::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(10,17,35,0) 30%, #0a1123 100%);
-    border-radius: 16px; pointer-events: none;
+.ribbon__card[data-offset="0"] { --rp: 1; cursor: default; }
+.ribbon__media {
+    width: 100%; border-radius: 14px; overflow: hidden; background: var(--g200);
+    height: calc(320px + (500px - 320px) * var(--rp));
+    transition: height 1.6s cubic-bezier(.22,1,.36,1);
 }
-/* Caption — visible on all, but styled differently */
-.proj-slide__caption {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 24px 28px; z-index: 2;
+.ribbon__media img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+}
+/* Caption — only on active */
+.ribbon__meta {
+    display: flex; flex-direction: column; gap: 4px;
     opacity: 0; transform: translateY(6px);
-    transition: opacity .35s var(--ease), transform .35s var(--ease);
-    pointer-events: none;
+    transition: opacity .45s var(--ease) .25s, transform .45s var(--ease) .25s;
 }
-.proj-slide--active .proj-slide__caption {
-    opacity: 1; transform: translateY(0);
-    padding: 32px 36px;
-    transition-delay: .3s;
-}
-/* Also show caption on inactive slides (smaller) */
-.proj-slide:not(.proj-slide--active) .proj-slide__caption {
+.ribbon__card[data-offset="0"] .ribbon__meta {
     opacity: 1; transform: translateY(0);
 }
-.proj-slide__tag {
+.ribbon__subtitle {
     font-size: 12px; font-weight: 700; text-transform: uppercase;
     letter-spacing: .1em; color: var(--orange);
-    margin-bottom: 6px; display: block;
 }
-/* Inactive caption: smaller text */
-.proj-slide:not(.proj-slide--active) .proj-slide__caption h3 {
-    font-size: 1rem;
+.ribbon__title {
+    font-family: var(--font-display); font-size: 22px; font-weight: 800;
+    color: var(--black); line-height: 1.25;
 }
-.proj-slide:not(.proj-slide--active) .proj-slide__caption .proj-slide__meta {
-    display: none;
+
+/* Responsive */
+@media (max-width: 1440px) {
+    .ribbon { padding-left: 48px; }
+    .ribbon__controls { padding-right: 48px; }
 }
-.proj-slide__caption h3 {
-    font-family: var(--font-display); font-size: 1.4rem;
-    color: #fff; font-weight: 800; line-height: 1.3;
+@media (max-width: 900px) {
+    .ribbon { padding-left: 20px; }
+    .ribbon__controls { padding-right: 20px; }
+    .ribbon__card {
+        width: calc(220px + (calc(100vw - 60px) - 220px) * var(--rp));
+    }
+    .ribbon__media {
+        height: calc(220px + (340px - 220px) * var(--rp));
+    }
+    .ribbon__title { font-size: 18px; }
 }
-.proj-slide__meta {
-    font-size: 13px; color: rgba(255,255,255,.5);
-    margin-top: 4px; display: block;
+@media (max-width: 600px) {
+    .ribbon__card {
+        width: calc(160px + (calc(100vw - 48px) - 160px) * var(--rp));
+    }
+    .ribbon__media {
+        height: calc(160px + (280px - 160px) * var(--rp));
+    }
+    .ribbon__title { font-size: 16px; }
 }
 
 /* ============ ABOUT ============ */
@@ -1377,14 +1389,15 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 
 /* Project cards stagger */
 /* Project slides entrance stagger */
-.proj-slider__track .proj-slide { opacity: 0; transform: scale(.95); transition: opacity .6s var(--ease), transform .6s var(--ease); }
-.proj-slider__track.visible .proj-slide { opacity: 1; transform: scale(1); }
-.proj-slider__track.visible .proj-slide:nth-child(1) { transition-delay: 0s; }
-.proj-slider__track.visible .proj-slide:nth-child(2) { transition-delay: .08s; }
-.proj-slider__track.visible .proj-slide:nth-child(3) { transition-delay: .16s; }
-.proj-slider__track.visible .proj-slide:nth-child(4) { transition-delay: .24s; }
-.proj-slider__track.visible .proj-slide:nth-child(5) { transition-delay: .32s; }
-.proj-slider__track.visible .proj-slide:nth-child(6) { transition-delay: .4s; }
+/* Ribbon entrance stagger */
+.ribbon__track .ribbon__card { opacity: 0; transform: translateY(20px); transition: opacity .6s var(--ease), transform .6s var(--ease), --rp 1.6s cubic-bezier(.22,1,.36,1); }
+.ribbon__track.visible .ribbon__card { opacity: 1; transform: translateY(0); }
+.ribbon__track.visible .ribbon__card:nth-child(1) { transition-delay: 0s; }
+.ribbon__track.visible .ribbon__card:nth-child(2) { transition-delay: .08s; }
+.ribbon__track.visible .ribbon__card:nth-child(3) { transition-delay: .16s; }
+.ribbon__track.visible .ribbon__card:nth-child(4) { transition-delay: .24s; }
+.ribbon__track.visible .ribbon__card:nth-child(5) { transition-delay: .32s; }
+.ribbon__track.visible .ribbon__card:nth-child(6) { transition-delay: .4s; }
 
 /* Team cards stagger */
 .team__cards .team-card { opacity: 0; transform: translateY(25px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
@@ -1416,7 +1429,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 /* ============ RESPONSIVE ============ */
 /* ---- 1440 ---- */
 @media (max-width: 1440px) {
-    .proj-slider__track { padding: 0 48px; }
 }
 
 /* ---- 1200 ---- */
@@ -1427,8 +1439,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .about { flex-direction: column; gap: 48px; }
     .about__text { flex: none; width: 100%; }
     .svc-card { flex: 0 0 280px; height: 340px; }
-    .proj-slide { flex: 0 0 280px; height: 240px; }
-    .proj-slide--active { flex: 0 0 600px; height: 380px; }
     .cta-band__title { font-size: 36px; line-height: 40px; }
     .proj-hero { height: 480px; }
     .proj-hero__title { font-size: 40px; }
@@ -1463,9 +1473,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .stats__plus { font-size: 24px; }
     .stats { padding: 80px 0; }
     .projects { padding: 100px 0; }
-    .proj-slide { flex: 0 0 200px; height: 200px; }
-    .proj-slide--active { flex: 0 0 calc(100% - 120px); height: 320px; }
-    .proj-slider__track { padding: 0 16px; gap: 10px; }
     .about { padding: 100px 0; }
     .about__lead { font-size: 17px; }
     .team { padding: 0 0 100px; }
@@ -1527,11 +1534,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .stats__label { font-size: 12px; margin-top: 10px; }
     .stats { padding: 60px 0; }
     .projects { padding: 80px 0; }
-    .proj-slide { flex: 0 0 140px; height: 180px; }
-    .proj-slide--active { flex: 0 0 calc(100vw - 60px); height: 280px; }
-    .proj-slide:not(.proj-slide--active) .proj-slide__caption { display: none; }
-    .proj-slide__caption { padding: 20px 24px; }
-    .proj-slide__caption h3 { font-size: 1.1rem; }
     .team-card { flex: 0 0 200px; }
     .team-card__img { height: 260px; }
     .team-card__img { height: 300px; }

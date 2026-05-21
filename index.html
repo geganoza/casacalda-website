@@ -142,7 +142,7 @@
         </div>
     </section>
 
-    <!-- PROJECTS — expandable accordion -->
+    <!-- PROJECTS — Ribbon carousel -->
     <section class="projects" id="projects">
         <div class="wrap">
             <div class="sec-head sec-head--split anim">
@@ -152,61 +152,62 @@
                 </div>
                 <div class="sec-head__controls">
                     <a href="projects.html" class="btn-text-pill">ყველა პროექტი</a>
-                    <button class="arrow-btn arrow-btn--prev" id="projPrev"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
-                    <button class="arrow-btn arrow-btn--next" id="projNext"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
                 </div>
             </div>
         </div>
-        <div class="proj-slider" id="projSlider">
-            <div class="proj-slider__track" id="projTrack">
-                <article class="proj-slide proj-slide--active" data-idx="0">
-                    <img src="assets/project-main.jpg" alt="" loading="lazy">
-                    <div class="proj-slide__caption">
-                        <span class="proj-slide__tag">სრული სერვისი</span>
-                        <h3>EAST POINT</h3>
-                        <span class="proj-slide__meta">თბილისი &middot; 2024</span>
-                    </div>
-                </article>
-                <article class="proj-slide" data-idx="1">
-                    <img src="assets/project-2.jpg" alt="" loading="lazy">
-                    <div class="proj-slide__caption">
-                        <span class="proj-slide__tag">ელექტრო სისტემა</span>
-                        <h3>ბიზნეს ცენტრი ვერე</h3>
-                        <span class="proj-slide__meta">თბილისი &middot; 2023</span>
-                    </div>
-                </article>
-                <article class="proj-slide" data-idx="2">
-                    <img src="assets/project-3.jpg" alt="" loading="lazy">
-                    <div class="proj-slide__caption">
-                        <span class="proj-slide__tag">სრული სერვისი</span>
-                        <h3>პრემიუმ სასტუმრო ბათუმი</h3>
-                        <span class="proj-slide__meta">ბათუმი &middot; 2024</span>
-                    </div>
-                </article>
-                <article class="proj-slide" data-idx="3">
-                    <img src="assets/about-photo.jpg" alt="" loading="lazy">
-                    <div class="proj-slide__caption">
-                        <span class="proj-slide__tag">მექანიკური სისტემა</span>
-                        <h3>საწარმოო კომპლექსი</h3>
-                        <span class="proj-slide__meta">რუსთავი &middot; 2023</span>
-                    </div>
-                </article>
-                <article class="proj-slide" data-idx="4">
-                    <img src="assets/team-4.jpg" alt="" loading="lazy">
-                    <div class="proj-slide__caption">
-                        <span class="proj-slide__tag">კომერციული</span>
-                        <h3>სავაჭრო ცენტრის ინჟინერინგი</h3>
-                        <span class="proj-slide__meta">თბილისი &middot; 2024</span>
-                    </div>
-                </article>
-                <article class="proj-slide" data-idx="5">
-                    <img src="assets/team-5.jpg" alt="" loading="lazy">
-                    <div class="proj-slide__caption">
-                        <span class="proj-slide__tag">საცხოვრებელი</span>
-                        <h3>ელიტური კორპუსი</h3>
-                        <span class="proj-slide__meta">ბათუმი &middot; 2023</span>
-                    </div>
-                </article>
+        <div class="ribbon" id="ribbon">
+            <div class="ribbon__controls">
+                <span class="ribbon__counter" id="ribbonCounter">1&mdash;6</span>
+                <div class="sec-head__controls">
+                    <button class="arrow-btn arrow-btn--prev" id="ribbonPrev"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+                    <button class="arrow-btn arrow-btn--next" id="ribbonNext"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+                </div>
+            </div>
+            <div class="ribbon__viewport">
+                <div class="ribbon__track" id="ribbonTrack">
+                    <article class="ribbon__card" data-offset="0">
+                        <div class="ribbon__media"><img src="assets/project-main.jpg" alt="" loading="lazy"></div>
+                        <div class="ribbon__meta">
+                            <span class="ribbon__subtitle">სრული სერვისი</span>
+                            <h3 class="ribbon__title">EAST POINT</h3>
+                        </div>
+                    </article>
+                    <article class="ribbon__card">
+                        <div class="ribbon__media"><img src="assets/project-2.jpg" alt="" loading="lazy"></div>
+                        <div class="ribbon__meta">
+                            <span class="ribbon__subtitle">ელექტრო სისტემა</span>
+                            <h3 class="ribbon__title">ბიზნეს ცენტრი ვერე</h3>
+                        </div>
+                    </article>
+                    <article class="ribbon__card">
+                        <div class="ribbon__media"><img src="assets/project-3.jpg" alt="" loading="lazy"></div>
+                        <div class="ribbon__meta">
+                            <span class="ribbon__subtitle">სრული სერვისი</span>
+                            <h3 class="ribbon__title">პრემიუმ სასტუმრო ბათუმი</h3>
+                        </div>
+                    </article>
+                    <article class="ribbon__card">
+                        <div class="ribbon__media"><img src="assets/about-photo.jpg" alt="" loading="lazy"></div>
+                        <div class="ribbon__meta">
+                            <span class="ribbon__subtitle">მექანიკური სისტემა</span>
+                            <h3 class="ribbon__title">საწარმოო კომპლექსი</h3>
+                        </div>
+                    </article>
+                    <article class="ribbon__card">
+                        <div class="ribbon__media"><img src="assets/team-4.jpg" alt="" loading="lazy"></div>
+                        <div class="ribbon__meta">
+                            <span class="ribbon__subtitle">კომერციული</span>
+                            <h3 class="ribbon__title">სავაჭრო ცენტრის ინჟინერინგი</h3>
+                        </div>
+                    </article>
+                    <article class="ribbon__card">
+                        <div class="ribbon__media"><img src="assets/team-5.jpg" alt="" loading="lazy"></div>
+                        <div class="ribbon__meta">
+                            <span class="ribbon__subtitle">საცხოვრებელი</span>
+                            <h3 class="ribbon__title">ელიტური კორპუსი</h3>
+                        </div>
+                    </article>
+                </div>
             </div>
         </div>
     </section>
