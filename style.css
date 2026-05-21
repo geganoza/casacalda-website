@@ -912,18 +912,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     max-height: 600px;
 }
 .partners-toggle {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin-top: 16px; padding: 0;
+    display: block; width: 100%; margin-top: 16px; padding: 0;
     font-family: var(--font); font-size: 13px; font-weight: 600;
-    color: var(--g500); background: none; border: none; cursor: pointer;
-    transition: color .3s;
+    color: var(--g400); background: none; border: none; cursor: pointer;
+    text-align: center; transition: color .3s;
 }
 .partners-toggle:hover { color: var(--orange); }
-.partners-toggle svg {
-    transition: transform .4s var(--ease);
-}
-.partners-wrap--open .partners-toggle svg { transform: rotate(180deg); }
-.partners-wrap--open .partners-toggle .partners-toggle__text::after { content: ''; }
 
 /* Stagger: first row of partner logos (rest appear on expand) */
 .partners-strip .partner-logo { opacity: 0; transform: translateY(15px); transition: opacity .4s var(--ease), transform .4s var(--ease); }
