@@ -715,9 +715,15 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .about-section__img { border-radius: 12px; overflow: hidden; margin-top: 32px; }
 .about-section__img img { width: 100%; object-fit: cover; border-radius: 12px; }
 
+.about-split {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center; padding: 120px 0;
+}
 .about-split__body {
     font-size: 16px; font-weight: 400; color: var(--g500); line-height: 1.8;
 }
+.about-split__img { border-radius: 12px; overflow: hidden; }
+.about-split__img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
 
 /* Stats inside about */
 .about-stats-grid {
@@ -878,6 +884,50 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     font-family: var(--font-display); font-size: 15px; font-weight: 800;
     color: var(--g400); text-transform: uppercase; letter-spacing: .5px;
 }
+
+/* Stagger: service cards */
+.about-svc-grid .about-svc-card { opacity: 0; transform: translateY(20px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+.about-svc-grid.visible .about-svc-card { opacity: 1; transform: translateY(0); }
+.about-svc-grid.visible .about-svc-card:nth-child(1) { transition-delay: 0s; }
+.about-svc-grid.visible .about-svc-card:nth-child(2) { transition-delay: .07s; }
+.about-svc-grid.visible .about-svc-card:nth-child(3) { transition-delay: .14s; }
+.about-svc-grid.visible .about-svc-card:nth-child(4) { transition-delay: .21s; }
+.about-svc-grid.visible .about-svc-card:nth-child(5) { transition-delay: .28s; }
+.about-svc-grid.visible .about-svc-card:nth-child(6) { transition-delay: .35s; }
+
+/* Stagger: project cards */
+.about-proj-grid .about-proj-card { opacity: 0; transform: scale(.95); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+.about-proj-grid.visible .about-proj-card { opacity: 1; transform: scale(1); }
+.about-proj-grid.visible .about-proj-card:nth-child(1) { transition-delay: 0s; }
+.about-proj-grid.visible .about-proj-card:nth-child(2) { transition-delay: .1s; }
+.about-proj-grid.visible .about-proj-card:nth-child(3) { transition-delay: .2s; }
+
+/* Stagger: partner logos */
+.partners-strip .partner-logo { opacity: 0; transform: translateY(15px); transition: opacity .4s var(--ease), transform .4s var(--ease); }
+.partners-strip.visible .partner-logo { opacity: 1; transform: translateY(0); }
+.partners-strip.visible .partner-logo:nth-child(1) { transition-delay: 0s; }
+.partners-strip.visible .partner-logo:nth-child(2) { transition-delay: .06s; }
+.partners-strip.visible .partner-logo:nth-child(3) { transition-delay: .12s; }
+.partners-strip.visible .partner-logo:nth-child(4) { transition-delay: .18s; }
+.partners-strip.visible .partner-logo:nth-child(5) { transition-delay: .24s; }
+.partners-strip.visible .partner-logo:nth-child(6) { transition-delay: .3s; }
+
+/* Stagger: about stats */
+.about-stats-grid .about-stat { opacity: 0; transform: translateY(20px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+.about-stats-grid.visible .about-stat { opacity: 1; transform: translateY(0); }
+.about-stats-grid.visible .about-stat:nth-child(1) { transition-delay: 0s; }
+.about-stats-grid.visible .about-stat:nth-child(2) { transition-delay: .1s; }
+.about-stats-grid.visible .about-stat:nth-child(3) { transition-delay: .2s; }
+.about-stats-grid.visible .about-stat:nth-child(4) { transition-delay: .3s; }
+
+/* Stagger: about values */
+.about-values .about-val { opacity: 0; transform: translateX(-15px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+.about-values.visible .about-val { opacity: 1; transform: translateX(0); }
+.about-values.visible .about-val:nth-child(1) { transition-delay: 0s; }
+.about-values.visible .about-val:nth-child(2) { transition-delay: .08s; }
+.about-values.visible .about-val:nth-child(3) { transition-delay: .16s; }
+.about-values.visible .about-val:nth-child(4) { transition-delay: .24s; }
+.about-values.visible .about-val:nth-child(5) { transition-delay: .32s; }
 
 @media (max-width: 1024px) {
     .about-svc-grid { grid-template-columns: repeat(2, 1fr); }
