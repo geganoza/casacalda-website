@@ -223,6 +223,16 @@
         });
     }
 
+    // ---- PARTNERS TOGGLE ----
+    var partnersToggle = document.getElementById('partnersToggle');
+    var partnersWrap = document.getElementById('partnersWrap');
+    if (partnersToggle && partnersWrap) {
+        partnersToggle.addEventListener('click', function () {
+            var open = partnersWrap.classList.toggle('partners-wrap--open');
+            partnersToggle.querySelector('.partners-toggle__text').textContent = open ? 'ნაკლების ნახვა' : 'მეტის ნახვა';
+        });
+    }
+
     // ---- ABOUT TIMELINE SCROLL-FILL ----
     var timeline = document.getElementById('aboutTimeline');
     var tlFill = document.getElementById('tlFill');

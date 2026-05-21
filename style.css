@@ -902,15 +902,38 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .about-proj-grid.visible .about-proj-card:nth-child(2) { transition-delay: .1s; }
 .about-proj-grid.visible .about-proj-card:nth-child(3) { transition-delay: .2s; }
 
-/* Stagger: partner logos */
+/* Partners collapsible */
+.partners-wrap { position: relative; }
+.partners-strip {
+    max-height: 84px; overflow: hidden;
+    transition: max-height .6s var(--ease);
+}
+.partners-wrap--open .partners-strip {
+    max-height: 600px;
+}
+.partners-toggle {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 16px; padding: 0;
+    font-family: var(--font); font-size: 13px; font-weight: 600;
+    color: var(--g500); background: none; border: none; cursor: pointer;
+    transition: color .3s;
+}
+.partners-toggle:hover { color: var(--orange); }
+.partners-toggle svg {
+    transition: transform .4s var(--ease);
+}
+.partners-wrap--open .partners-toggle svg { transform: rotate(180deg); }
+.partners-wrap--open .partners-toggle .partners-toggle__text::after { content: ''; }
+
+/* Stagger: first row of partner logos (rest appear on expand) */
 .partners-strip .partner-logo { opacity: 0; transform: translateY(15px); transition: opacity .4s var(--ease), transform .4s var(--ease); }
 .partners-strip.visible .partner-logo { opacity: 1; transform: translateY(0); }
 .partners-strip.visible .partner-logo:nth-child(1) { transition-delay: 0s; }
-.partners-strip.visible .partner-logo:nth-child(2) { transition-delay: .06s; }
-.partners-strip.visible .partner-logo:nth-child(3) { transition-delay: .12s; }
-.partners-strip.visible .partner-logo:nth-child(4) { transition-delay: .18s; }
-.partners-strip.visible .partner-logo:nth-child(5) { transition-delay: .24s; }
-.partners-strip.visible .partner-logo:nth-child(6) { transition-delay: .3s; }
+.partners-strip.visible .partner-logo:nth-child(2) { transition-delay: .05s; }
+.partners-strip.visible .partner-logo:nth-child(3) { transition-delay: .1s; }
+.partners-strip.visible .partner-logo:nth-child(4) { transition-delay: .15s; }
+.partners-strip.visible .partner-logo:nth-child(5) { transition-delay: .2s; }
+.partners-strip.visible .partner-logo:nth-child(6) { transition-delay: .25s; }
 
 /* Stagger: about stats */
 .about-stats-grid .about-stat { opacity: 0; transform: translateY(20px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
