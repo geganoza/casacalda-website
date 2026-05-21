@@ -222,6 +222,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     display: flex; gap: 16px; overflow-x: auto;
     scrollbar-width: none; -ms-overflow-style: none;
     scroll-snap-type: x mandatory;
+    /* Break out of .wrap on the right so all cards are visible */
+    margin-right: -48px;
+    padding-right: 48px;
 }
 .svc-cards::-webkit-scrollbar { display: none; }
 .svc-card {
