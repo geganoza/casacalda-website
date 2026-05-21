@@ -38,6 +38,106 @@
         });
     }
 
+    // ---- SECTION CONNECTORS ----
+    var connSvg = document.getElementById('connectors');
+    if (connSvg && window.innerWidth > 900) {
+        var heroSec = document.querySelector('.hero');
+        var stmtSec = document.querySelector('.statement');
+        var svcSec = document.getElementById('services');
+        var statsSec = document.querySelector('.stats');
+        var projSec = document.getElementById('projects');
+
+        // Make SVG cover the full page height
+        function sizeConnectors() {
+            var h = document.body.scrollHeight;
+            connSvg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + h);
+            connSvg.style.height = h + 'px';
+        }
+
+        // Build elbow path: start → down → horizontal → down → end
+        function elbowPath(x1, y1, x2, y2) {
+            var midY = y1 + (y2 - y1) * 0.4;
+            return 'M' + x1 + ',' + y1 +
+                   ' L' + x1 + ',' + midY +
+                   ' L' + x2 + ',' + midY +
+                   ' L' + x2 + ',' + y2;
+        }
+
+        function layoutPaths() {
+            sizeConnectors();
+            var w = window.innerWidth;
+            var cx = w / 2; // center
+            var left = Math.max(80, w * 0.08);
+            var right = Math.min(w - 80, w * 0.92);
+
+            // Remove old dots
+            connSvg.querySelectorAll('circle').forEach(function(c) { c.remove(); });
+
+            // Path 1: Hero bottom-center → Statement center
+            if (heroSec && stmtSec) {
+                var y1 = heroSec.offsetTop + heroSec.offsetHeight;
+                var y2 = stmtSec.offsetTop + stmtSec.offsetHeight * 0.5;
+                var p1 = document.getElementById('conn1');
+                p1.setAttribute('d', elbowPath(right, y1, cx, y2));
+                p1.style.setProperty('--conn-len', p1.getTotalLength());
+                addDot(right, y1);
+                addDot(cx, y2);
+            }
+
+            // Path 2: Statement → Services section (left side)
+            if (stmtSec && svcSec) {
+                var y1 = stmtSec.offsetTop + stmtSec.offsetHeight;
+                var y2 = svcSec.offsetTop + 120;
+                var p2 = document.getElementById('conn2');
+                p2.setAttribute('d', elbowPath(cx, y1, left, y2));
+                p2.style.setProperty('--conn-len', p2.getTotalLength());
+                addDot(cx, y1);
+                addDot(left, y2);
+            }
+
+            // Path 3: Services bottom → Stats/Projects
+            if (svcSec && statsSec) {
+                var y1 = svcSec.offsetTop + svcSec.offsetHeight;
+                var y2 = statsSec.offsetTop + statsSec.offsetHeight;
+                var p3 = document.getElementById('conn3');
+                p3.setAttribute('d', elbowPath(left, y1, right, y2));
+                p3.style.setProperty('--conn-len', p3.getTotalLength());
+                addDot(left, y1);
+                addDot(right, y2);
+            }
+        }
+
+        function addDot(x, y) {
+            var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            dot.setAttribute('cx', x);
+            dot.setAttribute('cy', y);
+            dot.setAttribute('r', '4');
+            connSvg.appendChild(dot);
+        }
+
+        // Draw paths based on scroll position
+        function drawConnectors() {
+            var scrollBottom = window.scrollY + window.innerHeight * 0.75;
+            connSvg.querySelectorAll('.connector').forEach(function(path) {
+                var len = parseFloat(path.style.getPropertyValue('--conn-len')) || 2000;
+                // Get the Y range of this path
+                var bbox = path.getBBox();
+                if (bbox.height === 0) return;
+                var progress = (scrollBottom - bbox.y) / (bbox.height + 200);
+                progress = Math.min(Math.max(progress, 0), 1);
+                path.style.strokeDashoffset = len * (1 - progress);
+            });
+        }
+
+        layoutPaths();
+        window.addEventListener('scroll', drawConnectors, { passive: true });
+        window.addEventListener('resize', function() {
+            layoutPaths();
+            drawConnectors();
+        });
+        drawConnectors();
+    }
+
     // ---- STATEMENT WORD SPLIT ----
     var stText = document.getElementById('statementText');
     if (stText) {
