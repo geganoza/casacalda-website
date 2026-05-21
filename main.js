@@ -163,44 +163,66 @@
         var rIdx = 0;
         var IDLE_W = 320, GAP = 20;
         var STEP = IDLE_W + GAP;
-        var DUR = 1600;
+        var DUR = 2000; // slower transition
+        var AUTO_DELAY = 7000; // longer pause between auto-advances
+        var rAuto = null;
+        var rLocked = false; // prevent rapid-fire clicks during transition
 
         function setRibbon(idx) {
+            if (rLocked) return;
             if (idx < 0) idx = count - 1;
             if (idx >= count) idx = 0;
             rIdx = idx;
-            // Update data-offset on all cards
+            rLocked = true;
+
             cards.forEach(function (c, i) {
                 c.setAttribute('data-offset', i - idx);
             });
-            // Slide the track so active card is at the left edge
+
             ribbonTrack.style.transition = 'transform ' + DUR + 'ms cubic-bezier(.22,1,.36,1)';
             ribbonTrack.style.transform = 'translate3d(' + (-idx * STEP) + 'px, 0, 0)';
-            // Update counter
+
             if (ribbonCounter) ribbonCounter.textContent = (idx + 1) + '\u2014' + count;
+
+            // Unlock after transition finishes
+            setTimeout(function () { rLocked = false; }, DUR);
         }
 
-        // Click any card to activate
+        // Auto-advance — restarts fresh after every interaction
+        function startAuto() {
+            clearInterval(rAuto);
+            rAuto = setInterval(function () { setRibbon(rIdx + 1); }, AUTO_DELAY);
+        }
+        function resetAuto() {
+            clearInterval(rAuto);
+            // Wait a full cycle before restarting so current slide gets attention
+            setTimeout(startAuto, AUTO_DELAY);
+        }
+
+        // Click any idle card
         cards.forEach(function (c, i) {
             c.addEventListener('click', function () {
-                if (i !== rIdx) setRibbon(i);
+                if (i !== rIdx) { setRibbon(i); resetAuto(); }
             });
         });
 
-        if (ribbonPrev) ribbonPrev.addEventListener('click', function () { setRibbon(rIdx - 1); });
-        if (ribbonNext) ribbonNext.addEventListener('click', function () { setRibbon(rIdx + 1); });
+        // Arrow buttons — advance + fully reset auto timer
+        if (ribbonPrev) ribbonPrev.addEventListener('click', function () {
+            setRibbon(rIdx - 1); resetAuto();
+        });
+        if (ribbonNext) ribbonNext.addEventListener('click', function () {
+            setRibbon(rIdx + 1); resetAuto();
+        });
 
-        // Auto-advance every 5s, pause on hover
-        var rAuto = setInterval(function () { setRibbon(rIdx + 1); }, 5000);
+        // Pause on hover, resume on leave
         if (ribbon) {
             ribbon.addEventListener('mouseenter', function () { clearInterval(rAuto); });
-            ribbon.addEventListener('mouseleave', function () {
-                rAuto = setInterval(function () { setRibbon(rIdx + 1); }, 5000);
-            });
+            ribbon.addEventListener('mouseleave', function () { startAuto(); });
         }
 
         // Init
         setRibbon(0);
+        startAuto();
     }
 
     // ---- TEAM: hover bio reveal ----
