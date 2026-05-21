@@ -150,7 +150,7 @@
         });
     }
 
-    // ---- RIBBON PROJECT CAROUSEL ----
+    // ---- RIBBON PROJECT CAROUSEL (matching reference) ----
     var ribbonTrack = document.getElementById('ribbonTrack');
     var ribbonPrev = document.getElementById('ribbonPrev');
     var ribbonNext = document.getElementById('ribbonNext');
@@ -158,96 +158,117 @@
     var ribbon = document.getElementById('ribbon');
 
     if (ribbonTrack) {
-        var cards = ribbonTrack.querySelectorAll('.ribbon__card');
-        var count = cards.length;
-        var rIdx = 0;
-        var GAP = 20;
-        var DUR = 1200;
+        // Read CSS vars for sizing
+        var rs = getComputedStyle(document.documentElement);
+        function px(v) { return parseFloat(rs.getPropertyValue(v)) || 0; }
+
+        var IDLE_W = px('--r-idle') || 360;
+        var GAP = px('--r-gap') || 24;
+        var PAD = px('--r-pad') || 48;
+        var STEP = IDLE_W + GAP;
+        var DUR = 2000;
         var AUTO_DELAY = 7000;
-        var rAuto = null;
-        var rLocked = false;
-        var idleW = 0; // cached idle card width
+        var COPIES = 5;
 
-        // Measure idle width once, and on resize
-        function measureIdle() {
-            for (var i = 0; i < cards.length; i++) {
-                if (cards[i].getAttribute('data-offset') !== '0') {
-                    idleW = cards[i].offsetWidth;
-                    return;
-                }
-            }
-            idleW = 320; // fallback
+        // Clone slides for infinite loop
+        var origCards = ribbonTrack.querySelectorAll('.ribbon__card');
+        var slideCount = origCards.length;
+        var fragment = document.createDocumentFragment();
+        for (var copy = 1; copy < COPIES; copy++) {
+            origCards.forEach(function (card) {
+                fragment.appendChild(card.cloneNode(true));
+            });
         }
-        measureIdle();
-        window.addEventListener('resize', function () {
-            measureIdle();
-            // Re-position track instantly after resize
-            ribbonTrack.style.transition = 'none';
-            ribbonTrack.style.transform = 'translate3d(' + (-rIdx * (idleW + GAP)) + 'px, 0, 0)';
-        });
+        ribbonTrack.appendChild(fragment);
 
-        function setRibbon(idx) {
-            if (rLocked) return;
-            if (idx < 0) idx = count - 1;
-            if (idx >= count) idx = 0;
-            rLocked = true;
+        var allCards = ribbonTrack.querySelectorAll('.ribbon__card');
+        var startIdx = Math.floor(COPIES / 2) * slideCount;
+        var idx = startIdx;
+        var jumping = false;
+        var rAuto = null;
 
-            // 1. Calculate target position BEFORE changing anything
-            var step = idleW + GAP;
-            var targetX = -idx * step;
+        function getOffset() { return PAD - idx * STEP; }
+        function displayIdx() { return ((idx % slideCount) + slideCount) % slideCount; }
 
-            // 2. Set the track sliding first (uses current idle widths)
-            ribbonTrack.style.transition = 'transform ' + DUR + 'ms cubic-bezier(.22,1,.36,1)';
-            ribbonTrack.style.transform = 'translate3d(' + targetX + 'px, 0, 0)';
-
-            // 3. Then update card states so width/height transitions happen in parallel
-            rIdx = idx;
-            cards.forEach(function (c, i) {
+        function render(animate) {
+            // Set data-offset on all cards
+            allCards.forEach(function (c, i) {
                 c.setAttribute('data-offset', i - idx);
             });
-
-            if (ribbonCounter) ribbonCounter.textContent = (idx + 1) + '\u2014' + count;
-
-            setTimeout(function () {
-                rLocked = false;
-                measureIdle(); // re-cache after cards settle
-            }, DUR);
+            // Slide track
+            ribbonTrack.style.transition = animate ? 'transform ' + DUR + 'ms cubic-bezier(.22,1,.36,1)' : 'none';
+            ribbonTrack.style.transform = 'translate3d(' + getOffset() + 'px, 0, 0)';
+            // Disable card transitions during jump
+            if (!animate) {
+                allCards.forEach(function (c) { c.style.transition = 'none'; });
+                // Re-enable on next frame
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        allCards.forEach(function (c) { c.style.transition = ''; });
+                    });
+                });
+            }
+            // Counter
+            if (ribbonCounter) ribbonCounter.textContent = (displayIdx() + 1) + '\u2014' + slideCount;
         }
 
-        // Auto-advance — restarts fresh after every interaction
+        // Re-anchor when near edges (silent jump, no animation)
+        function reanchor() {
+            var low = slideCount;
+            var high = (COPIES - 1) * slideCount - 1;
+            if (idx < low || idx > high) {
+                jumping = true;
+                var delta = idx < low ? slideCount : -slideCount;
+                idx += delta;
+                render(false);
+                jumping = false;
+            }
+        }
+
+        function goTo(newIdx) {
+            if (jumping) return;
+            idx = newIdx;
+            render(true);
+            // After transition, check if we need to re-anchor
+            setTimeout(reanchor, DUR + 50);
+        }
+
+        // Click any card
+        allCards.forEach(function (c, i) {
+            c.addEventListener('click', function () {
+                if (i !== idx) { goTo(i); resetAuto(); }
+            });
+        });
+
+        if (ribbonPrev) ribbonPrev.addEventListener('click', function () { goTo(idx - 1); resetAuto(); });
+        if (ribbonNext) ribbonNext.addEventListener('click', function () { goTo(idx + 1); resetAuto(); });
+
+        // Auto-advance
         function startAuto() {
             clearInterval(rAuto);
-            rAuto = setInterval(function () { setRibbon(rIdx + 1); }, AUTO_DELAY);
+            rAuto = setInterval(function () { goTo(idx + 1); }, AUTO_DELAY);
         }
         function resetAuto() {
             clearInterval(rAuto);
-            // Wait a full cycle before restarting so current slide gets attention
             setTimeout(startAuto, AUTO_DELAY);
         }
-
-        // Click any idle card
-        cards.forEach(function (c, i) {
-            c.addEventListener('click', function () {
-                if (i !== rIdx) { setRibbon(i); resetAuto(); }
-            });
-        });
-
-        // Arrow buttons — advance + fully reset auto timer
-        if (ribbonPrev) ribbonPrev.addEventListener('click', function () {
-            setRibbon(rIdx - 1); resetAuto();
-        });
-        if (ribbonNext) ribbonNext.addEventListener('click', function () {
-            setRibbon(rIdx + 1); resetAuto();
-        });
-
-        // Pause on hover, resume on leave
         if (ribbon) {
             ribbon.addEventListener('mouseenter', function () { clearInterval(rAuto); });
             ribbon.addEventListener('mouseleave', function () { startAuto(); });
         }
 
+        // Handle resize — re-read CSS vars and reposition
+        window.addEventListener('resize', function () {
+            rs = getComputedStyle(document.documentElement);
+            IDLE_W = px('--r-idle') || 360;
+            GAP = px('--r-gap') || 24;
+            PAD = px('--r-pad') || 48;
+            STEP = IDLE_W + GAP;
+            render(false);
+        });
+
         // Init
-        setRibbon(0);
+        render(false);
         startAuto();
     }
 
