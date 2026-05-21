@@ -38,6 +38,16 @@
         });
     }
 
+    // ---- STATEMENT WORD SPLIT ----
+    var stText = document.getElementById('statementText');
+    if (stText) {
+        var words = stText.textContent.trim().split(/\s+/);
+        var last = words.pop(); // last word gets <em>
+        stText.innerHTML = words.map(function (w, i) {
+            return '<span class="statement__word" style="transition-delay:' + (i * .07).toFixed(2) + 's">' + w + '</span>';
+        }).join(' ') + ' <em><span class="statement__word" style="transition-delay:' + (words.length * .07).toFixed(2) + 's">' + last + '</span></em>';
+    }
+
     // ---- SCROLL REVEAL ----
     var anims = document.querySelectorAll('.anim, .anim--scale, .anim--fade, .anim--left, .anim--right, .svc-cards, .svc-page-grid, .process-grid, .stats__grid, .ribbon__track, .team__cards, .vals, .values-grid, .cta-band, .team-grid, .timeline__line, .hud-stats, .contact-map, .about-svc-grid, .about-proj-grid, .partners-strip, .about-stats-grid, .about-values');
     if ('IntersectionObserver' in window) {

@@ -147,13 +147,31 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 
 /* ============ BIG STATEMENT ============ */
 .statement {
-    text-align: center; padding: 140px 0 60px;
+    text-align: center; padding: 160px 0 80px;
+    position: relative;
 }
 .statement__text {
-    font-family: var(--font-display); font-size: 102.859px; font-weight: 800;
-    color: var(--black); line-height: 105.026px;
-    max-width: 1408px; margin: 0 auto;
+    font-family: var(--font-display); font-size: 86px; font-weight: 800;
+    color: var(--black); line-height: 1.08; letter-spacing: -2px;
+    max-width: 1200px; margin: 0 auto;
 }
+/* Highlighted word */
+.statement__text em {
+    font-style: normal; color: var(--orange);
+    position: relative;
+}
+/* Decorative line */
+.statement__line {
+    display: block; width: 60px; height: 3px;
+    background: var(--orange); border-radius: 2px;
+    margin: 0 auto 32px;
+}
+/* Words animate in individually */
+.statement__word {
+    display: inline-block; opacity: 0; transform: translateY(30px);
+    transition: opacity .6s var(--ease), transform .6s var(--ease);
+}
+.statement__text.visible .statement__word { opacity: 1; transform: translateY(0); }
 
 /* ============ SECTION HEADER ============ */
 .sec-head {
@@ -1447,7 +1465,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 /* ---- 1200 ---- */
 @media (max-width: 1200px) {
     .hero__title { font-size: 56px; line-height: 58px; }
-    .statement__text { font-size: 64px; line-height: 68px; }
+    .statement__text { font-size: 56px; }
     .sec-title { font-size: 40px; line-height: 50px; }
     .about { flex-direction: column; gap: 48px; }
     .about__text { flex: none; width: 100%; }
@@ -1479,7 +1497,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .hero__actions { flex-wrap: wrap; justify-content: center; }
     .hero__content { padding: 0 24px; text-align: center; }
     .hero__eyebrow { text-align: center; }
-    .statement__text { font-size: 36px; line-height: 42px; }
+    .statement__text { font-size: 32px; }
     .statement { padding: 80px 0 0; }
     .sec-head { flex-direction: column; gap: 12px; align-items: flex-start; }
     .sec-head--split { flex-direction: row; align-items: flex-end; }
@@ -1539,7 +1557,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .hero__eyebrow { font-size: 11px; letter-spacing: 1px; text-align: center; }
     .btn-pill { height: 46px; padding: 0 24px; font-size: 13px; }
     .hero__actions { gap: 10px; justify-content: center; }
-    .statement__text { font-size: 22px; line-height: 28px; }
+    .statement__text { font-size: 22px; }
     .statement { padding: 60px 0 0; }
     .eyebrow { font-size: 13px; letter-spacing: 1px; }
     .sec-title { font-size: 26px; line-height: 34px; }
@@ -2066,7 +2084,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .wrap { padding: 0 14px; }
     .hero__title { font-size: 24px; line-height: 28px; }
     .hero__eyebrow { font-size: 10px; }
-    .statement__text { font-size: 20px; line-height: 26px; }
+    .statement__text { font-size: 20px; }
     .sec-title { font-size: 22px; line-height: 30px; }
     .eyebrow { font-size: 12px; }
     .btn-pill { height: 44px; padding: 0 20px; font-size: 13px; }
