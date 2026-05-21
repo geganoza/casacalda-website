@@ -41,101 +41,124 @@
     // ---- SECTION CONNECTORS ----
     var connSvg = document.getElementById('connectors');
     if (connSvg && window.innerWidth > 900) {
-        var heroSec = document.querySelector('.hero');
-        var stmtSec = document.querySelector('.statement');
+        var stmtEl = document.getElementById('statementText');
         var svcSec = document.getElementById('services');
         var statsSec = document.querySelector('.stats');
-        var projSec = document.getElementById('projects');
 
-        // Make SVG cover the full page height
         function sizeConnectors() {
             var h = document.body.scrollHeight;
-            connSvg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + h);
+            var w = document.body.clientWidth;
+            connSvg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
             connSvg.style.height = h + 'px';
+            connSvg.style.width = w + 'px';
         }
 
-        // Build elbow path: start → down → horizontal → down → end
-        function elbowPath(x1, y1, x2, y2) {
-            var midY = y1 + (y2 - y1) * 0.4;
-            return 'M' + x1 + ',' + y1 +
-                   ' L' + x1 + ',' + midY +
-                   ' L' + x2 + ',' + midY +
-                   ' L' + x2 + ',' + y2;
+        function rect(el) {
+            var r = el.getBoundingClientRect();
+            var sy = window.scrollY;
+            return { l: r.left, r: r.right, t: r.top + sy, b: r.bottom + sy, cx: r.left + r.width / 2, cy: r.top + sy + r.height / 2 };
         }
 
         function layoutPaths() {
             sizeConnectors();
-            var w = window.innerWidth;
-            var cx = w / 2; // center
-            var left = Math.max(80, w * 0.08);
-            var right = Math.min(w - 80, w * 0.92);
+            var w = document.body.clientWidth;
+            // Gutter lines run along the outside edges
+            var gL = 40;           // left gutter
+            var gR = w - 40;       // right gutter
 
-            // Remove old dots
-            connSvg.querySelectorAll('circle').forEach(function(c) { c.remove(); });
+            // Remove old extra elements
+            connSvg.querySelectorAll('circle,.conn-rect').forEach(function (el) { el.remove(); });
 
-            // Path 1: Hero bottom-center → Statement center
-            if (heroSec && stmtSec) {
-                var y1 = heroSec.offsetTop + heroSec.offsetHeight;
-                var y2 = stmtSec.offsetTop + stmtSec.offsetHeight * 0.5;
+            // Statement bounding box
+            if (stmtEl) {
+                var sr = rect(stmtEl);
+                var pad = 28;
+                var bx = sr.l - pad, by = sr.t - pad, bw = sr.r - sr.l + pad * 2, bh = sr.b - sr.t + pad * 2;
+                var r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                r.setAttribute('x', bx); r.setAttribute('y', by);
+                r.setAttribute('width', bw); r.setAttribute('height', bh);
+                r.setAttribute('rx', '12');
+                r.setAttribute('class', 'conn-rect');
+                connSvg.insertBefore(r, connSvg.firstChild);
+
+                // Path 1: from statement box top-right corner → up along right gutter → across top
                 var p1 = document.getElementById('conn1');
-                p1.setAttribute('d', elbowPath(right, y1, cx, y2));
+                var topY = by - 60;
+                p1.setAttribute('d',
+                    'M' + (bx + bw) + ',' + (by + bh * 0.3) +
+                    ' L' + gR + ',' + (by + bh * 0.3) +
+                    ' L' + gR + ',' + topY +
+                    ' L' + (bx + bw * 0.5) + ',' + topY +
+                    ' L' + (bx + bw * 0.5) + ',' + by
+                );
                 p1.style.setProperty('--conn-len', p1.getTotalLength());
-                addDot(right, y1);
-                addDot(cx, y2);
-            }
+                addDot(bx + bw, by + bh * 0.3);
 
-            // Path 2: Statement → Services section (left side)
-            if (stmtSec && svcSec) {
-                var y1 = stmtSec.offsetTop + stmtSec.offsetHeight;
-                var y2 = svcSec.offsetTop + 120;
-                var p2 = document.getElementById('conn2');
-                p2.setAttribute('d', elbowPath(cx, y1, left, y2));
-                p2.style.setProperty('--conn-len', p2.getTotalLength());
-                addDot(cx, y1);
-                addDot(left, y2);
-            }
+                // Path 2: from statement box bottom-left → down left gutter → services
+                if (svcSec) {
+                    var svr = rect(svcSec);
+                    var p2 = document.getElementById('conn2');
+                    p2.setAttribute('d',
+                        'M' + bx + ',' + (by + bh * 0.7) +
+                        ' L' + gL + ',' + (by + bh * 0.7) +
+                        ' L' + gL + ',' + (svr.t + 40) +
+                        ' L' + (svr.l + 48) + ',' + (svr.t + 40)
+                    );
+                    p2.style.setProperty('--conn-len', p2.getTotalLength());
+                    addDot(bx, by + bh * 0.7);
+                    addDot(svr.l + 48, svr.t + 40);
+                }
 
-            // Path 3: Services bottom → Stats/Projects
-            if (svcSec && statsSec) {
-                var y1 = svcSec.offsetTop + svcSec.offsetHeight;
-                var y2 = statsSec.offsetTop + statsSec.offsetHeight;
-                var p3 = document.getElementById('conn3');
-                p3.setAttribute('d', elbowPath(left, y1, right, y2));
-                p3.style.setProperty('--conn-len', p3.getTotalLength());
-                addDot(left, y1);
-                addDot(right, y2);
+                // Path 3: from services bottom-right → right gutter → stats
+                if (svcSec && statsSec) {
+                    var svr2 = rect(svcSec);
+                    var str = rect(statsSec);
+                    var p3 = document.getElementById('conn3');
+                    p3.setAttribute('d',
+                        'M' + (svr2.r - 48) + ',' + svr2.b +
+                        ' L' + (svr2.r - 48) + ',' + (svr2.b + 30) +
+                        ' L' + gR + ',' + (svr2.b + 30) +
+                        ' L' + gR + ',' + (str.t + str.cy - str.t) +
+                        ' L' + (str.r - 48) + ',' + (str.cy)
+                    );
+                    p3.style.setProperty('--conn-len', p3.getTotalLength());
+                    addDot(svr2.r - 48, svr2.b);
+                    addDot(str.r - 48, str.cy);
+                }
             }
         }
 
         function addDot(x, y) {
             var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            dot.setAttribute('cx', x);
-            dot.setAttribute('cy', y);
-            dot.setAttribute('r', '4');
+            dot.setAttribute('cx', x); dot.setAttribute('cy', y); dot.setAttribute('r', '4');
             connSvg.appendChild(dot);
         }
 
-        // Draw paths based on scroll position
         function drawConnectors() {
-            var scrollBottom = window.scrollY + window.innerHeight * 0.75;
-            connSvg.querySelectorAll('.connector').forEach(function(path) {
+            var scrollBot = window.scrollY + window.innerHeight * 0.7;
+            connSvg.querySelectorAll('.connector').forEach(function (path) {
                 var len = parseFloat(path.style.getPropertyValue('--conn-len')) || 2000;
-                // Get the Y range of this path
                 var bbox = path.getBBox();
                 if (bbox.height === 0) return;
-                var progress = (scrollBottom - bbox.y) / (bbox.height + 200);
+                var progress = (scrollBot - bbox.y) / (bbox.height + 150);
                 progress = Math.min(Math.max(progress, 0), 1);
                 path.style.strokeDashoffset = len * (1 - progress);
             });
+            // Fade in the bounding rect
+            var rects = connSvg.querySelectorAll('.conn-rect');
+            rects.forEach(function (r) {
+                var ry = parseFloat(r.getAttribute('y'));
+                r.style.opacity = scrollBot > ry ? '1' : '0';
+            });
         }
 
-        layoutPaths();
-        window.addEventListener('scroll', drawConnectors, { passive: true });
-        window.addEventListener('resize', function() {
+        // Delay layout until fonts/images settle
+        setTimeout(function () {
             layoutPaths();
             drawConnectors();
-        });
-        drawConnectors();
+        }, 300);
+        window.addEventListener('scroll', drawConnectors, { passive: true });
+        window.addEventListener('resize', function () { layoutPaths(); drawConnectors(); });
     }
 
     // ---- STATEMENT WORD SPLIT ----
