@@ -279,16 +279,16 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     background: var(--g50); padding: 120px 0;
     overflow: hidden;
 }
-.ribbon { margin-top: 40px; padding-left: var(--r-pad); }
+.ribbon { margin-top: 40px; }
 .ribbon__controls {
     display: flex; justify-content: space-between; align-items: center;
-    padding-right: var(--r-pad); margin-bottom: 24px;
+    padding: 0 var(--r-pad); margin-bottom: 24px;
 }
 .ribbon__counter {
     font-variant-numeric: tabular-nums; font-size: 14px;
     color: var(--g400); letter-spacing: .04em;
 }
-.ribbon__viewport { width: 100%; overflow: hidden; }
+.ribbon__viewport { width: 100%; overflow: hidden; padding-left: var(--r-pad); }
 .ribbon__track {
     display: flex; align-items: flex-start;
     gap: var(--r-gap); will-change: transform;

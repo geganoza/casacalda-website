@@ -196,7 +196,9 @@
         var jumping = false;
         var rAuto = null;
 
-        function getOffset() { return PAD - idx * STEP; }
+        // CSS padding-left on viewport handles the left indent
+        // Track just needs to slide by idx * STEP
+        function getOffset() { return -(idx * STEP); }
         function displayIdx() { return ((idx % slideCount) + slideCount) % slideCount; }
 
         function render(animate) {
