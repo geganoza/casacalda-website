@@ -1,19 +1,13 @@
 (function () {
     'use strict';
 
-    // ---- NAV SCROLL ----
+    // ---- NAV SCROLL — same on all pages ----
     var nav = document.getElementById('nav');
-    var hasHero = document.querySelector('.hero'); // full-screen hero = homepage only
     if (nav) {
-        if (hasHero) {
-            // Homepage: glass pill → solid on scroll past 60px
-            window.addEventListener('scroll', function () {
-                nav.classList.toggle('nav--scrolled', window.scrollY > 60);
-            }, { passive: true });
-        } else {
-            // All other pages: always solid, no toggle
-            nav.classList.add('nav--scrolled');
-        }
+        // Glass pill → solid bar on scroll. Same logic everywhere.
+        window.addEventListener('scroll', function () {
+            nav.classList.toggle('nav--scrolled', window.scrollY > 60);
+        }, { passive: true });
     }
 
     // ---- BURGER → X + MOBILE NAV ----
