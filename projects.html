@@ -36,62 +36,51 @@
         <a href="contact.html" class="nav__cta mob-nav__cta">დაგვიკავშირდი</a>
     </div>
 
-    <!-- PAGE HERO -->
-    <section class="page-hero">
-        <div class="page-hero__bg"><img src="assets/project-main.jpg" alt="Casa Calda პროექტები"></div>
-        <div class="page-hero__overlay"></div>
-        <div class="page-hero__content">
-            <p class="page-hero__crumb"><a href="index.html">მთავარი</a> &nbsp;/&nbsp; პროექტები</p>
-            <h1 class="page-hero__title">პროექტები</h1>
+    <!-- FULL-WIDTH HUD HERO -->
+    <section class="proj-hero-hud">
+        <div class="proj-hero-hud__bg">
+            <img src="assets/project-main.jpg" alt="East Point სავაჭრო ცენტრი">
         </div>
-    </section>
+        <div class="proj-hero-hud__overlay"></div>
 
-    <!-- INTRO -->
-    <section class="section" style="padding-bottom:60px">
-        <div class="wrap">
-            <div class="about-split" style="padding:0">
-                <div class="anim">
-                    <p class="eyebrow">პორტფოლიო</p>
-                    <h2 class="sec-title" style="margin-bottom:20px">2000+ წარმატებული პროექტი</h2>
-                    <p class="about-split__body">უკვე მრავალი წელია რაც ვქმნით ჯანსაღ და კომფორტულ სივრცეებს საქართველოში. ყოველი პროექტი ჩვენთვის უნიკალურია — დაპროექტებიდან მონტაჟამდე.</p>
-                </div>
-                <div class="about-split__img anim">
-                    <img src="assets/hero-bg.jpg" alt="" style="aspect-ratio:16/10">
-                </div>
-            </div>
+        <!-- Corner brackets -->
+        <div class="proj-hero-hud__bracket proj-hero-hud__bracket--tl"></div>
+        <div class="proj-hero-hud__bracket proj-hero-hud__bracket--tr"></div>
+        <div class="proj-hero-hud__bracket proj-hero-hud__bracket--bl"></div>
+        <div class="proj-hero-hud__bracket proj-hero-hud__bracket--br"></div>
+
+        <!-- Scan line -->
+        <div class="proj-hero-hud__scan"></div>
+
+        <!-- Content -->
+        <div class="proj-hero-hud__content">
+            <p class="proj-hero-hud__crumb"><a href="index.html">მთავარი</a> / პროექტები</p>
+            <h1 class="proj-hero-hud__title">პროექტები</h1>
         </div>
-    </section>
 
-    <!-- FEATURED PROJECT -->
-    <section class="section section--gray" style="padding:80px 0">
-        <div class="wrap">
-            <div class="sec-head anim" style="margin-bottom:40px">
-                <div class="sec-head__left">
-                    <p class="eyebrow">გამორჩეული</p>
-                    <h2 class="sec-title">EAST POINT</h2>
-                </div>
-            </div>
-            <div class="proj-featured anim">
-                <a href="project.html" class="proj-featured__img">
-                    <img src="assets/project-main.jpg" alt="East Point სავაჭრო ცენტრი">
-                </a>
-                <div class="proj-featured__info">
-                    <div class="proj-featured__meta">
-                        <div><span class="proj-featured__label">კლიენტი</span><span class="proj-featured__val">East Point Group</span></div>
-                        <div><span class="proj-featured__label">კატეგორია</span><span class="proj-featured__val">კომერციული</span></div>
-                        <div><span class="proj-featured__label">წელი</span><span class="proj-featured__val">2024</span></div>
-                        <div><span class="proj-featured__label">ფართობი</span><span class="proj-featured__val">45,000 მ²</span></div>
-                    </div>
-                    <p class="proj-featured__desc">East Point სავაჭრო ცენტრის პროექტი მოიცავდა სრული საინჟინრო ინფრასტრუქტურის დაპროექტებას და მონტაჟს — ელექტრო, HVAC, წყალგაყვანილობა და უსაფრთხოება.</p>
-                    <div class="proj-featured__tags">
-                        <span>ელექტროობა</span>
-                        <span>წყალგაყვანილობა</span>
-                        <span>HVAC</span>
-                        <span>უსაფრთხოება</span>
-                    </div>
-                    <a href="project.html" class="btn-text-pill" style="margin-top:20px">დეტალურად &rarr;</a>
-                </div>
-            </div>
+        <!-- Info panel -->
+        <div class="proj-hero-hud__panel">
+            <span class="proj-hero-hud__tag">სრული სერვისი</span>
+            <h3 class="proj-hero-hud__name">EAST POINT</h3>
+            <div class="proj-hero-hud__row"><span>კლიენტი</span><span>East Point Group</span></div>
+            <div class="proj-hero-hud__row"><span>კატეგორია</span><span>კომერციული</span></div>
+            <div class="proj-hero-hud__row"><span>ფართობი</span><span>45,000 მ²</span></div>
+            <div class="proj-hero-hud__row"><span>წელი</span><span>2024</span></div>
+            <a href="project.html" class="proj-hero-hud__btn">დეტალურად &rarr;</a>
+        </div>
+
+        <!-- Hotspot callouts -->
+        <div class="proj-hero-hud__dot" style="left:30%;top:35%">
+            <div class="proj-hero-hud__dot-pin"></div>
+            <div class="proj-hero-hud__dot-label">ელექტრო · HVAC</div>
+        </div>
+        <div class="proj-hero-hud__dot" style="left:55%;top:25%">
+            <div class="proj-hero-hud__dot-pin"></div>
+            <div class="proj-hero-hud__dot-label">45,000 მ²</div>
+        </div>
+        <div class="proj-hero-hud__dot" style="left:72%;top:50%">
+            <div class="proj-hero-hud__dot-pin"></div>
+            <div class="proj-hero-hud__dot-label">უსაფრთხოება</div>
         </div>
     </section>
 
