@@ -1,13 +1,19 @@
 (function () {
     'use strict';
 
-    // ---- NAV SCROLL — same on all pages ----
+    // ---- NAV SCROLL ----
     var nav = document.getElementById('nav');
     if (nav) {
-        // Glass pill → solid bar on scroll. Same logic everywhere.
-        window.addEventListener('scroll', function () {
-            nav.classList.toggle('nav--scrolled', window.scrollY > 60);
-        }, { passive: true });
+        var hasDarkHero = document.querySelector('.hero, .page-hero');
+        if (hasDarkHero) {
+            // Pages with dark hero image behind nav: glass pill → solid on scroll
+            window.addEventListener('scroll', function () {
+                nav.classList.toggle('nav--scrolled', window.scrollY > 60);
+            }, { passive: true });
+        } else {
+            // Pages without dark hero (projects HUD, etc): always solid
+            nav.classList.add('nav--scrolled');
+        }
     }
 
     // ---- BURGER → X + MOBILE NAV ----
@@ -135,6 +141,21 @@
         document.getElementById('teamCards'),
         document.getElementById('teamDots'),
         document.getElementById('teamWrap')
+    );
+    initScrollDots(
+        document.getElementById('specCards'),
+        document.getElementById('specDots'),
+        document.getElementById('specWrap')
+    );
+    initScrollDots(
+        document.getElementById('aboutTeamCards'),
+        document.getElementById('aboutTeamDots'),
+        document.getElementById('aboutTeamWrap')
+    );
+    initScrollDots(
+        document.getElementById('aboutProjCards'),
+        document.getElementById('aboutProjDots'),
+        document.getElementById('aboutProjWrap')
     );
 
     // ---- SERVICE CARDS arrow buttons ----
@@ -320,6 +341,81 @@
         });
         document.addEventListener('mouseup', function () {
             if (tDrag) { tDrag = false; teamCards.style.cursor = 'grab'; }
+        });
+    }
+
+    // ---- ABOUT PROJECTS: drag to scroll + arrow buttons ----
+    var aboutProjCards = document.getElementById('aboutProjCards');
+    var aboutProjPrev = document.getElementById('aboutProjPrev');
+    var aboutProjNext = document.getElementById('aboutProjNext');
+    if (aboutProjCards) {
+        if (aboutProjPrev) aboutProjPrev.addEventListener('click', function () {
+            aboutProjCards.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+        if (aboutProjNext) aboutProjNext.addEventListener('click', function () {
+            aboutProjCards.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+        var apDrag = false, apX = 0, apSL = 0;
+        aboutProjCards.addEventListener('mousedown', function (e) {
+            apDrag = true; apX = e.clientX; apSL = aboutProjCards.scrollLeft;
+            aboutProjCards.style.cursor = 'grabbing'; e.preventDefault();
+        });
+        document.addEventListener('mousemove', function (e) {
+            if (!apDrag) return;
+            aboutProjCards.scrollLeft = apSL + (apX - e.clientX);
+        });
+        document.addEventListener('mouseup', function () {
+            if (apDrag) { apDrag = false; aboutProjCards.style.cursor = 'grab'; }
+        });
+    }
+
+    // ---- ABOUT TEAM: drag to scroll + arrow buttons ----
+    var aboutTeamCards = document.getElementById('aboutTeamCards');
+    var aboutTeamPrev = document.getElementById('aboutTeamPrev');
+    var aboutTeamNext = document.getElementById('aboutTeamNext');
+    if (aboutTeamCards) {
+        if (aboutTeamPrev) aboutTeamPrev.addEventListener('click', function () {
+            aboutTeamCards.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+        if (aboutTeamNext) aboutTeamNext.addEventListener('click', function () {
+            aboutTeamCards.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+        var atDrag = false, atX = 0, atSL = 0;
+        aboutTeamCards.addEventListener('mousedown', function (e) {
+            atDrag = true; atX = e.clientX; atSL = aboutTeamCards.scrollLeft;
+            aboutTeamCards.style.cursor = 'grabbing'; e.preventDefault();
+        });
+        document.addEventListener('mousemove', function (e) {
+            if (!atDrag) return;
+            aboutTeamCards.scrollLeft = atSL + (atX - e.clientX);
+        });
+        document.addEventListener('mouseup', function () {
+            if (atDrag) { atDrag = false; aboutTeamCards.style.cursor = 'grab'; }
+        });
+    }
+
+    // ---- SPECIALISTS: drag to scroll + arrow buttons ----
+    var specCards = document.getElementById('specCards');
+    var specPrev = document.getElementById('specPrev');
+    var specNext = document.getElementById('specNext');
+    if (specCards) {
+        if (specPrev) specPrev.addEventListener('click', function () {
+            specCards.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+        if (specNext) specNext.addEventListener('click', function () {
+            specCards.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+        var sDrag = false, sX = 0, sSL = 0;
+        specCards.addEventListener('mousedown', function (e) {
+            sDrag = true; sX = e.clientX; sSL = specCards.scrollLeft;
+            specCards.style.cursor = 'grabbing'; e.preventDefault();
+        });
+        document.addEventListener('mousemove', function (e) {
+            if (!sDrag) return;
+            specCards.scrollLeft = sSL + (sX - e.clientX);
+        });
+        document.addEventListener('mouseup', function () {
+            if (sDrag) { sDrag = false; specCards.style.cursor = 'grab'; }
         });
     }
 
