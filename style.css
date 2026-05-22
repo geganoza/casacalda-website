@@ -632,7 +632,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 
 /* ============ CTA BAND ============ */
 .cta-band {
-    position: relative; width: 100%; max-width: 1414px;
+    position: relative; max-width: 1414px;
     margin: 0 auto; border-radius: 24px; overflow: hidden;
     padding: 100px 64px; min-height: 458px;
     display: flex; align-items: center;
