@@ -4,7 +4,7 @@
     // ---- NAV SCROLL ----
     var nav = document.getElementById('nav');
     if (nav) {
-        var hasDarkHero = document.querySelector('.hero, .page-hero');
+        var hasDarkHero = document.querySelector('.hero, .page-hero, .proj-hero-hud');
         if (hasDarkHero) {
             // Pages with dark hero image behind nav: glass pill → solid on scroll
             var updateNav = function () {
