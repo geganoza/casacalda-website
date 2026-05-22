@@ -137,6 +137,20 @@
         document.getElementById('teamWrap')
     );
 
+    // ---- SERVICE CARDS — align left edge with .wrap ----
+    var svcCardsEl = document.getElementById('svcCards');
+    if (svcCardsEl) {
+        var svcWrap = svcCardsEl.closest('section').querySelector('.wrap');
+        function alignSvcCards() {
+            if (svcWrap) {
+                var wrapLeft = svcWrap.getBoundingClientRect().left + parseFloat(getComputedStyle(svcWrap).paddingLeft);
+                svcCardsEl.style.paddingLeft = wrapLeft + 'px';
+            }
+        }
+        alignSvcCards();
+        window.addEventListener('resize', alignSvcCards);
+    }
+
     // ---- SERVICE CARDS arrow buttons ----
     var svcCards = document.getElementById('svcCards');
     var svcPrev = document.getElementById('svcPrev');
