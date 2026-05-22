@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta name="keywords" content="東芝" />
+<meta name="description" content="株式会社東芝  ページが見つかりません。" />
+<link rel="start" href="https://www.toshiba.co.jp/index_j.htm" title="東芝トップページ" />
+<link rel="help" href="https://www.toshiba.co.jp/contents/index_j.htm" title="サイトマップ" />
+<link rel="copyright" href="https://www.toshiba.co.jp/c_right/index_j.htm" title="著作権について" />
+
+<link rel="stylesheet" type="text/css" href="https://www.toshiba.co.jp/css/2018/import.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="https://www.toshiba.co.jp/css/2011b/import.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.toshiba.co.jp/css/2011b/modules.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.toshiba.co.jp/css/2011b/print2.css" media="print" />
+<!--
+<script type="text/javascript" src="https://www.toshiba.co.jp/jvs/2011b/mjl.js"></script>
+<script type="text/javascript" src="https://www.toshiba.co.jp/jvs/2011b/jquery.js"></script>
+<script type="text/javascript" src="https://www.toshiba.co.jp/jvs/2011b/run.js"></script>
+-->
+
+<style type="text/css">
+#str-header #str-header-inner #identifier {
+    position: absolute !important;
+    left: 161px !important;
+    top: 0 !important;
+}
+</style>
+
+<title>東芝：ページが見つかりません。( Not found )</title>
+</head>
+
+<body>
+<div id="str-header">
+<div id="str-header-inner">
+<p id="logo"><a href="https://www.global.toshiba/jp/top.html" title="東芝トップページ"><img src="https://www.toshiba.co.jp/img/common/head/logo_l.gif" alt="Toshiba" width="161" height="64" /></a></p>
+<p id="identifier"><img src="https://www.toshiba.co.jp/img/2011b/common/head/identifier.gif" alt="Japan" width="42" height="17" /></p>
+
+<ul class="list-utility mt30">
+<li class="contact"><a href="https://www.global.toshiba/jp/contact/corporate.html">お問い合わせ</a></li>
+</ul>
+</div><!-- /#str-header-inner -->
+</div><!-- /#str-header -->
+
+<div id="str-container">
+<div id="str-container-inner">
+<div id="str-contents">
+
+<div id="layout" class="col-1">
+<div id="main">
+<div class="contents">
+<h1 class="hdg-l1-02"><span>ご指定いただいたページが見つかりません (404 Not Found)</span></h1>
+<div class="section">
+<p>誠に申し訳ございませんが、URLをご確認の上再度お試しいただくか、もしくは以下のいずれかの方法でお探しください。</p>
+<ul class="list-link-01">
+<li><a href="https://www.global.toshiba/jp/search/search-help.html">キーワードを入力して、該当ページを検索する</a></li>
+<li><a href="https://www.global.toshiba/jp/sitemap/corporate.html">サイトマップ（目次）をたどって該当ページを検索する</a></li>
+<li><a href="https://www.global.toshiba/jp/top.html">トップページからたどって該当ページを検索する</a></li>
+</ul>
+</div>
+<div class="section" lang="en">
+<h2 class="hdg-l2-01"><span>The requested URL does not exist. (404 Not Found)</span></h2>
+<p>You may have used an outdated link or may have typed a wrong address. Please check if it is correct and try again.</p>
+<ul class="list-link-01">
+<li><a href="https://www.global.toshiba/ww/top.html">Top page(Worldwide Site)</a></li>
+</ul>
+</div>
+</div><!-- /.contents -->
+</div><!-- /#main -->
+</div><!-- /#layout -->
+<ul class="list-footer-nav">
+<li class="page-top"><a href="#str-header">このページのトップへ</a></li>
+</ul>
+<div id="str-footer">
+<div id="str-footer-inner">
+<ul class="list-utility">
+<li><a href="https://www.global.toshiba/jp/top.html">東芝トップページ</a></li>
+<li class="last-child"><a href="https://www.global.toshiba/jp/privacy/corporate.html">個人情報保護方針</a></li></ul>
+<div class="block-copyright">
+<address class="copyright"><a href="https://www.global.toshiba/jp/c_right/corporate.html"><img src="https://www.toshiba.co.jp/img/2011b/common/foot/foot_copy.gif" alt="Copyright" width="348" height="23" /></a></address>
+</div>
+</div><!-- /#str-footer-inner -->
+</div><!-- /#str-footer -->
+</div><!-- /#str-contents -->
+</div><!-- /#str-container-inner -->
+</div><!-- /#str-container -->
+</body>
+</html>

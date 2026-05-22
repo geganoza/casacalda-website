@@ -1,0 +1,1353 @@
+
+
+
+<!doctype html>
+<html  lang="en">
+
+							<head>
+	<meta charset="utf-8">
+	<link rel="canonical" href="https://www.lennox.com/apple-touch-icon.png" >
+			<link rel="alternate" href="https://www.lennox.com/error-pages/404" hreflang="en">
+				<link rel="alternate" href="https://www.lennox.com/fr/error-pages/404" hreflang="fr">
+						<link rel="alternate" href="https://www.lennox.com/es/error-pages/404" hreflang="es">
+				<link rel="alternate" href="https://www.lennox.com/error-pages/404" hreflang="x-default"> 
+	        
+    
+                                                                                                                                                                                                                                                            
+                        
+    	<title>404</title>
+    	
+	<!-- Meta Properties -->
+    	<meta name="description" content="">
+    	<meta name="keywords" content="">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="404">
+	<meta property="og:url" content="https://www.lennox.com/apple-touch-icon.png">
+		<!-- Favicon -->
+	<link rel="shortcut icon" href="/application/themes/lennox/assets/favicon.ico">
+	
+    <link rel="stylesheet" href="/application/themes/lennox/css/bootstrap-icons/bootstrap-icons.css">
+	<style>
+	@font-face{font-family:'Maven Pro';font-style:normal;font-weight:400;font-display:swap;src:url('/application/themes/lennox/css/fonts/maven-pro/maven-pro-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+	@font-face{font-family:'Maven Pro';font-style:normal;font-weight:500;font-display:swap;src:url('/application/themes/lennox/css/fonts/maven-pro/maven-pro-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+	@font-face{font-family:'Maven Pro';font-style:normal;font-weight:600;font-display:swap;src:url('/application/themes/lennox/css/fonts/maven-pro/maven-pro-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+	@font-face{font-family:'Maven Pro';font-style:normal;font-weight:700;font-display:swap;src:url('/application/themes/lennox/css/fonts/maven-pro/maven-pro-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+	@font-face{font-family:'Maven Pro';font-style:normal;font-weight:900;font-display:swap;src:url('/application/themes/lennox/css/fonts/maven-pro/maven-pro-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+	@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-display:swap;src:url('/application/themes/lennox/css/fonts/open-sans/open-sans-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+	@font-face{font-family:'Open Sans';font-style:normal;font-weight:500;font-display:swap;src:url('/application/themes/lennox/css/fonts/open-sans/open-sans-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+	@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-display:swap;src:url('/application/themes/lennox/css/fonts/open-sans/open-sans-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+	@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-display:swap;src:url('/application/themes/lennox/css/fonts/open-sans/open-sans-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+	</style>
+	<link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" rel="stylesheet">
+	<link href="/application/themes/lennox/js/bxSlider/jquery.bxslider.css" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="preload" as="style" href="/application/themes/lennox/scss/styles.dotsass">	
+	<link href="/application/themes/lennox/scss/styles.dotsass?v=0.16513541003389365" rel="stylesheet" >	
+	<link href="/application/themes/lennox/scss/lnx/lnx-styles.dotsass?v=0.1494538906919778" rel="stylesheet" >
+
+			<!-- Transperfect Language Script -->
+    <!-- Transperfect Translation-->
+<script referrerpolicy="no-referrer-when-downgrade" type="text/javascript" src="https://www.onelink-edge.com/moxie.min.js" data-oljs="PD55E-126C-52DB-58A0"></script>
+		
+		
+    
+    		<script type="application/ld+json" ng-bind="schemaDataJson">
+	{"@context":"http://schema.org","@graph":[{"@type":"Corporation","name":"Lennox International Inc.","legalName":"Lennox International Inc.","tickerSymbol":"NYSE: LII","address":{"@type":"PostalAddress","streetAddress":"2140 Lake Park Boulevard","addressLocality":"Richardson","addressRegion":"TX","postalCode":"75080","addressCountry":"USA"},"telephone":"+1-800-953-6669","founder":{"@type":"Person","name":"Dave Lennox"},"brand":{"@type":"Brand","logo":"/application/themes/lennox/assets/global/lennox_logo.svg"},"contactPoint":{"@type":"ContactPoint","contactType":"Customer Support","telephone":"+1-800-953-6669","email":"consumeraffairs@lennoxind.com"},"areaServed":["USA","Canada"],"duns":"139564538","email":"consumeraffairs@lennoxind.com","foundingDate":"1895","foundingLocation":{"@type":"Place","address":"Marshalltown, Iowa"},"logo":"/application/themes/lennox/assets/global/lennox_logo.svg","slogan":"Air is life. Make it perfect.","url":"https://www.lennox.com"},{"@type":"Webpage","reviewedBy":"Lennox International","significantLink":"https://lennox.com/residential/locate","specialty":"Lennox provides the best in home heating and systems with top of the line HVAC systems, furnaces, air conditioners, and many other home heating & air products.","audience":"homeowners","copyrightHolder":"Lennox International","copyrightYear":2019,"isFamilyFriendly":"Yes","primaryImageOfPage":"/application/themes/lennox/assets/global/lennox_logo.svg"}]}
+</script>		
+	<!-- Monitoring - Start -->
+	
+
+	<!-- Monitoring - End -->
+		
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+		<!-- Google Maps -->
+
+<script>
+    window.lennoxGoogleMapsMapId = "";
+</script>
+
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyBGd2h3_FbnHSM5vWXjHW76D6utRJ7giqU&loading=async"></script>
+
+
+<!-- End Google Maps -->
+	
+		<!-- Google Tag Manager -->
+
+<script>
+	(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TMW6S8F');
+</script>
+
+<!-- End Google Tag Manager -->
+	
+			
+									
+	<script async src="https://apps.bazaarvoice.com/deployments/lennoxcom/dotcms_lennox_prod/production/en_US/bv.js"></script>
+
+    
+		    	<!--BE IXF: JavaScript begin-->
+	<!--Access to and use of BrightEdge AutoPilot - Self Connecting Pages is governed by the
+		Infrastructure Product Terms located at: www.brightedge.com/infrastructure-product-terms.
+		Customer acknowledges and agrees it has read, understands and agrees to be bound by the
+		Infrastructure Product Terms. -->
+	<script src="//cdn.bc0a.com/autopilot/f00000000292967/autopilot_sdk.js"></script>
+	<!--BE IXF: JavaScript end-->
+
+</head>		
+	
+	<body>
+		
+<!-- Google Tag Manager (noscript) -->
+
+<noscript><iframe src=https://www.googletagmanager.com/ns.html?id=GTM-TMW6S8F height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- End Google Tag Manager (noscript) -->
+
+ 		
+		<div id="page-wrapper" class="lnx-nav-closed"> 
+         			<div id="page-container">
+                
+									<style>
+	header #primary-nav .lnx-has-supernav-active{
+		text-decoration: none;
+		color: #c9002d !important;
+	}
+    @media screen and (min-width: 1280px) {
+    #primary-nav .lnx-supernav.lnx-supernav-products .lnx-column.lnx-column-other .lnx-column-products {
+        height: inherit;
+    }
+}
+</style>
+
+
+<div id="ln__sub-nav" class="d-none d-lg-block">
+    <div class="lnx-container d-flex align-items-center justify-content-md-end">
+		<nav class="navbar navbar-expand-md">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<i class="bi bi-list"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="container px-md-0">
+					<ul class="navbar-nav">
+					    							<li class="nav-item">
+								<a href="/about/" target="_self" class="nav-link fs-7">
+        						    About
+    						    </a>
+							</li>
+													<li class="nav-item">
+								<a href="/sustainability/" target="_self" class="nav-link fs-7">
+        						    Sustainability
+    						    </a>
+							</li>
+													<li class="nav-item">
+								<a href="https://investor.lennox.com/" target="_blank" class="nav-link fs-7">
+        						    Investors
+    						    </a>
+							</li>
+													<li class="nav-item">
+								<a href="/careers/" target="_self" class="nav-link fs-7">
+        						    Careers
+    						    </a>
+							</li>
+													<li class="nav-item">
+								<a href="/contact-us" target="_self" class="nav-link fs-7">
+        						    Contact Us
+    						    </a>
+							</li>
+													<li class="nav-item">
+								<a href="https://investor.lennox.com/news-events/news-releases" target="_blank" class="nav-link fs-7">
+        						    Newsroom
+    						    </a>
+							</li>
+											</ul>
+				</div>
+			</div>
+		</nav>
+				<div class="nav-item dropdown OneLinkNoTx">
+			<a class="nav-link dropdown-toggle fs-7" href="javascript:void(0)" role="button" id="languageDropdownMob" data-bs-toggle="dropdown" aria-expanded="false">EN</a>
+			<ul class="dropdown-menu" aria-labelledby="languageDropdownMob" style="min-width:8rem;">
+				<li>
+					<a class="dropdown-item lang-dropdown" href="#" value="en" aria-label="Select English">English (EN)</a>
+				</li>
+								<li>
+					<a class="dropdown-item lang-dropdown" href="#" value="es" aria-label="Select Español">Español (ES)</a>
+				</li>
+												<li>
+					<a class="dropdown-item lang-dropdown" href="#" value="fr" aria-label="Select Français">Français (FR)</a>
+				</li>
+							</ul>
+		</div>
+		    </div>
+</div>
+
+<header>
+	<div class="position-relative lnx-container">
+		<div id="header-left">
+			<a href="/residential/"><img alt="Lennox Logo" class="mt-0 position-absolute" src="/application/themes/lennox/assets/global/lennox_logo.svg" id="logo"></a>
+		</div>
+				<!--Mobile Language Dropdown Starts-->
+		<div class="nav-item dropdown OneLinkNoTx d-block d-lg-none nav-lang-dropdown">
+			<a class="nav-link dropdown-toggle fs-7" href="javascript:void(0)" role="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">EN</a>
+			<ul class="dropdown-menu dd-menu-mob" aria-labelledby="languageDropdown" style="min-width:8rem;">
+				<li>
+					<a class="dropdown-item lang-dropdown" href="#" value="en" aria-label="Select English">English (EN)</a>
+				</li>
+								<li>
+					<a class="dropdown-item lang-dropdown" href="#" value="es" aria-label="Select Español">Español (ES)</a>
+				</li>
+												<li>
+					<a class="dropdown-item lang-dropdown" href="#" value="fr" aria-label="Select Français">Français (FR)</a>
+				</li>
+							</ul>
+		</div>
+		<!--Mobile Language Dropdown Ends-->
+				<div id="nav-wrapper">
+				<div id="secondary-info">
+					<span class="lnx-user-location">
+					<span class="position-relative lnx-location-prompt">
+						<span class="lnx-label">Your Location:</span>
+						<span class="position-relative lnx-user-location-zip">
+							<form id="header-postal-form" class="lnx-single-line lnx-no-label lnx-inline lnx-active" action="/residential/locate/" onsubmit="doSubmit(event)">
+								<label for="postalCode" class="visually-hidden">Enter your zip code</label>
+								<input id="postalCode" type="text" placeholder="ZIP CODE" name="zip">
+								<i class="lnx-icon lnx-icon-location"></i>
+								<input type="submit" value="Go" tabindex="-1" class="visually-hidden">
+							</form>
+						</span>
+					</span>
+					</span>
+					<a class="text-light position-relative lnx-find-dealer-alt lnx-cta lnx-cta-reverse lnx-btn" tabindex="0">Find a Dealer</a>
+					<form action="/residential/search/" class="lnx-search-form position-relative lnx-single-line lnx-no-label lnx-active">
+						<label for="searchkeyword" class="visually-hidden">Enter your zip code</label>
+						<input id="searchkeyword" type="search" name="q" placeholder="Search our site">
+						<input type="submit" value="Go" class="lnx-btn-icon lnx-btn-icon-search">
+					</form>
+
+					<div class="lnx-my-dealer-dropdown">
+						<div class="dropdown sortDropDown">
+							<a class="btn dropdown-toggle" href="#" role="button" id="myDealerMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+								<span class="lnx-icon-center">
+									<i class="lnx-icon icon-my-dealer-active white"></i> My Dealer <i class="lnx-icon lnx-icon-arrow-up"></i>
+								</span>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="myDealerMenuLink">
+								<div class="lnx-dealer-list"></div>
+
+								<a class="lnx-find-dealer" href="/residential/locate/"><span><i class="lnx-icon lnx-icon-location"></i> Find a Dealer</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<a class="text-primary lnx-nav-trigger"><span class="lnx-label">Menu</span> <span class="position-relative lnx-patty"></span></a>
+								<nav id="primary-nav" aria-label="primary-nav-label">
+					<a class="lnx-mobile-only text-light position-relative lnx-find-dealer d-block d-md-none" href="/residential/locate/" aria-hidden="true" tabindex="-1"><span><i class="position-absolute lnx-icon lnx-icon-location"></i> Find a Dealer</span></a>
+					<a class="lnx-mobile-only lnx-my-dealer d-none" href="/residential/locate/dealer/ca/north-hollywood/around-the-clock-hvac"><span><i class="lnx-icon icon-my-dealer-active white"></i> My Dealer</span></a>
+					<ul class="p-0">
+						<li id="PrimaryNavProducts" class="lnx-has-supernav">
+							<a href="/residential/products/" class="position-relative text-primary lnx-supernav-title">Products</a>
+							<div class="lnx-supernav lnx-supernav-products lnx-supernav-open" >
+								<div class="lnx-column lnx-double-column">
+									<div class="lnx-column-img">
+										<img alt="Heating & Cooling" src="/application/themes/lennox/assets/header/heating-and-cooling-nav.jpg" class="p-0 lnx-col-img">
+									</div>
+									<div class="lnx-column-content lnx-supernav-subnav">
+										<div class="text-primary lnx-column-title">
+											<img alt="Heating & Cooling  Mobile Thumb" src="/application/themes/lennox/assets/header/heating-and-cooling-m.jpg" class="lnx-supernav-mobile-thumb">
+											<a href="/residential/products/heating-cooling" class="p-0 text-primary">Heating & Cooling</a>
+										</div>
+										<ul>
+											<li><a href="/residential/products/heating-cooling/furnaces">Furnaces</a></li>
+											<li><a href="/residential/products/heating-cooling/air-conditioners">Air Conditioners</a></li>
+											<li>
+												<a href="/residential/products/heating-cooling/heat-pumps">Heat Pumps</a>
+											</li>
+											<li>
+												<a href="/residential/products/heating-cooling/packaged-units">Packaged Units</a>
+											</li>
+											<li>
+												<a href="/residential/products/heating-cooling/air-handlers">Air Handlers</a>
+											</li>
+											<li>
+												<a href="/residential/products/heating-cooling/boilers">Boilers</a>
+											</li>
+											<li>
+												<a href="/residential/products/heating-cooling/garage-heaters">Garage Heaters</a>
+											</li>
+											<li>
+												<a href="/residential/products/heating-cooling/mini-split-systems">Mini-Split Systems</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="lnx-column">
+									<div class="lnx-column-img">
+										<img alt="Comfort Controls" src="/application/themes/lennox/assets/header/comfort-controls-nav.jpg" class="p-0 lnx-col-img">
+									</div>
+									<div class="lnx-column-content lnx-supernav-subnav" supernav-sub-section="" sub-section-data="links.products.comfortControls">
+										<div class="text-primary lnx-column-title">
+											<img alt="Comfort Controls Mobile Thumb" src="/application/themes/lennox/assets/header/comfort-controls-m.jpg" class="lnx-supernav-mobile-thumb">
+											<a class="p-0 text-primary" href="/residential/products/comfort-controls">Comfort Controls</a>
+										</div>
+										<ul>
+											<li>
+												<a href="/residential/products/comfort-controls/thermostats">Thermostats</a>
+											</li>
+											<li>
+												<a href="/residential/products/comfort-controls/zoning">Zoning</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="lnx-column">
+									<div class="lnx-column-img"><img alt="Indoor Air Quality" src="/application/themes/lennox/assets/header/indoor-air-quality-nav.jpg" class="p-0 lnx-col-img">
+									</div>
+									<div class="lnx-column-content lnx-supernav-subnav">
+										<div class="text-primary lnx-column-title">
+											<img alt="Indoor Air Quality Mobile Thumb" src="/application/themes/lennox/assets/header/indoor-air-quality-m.jpg" class="lnx-supernav-mobile-thumb">
+											<a class="p-0 text-primary" href="/residential/products/indoor-air-quality">Indoor Air Quality</a>
+										</div>
+										<ul>
+											<li>
+												<a href="/residential/products/indoor-air-quality/air-purification">Air Purification</a>
+											</li>
+											<li>
+												<a href="/residential/products/indoor-air-quality/humidity-control">Humidity Control</a>
+											</li>
+											<li>
+												<a href="/residential/products/indoor-air-quality/ventilation">Ventilation</a>
+											</li>
+											<li>
+												<a href="/residential/owners/parts-and-filters/filters">Filters</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="lnx-column">
+									<div class="lnx-column-img">
+										<img alt="Water Heaters" src="/application/themes/lennox/assets/header/water-heater-d.png" class="p-0 lnx-col-img" width="170" height="90">
+									</div>
+									<div class="lnx-column-content lnx-supernav-subnav">
+										<div class="text-primary lnx-column-title">
+											<img alt="Water Heater Mobile Thumb" src="/application/themes/lennox/assets/header/water-heater-m.png" class="lnx-supernav-mobile-thumb">
+											<a class="p-0 text-primary" href="/residential/products/water-heaters">Water Heaters</a>
+										</div>
+										<ul>
+											<li>
+												<a href="/residential/products/water-heaters/gas">Gas</a>
+											</li>
+											<li>
+												<a href="/residential/products/water-heaters/electric">Electric</a>
+											</li>
+                                            <li>
+												<a href="/residential/products/water-heaters/heat-pump">Heat Pump</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+                                <div class="lnx-column lnx-column-other">
+									<div class="lnx-column-content lnx-column-products">
+										<div class="lnx-other-link">
+											<a href="/residential/products/systems" class="text-primary lnx-column-title">
+												<img alt="energy saving" src="/application/themes/lennox/assets/header/systems-m.jpg" class="lnx-supernav-mobile-thumb">
+												<img alt="Calculator - Energy saving" src="/application/themes/lennox/assets/header/systems-nav.jpg" class="lnx-column-img-desktop">
+												<div class="lnx-other-link-caption">SYSTEMS</div>
+											</a>
+										</div>
+										<div class="lnx-other-link">
+											<a href="/residential/productselector" class="text-primary lnx-column-title">
+												<img alt="Decorative Mobile" src="/application/themes/lennox/assets/header/product-selector-m.jpg" class="lnx-supernav-mobile-thumb">
+												<img alt="Finder - Healthy solution" src="/application/themes/lennox/assets/header/product-selector-nav.jpg" class="lnx-column-img-desktop">
+												<div class="lnx-other-link-caption">PRODUCT SELECTOR</div>
+											</a>
+										</div>
+										<div class="lnx-other-link">
+											<a href="/residential/products/our-product-lines" class="text-primary lnx-column-title">
+												<img alt="Innovation mobile decorative" src="/application/themes/lennox/assets/header/our-product-lines-m.jpg" class="lnx-supernav-mobile-thumb">
+												<img alt="Innovation Environmental" src="/application/themes/lennox/assets/header/our-product-lines-nav.jpg" class="lnx-column-img-desktop">
+												<div class="lnx-other-link-caption">OUR PRODUCT LINES</div>
+											</a>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</li>
+						<li id="PrimaryNavBuyers" class="lnx-has-supernav">
+							<a href="/residential/buyers-guide/" class="position-relative text-primary lnx-supernav-title">Buyer's Guide</a>
+							<div class="lnx-supernav lnx-supernav-buyers-guide lnx-supernav-open lnx-four-col" >
+								<div class="lnx-column lnx-double-column">
+									<div class="lnx-column-img">
+											<img alt="Guide to HVAC" src="/application/themes/lennox/assets/header/guide-to-hvac-nav.jpg" class="lnx-col-img">
+									</div>
+									<div class="lnx-column-content lnx-supernav-subnav" supernav-sub-section="" sub-section-data="links.buyersGuide.hvacGuide">
+										<div class="text-primary lnx-column-title"><img alt="Guide to HVAC Mobile Thumb" src="/application/themes/lennox/assets/header/guide-to-hvac-m.jpg" class="lnx-supernav-mobile-thumb"><a class="p-0 text-primary" href="/residential/buyers-guide/guide-to-hvac/">Guide to HVAC</a></div>
+										<ul>
+
+											<li>
+												<a href="/residential/buyers-guide/health-and-well-being/">Health & Well-being</a>
+											</li>
+											<li>
+												<a href="/residential/buyers-guide/guide-to-hvac/price-guide/">Price Guide</a>
+											</li>
+
+											<li>
+												<a href="/residential/buyers-guide/guide-to-hvac/repair-vs-replace/">Repair or Replace</a>
+											</li>
+											<li>
+												<a href="/residential/buyers-guide/guide-to-hvac/glossary/">Glossary</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="lnx-column">
+									<div class="lnx-column-img">
+										<img alt="Offers & Savings" src="/application/themes/lennox/assets/header/offers-and-savings-nav.jpg" class="p-0 lnx-col-img">
+									</div>
+									<div class="lnx-column-content lnx-supernav-subnav" supernav-sub-section="" sub-section-data="links.buyersGuide.offersSavings">
+										<div class="text-primary lnx-column-title"><img alt="Offers & Savings Mobile Thumb" src="/application/themes/lennox/assets/header/offers-and-savings-m.jpg" class="lnx-supernav-mobile-thumb"><a class="p-0 text-primary" href="/residential/buyers-guide/offers-and-savings/">Offers & Savings</a></div>
+										<ul>
+											<li>
+												<a href="/residential/buyers-guide/offers-and-savings/promotions/">Promotions and Product Rebates</a>
+												
+																								    												                                                                <ul class="lnx-sub-sub-section">
+                                                                                                                        <li>
+                                                            <a class="selected" href="/residential/buyers-guide/offers-and-savings/promotions/national-promotions/">- U.S.</a>
+                                                            </li>
+                                                                                                                                                                                    <li>
+                                                            <a class="selected" href="/residential/buyers-guide/offers-and-savings/promotions/canada-promotions/">- Canada</a>
+                                                            </li>
+                                                                                                                    </ul>
+                                                        												    																							</li>
+											<li>
+												<a href="/residential/buyers-guide/offers-and-savings/financing/">Financing</a>
+											</li>
+											<li>
+																								<a href="/residential/buyers-guide/offers-and-savings/rebates">Rebate Center </a>
+																							</li>
+											<li>
+												<a href="/residential/buyers-guide/offers-and-savings/energy-tax-credits/">Federal Energy Tax Credits</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="lnx-column">
+									<div class="lnx-column-img">
+										<img alt="Why Buy Lennox?" src="/application/themes/lennox/assets/header/why-buy-lennox-nav.jpg" class="p-0 lnx-col-img">
+									</div>
+									<div class="lnx-column-content lnx-supernav-subnav">
+										<div class="text-primary lnx-column-title"><img alt="Why Buy Lennox? Mobile Thumb" src="/application/themes/lennox/assets/header/why-buy-lennox-m.jpg" class="lnx-supernav-mobile-thumb"><a class="p-0 text-primary" href="/residential/buyers-guide/why-buy-lennox/">Why Buy Lennox?</a></div>
+										<ul>
+											<li>
+												<a href="/residential/buyers-guide/why-buy-lennox/lennox-premier-dealers/">Lennox<sup class="position-relative">®</sup> Premier Dealers™</a>
+											</li>
+											<li>
+												<a href="/residential/buyers-guide/why-buy-lennox/ratings-and-reviews/">Ratings & Reviews</a>
+											</li>
+											<li>
+												<a href="/residential/buyers-guide/why-buy-lennox/warranty/">Pre-Warranty Registration</a>
+											</li>
+											<li>
+												<a href="/residential/buyers-guide/why-buy-lennox/energy-star/">ENERGY STAR<sup class="position-relative">®</sup></a>
+											</li>
+											<li>
+												<a href="/residential/products/awards">Award Winning Products</a>
+											</li>
+											<li>
+												<a href="/residential/buyers-guide/why-buy-lennox/quantum-coil-technology/">Quantum™ Coil</a>
+											</li>
+											<li>
+												<a href="/residential/buyers-guide/why-buy-lennox/healthy-climate-solutions/">Healthy Climate Solutions™</a>
+											</li>
+											<li>
+												<a href="/residential/heating-and-cooling/low-nox/">Ultra-Low Emissions Furnaces</a>
+											</li>
+											<li>
+												<a href="/about/">History</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="lnx-column lnx-column-other">
+									<div class="lnx-column-content">
+										<div class="lnx-other-link">
+											<a href="/residential/buyers-guide/tools/energy-savings-calculator" class="text-primary lnx-column-title">
+												<img alt="energy saving" src="/application/themes/lennox/assets/header/energy-savings-calculator-m.jpg" class="lnx-supernav-mobile-thumb">
+												<img alt="Calculator - Energy saving" src="/application/themes/lennox/assets/header/energy-savings-calculator-nav.jpg" class="lnx-column-img-desktop">
+												<div class="lnx-other-link-caption">Energy Savings Calculator</div>
+											</a>
+										</div>
+										<div class="lnx-other-link">
+											<a href="/residential/buyers-guide/tools/healthy-solutions-finder" class="text-primary lnx-column-title">
+												<img alt="Decorative Mobile" src="/application/themes/lennox/assets/header/healthy-solutions-m.jpg" class="lnx-supernav-mobile-thumb">
+												<img alt="Finder - Healthy solution" src="/application/themes/lennox/assets/header/healthy-solutions-nav.jpg" class="lnx-column-img-desktop">
+												<div class="lnx-other-link-caption">Healthy Solutions Finder</div>
+											</a>
+										</div>
+										<div class="lnx-other-link">
+											<a href="/sustainability/residential/environmental-innovation/" class="text-primary lnx-column-title">
+												<img alt="Innovation mobile decorative" src="/application/themes/lennox/assets/header/environmental-sm.jpg" class="lnx-supernav-mobile-thumb">
+												<img alt="Innovation Environmental" src="/application/themes/lennox/assets/header/environmental-sm.jpg" class="lnx-column-img-desktop">
+												<div class="lnx-other-link-caption">Environmental Innovation</div>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li id="PrimaryNavLennoxLife" class="lnx-no-supernav">
+							<a href="/residential/lennox-life/" class="position-relative text-primary lnx-supernav-title">Lennox Life</a>
+						</li>
+						<li id="PrimaryNavOwners" class="lnx-has-supernav">
+							<a href="/residential/owners/" class="position-relative text-primary lnx-supernav-title">Owners</a>
+							<div class="lnx-supernav lnx-supernav-owners lnx-supernav-open lnx-four-col">
+								<div class="lnx-column">
+									<div class="lnx-column-img">
+										<img alt="Resources" src="/application/themes/lennox/assets/header/owners-assistance-nav.jpg" class="p-0 lnx-col-img">
+									</div>
+									<div class="lnx-column-content lnx-supernav-subnav">
+										<div class="text-primary lnx-column-title">
+											<img alt="Resources Mobile Thumb" src="/application/themes/lennox/assets/header/owners-assistance-m.jpg" class="lnx-supernav-mobile-thumb">
+											<a class="p-0 text-primary" href="/residential/owners/assistance/">Resources</a>
+										</div>
+										<ul>
+											<li>
+												<a href="/residential/owners/assistance/product-literature/">Manuals and Brochures</a>
+											</li>
+											<li>
+												<a href="/residential/owners/assistance/maintenance-and-efficiency/">Maintenance and Efficiency</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="lnx-column">
+									<div class="lnx-column-img">
+										<img alt="Register & Review" src="/application/themes/lennox/assets/header/product-registration-nav.jpg" class="p-0 lnx-col-img">
+									</div>
+									<div class="lnx-column-content lnx-supernav-subnav">
+										<div class="text-primary lnx-column-title">
+											<img alt="Register & Review Mobile Thumb" src="/application/themes/lennox/assets/header/product-registration-m.jpg" class="lnx-supernav-mobile-thumb">
+											<a class="p-0 text-primary" href="/residential/owners/register-and-review/">Register & Review</a>
+										</div>
+										<ul>
+											<li>
+												<a href="/residential/owners/register-and-review/product-registration/">Product Registration</a>
+											</li>
+											<li>
+												<a href="/residential/owners/register-and-review/rate-your-product/">Rate Your Product</a>
+											</li>
+											<li>
+												<a href="/residential/buyers-guide/offers-and-savings/energy-tax-credits/">Federal Tax Credits</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="lnx-column">
+									<div class="lnx-column-img">
+										<img alt="iComfort Owners" src="/application/themes/lennox/assets/header/tax-credits-nav.jpg" class="p-0 lnx-col-img">
+									</div>
+									<div class="lnx-column-content lnx-supernav-subnav">
+										<div class="text-primary lnx-column-title">
+											<img alt="iComfort Owners Mobile Thumb" src="/application/themes/lennox/assets/header/tax-credits-m.jpg" class="lnx-supernav-mobile-thumb">
+											<a class="p-0 text-primary" href="/residential/support/" onclick="trackGAEventDealer('homepage_header_menu', { click_text: 'Support' });">Support</a>
+										</div>
+										<ul>
+                                            <li>
+												<a href="/residential/support/product-help/indoor-air-quality/" onclick="trackGAEventDealer('homepage_header_menu', { click_text: 'Air Quality Support' });">Air Quality Support</a>
+											</li>
+                                             <li>
+												<a href="/residential/support/product-help/smart-thermostats/" onclick="trackGAEventDealer('homepage_header_menu', { click_text: 'Smart Thermostat Support' });">Smart Thermostat Support</a>
+											</li>
+                                             <li>
+												<a href="/residential/support/product-help/water-heaters/" onclick="trackGAEventDealer('homepage_header_menu', { click_text: 'Water Heater Support' });">Water Heater Support</a>
+											</li>
+                                             <li>
+												<a href="/residential/support/product-help/apps/" onclick="trackGAEventDealer('homepage_header_menu', { click_text: 'Apps & Account' });">Apps & Account</a>
+											</li>
+											<li>
+												<a href="/residential/owners/assistance/warranty/" onclick="trackGAEventDealer('homepage_header_menu', { click_text: 'Warranty Lookup' });">Warranty Lookup</a>
+											</li>
+                                            <li>
+												<a href="/residential/support/faqs/" onclick="trackGAEventDealer('homepage_header_menu', { click_text: 'Support FAQs' });">Support FAQs</a>
+											</li>
+                                            <li>
+												<a href="/residential/support/contact/" onclick="trackGAEventDealer('homepage_header_menu', { click_text: 'Contact Support' });">Contact Support</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="lnx-column lnx-column-other">
+									<div class="lnx-column-content">
+										<div class="lnx-other-link">
+											<a href="/residential/owners/parts-and-filters/filters/" class="text-primary lnx-column-title">
+												<img alt=" Decorative - filters Mobile" src="/application/themes/lennox/assets/header/filters-m.jpg" class="lnx-supernav-mobile-thumb">
+												<img alt="check Filters" src="/application/themes/lennox/assets/header/filters-nav.jpg" class="lnx-column-img-desktop">
+												<div class="lnx-other-link-caption">Filters</div>
+											</a>
+										</div>
+										<div class="lnx-other-link">
+											<a href="/residential/owners/parts-and-filters/parts/" class="text-primary lnx-column-title">
+												<img alt="Decorative image for parts - mobile" src="/application/themes/lennox/assets/header/parts-m.jpg" class="lnx-supernav-mobile-thumb">
+												<img alt="check for Parts" src="/application/themes/lennox/assets/header/parts-nav.jpg" class="lnx-column-img-desktop">
+												<div class="lnx-other-link-caption">Parts</div>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+													<li class="d-block d-lg-none lnx-no-supernav lnx-no-hover lnx-faux-link">
+								<a href="/about/" target="_self" class="lnx-supernav-title">
+									About
+								</a>
+							</li>
+													<li class="d-block d-lg-none lnx-no-supernav lnx-no-hover lnx-faux-link">
+								<a href="/sustainability/" target="_self" class="lnx-supernav-title">
+									Sustainability
+								</a>
+							</li>
+													<li class="d-block d-lg-none lnx-no-supernav lnx-no-hover lnx-faux-link">
+								<a href="https://investor.lennox.com/" target="_blank" class="lnx-supernav-title">
+									Investors
+								</a>
+							</li>
+													<li class="d-block d-lg-none lnx-no-supernav lnx-no-hover lnx-faux-link">
+								<a href="/careers/" target="_self" class="lnx-supernav-title">
+									Careers
+								</a>
+							</li>
+													<li class="d-block d-lg-none lnx-no-supernav lnx-no-hover lnx-faux-link">
+								<a href="/contact-us" target="_self" class="lnx-supernav-title">
+									Contact Us
+								</a>
+							</li>
+													<li class="d-block d-lg-none lnx-no-supernav lnx-no-hover lnx-faux-link">
+								<a href="https://investor.lennox.com/news-events/news-releases" target="_blank" class="lnx-supernav-title">
+									Newsroom
+								</a>
+							</li>
+												<li class="lnx-no-supernav lnx-no-hover lnx-faux-link lnx-last lnx-supernav-search">
+							<a class="lnx-supernav-title lnx-open-search">Search <i class="position-relative lnx-btn-icon lnx-btn-icon-search"></i></a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+</header>
+
+				
+																				<main>
+																										<div class="lnx-wrapper lnx-basic-page">
+    <div class="lnx-container">
+        <div class="px-0 lnx-page-header">
+            <h1 class="lnx-page-title">404 - Page Not Found</h1>
+        </div>
+        <div class="lnx-main-body-wrapper">
+            <div class="lnx-main-text-and-links">
+                <h2 class="h3">We can't seem to find the page you're looking for.</h2>
+                <p>In the meantime, here are some helpful links:</p>
+                <ul class="lnx-the-list">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/residential/search">Search</a></li>
+                    <li><a href="/residential/contact-us/">Help</a></li>
+                    <li><a href="/residential/products/heating-cooling/air-conditioners">Air Conditioners</a></li>
+                    <li><a href="/residential/products/heating-cooling/furnaces">Furnaces</a></li>
+                    <li><a href="/residential/owners/register-and-review/product-registration">Product Registration</a></li>
+                </ul>
+            </div>
+            <div class="lnx-the-images">
+                <img src="/images/errors/404.svg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+																						</main>
+																							
+                												
+				
+				<div id="fixed-locator-footer-2" class="d-none">
+    <i class="lnx-icon lnx-icon-close"></i>
+
+	<div class="container">
+		<div class="dealer-locator-prompt-content">
+			<img src="/images/homepage/locator-pin-white.svg" alt="Map pin icon">
+			<h2>Find a Lennox dealer near you</h2>
+			<a class="lnx-cta lnx-btn" href="/residential/locate/">Search Dealers</a>
+		</div>
+	</div>
+
+</div>
+
+<script>
+	var locatorWidget = localStorage.getItem("locator-widget");
+	if(!locatorWidget){
+		$('#fixed-locator-footer-2').removeClass('d-none');
+	}
+	$('#fixed-locator-footer-2 .lnx-icon').on('click',function(){
+		$('#fixed-locator-footer-2').addClass('d-none');
+		localStorage.setItem("locator-widget","clicked");	
+	});
+</script>
+
+<script>
+	function adjustChatbotPosition() {
+		const footer = document.getElementById("fixed-locator-footer-2");
+		const chatbot = document.querySelector(".chat-icon-wrapper");
+		
+		if (!footer || !chatbot) return;
+
+		// Move chatbot up if footer is visible and chat is minimized
+		if (!footer.classList.contains("d-none")) {
+		chatbot.classList.add("chatbot-move-up");
+		} else {
+		chatbot.classList.remove("chatbot-move-up");
+		}
+	}
+
+	function setupChatbotPositioning() {
+		//debugger;
+		const footer = document.getElementById("fixed-locator-footer-2");
+		const chatbot = document.querySelector(".chat-icon-wrapper");
+		
+		if (!footer || !chatbot) return;
+
+		setTimeout(adjustChatbotPosition, 500);
+
+		// Footer close event
+		footer.querySelector(".lnx-icon")?.addEventListener("click", () => {
+		setTimeout(adjustChatbotPosition, 100);
+		});
+
+		// Trigger on chat icon click (toggle chat open/minimize)
+		chatbot.addEventListener("click", () => {
+		setTimeout(adjustChatbotPosition, 300);
+		});
+
+	}
+
+	document.addEventListener("DOMContentLoaded", () => {
+		if (document.querySelector(".chat-icon-wrapper")) {
+		setupChatbotPositioning();
+		} else {
+		// Retry if chatbot loads late
+		const interval = setInterval(() => {
+			if (document.querySelector(".chat-icon-wrapper")) {
+			clearInterval(interval);
+			setupChatbotPositioning();
+			}
+		}, 100);
+		}
+	});
+	$(document).on('click','.chat-menu-icon, .chat-dropdown-item', function() {
+		setTimeout(adjustChatbotPosition, 500);
+	});
+	
+</script>
+
+
+
+				
+			</div>
+		</div>
+       
+		
+  
+        
+
+        			
+
+
+
+    <!-- Footer - Start -->
+    <footer id="ln__footer">
+    	<div id="ln__footer-main-nav" class="d-flex align-items-center pt-4 pb-5 pt-lg-5">
+    		<div class="lnx-container">
+    			<div class="row">
+    				<div class="col-lg-6">
+    					<div class="d-flex flex-column pe-lg-5">
+                            <div class="d-flex d-lg-none justify-content-center mb-4">
+                                <button type="button" class="bg-transparent border-0 d-flex align-items-center fs-7 text-color p-0" onclick="scrollToTop()">
+                                    <i class="bi bi-arrow-up-short fs-3"></i> Back To Top
+                                </button>
+                            </div>
+    						<div class="ln__logo mb-4">
+    							<img src="/application/themes/lennox/assets/global/lennox_logo.svg" alt="" class="w-100 h-auto" height="50px" width="250px"/>
+    						</div>
+    						<div class="d-flex flex-column">
+    						            						    <div class="fs-5 mb-2">
+        						        Lennox (NYSE: LII) is a leader in energy-efficient climate-control solutions.
+        						    </div>
+    						        						            						    <div class="fs-7">
+        						        Dedicated to sustainability and creating comfortable and healthier environments for our residential and commercial customers while reducing their carbon footprint, we lead the field in innovation with our cooling, heating, indoor air quality, and refrigeration systems.
+        						    </div>
+    						        						</div>
+    					</div>
+    					
+    					        			        <div id="ln__bbb" class="mt-4 pt-2">
+                			    <a href="https://www.bbb.org/us/tx/richardson/profile/wholesale-major-appliances/lennox-industries-inc-0875-2252" target="_blank">
+                			        <img src="/dA/a6d43105fc/seal-for-2252.png" alt="Better Business Bureau Logo" height="57" width="300" />
+                			        <span class="visually-hidden">(opens in new window)</span>
+                			    </a>
+                			</div>
+                		    				</div>
+    				<div class="col-lg-6">
+    					<div class="row">
+    						<div class="col-lg-6">
+    							<div class="d-flex flex-column mt-5 mt-lg-0">
+    								    								    <a href="/residential/" class="fs-5 text-color ln__text-decoration-underline-hover" target="_self">
+    								        Residential HVAC
+								        </a>
+    								    								<ul class="d-flex flex-lg-column flex-wrap list-style-none m-0 p-0 w-100">
+    								            								    <li class="mt-4 min-w-50">
+        								        <span class="fs-7 fw-600 secondary-font">Homeowner</span>
+        								        <ul class="list-style-none m-0 p-0">
+        								            														                									    <li>
+                									        <a href="/residential/products/" class="fs-7 " target="_self">
+                									            Products
+            									            </a>
+                									    </li>
+														                																							                									    <li>
+                									        <a href="/residential/locate/" class="fs-7 " target="_self">
+                									            Find a Dealer
+            									            </a>
+                									    </li>
+														                																							                									    <li>
+                									        <a href="/residential/support/" class="fs-7 " target="_self">
+                									            Support Center
+            									            </a>
+                									    </li>
+														                																							                									    <li>
+                									        <a href="/residential/lennox-life/" class="fs-7 " target="_self">
+                									            Blog
+            									            </a>
+                									    </li>
+														                																							                									    <li>
+                									        <a href="/residential/media-room/" class="fs-7 " target="_self">
+                									            Media Room
+            									            </a>
+                									    </li>
+														                																																					                																																					                									            									</ul>
+        								    </li>
+    								        								            								    <li class="mt-4 min-w-50">
+        								        <span class="fs-7 fw-600 secondary-font">Dealer</span>
+        								        <ul class="list-style-none m-0 p-0">
+        								                            									    <li>
+                									        <a href="https://www.lennoxpros.com/" class="fs-7 " target="_blank">
+                									            Pros Support
+            									            </a>
+                									    </li>
+                									                									    <li>
+                									        <a href="https://www.lennoxpros.com/become-a-lennox-partner?utm_source=navigation&utm_medium=web" class="fs-7 " target="_blank">
+                									            Become a Dealer
+            									            </a>
+                									    </li>
+                									            									</ul>
+        								    </li>
+    								        								        								</ul>
+    							</div>
+    						</div>
+    						<div class="col-lg-6">
+    							<div class="d-flex flex-column mt-4 mt-lg-0">
+    								    								    <a href="/commercial" class="fs-5 text-color ln__text-decoration-underline-hover" target="_self">
+    								        Commercial HVAC
+								        </a>
+    								    								<ul class="d-flex flex-lg-column flex-wrap list-style-none m-0 p-0 w-100">
+    								            								    <li class="mt-4 min-w-50">
+        								        <span class="fs-7 fw-600 secondary-font">Contractors</span>
+        								        <ul class="list-style-none m-0 p-0">
+        								                            									    <li>
+                									        <a href="/commercial/connect/request-a-quote" class="fs-7 " target="_self">
+                									            Request a Quote
+            									            </a>
+                									    </li>
+                									                									    <li>
+                									        <a href="/commercial/resources/product-documentation" class="fs-7 " target="_self">
+                									            Product Documentation
+            									            </a>
+                									    </li>
+                									                									    <li>
+                									        <a href="/commercial/blog" class="fs-7 " target="_self">
+                									            Blog
+            									            </a>
+                									    </li>
+                									            									</ul>
+        								    </li>
+    								        								        								            								    <li class="mt-4 min-w-50">
+        								        <span class="fs-7 fw-600 secondary-font">Support</span>
+        								        <ul class="list-style-none m-0 p-0">
+        								                            									    <li>
+                									        <a href="/commercial/locate" class="fs-7 " target="_self">
+                									            Find a Contractor
+            									            </a>
+                									    </li>
+                									                									    <li>
+                									        <a href="/commercial/connect/contact-sales-support" class="fs-7 " target="_self">
+                									            Sales Support
+            									            </a>
+                									    </li>
+                									                									    <li>
+                									        <a href="/commercial/resources/technical-support" class="fs-7 " target="_self">
+                									            Tech Support
+            									            </a>
+                									    </li>
+                									                									    <li>
+                									        <a href="/commercial/resources/revit" class="fs-7 " target="_blank">
+                									            Revit Files
+            									            </a>
+                									    </li>
+                									                									    <li>
+                									        <a href="/commercial-services/nas" class="fs-7 " target="_self">
+                									            National Account Services
+            									            </a>
+                									    </li>
+                									            									</ul>
+        								    </li>
+    								        								</ul>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="row">
+    			    <div class="col-md-12 my-2">
+    			        <div class="border-top border-text-color pt-4 mt-4"></div>
+    			    </div>
+    			</div>
+    			<div class="row">
+				    						<div class="col-lg-6 col-xl-8">
+							<ul class="d-flex flex-wrap fw-600 list-style-none m-0 p-0 secondary-font">
+							                                        <li class="ln__extra-links  pe-4 ">
+                						<a href="/about/" target="_self" class="fs-7 ">
+                						    About
+            						    </a>
+                					</li>
+                                                                    <li class="ln__extra-links  pe-4 ">
+                						<a href="/sustainability/" target="_self" class="fs-7 ">
+                						    Sustainability
+            						    </a>
+                					</li>
+                                                                    <li class="ln__extra-links  pe-4 ">
+                						<a href="https://investor.lennox.com/" target="_blank" class="fs-7 ">
+                						    Investors
+            						    </a>
+                					</li>
+                                                                    <li class="ln__extra-links  pe-4 ">
+                						<a href="/careers/" target="_self" class="fs-7 ">
+                						    Careers
+            						    </a>
+                					</li>
+                                                                    <li class="ln__extra-links  pe-4 ">
+                						<a href="/suppliers/" target="_self" class="fs-7 ">
+                						    Suppliers
+            						    </a>
+                					</li>
+                                                                    <li class="ln__extra-links  pe-4 ">
+                						<a href="/contact-us" target="_self" class="fs-7 ">
+                						    Contact Us
+            						    </a>
+                					</li>
+                                                                    <li class="ln__extra-links ">
+                						<a href="https://investor.lennox.com/news-events/news-releases" target="_blank" class="fs-7 ">
+                						    Newsroom
+            						    </a>
+                					</li>
+                                							</ul>
+						</div>
+										<div class="col-lg-6 d-lg-none my-2">
+    			        <div class="border-top border-text-color pt-4 mt-4"></div>
+    			    </div>
+											<div class="col-lg-6 col-xl-4 d-flex justify-content-lg-end">
+						    <div class="ln__social-links d-flex flex-column">
+    							<span class="fs-7 fw-600 secondary-font">Connect With Us:</span>
+    							<ul class="d-flex align-items-center list-style-none mt-2 mb-0 p-0">
+    								    								        								<li>
+        									<a href="https://www.facebook.com/Lennox/" target="_blank">
+        										<img src="/application/themes/lennox/assets/icons/icon-facebook.svg" alt="Facebook" width="29" height="29"/>
+        									</a>
+        								</li>
+    								    								        								<li>
+        									<a href="https://x.com/lennoxair" target="_blank">
+        										<img src="/application/themes/lennox/assets/icons/icon-twitter.svg" alt="Twitter" width="29" height="29"/>
+        									</a>
+        								</li>
+    								    								        								<li>
+        									<a href="https://www.youtube.com/lennoxresidential" target="_blank">
+        										<img src="/application/themes/lennox/assets/icons/icon-youtube.svg" alt="Youtube" width="29" height="29"/>
+        									</a>
+        								</li>
+    								    								        								<li>
+        									<a href="https://www.instagram.com/lennoxair/" target="_blank">
+        										<img src="/application/themes/lennox/assets/icons/icon-instagram.svg" alt="Instagram" width="29" height="29"/>
+        									</a>
+        								</li>
+    								    							</ul>
+    						</div>
+						</div>
+									</div>
+    		</div>
+    	</div>
+    	<div id="ln__footer-sub-nav" class="d-flex align-items-center py-4 py-lg-0">
+    		<div class="lnx-container d-flex align-items-center justify-content-end">
+    			<nav>
+    				<ul class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start list-style-none m-0 p-0">
+    				            				    <li class="mx-3">
+        				        <span class="fs-8">©2026 Lennox International Inc.</span>
+        				    </li>
+    				        				                                <li class="mx-3">
+        						<a href="/site-map" target="_self" class="fs-8 ln__text-decoration-underline-hover ">
+        						    Site Map
+    						    </a>
+        					</li>
+                                                    <li class="mx-3">
+        						<a href="/accessibility" target="_self" class="fs-8 ln__text-decoration-underline-hover ">
+        						    Accessibility Statement
+    						    </a>
+        					</li>
+                                                    <li class="mx-3">
+        						<a href="/privacy" target="_self" class="fs-8 ln__text-decoration-underline-hover ">
+        						    Privacy
+    						    </a>
+        					</li>
+                                                    <li class="mx-3">
+        						<a href="/terms-and-conditions" target="_self" class="fs-8 ln__text-decoration-underline-hover ">
+        						    Terms & Conditions
+    						    </a>
+        					</li>
+                            				</ul>
+    			</nav>
+    		</div>
+    	</div>
+    </footer>
+    <!-- Footer - End -->
+		
+		<div id="lnx-search-popup" class="lnx-search-flood__wrap lnx-search-flood__hidden"> <!-- add lnx-search-flood__hidden class to hide overlay -->
+	<div class="lnx-search-flood">
+		<a class="lnx-search-flood__close"><span class="lnx-icon lnx-icon-flood-close"></span></a>
+		<div class="lnx-search-flood__body">
+
+			<div class="lnx-search-flood__top">
+
+				<div id="lnx-search-popup-box" class="lnx-search-wrap lnx-search-flood__form">
+					<div class="lnx-search-flood__form-wrap lnx-main-header-search">
+						<form class="lnx-active" action="/residential/search/">
+							<label for="q">What can we help you find?</label>
+							<input class="lnx-st-default-search-input" type="search" name="q" id="q" placeholder="Search" autocomplete="off" autocorrect="off" autocapitalize="off" onkeyup="globalSearchAutocomplete(this.value,'#lnx-search-popup-box')" onfocusout="globalSearchAutocompleteFocusOut('#lnx-search-popup-box')" onclick="globalSearchToggle(false, '#lnx-search-popup-box')">
+							<button class="lnx-search-flood__submit lnx-search-btn" aria-label="Search"><i class="lnx-btn-icon lnx-btn-icon-search"></i><span class="visually-hidden">Submit</span></button>
+						</form>
+					</div>
+					<div class="lnx-search-response-wrap" class="flex-column">
+						<div class="lnx-search-response-loading">
+							<div class="spinner-border text-primary" role="status">
+								<span class="visually-hidden">Loading...</span>
+							</div>
+						</div>
+						<div class="lnx-search-response-list" class="w-100">
+							<div class="lnx-search-response-item">
+								<div class="lnx-search-response-item-body" class="d-none">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="lnx-search-flood__bottom">
+				<div>
+					<div class="lnx-cta-card">
+						<div class="lnx-cta-message">
+							<img src="/application/themes/lennox/assets/icons/flood-search-pin.svg" alt="alt text goes here" class="lnx-desktop-only lnx-search-flood__icon">
+							<p>It's also easy to find an expert Lennox<sup>®</sup> dealer who can help <br>you make the most of your HVAC system.</p>
+							<a class="lnx-search-flood__btn" href="/residential/locate/">View Now</a>
+						</div>
+					</div> 
+					<div id="locator-canvas-flood" style="position: relative; overflow: hidden;"><div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);"><div class="gm-style" style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px;"><div tabindex="0" aria-label="Map" aria-roledescription="map" role="region" style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; cursor: url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur"), default; touch-action: none;"><div style="z-index: 1; position: absolute; left: 50%; top: 50%; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"></div></div><div style="z-index: 3; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px; touch-action: pan-x pan-y;"><div style="z-index: 4; position: absolute; left: 50%; top: 50%; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;"><span id="62736DBF-93BD-49C9-98A1-68CC81ABE5C6" style="display: none;">To navigate, press the arrow keys.</span></div><div style="position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;"></div></div></div><div class="gm-style-moc" style="z-index: 4; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px; opacity: 0;"><p class="gm-style-mot"></p></div></div>
+					<div style="pointer-events: none; width: 100%; height: 100%; box-sizing: border-box; position: absolute; z-index: 1000002; opacity: 0; border: 2px solid rgb(26, 115, 232);"></div></div></div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>		
+      
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.2/dist/umd/popper.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+		<script src="/application/themes/lennox/js/bxSlider/jquery.bxslider.js"></script>
+		<script src="/application/themes/lennox/js/lnx.js"></script>
+		<script src="/application/themes/lennox/js/scripts.js?v=1.0.1"></script>
+		<script src="/application/themes/lennox/js/usabilla-getfeedback.js"></script>
+		<!-- Bazaar Voice -->
+<div class="modal fade" id="modalReviewWidget" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg  modal-dialog-centered">
+		<div class="modal-content lnx-scroll-inside">
+			<div class="modal-header">
+				<h2 class="modal-title">See what other customers are saying about <span class="pid"></span></h2>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body mt-0">
+				<div id="BVRRContainer">
+					<h2 class="text-center mt-3">Loading...</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+    #modalReviewWidget {
+        background: rgba(0, 0, 0, 0.5);
+    }
+		.bv-cv2-cleanslate .bv-mbox-lightbox .bv-submission .bv-fieldsets.bv-input-fieldsets{height: calc(90vh - 230px) !important; overflow: auto !important;}
+	.bv-cv2-cleanslate .bv-mbox-lightbox .bv-submission .bv-fieldsets.bv-input-fieldsets .bv-fieldset:first-child{position: sticky !important; top: 0 !important; z-index: 1000 !important;}
+	.bv-cv2-cleanslate .bv-mbox-lightbox .bv-submission .bv-fieldsets.bv-input-fieldsets .bv-fieldset:not(.bv-fieldset-active){background-color: #f7f7f7!important;}
+	@media screen and (max-width: 680px){
+		.bv-cv2-cleanslate .bv-mbox-lightbox .bv-submission .bv-fieldsets.bv-input-fieldsets{height: calc(90vh - 290px) !important;}
+	}
+</style>
+
+<script>
+	var review_product_id = '';
+	$(function(){
+		$('#page-container').on('mouseenter','[data-bv-show]', function(){
+			review_product_id = $(this).attr('data-bv-product-id');
+			$('#modalReviewWidget .pid').text(review_product_id);
+		});
+
+        // Close Bootstrap Modal Manually because BV and bootstrap script conflicting
+		$('.btn-close').on('click', function(){
+            $('body').removeClass('overflow-hidden');
+            $('#modalReviewWidget').removeClass('show d-block');
+		})
+		
+	});
+
+	window.bvCallback = function (BV) {
+	  BV.reviews.on('show', function () {
+		$BV.ui("rr", "show_reviews", {
+			productId: review_product_id
+		});
+		
+		// Open Bootstrap Modal Manually because BV and bootstrap script conflicting
+        $('body').addClass('overflow-hidden');
+        $('#modalReviewWidget').addClass('show d-block');
+
+	  });
+	};
+</script>
+<!-- Bazaar Voice -->				
+	<!-- OneTrust Cookies Consent Notice start -->
+	<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="cdeec3ce-f45c-4dc9-a657-c87cd39de65c" ></script>
+	
+	<script type="text/javascript">
+		function OptanonWrapper() { }
+	</script>
+	
+	<!-- OneTrust Cookies Consent Notice end for www.lennox.com -->
+	
+	
+      
+				
+ 		
+                        <!-- Usabilla Combicode for Lennox-->
+        <!-- Begin Usabilla for Websites embed code -->
+        <script type="text/javascript">/*{literal}<![CDATA[*/window.lightningjs||function(c){function g(b,d){d&&(d+=(/\?/.test(d)?"&":"?")+"lv=1");c[b]||function(){var i=window,h=document,j=b,g=h.location.protocol,l="load",k=0;(function(){function b(){a.P(l);a.w=1;c[j]("_load")}c[j]=function(){function m(){m.id=e;return c[j].apply(m,arguments)}var b,e=++k;b=this&&this!=i?this.id||0:0;(a.s=a.s||[]).push([e,b,arguments]);m.then=function(b,c,h){var d=a.fh[e]=a.fh[e]||[],j=a.eh[e]=a.eh[e]||[],f=a.ph[e]=a.ph[e]||[];b&&d.push(b);c&&j.push(c);h&&f.push(h);return m};return m};var a=c[j]._={};a.fh={};a.eh={};a.ph={};a.l=d?d.replace(/^\/\//,(g=="https:"?g:"http:")+"//"):d;a.p={0:+new Date};a.P=function(b){a.p[b]=new Date-a.p[0]};a.w&&b();i.addEventListener?i.addEventListener(l,b,!1):i.attachEvent("on"+l,b);var q=function(){function b(){return["<head></head><",c,' onload="var d=',n,";d.getElementsByTagName('head')[0].",d,"(d.",g,"('script')).",i,"='",a.l,"'\"></",c,">"].join("")}var c="body",e=h[c];if(!e)return setTimeout(q,100);a.P(1);var d="appendChild",g="createElement",i="src",k=h[g]("div"),l=k[d](h[g]("div")),f=h[g]("iframe"),n="document",p;k.style.display="none";e.insertBefore(k,e.firstChild).id=o+"-"+j;f.frameBorder="0";f.id=o+"-frame-"+j;/MSIE[ ]+6/.test(navigator.userAgent)&&(f[i]="javascript:false");f.allowTransparency="true";l[d](f);try{f.contentWindow[n].open()}catch(s){a.domain=h.domain,p="javascript:var d="+n+".open();d.domain='"+h.domain+"';",f[i]=p+"void(0);"}try{var r=f.contentWindow[n];r.write(b());r.close()}catch(t) { 
+        f[i]=p+'d.write("'+b().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};
+        a.l&&setTimeout(q,0)})()}();c[b].lv="1";return c[b]}var o="lightningjs",k=window[o]=g(o);k.require=g;k.modules=c}({}); if(!navigator.userAgent.match(/Android|BlackBerry|BB10|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {window.usabilla_live = lightningjs.require("usabilla_live", "//w.usabilla.com/e073ea289e95.js"); } else {window.usabilla_live = lightningjs.require("usabilla_live", "//w.usabilla.com/fda8fd840336.js"); }/*]]>{/literal}*/</script>
+        
+				<!-- Handling Cookie for Language Select - Start -->
+		<script>
+// Function to set cookie
+function setLangSelectedCookie(langValue) {
+    const d = new Date();
+    d.setTime(d.getTime() + (6 * 30 * 24 * 60 * 60 * 1000)); // 6 months expiration
+    document.cookie = `langSelected=${langValue}; path=/; expires=${d.toUTCString()}`;
+}
+
+// Function to get the value of a cookie by name
+function getCookie(langName) {
+    const cookieValue = document.cookie.match(`(^|;)\\s*${langName}\\s*=\\s*([^;]+)`);
+    return cookieValue ? cookieValue.pop() : '';
+}
+
+// Function to add language prefix to the URL
+function addLanguageToURL(langSel, type) {
+    const currentURL = location.href;
+    const languages = ['fr', 'es'];
+    
+    if (langSel && !currentURL.includes(`/${langSel}/`)) {
+        const domainIndex = currentURL.indexOf('/', 8); // Finds the first slash after 'https://'
+        const domain = currentURL.substring(0, domainIndex);
+        let path = currentURL.substring(domainIndex);
+
+        const pathParts = path.split('/');
+        if (languages.includes(pathParts[1])) {
+            pathParts.splice(1, 1);
+        }
+
+        // Add the selected language to the path
+        pathParts.splice(1, 0, langSel);
+        const newPath = pathParts.join('/');
+
+        const newURL = `${domain}${newPath}`;
+        if (newURL !== currentURL) {
+            location.href = newURL;
+        }
+    }
+}
+
+// Function to handle language selection
+function handleLanguageSelection(langSel) {
+    setLangSelectedCookie(langSel);
+    if (langSel !== 'en') {
+        addLanguageToURL(langSel,'click');
+    } else {
+        const currentURL = window.location.href;
+        const newURL = currentURL.replace(/\/[a-z]{2}\//i, '/'); // Remove language prefix from the URL
+        if (newURL !== currentURL) {
+            location.href = newURL;
+        }
+    }
+    updateLanguageDropdown(langSel);
+}
+
+// Function to update language dropdown
+function updateLanguageDropdown(lang) {
+    // Bootstrap dropdowns
+    const dropdown = document.getElementById('languageDropdown');
+    const dropdownMob = document.getElementById('languageDropdownMob');
+
+    if(dropdown){
+        updateDropdown(dropdown, lang)
+    }
+    if(dropdownMob){
+        updateDropdown(dropdownMob, lang);
+    }
+
+    // Tailwind/Alpine.js dropdowns (support pages)
+    const tailwindDropdowns = document.querySelectorAll('.language-selector-text');
+    tailwindDropdowns.forEach(el => {
+        el.textContent = lang.toUpperCase();
+    });
+
+    // Update selected state in dropdown items
+    const allLangItems = document.querySelectorAll('[data-lang-item]');
+    allLangItems.forEach(item => {
+        const itemLang = item.getAttribute('data-lang-item');
+        if(itemLang === lang) {
+            item.classList.add('bg-primary-light-grey');
+        } else {
+            item.classList.remove('bg-primary-light-grey');
+        }
+    });
+}
+
+function updateDropdown(dropdown, lang) {
+    dropdown.innerText = lang.toUpperCase();
+    dropdown.setAttribute('aria-label', lang.toUpperCase());
+}
+
+// Function to check and set cookie based on language prefix in URL
+function checkAndSetCookieFromURL() {
+    const currentURL = window.location.href;
+    const langMatch = currentURL.match(/^https?:\/\/[^/]+\/([a-z]{2})\//i);
+    if (langMatch && langMatch[1]) {
+        const lang = langMatch[1];
+        if (!getCookie('langSelected')) {
+
+            setLangSelectedCookie(lang);
+            updateLanguageDropdown(lang);
+        }
+    }
+}
+
+// Function to update href attributes of <a> tags and <form> with language prefix
+function updateLinksLanguagePrefix(langSel) {
+    const links = document.querySelectorAll('a[href^="/"], form[action^="/"]');
+    links.forEach(link => {
+        let href = link.tagName.toLowerCase() === 'a' ? link.getAttribute('href') : link.getAttribute('action');
+        const hasParams = href.includes('?');
+        
+        // Skip if already has language prefix, is a special path, or is an anchor link
+        if (href.startsWith(`/${langSel}/`) || 
+            href.startsWith(`/ffs/`) ||
+            href.startsWith(`/commercial`) ||
+            href === '#' ||
+            href.startsWith('#')) {
+            return;
+        }
+        
+        // Add language prefix
+        href = `/${langSel}${href}`;
+
+        // Update href attribute without affecting element's styling or classes
+        if (link.tagName.toLowerCase() === 'a') {
+            link.setAttribute('href', href);
+        } else {
+            link.setAttribute('action', href);
+        }
+    });
+}
+
+
+// Add event listener to handle language selection
+
+// Bootstrap language dropdowns
+document.querySelectorAll('.lang-dropdown').forEach(item => {
+    item.addEventListener('click', function (event) {
+        event.preventDefault();
+        const langSel = this.getAttribute('value');
+        handleLanguageSelection(langSel);
+    });
+});
+
+// Tailwind/Alpine.js language links
+document.querySelectorAll('[data-lang-select]').forEach(item => {
+    item.addEventListener('click', function (event) {
+        event.preventDefault();
+        const langSel = this.getAttribute('data-lang-select');
+        handleLanguageSelection(langSel);
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const selectedLanguage = getCookie('langSelected');
+    if (selectedLanguage) {
+        updateLanguageDropdown(selectedLanguage);
+        if (selectedLanguage !== 'en') {
+            addLanguageToURL(selectedLanguage,'load');
+            //addBaseTagWithLanguagePrefix(selectedLanguage);
+            // Use setTimeout to ensure Tailwind and Alpine.js have initialized
+            setTimeout(function() {
+                updateLinksLanguagePrefix(selectedLanguage);
+            }, 100);
+        }
+        else {
+            const currentURL = location.href;
+            if (currentURL.includes(`/fr/`)) {
+                const newURL = currentURL.replace('/fr/', '/');
+                window.location.href = newURL;
+            }
+            if (currentURL.includes(`/es/`)) {
+                const newURL = currentURL.replace('/es/', '/');
+                window.location.href = newURL;
+            }
+        }
+        if(selectedLanguage === 'fr' || selectedLanguage === 'es') {
+            document.body.classList.add('lnx-frca')
+        }
+    } else {
+        checkAndSetCookieFromURL();
+    }
+});
+</script>		<!-- Handling Cookie for Language Select - End -->
+		        		        <!-- Handling Accessibility Fix -->
+        
+                <div class="be-ix-link-block d-none">
+       </div>
+
+
+    </body>
+
+</html>

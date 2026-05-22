@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/><link rel="stylesheet" type="text/css" href="/css/themify-icons.css"/><link rel="stylesheet" type="text/css" href="/css/flexslider.css"/><link rel="stylesheet" type="text/css" href="/css/lightbox.min.css"/><link rel="stylesheet" type="text/css" href="/css/ytplayer.css"/><link rel="stylesheet" type="text/css" href="/css/theme.css?v=1779411770"/><link rel="stylesheet" type="text/css" href="/css/custom.css"/><link rel="stylesheet" type="text/css" href="/admin/bower_components/font-awesome/css/font-awesome.css"/>
+    <!-- Facebook Pixel Code -->
+    <meta name="facebook-domain-verification" content="2io6zjg8wfu22h5mx2n975urtlu14l" />
+    <!-- <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '379802356967421');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" src="https://www.facebook.com/tr?id=379802356967421&ev=PageView
+&noscript=1" />
+    </noscript> -->
+    <!-- End Facebook Pixel Code -->
+
+    <style>
+        .menu>li:hover>ul {
+            opacity: 1;
+            transform: translate3d(0, 0px, 0);
+            -webkit-transform: translate3d(0, 0px, 0);
+            -moz-transform: translate3d(0, 0px, 0);
+            visibility: visible;
+        }
+
+        .menu>li>ul>li:hover>ul,
+        .has-dropdown:hover .mega-menu ul {
+            opacity: 1;
+            transform: translate3d(0, 0px, 0);
+            -webkit-transform: translate3d(0, 0px, 0);
+            -moz-transform: translate3d(0, 0px, 0);
+            visibility: visible;
+        }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <!-- <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="e2b119d2-febc-48c6-b929-a28c6a69bea6" data-blockingmode="auto" type="text/javascript"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAOLHiwBJ6PdGWFxg89YC64_Op3OAARVQ&sensor=true" type="text/javascript"></script>
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-W67HK6L8');
+    </script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body class="scroll-assist">
+
+    <div class="nav-container">
+        <a id="top"></a>
+        <nav class="bg-light">
+
+
+            <div class="nav-bar" >
+                <div class="module left">
+                    <a href="/">
+                        <img class="logo logo-light" alt="Lamborghini Caloreclima" src="/admin/img/logo_bianco.svg" />
+
+                        <img src="/img/logo-dark.png" class="logo logo-dark" alt="Lamborghini Caloreclima"/>                    </a>
+                </div>
+                <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
+                    <i class="ti-menu"></i>
+                </div>
+                <div class="module-group right">
+                                        <div class="module social left">
+                                            </div>
+
+                    <div class="module widget-handle search-widget-handle left">
+                        <div class="search">
+                            <a href="//search"><i class="ti-search"></i>
+                                <span class="title">Search Site</span></a>
+                        </div>
+                    </div>
+
+                    <div class="module widget-handle language left">
+                        <ul class="menu">
+                            <li class="has-dropdown">
+                                <a href="#"></a>
+                                <ul>
+                                    <li class="lang"><a href="/it">Italiano</a></li>                                                                                                                                                <li class="lang"><a href="/int">International</a></li>                                    <!--<li class="lang">
+                                            <a href="/fr">French</a>
+                                        </li>
+                                        <li class="lang">
+                                            <a href="/ne">Olandese</a>
+                                        </li>-->
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-group right mauro">
+                    <div class="module left">
+                        <ul class="menu">
+
+	
+
+</ul>                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+    <div class="main-container">
+
+        <style>
+	@media (min-width: 768px) {
+		.absolute {
+			position: absolute;
+		}
+	}
+</style>
+
+<div class="absolute" style="width:100%; z-index:255;">
+	<div class="container">
+		<ul class="menu">
+
+			
+
+</ul>
+	</div>
+</div>        
+        <h2>Missing Controller</h2>
+<p class="error">
+	<strong>Error: </strong>
+	<em>Apple-touch-icon.pngController</em> could not be found.</p>
+<p class="error">
+	<strong>Error: </strong>
+	Create the class <em>Apple-touch-icon.pngController</em> below in file: app/Controller/Apple-touch-icon.pngController.php</p>
+<pre>
+&lt;?php
+class Apple-touch-icon.pngController extends AppController {
+
+}
+</pre>
+<p class="notice">
+	<strong>Notice: </strong>
+	If you want to customize this error message, create app/View/Errors/missing_controller.ctp</p>
+
+<h3>Stack Trace</h3>
+<ul class="cake-stack-trace">
+	<li><a href="#" onclick="traceToggle(event, 'file-excerpt-0')">APP/webroot/index.php line 110</a> &rarr; <a href="#" onclick="traceToggle(event, 'trace-args-0')">Dispatcher->dispatch()</a> <div id="file-excerpt-0" class="cake-code-dump" style="display:none;"><pre><code><span style="color: #000000"><span style="color: #0000BB">$Dispatcher&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Dispatcher</span><span style="color: #007700">();</span></span></code>
+<code><span style="color: #000000"><span style="color: #0000BB">$Dispatcher</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">dispatch</span><span style="color: #007700">(</span></span></code>
+<code><span style="color: #000000"><span style="color: #0000BB">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">new&nbsp;</span><span style="color: #0000BB">CakeRequest</span><span style="color: #007700">(),</span></span></code>
+<span class="code-highlight"><code><span style="color: #000000"><span style="color: #0000BB">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">new&nbsp;</span><span style="color: #0000BB">CakeResponse</span><span style="color: #007700">()</span></span></code></span>
+<code><span style="color: #000000"><span style="color: #0000BB"></span><span style="color: #007700">);</span></span></code></pre></div> <div id="trace-args-0" class="cake-code-dump" style="display: none;"><pre></pre></div></li>
+</ul>
+<script type="text/javascript">
+function traceToggle(event, id) {
+	var el = document.getElementById(id);
+	el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+	event.preventDefault();
+	return false;
+}
+</script>
+
+
+        <footer class="footer-1 bg-dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <img alt="Logo" class="logo" src="/admin/img/logo_bianco.svg" style="max-width:70%; margin-left:-30px; margin-top:-20px;" />
+                        <div>
+                            LAMBORGHINI CALORECLIMA<br>
+                            <br>
+                            Via Ritonda, 78/a<br>
+                            37047 San Bonifacio (VR)<br><br>
+                        </div>
+                        <div style="color:#fff;">
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="widget">
+                            <h6 class="title">&nbsp;</h6>
+                            <!--h6 class="title">SERVIZI PER VOI</h6-->
+                            <hr>
+                            <ul class="recent-posts">
+                                <li>
+                                    <b class="title"></b><br>
+                                                                    </li>
+
+                            </ul>
+                        </div>
+                        <!--end of widget-->
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="widget">
+                            <h6 class="title">&nbsp;</h6>
+                            <hr>
+                            <div>
+                                <ul class="recent-posts">
+                                    
+                                    <!--li><a>Sitemap</a></li-->
+                                </ul>
+                            </div>
+                        </div>
+                        <!--end of widget-->
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="widget">
+                            <h6 class="title">&nbsp;</h6>
+                            <hr>
+                            <div>
+
+                            </div>
+                        </div>
+                        <!--end of widget-->
+                    </div>
+                </div>
+                <!--end of row-->
+                <div class="row">
+                    <div class="col-sm-10">
+                        <span class="sub"> LAMBORGHINI CALORECLIMA - Brand of Ferroli S.p.A. <br> C.F. e P.IVA n° 02096470238 - Capitale sociale € 2.000.000,00 i.v. - Registro Imprese di Verona n° 02096470238 <a href="//privacy">Privacy</a></span>
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        <ul class="list-inline social-list">
+                                                    </ul>
+                    </div>
+                </div>
+            </div>
+            <!--end of container-->
+            <a class="btn btn-sm fade-half back-to-top inner-link" href="#top">Top</a>
+        </footer>
+    </div>
+
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script><script type="text/javascript" src="/js/bootstrap.min.js"></script><script type="text/javascript" src="/js/flexslider.min.js"></script><script type="text/javascript" src="/js/lightbox.min.js"></script><script type="text/javascript" src="/js/masonry.min.js"></script><script type="text/javascript" src="/js/spectragram.min.js"></script><script type="text/javascript" src="/js/ytplayer.min.js"></script><script type="text/javascript" src="/js/countdown.min.js"></script><script type="text/javascript" src="/js/smooth-scroll.min.js"></script><script type="text/javascript" src="/js/parallax.js"></script><script type="text/javascript" src="/js/scripts.js?v=1779411770"></script><script type="text/javascript" src="/js/tiptop.js"></script><script type="text/javascript" src="/js/sweetalert.min.js"></script>    <script src="/js/jquery-steps.js"></script>
+    <script>
+        $('#demo').steps({
+            onFinish: function() {
+                alert('Wizard Completed');
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        const setVisible = (elementOrSelector, visible) => (typeof elementOrSelector === 'string' ? document.querySelector(elementOrSelector) : elementOrSelector).style.display = visible ? 'block' : 'none';
+
+        function addGlobalEventListener(type, selector, callback, options = {}) {
+            document.addEventListener(type, e => {
+                if (e.target.matches(selector)) {
+                    callback(e)
+                }
+            }, options)
+        }
+
+        function removeOptions(selectElement) {
+            var i, L = selectElement.options.length - 1;
+            for (i = L; i >= 0; i--) {
+                selectElement.remove(i);
+            }
+        }
+
+        async function ajaxCall(url = '', data = {}) {
+            var myHeaders = new Headers();
+            myHeaders.append('Content-Type', 'application/json');
+            myHeaders.append('X-Requested-With', 'XMLHttpRequest');
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: myHeaders,
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
+            });
+            return response.json();
+        }
+
+        $('body').tooltip({
+            selector: 'a, i'
+        });
+
+        $('.scelta').click(function() {
+            var valore = $(this).attr("id");
+            $(".corso").hide();
+            $("." + valore).show();
+        });
+
+        $('.scelta2').click(function() {
+            var valore = $(this).attr("id");
+            $(".scelta2").removeClass('scelto');
+            $(this).addClass('scelto');
+            $(".corso2").hide();
+            $("." + valore).show();
+        });
+
+        $(document).on("submit", ".contct3", function(event) {
+            console.log('sad');
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                data: $(this).serialize(),
+                url: "/ajax/process2.php",
+                success: function(data) {
+                    $(".foundry_modal").html(data);
+                }
+            });
+        });
+
+        $('.tab-title2').click(function() {
+            var valore = $(this).attr("id");
+            $(".tab-title2").removeClass("attivo2");
+            $(this).addClass("attivo2");
+            $(".tab-content2").removeClass("attivo");
+            $("#" + valore + "-1").addClass("attivo");
+        });
+
+        $('.menuprinc').click(function(event) {
+            event.preventDefault();
+            $(".opacity").removeClass("opacity");
+            $(this).next("ul").addClass("opacity");
+        });
+
+        $('#cerca').click(function(event) {
+            var targetOffset = $("#eledown").offset().top - 100;
+            $('html,body').animate({
+                    scrollTop: targetOffset
+                },
+                'slow');
+        });
+
+
+        $('#form-registra2').submit(function(event) {
+            event.preventDefault();
+            var method = "POST";
+            var dati = $("#form-registra2").serialize();
+            $.ajax({
+                url: '/ajax/cerca_iscritto2020.php',
+                data: dati,
+                type: method,
+                success: function(msg) {
+                    $("#risultato").html(msg);
+                    $('html,body').animate({
+                        scrollTop: $("#risultato").offset().top
+                    }, 'slow');
+                }
+            });
+
+        });
+
+        $('#form-registra-progettisti').submit(function(event) {
+            event.preventDefault();
+            var method = "POST";
+            var dati = $("#form-registra-progettisti").serialize();
+            $.ajax({
+                url: '/ajax/cerca_iscritto_progettista.php',
+                data: dati,
+                type: method,
+                success: function(msg) {
+                    $("#risultato").html(msg);
+                    $('html,body').animate({
+                        scrollTop: $("#risultato").offset().top
+                    }, 'slow');
+                }
+            });
+
+        });
+
+
+        $('#richiestaz').change(function() {
+            var valore = $(this).val();
+            $(".B01").hide();
+            $(".B02").hide();
+            $("." + valore).show();
+        });
+
+
+
+        $('.iscriviti').click(function(event) {
+            var $valore = $(this).attr("id");
+            $("#formcorsi").css("display", "block");
+            $("#formpagamento").css("display", "none");
+            $("#formcancella").css("display", "none");
+            $("#idcorso").val($valore);
+
+            var method = "POST";
+            $.ajax({
+                url: '/ajax/inseriscicorso.php',
+                data: 'idcorso=' + $valore + '&idutente=' + 0,
+                type: method,
+                success: function(msg) {
+                    $("#formcorsi").html(msg);
+                    $('html,body').animate({
+                        scrollTop: $("#formcorsi").offset().top
+                    }, 'slow');
+                }
+            });
+
+        });
+
+        $('.cancellati').click(function() {
+            var $valore = $(this).attr("id");
+            $("#formcorsi").css("display", "none");
+            $("#formpagamento").css("display", "none");
+            $("#formcancella").css("display", "block");
+            $("#idcorso2").val($valore);
+
+            var method = "POST";
+            $.ajax({
+                url: '/ajax/modificacorso.php',
+                data: 'idcorso=' + $valore + '&idutente=' + 0,
+                type: method,
+                success: function(msg) {
+                    $("#formcancella").html(msg);
+                }
+            });
+        });
+
+        $('.cancellati2').click(function() {
+            var $valore = $(this).attr("id");
+            $("#formcorsi").css("display", "none");
+            $("#formpagamento").css("display", "none");
+            $("#formcancella").css("display", "block");
+            $("#idcorso2").val($valore);
+
+            var method = "POST";
+            $.ajax({
+                url: '/ajax/cancellacorso.php',
+                data: 'idcorso=' + $valore + '&idutente=' + 0,
+                type: method,
+                success: function(msg) {
+                    $("#formcancella").html(msg);
+                }
+            });
+        });
+
+        $('.pagamento').on("click", function() {
+            var method = "POST";
+            var $valore = $(this).attr("id");
+            $("#formcorsi").css("display", "none");
+            $("#formpagamento").css("display", "block");
+            $("#formcancella").css("display", "none");
+            $.ajax({
+                url: '/ajax/pagamento.php',
+                data: 'idcorso=' + $valore + '&idutente=' + 0,
+                type: method,
+                success: function(msg) {
+                    $("#formpagamento").html(msg);
+                }
+            });
+
+        });
+        /*
+        $("#cercacorso").click(function(event) {
+            var $form = $("#formcorsi");
+            var method = $form.attr("method") ? $form.attr("method").toUpperCase() : "POST";
+            $.ajax({
+                url: '/ajax/corso.php',
+                data: $form.serialize(),
+                type: method,
+                success: function(msg) {
+                    $("#rispostacorso").html(msg);
+                }
+            });
+        });
+        */
+
+        $("#cancellacorso").click(function(event) {
+            var $form = $("#formcancella");
+            var method = $form.attr("method") ? $form.attr("method").toUpperCase() : "POST";
+            $.ajax({
+                url: '/ajax/cancella.php',
+                data: $form.serialize(),
+                type: method,
+                success: function(msg) {
+                    $("#rispostacorso").html(msg);
+                }
+            });
+        });
+
+        $(".changepro").on("change", function() {
+            var $form = $("#myForm");
+            var method = $form.attr("method") ? $form.attr("method").toUpperCase() : "POST";
+            $.ajax({
+                url: $form.attr("action"),
+                data: $form.serialize(),
+                type: method,
+                success: function(msg) {
+                    $("#eleprod").html(msg);
+                }
+            });
+        });
+
+        $(".m1").click(function() {
+            $(".m1").css("background", "white");
+            $(this).css("background", "#e3bfae");
+        });
+
+
+        ////nuovi js ... verificare pagine coinvolte
+
+
+
+        $(".conferma_iscrizione_corso").submit(function(event) {
+            event.preventDefault(); //prevent default action 
+            var post_url = '/ajax/iscrizione_corso.php'; //get form action url
+            var request_method = 'POST'; //get form GET/POST method
+            var form_data = $(this).serialize(); //Encode form elements for submission
+
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data,
+                success: function(msg) {
+                    $(".conferma_iscrizione_corso").html(msg);
+                    setTimeout(function() {
+                        location.reload(); //Refresh page
+                    }, 4000);
+                }
+            });
+
+        });
+
+
+
+        $('.cancellati3').click(function(event) {
+            if (confirm('Sei sicuro di volerti cancellare?')) {
+                var id = $(this).attr('id');
+                $.ajax({
+                    url: '/ajax/cancellazione_corso.php',
+                    type: "POST",
+                    data: "idcorso=" + id + "&idutente=",
+                    success: function() {
+                        alert('cancellazione avvenuta con successo');
+                        setTimeout(function() {
+                            location.reload(); //Refresh page dopo 1 sec
+                        }, 4000);
+                    }
+                });
+            }
+        });
+
+        $('.cancellati3r').click(function(event) {
+            if (confirm('Sei sicuro di volerti cancellare?')) {
+                var id = $(this).attr('id');
+                $.ajax({
+                    url: '/ajax/cancellazione_corso_road.php',
+                    type: "POST",
+                    data: "idcorso=" + id + "&idutente=",
+                    success: function() {
+                        alert('cancellazione avvenuta con successo');
+                        setTimeout(function() {
+                            location.reload(); //Refresh page dopo 1 sec
+                        }, 4000);
+                    }
+                });
+            }
+        });
+    </script>
+
+    
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W67HK6L8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+</body>
+
+</html>

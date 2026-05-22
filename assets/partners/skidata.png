@@ -1,0 +1,2387 @@
+<!doctype html><html lang="en" class=""><head>
+    <meta charset="utf-8">
+    
+    <link rel="preconnect" href="https://ka-p.fontawesome.com" crossorigin>
+    <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin>
+    
+    
+    <!-- DNS prefetch for FontAwesome to improve connection speed -->
+    <link rel="dns-prefetch" href="https://ka-p.fontawesome.com">
+    <link rel="dns-prefetch" href="https://kit.fontawesome.com">
+    
+    <!-- Optimized FontAwesome font preloads - only latest versions -->
+    <link rel="preload" as="font" type="font/woff2" href="https://ka-p.fontawesome.com/releases/v5.15.3/webfonts/pro-fa-solid-900-5.11.0.woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" type="font/woff2" href="https://ka-p.fontawesome.com/releases/v5.15.3/webfonts/pro-fa-regular-400-5.11.0.woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" type="font/woff2" href="https://ka-p.fontawesome.com/releases/v5.15.3/webfonts/pro-fa-light-300-5.11.0.woff2" crossorigin="anonymous">
+    
+    <link rel="preload" as="font" type="font/woff2" href="https://ka-p.fontawesome.com/releases/v5.15.3/webfonts/pro-fa-regular-400-5.11.0.woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" type="font/woff2" href="https://ka-p.fontawesome.com/releases/v5.15.3/webfonts/pro-fa-light-300-5.11.0.woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" type="font/woff2" href="https://ka-p.fontawesome.com/releases/v5.15.3/webfonts/pro-fa-solid-900-5.11.0.woff2" crossorigin="anonymous">
+    
+    <!-- FontAwesome fallback to prevent FOUT -->
+    <style>
+    .fa, .fas, .far, .fal, .fab {
+        font-family: 'Font Awesome 5 Pro' !important;
+        font-style: normal;
+        font-weight: 900;
+        font-display: swap;
+    }
+    .far { font-weight: 400; }
+    .fal { font-weight: 300; }
+    .fab { font-family: 'Font Awesome 5 Brands' !important; }
+    </style>
+    
+    <title>Error 404 | Page not found</title>
+    <link rel="shortcut icon" href="https://www.skidata.com/hubfs/Skidata-favicon.ico">
+    <meta name="description" content="">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:description" content="">
+    <meta property="og:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="">
+
+    
+
+    
+
+    <style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+
+<link rel="stylesheet" href="https://www.skidata.com/hubfs/hub_generated/template_assets/1/219639063749/1779275749797/template_main.min.css">
+<link rel="stylesheet" href="https://www.skidata.com/hubfs/hub_generated/template_assets/1/219639424236/1779275744211/template_system.min.css">
+<link rel="stylesheet" href="https://www.skidata.com/hubfs/hub_generated/template_assets/1/219639063777/1779275752482/template_theme-overrides.min.css">
+<link rel="stylesheet" href="https://www.skidata.com/hubfs/hub_generated/module_assets/1/219639067835/1771858872915/module_hd-mega-menu.min.css">
+
+<style>
+  .hd-header .mega-menu a.hd_nav_links {
+    color: rgba(43, 47, 51, 1.0);
+  }
+
+  .hd-header .desktop_nav .mega-menu ul li a.hd_nav_links {
+    background: linear-gradient(90deg,rgba(100,200,200,0),rgba(100,200,200,0)),linear-gradient(90deg,#ffd631,#ffd631,#ffd631);
+    background-size: 100% 3px,0 3px;
+    background-position: 100% 100%,0 100%;
+    background-repeat: no-repeat;
+    transition: background-size .4s;
+    text-decoration: none;
+  }
+
+  .hd-header .desktop_nav .menu_icons:hover > i {
+    color: rgba(255, 214, 49, 1.0);
+  }
+
+  .hd-header .mega-menu .nav-tabs .nav-item.show .nav-link, .hd-header .mega-menu .nav-tabs .nav-link.active {
+    background-color: rgba(255, 255, 255, 1.0);
+    color: rgba(43, 47, 51, 1.0);
+  }
+
+  .hd-header .mega-menu .nav-tabs .nav-item.show .nav-link,
+  .hd-header .mega-menu .nav-tabs .nav-link,
+  .hd-header .desktop_nav .mega-menu ul li div.drop_down nav {
+    background-color: rgba(229, 228, 232, 1.0);
+    color: rgba(43, 47, 51, 1.0);
+  }
+
+  .hd-header ul li a {
+    color: rgba(43, 47, 51, 1.0);
+  }
+
+  .hd-header ul li a:hover {
+    color: rgba(43, 47, 51, 1.0);
+  }
+
+  
+</style>
+
+
+<style>
+  #hs_cos_wrapper_button .button-wrapper {}
+
+#hs_cos_wrapper_button .button,
+#hs_cos_wrapper_button .secondary-button,
+#hs_cos_wrapper_button .tertiary-button,
+#hs_cos_wrapper_button .quaternary-button {}
+
+#hs_cos_wrapper_button .quaternary-button:after,
+#hs_cos_wrapper_button .quaternary-button:after {}
+
+#hs_cos_wrapper_button .button:hover,
+#hs_cos_wrapper_button .button:focus,
+#hs_cos_wrapper_button .secondary-button:hover,
+#hs_cos_wrapper_button .secondary-button:focus,
+#hs_cos_wrapper_button .tertiary-button:hover,
+#hs_cos_wrapper_button .tertiary-button:focus,
+#hs_cos_wrapper_button .quaternary-button:hover,
+#hs_cos_wrapper_button .quaternary-button:focus {}
+
+#hs_cos_wrapper_button .button:active,
+#hs_cos_wrapper_button .secondary-button:active,
+#hs_cos_wrapper_button .tertiary-button:active,
+#hs_cos_wrapper_button .quaternary-button:active {}
+
+@media (min-width:767px) {
+  #hs_cos_wrapper_button .button-wrapper {}
+
+  #hs_cos_wrapper_button .button,
+  #hs_cos_wrapper_button .secondary-button,
+  #hs_cos_wrapper_button .tertiary-button,
+  #hs_cos_wrapper_button .quaternary-button { font-size:px; }
+}
+
+</style>
+
+<link rel="stylesheet" href="https://www.skidata.com/hubfs/hub_generated/module_assets/1/219637945587/1744420988813/module_hd-social-follow.min.css">
+
+  <style>
+    #hs_cos_wrapper_module_174773313570512 .social-links { justify-content:flex-start; }
+
+#hs_cos_wrapper_module_174773313570512 .social-links__link {
+  margin-right:15px;
+  margin-bottom:px;
+  margin-top:50px;
+}
+
+#hs_cos_wrapper_module_174773313570512 .social-links__icon { background-color:rgba(255,255,255,0.0); }
+
+#hs_cos_wrapper_module_174773313570512 .social-links__icon svg {
+  fill:#FFD631;
+  height:30px;
+  width:30px;
+}
+
+#hs_cos_wrapper_module_174773313570512 .social-links__icon:hover,
+#hs_cos_wrapper_module_174773313570512 .social-links__icon:focus { background-color:rgba(175,175,175,0.0); }
+
+#hs_cos_wrapper_module_174773313570512 .social-links__icon:active { background-color:rgba(255,255,255,0.0); }
+
+  </style>
+
+<!-- Editor Styles -->
+<style id="hs_editor_style" type="text/css">
+.header-row-0-max-width-section-centering > .row-fluid {
+  max-width: 1600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.footer-row-0-max-width-section-centering > .row-fluid {
+  max-width: 1600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.footer-row-1-max-width-section-centering > .row-fluid {
+  max-width: 1600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.footer-row-2-max-width-section-centering > .row-fluid {
+  max-width: 1600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.module_17482377463784-flexbox-positioning {
+  display: -ms-flexbox !important;
+  -ms-flex-direction: column !important;
+  -ms-flex-align: start !important;
+  -ms-flex-pack: start;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start;
+}
+.module_17482377463784-flexbox-positioning > div {
+  max-width: 100%;
+  flex-shrink: 0 !important;
+}
+/* HubSpot Styles (default) */
+.header-row-0-padding {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.header-row-0-background-layers {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)) !important;
+  background-position: left top !important;
+  background-size: auto !important;
+  background-repeat: no-repeat !important;
+}
+.footer-row-0-padding {
+  padding-top: 100px !important;
+  padding-bottom: 30px !important;
+}
+.footer-row-0-background-layers {
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 1)) !important;
+  background-position: left top !important;
+  background-size: auto !important;
+  background-repeat: no-repeat !important;
+}
+.footer-row-1-padding {
+  padding-top: 5px !important;
+  padding-bottom: 0px !important;
+}
+.footer-row-1-background-layers {
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 1)) !important;
+  background-position: left top !important;
+  background-size: auto !important;
+  background-repeat: no-repeat !important;
+}
+.footer-row-2-padding {
+  padding-top: 40px !important;
+  padding-bottom: 80px !important;
+}
+.footer-row-2-background-layers {
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 1)) !important;
+  background-position: left top !important;
+  background-size: auto !important;
+  background-repeat: no-repeat !important;
+}
+</style>
+
+    
+
+
+    
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+var useGoogleConsentModeV2 = true;
+var waitForUpdateMillis = 1000;
+
+
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    if (useGoogleConsentModeV2) {
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': waitForUpdateMillis
+      });
+
+      _hsp.push(['useGoogleConsentModeV2'])
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T6C6DR');
+
+    window._hsGtmLoadOnce = true;
+};
+
+_hsp.push(['addPrivacyConsentListener', function(consent){
+  if(consent.allowed || (consent.categories && consent.categories.analytics)){
+    hsLoadGtm();
+  }
+}]);
+
+</script>
+
+<!-- /Added by GoogleTagManager integration -->
+
+    <link rel="canonical" href="https://www.skidata.com/404">
+
+<script>
+(function(g,e,o,t,a,r,ge,tl,y,s){
+g.getElementsByTagName(o)[0].insertAdjacentHTML('afterbegin','<style id="georedirect1685111606476style">body{opacity:0.0 !important;}</style>');
+s=function(){g.getElementById('georedirect1685111606476style').innerHTML='body{opacity:1.0 !important;}';};
+t=g.getElementsByTagName(o)[0];y=g.createElement(e);y.async=true;
+y.src='https://g10498469755.co/gr?id=-NWNTcjrxgs_sZ92a607&refurl='+g.referrer+'&winurl='+encodeURIComponent(window.location);
+t.parentNode.insertBefore(y,t);y.onerror=function(){s()};
+georedirect1685111606476loaded=function(redirect){var to=0;if(redirect){to=5000};
+setTimeout(function(){s();},to)};
+})(document,'script','head');
+</script>
+<meta property="og:url" content="https://www.skidata.com/404">
+<meta name="twitter:card" content="summary">
+<meta http-equiv="content-language" content="en">
+
+
+
+
+
+
+
+    
+
+    <meta name="generator" content="HubSpot"></head>
+    <body>
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6C6DR" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- /Added by GoogleTagManager integration -->
+
+      <div class="body-wrapper   hs-content-id-0 hs-site-page page ">
+        
+
+        
+        <div data-global-resource-path="skidata/templates/partials/header.html"><header id="header" class="hd-header">
+  <div class="container-fluid">
+<div class="row-fluid-wrapper">
+<div class="row-fluid">
+<div class="span12 widget-span widget-type-cell " style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 dnd-section header-row-0-max-width-section-centering header-row-0-padding header-row-0-background-color header-row-0-background-layers">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_widget_1742900231035" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><!-- 
+This Module Has a Desktop and Mobile Version
+-->
+
+<!-- Desktop -->
+<div class="desktop_nav tdes">
+  <div class="mega-menu">
+    <div class="menu_left">
+      <div class="logo">
+        <a href="/home"><img src="https://www.skidata.com/hubfs/New_SKIDATA_Strong-endorsed-logo_RGB.png" alt="New_SKIDATA_Strong-endorsed-logo_RGB en"></a>
+      </div>
+      <div>
+        <ul>
+          
+          <li class="overlay-simple">
+
+            
+            
+            
+            <a class="hd_mega_open hd_nav_links" href="javascript:void(0)">Segments  <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+            <div class="drop_down simple_mega_menu">
+              
+              <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/airport-parking" role="menuitem" target="_self">Airport</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/city-parking" role="menuitem" target="_self">City &amp; Municipality</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/parking-operator" role="menuitem" target="_self">Parking Operator</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/shopping-mall-parking" role="menuitem" target="_self">Retail &amp; Shopping Mall</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/office-buildings" role="menuitem" target="_self">Office</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/educational-building-parking" role="menuitem" target="_self">Education</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/hospital-parking" role="menuitem" target="_self">Healthcare</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/mountain" role="menuitem" target="_self">Mountain Destination</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/hotel-parking" role="menuitem" target="_self">Hospitality</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/stadium-arena" role="menuitem" target="_self">Stadia &amp; Sports</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/attractions-industry" role="menuitem" target="_self">Theme &amp; Amusement parks</a></li>
+ </ul>
+</div></span>
+              
+            </div>
+            
+          </li>
+          
+          <li class="mega-drop">
+
+            
+            
+            
+
+            <a class="hd_mega_open hd_nav_links 
+                      hd_mega_menu" href="javascript:void(0)">
+              Solutions  <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </a>
+
+            <div class="drop_down hd-mega-drop-down">
+              <div class="hd-mega-drop-down-inner">
+                <div class="hd-mega-acc">
+                  
+                  <div class="hd-mega-acc-section hd-mega-hover">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-lg-3 col-hd-3">
+                          
+                          <span class="mega-heading-link">
+                            <div class="mega-line"></div>
+                            <div class="mega-heading"><span data-hover="Parking &amp; 
+Mobility">Parking &amp; <br> Mobility</span></div>
+                            <a class="" href="https://www.skidata.com/solutions/mobility-parking">
+                              <p class="mega-desc mega-dec-hover">Paving your road to <br> the future of parking</p>
+                            </a>
+                            
+                            <div class="hd-mega-chevron"></div>
+                            
+                          </span>
+                          
+                        </div>
+                        <div class="col-lg-2 col-hd-2">
+                          <p class="drop_down-heading">
+                            
+                            Efficient in Operations
+                            
+                          </p>
+                          <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/access-control-lpr" role="menuitem" target="_self">Access Control &amp; License Plate Recognition</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/monitoring-control" role="menuitem" target="_self">Monitoring &amp; Control</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/reporting-analytics" role="menuitem" target="_self">Reporting &amp; Analytics</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/parking-guidance-digital-signage" role="menuitem" target="_self">Parking Guidance &amp; Digital Signage</a></li>
+ </ul>
+</div></span>
+                        </div>
+                        <div class="col-lg-2 col-hd-2">
+                          <p class="drop_down-heading">Successful in Selling</p>
+                          <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/online-reservations-subscriptions" role="menuitem" target="_self">Online Reservations &amp; Subscriptions</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/b2b-parker-management" role="menuitem" target="_self">B2B Parker Management</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/digital-onsite-payment" role="menuitem" target="_self">Digital &amp; Onsite Payment</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/validation" role="menuitem" target="_self">Validation</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/ev-charging" role="menuitem" target="_self">EV-Charging</a></li>
+ </ul>
+</div></span>
+                        </div>
+                        <div class="col-lg-2 col-hd-2">
+                          <p class="drop_down-heading">City Solutions</p>
+                          <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/zone-management" role="menuitem" target="_self">Zone Management</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/curbside-management" role="menuitem" target="_self">Curb Management</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/mobility-hub" role="menuitem" target="_self">Mobility Hub</a></li>
+ </ul>
+</div></span>
+                        </div>
+                        <div class="col-lg-3 col-right">
+                            
+                          <div class="col-right-inner">
+                            
+                            
+                            
+                            
+                            
+                            <a href="https://www.skidata.com/solutions/mobility-parking/parking-solution-subscription" target="_blank" rel="noopener">
+                              <img src="https://www.skidata.com/hubfs/Skidata/Website/Global/Solutions/Mobility%20Parking/BANNER_mobility-suite-674x208.jpg" alt="BANNER_mobility-suite-674x208">
+                            </a>
+                            
+                            <div class="drop_down-subheading">
+                              <p><strong>Mobility Suite as a Service</strong></p>
+<p>Future-Proof Parking Subscription</p>
+                            </div>
+                            
+                            <div class="button-wrapper">
+                              
+                              
+                              <a class="btn quaternary-button" href="https://www.skidata.com/solutions/mobility-parking/parking-solution-subscription" target="_blank" rel="noopener">
+                                <span>Read more</span>
+                              </a>
+                            </div>
+                            
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="hd-mega-acc-section hd-mega-hover">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-lg-3 col-hd-3">
+                          
+                          <span class="mega-heading-link">
+                            <div class="mega-line"></div>
+                            <div class="mega-heading"><span data-hover="Mountain 
+Destination">Mountain <br>Destination</span></div>
+                            <a class="" href="https://www.skidata.com/solutions/mountain-destinations">
+                              <p class="mega-desc mega-dec-hover">Your journey to <br>the summit of experience</p>
+                            </a>
+                            
+                            <div class="hd-mega-chevron"></div>
+                            
+                          </span>
+                          
+                        </div>
+                        <div class="col-lg-2 col-hd-2">
+                          <p class="drop_down-heading">
+                            
+                            Efficient in Operations
+                            
+                          </p>
+                          <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/access-control" role="menuitem" target="_self">Access Control</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/monitoring-and-control" role="menuitem" target="_self">Monitoring &amp; Control</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/reporting-and-analytics" role="menuitem" target="_self">Reporting &amp; Analytics</a></li>
+ </ul>
+</div></span>
+                        </div>
+                        <div class="col-lg-2 col-hd-2">
+                          <p class="drop_down-heading">Successful in Selling</p>
+                          <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/ecommerce" role="menuitem" target="_self">eCommerce</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/self-service-ticketing" role="menuitem" target="_self">Self Service Ticketing</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/dynamic-pricing" role="menuitem" target="_self">Dynamic Pricing</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/ticket-media" role="menuitem" target="_self">Ticket Media</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/sales-channels" role="menuitem" target="_self">Sales Channels</a></li>
+ </ul>
+</div></span>
+                        </div>
+                        <div class="col-lg-2 col-hd-2">
+                          <p class="drop_down-heading">Value Adding Services</p>
+                          <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/mobile-flow" role="menuitem" target="_self">Smartphone Ski Pass</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/parking-management" role="menuitem" target="_self">Parking Management</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/partner-integration" role="menuitem" target="_self">Partner Integration</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/activity-sales" role="menuitem" target="_self">Activity Sales</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/locker-rental" role="menuitem" target="_self">Locker Rental</a></li>
+ </ul>
+</div></span>
+                        </div>
+                        <div class="col-lg-3 col-right">
+                            
+                          <div class="col-right-inner">
+                            
+                            
+                            
+                            
+                            
+                            <a href="https://www.skidata.com/solutions/skidata-connect-platform">
+                              <img src="https://www.skidata.com/hubfs/Skidata/Website/Global/Solutions/Connect/skidata-connect-large-1920x560.jpg" alt="skidata-connect-large-1920x560">
+                            </a>
+                            
+                            <div class="drop_down-subheading">
+                              <p><strong>SKIDATA Connect</strong></p>
+<p>the all-in-one proposition</p>
+                            </div>
+                            
+                            <div class="button-wrapper">
+                              
+                              
+                              <a class="btn quaternary-button" href="https://www.skidata.com/solutions/skidata-connect-platform">
+                                <span>Read more</span>
+                              </a>
+                            </div>
+                            
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="hd-mega-acc-section hd-mega-hover">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-lg-3 col-hd-3">
+                          
+                          <span class="mega-heading-link">
+                            <div class="mega-line"></div>
+                            <div class="mega-heading"><span data-hover="Sports &amp; 
+Entertainment">Sports &amp;<br>Entertainment</span></div>
+                            <a class="" href="https://www.skidata.com/solutions/sports-entertainment-access-solutions">
+                              <p class="mega-desc mega-dec-hover">Where every sensation <br>exceeds expectation</p>
+                            </a>
+                            
+                            <div class="hd-mega-chevron"></div>
+                            
+                          </span>
+                          
+                        </div>
+                        <div class="col-lg-2 col-hd-2">
+                          <p class="drop_down-heading">
+                            
+                            Stadia &amp; Sports
+                            
+                          </p>
+                          <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/stadia-attractions/access-control" role="menuitem" target="_self">Access Control</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/stadia-attractions/accreditation" role="menuitem" target="_self">Accreditation</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/stadia-attractions/pre-event-check" role="menuitem" target="_self">Pre-event Check</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/stadia-attractions/e-ticket" role="menuitem" target="_self">eTicket / NFC</a></li>
+ </ul>
+</div></span>
+                        </div>
+                        <div class="col-lg-2 col-hd-2">
+                          <p class="drop_down-heading">Theme &amp; Amusement Parks</p>
+                          <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/attractions-industry/access-control" role="menuitem" target="_self">Access Control</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/attractions-industry/accreditation" role="menuitem" target="_self">Accreditation</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/attractions-industry/e-ticket" role="menuitem" target="_self">eTicket / NFC</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions-attraction-self-service-ticketing" role="menuitem" target="_self">Self Service Ticketing</a></li>
+ </ul>
+</div></span>
+                        </div>
+                        <div class="col-lg-2 col-hd-2">
+                          <p class="drop_down-heading"></p>
+                          <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><ul></ul></span>
+                        </div>
+                        <div class="col-lg-3 col-right">
+                            
+                          <div class="col-right-inner">
+                            
+                            
+                            
+                            
+                            
+                            <a href="https://www.skidata.com/solutions/skidata-connect-platform">
+                              <img src="https://www.skidata.com/hubfs/Skidata/Website/Global/Solutions/Connect/skidata-connect-large-1920x560.jpg" alt="skidata-connect-large-1920x560">
+                            </a>
+                            
+                            <div class="drop_down-subheading">
+                              <p><strong>SKIDATA Connect</strong></p>
+<p>the all-in-one proposition</p>
+                            </div>
+                            
+                            <div class="button-wrapper">
+                              
+                              
+                              <a class="btn quaternary-button" href="https://www.skidata.com/solutions/skidata-connect-platform">
+                                <span>Read more</span>
+                              </a>
+                            </div>
+                            
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+
+            
+          </li>
+          
+          <li class="default">
+
+            
+            
+            
+            <a href="https://www.skidata.com/references" class="hd_nav_links">
+              References 
+            </a>
+            
+          </li>
+          
+          <li class="default">
+
+            
+            
+            
+            <a href="https://www.skidata.com/service" class="hd_nav_links">
+              Service
+            </a>
+            
+          </li>
+          
+          <li class="default">
+
+            
+            
+            
+            <a href="https://www.skidata.com/partner" class="hd_nav_links">
+              Partners
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="menu_right">
+      <ul>
+        
+        <li>
+          
+          
+          
+          <a href="https://www.skidata.com/about" class="hd_nav_links">
+            About 
+          </a>
+          
+        </li>
+        
+        <li>
+          
+          
+          
+          <a class="hd_mega_open hd_nav_links" href="javascript:void(0)">Careers <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+          <div class="drop_down simple_dropdown">
+            
+            <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/career" role="menuitem" target="_self">Why SKIDATA</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/jobs/career" role="menuitem" target="_self">Job Opportunities</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/career-blog" role="menuitem" target="_self">Career Blog</a></li>
+ </ul>
+</div></span>
+            
+          </div>
+          
+        </li>
+        
+        
+        <li class="menu_icons">
+          <i class="fa fa-globe" aria-hidden="true" type="button" data-toggle="modal" data-target="#languageSwitcherDesktop"></i>
+          <!-- Modal -->
+          <div class="modal fade" id="languageSwitcherDesktop" tabindex="-1" role="dialog" aria-labelledby="languageSwitcherLabelDesktop" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>     
+                <div class="modal-body">
+                  <main>
+                    <div class="select-location-header">
+                      <h2>Select your location</h2>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">Corporate</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>English</h6>
+                          
+                          
+                            
+                              <p><a href="/">English</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">APAC</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>Australasia</h6>
+                          
+                          
+                            
+                              <p><a href="/">English</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>日本</h6>
+                          
+                          
+                            
+                              <p><a href="/">日本語</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">MEA</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>South Africa</h6>
+                          
+                          
+                            
+                              <p><a href="/">English</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Tunisie</h6>
+                          
+                          
+                            
+                              <p><a href="/">Français</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Türkiye</h6>
+                          
+                          
+                            
+                              <p><a href="/">Türkçe</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>MEA (incl GCC)</h6>
+                          
+                          
+                            
+                              <p><a href="/">English</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">North America</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>United States</h6>
+                          
+                          
+                            
+                              <p><a href="/">English</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">Europe</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>Benelux</h6>
+                          
+                          
+                            
+                              <p><a href="/">Français</a></p>
+                            
+                             
+                          
+                          
+                          
+                            
+                              <p><a href="/">Nederlands</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Deutschland</h6>
+                          
+                          
+                            
+                              <p><a href="/">Deutsch</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>España</h6>
+                          
+                          
+                            
+                              <p><a href="/">Español</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>France</h6>
+                          
+                          
+                            
+                              <p><a href="/">Français</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Ireland</h6>
+                          
+                          
+                            
+                              <p><a href="/">English</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Italia</h6>
+                          
+                          
+                            
+                              <p><a href="/">Italiano</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Nordics</h6>
+                          
+                          
+                            
+                              <p><a href="/en-nordics/home">English</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Portugal</h6>
+                          
+                          
+                            
+                              <p><a href="/">Português</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Schweiz/Suisse/ Svizzera</h6>
+                          
+                          
+                            
+                              <p><a href="/">Deutsch</a></p>
+                            
+                             
+                          
+                          
+                          
+                            
+                              <p><a href="/">Français</a></p>
+                            
+                             
+                          
+                          
+                          
+                            
+                              <p><a href="/">Italiano</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>United Kingdom</h6>
+                          
+                          
+                            
+                              <p><a href="/">English</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Österreich</h6>
+                          
+                          
+                            
+                              <p><a href="/">Deutsch</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">Central &amp; South America</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>LATAM</h6>
+                          
+                          
+                            
+                              <p><a href="/">Español</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Brasil</h6>
+                          
+                          
+                            
+                              <p><a href="/">Português</a></p>
+                            
+                             
+                          
+                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                  </main>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        
+        
+        <li class="menu_icons">
+          
+          
+          <a href="https://www.skidata.com/customer-portal" class="menu_icons">
+<!--             <i class="fa fa-user-o" aria-hidden="true"></i> -->
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" id="mdi-account-lock-open-outline" viewbox="0 0 20 19">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: #181715;
+                    }
+                  </style>
+                </defs>
+                <path class="cls-1" d="M8,8c2.21,0,4-1.79,4-4S10.21,0,8,0s-4,1.79-4,4,1.79,4,4,4M8,2c1.11,0,2,.9,2,2s-.89,2-2,2-2-.89-2-2,.9-2,2-2M10,16H0v-3c0-2.67,5.33-4,8-4,.91,0,2.13.16,3.35.47-.09.33-.15.68-.15,1.03v.89c-.98-.29-2.1-.49-3.2-.49-2.97,0-6.1,1.46-6.1,2.1v1.1h8.1v1.9M18.8,13h-4.3v-2.5c0-.8.7-1.3,1.5-1.3s1.5.5,1.5,1.3v.5h1.3v-.5c0-1.4-1.4-2.5-2.8-2.5s-2.8,1.1-2.8,2.5v2.5c-.6,0-1.2.6-1.2,1.2v3.5c0,.7.6,1.3,1.2,1.3h5.5c.7,0,1.3-.6,1.3-1.2v-3.5c0-.7-.6-1.3-1.2-1.3Z" />
+              </svg>
+            </div>
+          </a>
+        </li>
+        
+        
+        <li class="nav_search menu_icons">
+          <i class="fa fa-search search_toggle" aria-hidden="true"></i>
+          <div class="drop_down menu_search">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <div class="hs-search-field"> 
+                    <div class="hs-search-field__bar"> 
+                      <form action="/hs-search-results">
+                        
+                        <input type="text" class="hs-search-field__input" name="term" autocomplete="off" aria-label="Search" placeholder="Search">
+                        
+                        
+                        
+                        
+                        <input type="hidden" name="language" value="en">
+                        <button aria-label="Search" class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        <button class="close-search"><i class="fa fa-times search_toggle" aria-hidden="true"></i></button>
+                      </form>
+                    </div>
+                    <ul class="hs-search-field__suggestions"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="search_toggle bottom-search"></div>
+          </div>
+        </li>
+        
+      </ul>
+      
+      <div class="button-wrapper">
+        
+        
+        <a class="btn secondary-button" href="https://www.skidata.com/contact">
+          <span>Contact Us</span>
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Mobile -->
+<div class="mobile_nav">
+  <div class="mega-menu">
+    <div class="menu_left">
+      <div class="logo">
+        <a href="/home"><img src="https://www.skidata.com/hubfs/New_SKIDATA_Strong-endorsed-logo_RGB.png" alt="New_SKIDATA_Strong-endorsed-logo_RGB"></a>
+        <button class="mobile_burger">
+          <i class="fa fa-bars" aria-hidden="true"></i>
+          <i class="fa fa-times search_toggle" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="mobile_nav_drop">
+        <ul>
+          
+          <li>
+            
+            
+            
+            <a href="javascript:void(0)" class="hd_mega_open hd_nav_links">
+              Segments 
+            </a>
+            <i class="fa fa-angle-down main-open" aria-hidden="true"></i>
+            <div class="drop_down nav_mobile simple_mega_menu">
+              <div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-2">
+                      
+                      <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/airport-parking" role="menuitem" target="_self">Airport</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/city-parking" role="menuitem" target="_self">City &amp; Municipality</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/parking-operator" role="menuitem" target="_self">Parking Operator</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/shopping-mall-parking" role="menuitem" target="_self">Retail &amp; Shopping Mall</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/office-buildings" role="menuitem" target="_self">Office</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/educational-building-parking" role="menuitem" target="_self">Education</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/hospital-parking" role="menuitem" target="_self">Healthcare</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/mountain" role="menuitem" target="_self">Mountain Destination</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/hotel-parking" role="menuitem" target="_self">Hospitality</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/stadium-arena" role="menuitem" target="_self">Stadia &amp; Sports</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/segments/attractions-industry" role="menuitem" target="_self">Theme &amp; Amusement parks</a></li>
+ </ul>
+</div></span>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </li>
+          
+          <li>
+            
+            
+            
+            <a href="javascript:void(0)" class="hd_mega_open hd_nav_links">
+              Solutions 
+            </a>
+            <i class="fa fa-angle-down main-open" aria-hidden="true"></i>
+            <div class="drop_down nav_mobile">
+              <div class="">
+                
+                <div class="sub_menu_container">
+                  
+                  <button class="secondary_nav_btn hd_nav_links"><span class="tab-nav-links-mobile">Parking &amp; Mobility</span></button>
+                  <i class="fa fa-angle-down sub-open" aria-hidden="true"></i>
+                  <div class="sub_menu_tab">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-2">
+                          <ul role="menu">
+                            <li role="none"><a href="https://www.skidata.com/solutions/mobility-parking" role="menuitem" target="_self">Overview</a></li>
+                            
+                            <li role="none"><button class="menu-link" data-ref="efficient-in-operations">Efficient in Operations</button></li>
+                            <div class="menu-panel" data-menu="efficient-in-operations">
+                              <div class="menu-panel-top">
+                                <button type="button" class="menu-link menu-header">
+                                  <i class="fas fa-chevron-left"></i>
+                                  Efficient in Operations
+                                </button>
+                                <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/access-control-lpr" role="menuitem" target="_self">Access Control &amp; License Plate Recognition</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/monitoring-control" role="menuitem" target="_self">Monitoring &amp; Control</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/reporting-analytics" role="menuitem" target="_self">Reporting &amp; Analytics</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/parking-guidance-digital-signage" role="menuitem" target="_self">Parking Guidance &amp; Digital Signage</a></li>
+ </ul>
+</div></span>
+                              </div>
+                              
+                              <div class="menu-panel-cta">
+                                <div>
+                                  <p><strong>Mobility Suite as a Service</strong></p>
+<p>Future-Proof Parking Subscription</p>
+                                </div>
+                                <div>
+                                  
+                                  
+                                  
+                                  <a class="btn quaternary-button" href="https://www.skidata.com/solutions/mobility-parking/parking-solution-subscription" target="_blank" rel="noopener">
+                                    <span>Read more</span>
+                                  </a>
+                                  
+                                </div>
+                              </div>
+                              
+                            </div>
+                            
+                            
+                            <li role="none"><button class="menu-link" data-ref="successful-in-selling">Successful in Selling</button></li>
+                            <div class="menu-panel" data-menu="successful-in-selling">
+                              <div class="menu-panel-top">
+                                <button type="button" class="menu-link menu-header">
+                                  <i class="fas fa-chevron-left"></i>
+                                  Successful in Selling
+                                </button>
+                                <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/online-reservations-subscriptions" role="menuitem" target="_self">Online Reservations &amp; Subscriptions</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/b2b-parker-management" role="menuitem" target="_self">B2B Parker Management</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/digital-onsite-payment" role="menuitem" target="_self">Digital &amp; Onsite Payment</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/validation" role="menuitem" target="_self">Validation</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/ev-charging" role="menuitem" target="_self">EV-Charging</a></li>
+ </ul>
+</div></span>
+                              </div>
+                              
+                              <div class="menu-panel-cta">
+                                <div>
+                                  <p><strong>Mobility Suite as a Service</strong></p>
+<p>Future-Proof Parking Subscription</p>
+                                </div>
+                                <div>
+                                  
+                                  
+                                  
+                                  <a class="btn quaternary-button" href="https://www.skidata.com/solutions/mobility-parking/parking-solution-subscription" target="_blank" rel="noopener">
+                                    <span>Read more</span>
+                                  </a>
+                                  
+                                </div>
+                              </div>
+                              
+                            </div>
+                            
+                            
+                            <li role="none"><button class="menu-link" data-ref="city-solutions">City Solutions</button></li>
+                            <div class="menu-panel" data-menu="city-solutions">
+                              <div class="menu-panel-top">
+                                <button type="button" class="menu-link menu-header">
+                                  <i class="fas fa-chevron-left"></i>
+                                  City Solutions
+                                </button>
+                                <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/zone-management" role="menuitem" target="_self">Zone Management</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/curbside-management" role="menuitem" target="_self">Curb Management</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mobility-parking/mobility-hub" role="menuitem" target="_self">Mobility Hub</a></li>
+ </ul>
+</div></span>
+                              </div>
+                              
+                              <div class="menu-panel-cta">
+                                <div>
+                                  <p><strong>Mobility Suite as a Service</strong></p>
+<p>Future-Proof Parking Subscription</p>
+                                </div>
+                                <div>
+                                  
+                                  
+                                  
+                                  <a class="btn quaternary-button" href="https://www.skidata.com/solutions/mobility-parking/parking-solution-subscription" target="_blank" rel="noopener">
+                                    <span>Read more</span>
+                                  </a>
+                                  
+                                </div>
+                              </div>
+                              
+                            </div>
+                            
+                            
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="sub_menu_container">
+                  
+                  <button class="secondary_nav_btn hd_nav_links"><span class="tab-nav-links-mobile">Mountain Destination</span></button>
+                  <i class="fa fa-angle-down sub-open" aria-hidden="true"></i>
+                  <div class="sub_menu_tab">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-2">
+                          <ul role="menu">
+                            <li role="none"><a href="https://www.skidata.com/solutions/mountain-destinations" role="menuitem" target="_self">Overview</a></li>
+                            
+                            <li role="none"><button class="menu-link" data-ref="efficient-in-operations">Efficient in Operations</button></li>
+                            <div class="menu-panel" data-menu="efficient-in-operations">
+                              <div class="menu-panel-top">
+                                <button type="button" class="menu-link menu-header">
+                                  <i class="fas fa-chevron-left"></i>
+                                  Efficient in Operations
+                                </button>
+                                <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/access-control" role="menuitem" target="_self">Access Control</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/monitoring-and-control" role="menuitem" target="_self">Monitoring &amp; Control</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/reporting-and-analytics" role="menuitem" target="_self">Reporting &amp; Analytics</a></li>
+ </ul>
+</div></span>
+                              </div>
+                              
+                              <div class="menu-panel-cta">
+                                <div>
+                                  <p><strong>SKIDATA Connect</strong></p>
+<p>the all-in-one proposition</p>
+                                </div>
+                                <div>
+                                  
+                                  
+                                  
+                                  <a class="btn quaternary-button" href="https://www.skidata.com/solutions/skidata-connect-platform">
+                                    <span>Read more</span>
+                                  </a>
+                                  
+                                </div>
+                              </div>
+                              
+                            </div>
+                            
+                            
+                            <li role="none"><button class="menu-link" data-ref="successful-in-selling">Successful in Selling</button></li>
+                            <div class="menu-panel" data-menu="successful-in-selling">
+                              <div class="menu-panel-top">
+                                <button type="button" class="menu-link menu-header">
+                                  <i class="fas fa-chevron-left"></i>
+                                  Successful in Selling
+                                </button>
+                                <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/ecommerce" role="menuitem" target="_self">eCommerce</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/self-service-ticketing" role="menuitem" target="_self">Self Service Ticketing</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/dynamic-pricing" role="menuitem" target="_self">Dynamic Pricing</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/ticket-media" role="menuitem" target="_self">Ticket Media</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/sales-channels" role="menuitem" target="_self">Sales Channels</a></li>
+ </ul>
+</div></span>
+                              </div>
+                              
+                              <div class="menu-panel-cta">
+                                <div>
+                                  <p><strong>SKIDATA Connect</strong></p>
+<p>the all-in-one proposition</p>
+                                </div>
+                                <div>
+                                  
+                                  
+                                  
+                                  <a class="btn quaternary-button" href="https://www.skidata.com/solutions/skidata-connect-platform">
+                                    <span>Read more</span>
+                                  </a>
+                                  
+                                </div>
+                              </div>
+                              
+                            </div>
+                            
+                            
+                            <li role="none"><button class="menu-link" data-ref="value-adding-services">Value Adding Services</button></li>
+                            <div class="menu-panel" data-menu="value-adding-services">
+                              <div class="menu-panel-top">
+                                <button type="button" class="menu-link menu-header">
+                                  <i class="fas fa-chevron-left"></i>
+                                  Value Adding Services
+                                </button>
+                                <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/mobile-flow" role="menuitem" target="_self">Smartphone Ski Pass</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/parking-management" role="menuitem" target="_self">Parking Management</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/partner-integration" role="menuitem" target="_self">Partner Integration</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/activity-sales" role="menuitem" target="_self">Activity Sales</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/mountain-destinations/locker-rental" role="menuitem" target="_self">Locker Rental</a></li>
+ </ul>
+</div></span>
+                              </div>
+                              
+                              <div class="menu-panel-cta">
+                                <div>
+                                  <p><strong>SKIDATA Connect</strong></p>
+<p>the all-in-one proposition</p>
+                                </div>
+                                <div>
+                                  
+                                  
+                                  
+                                  <a class="btn quaternary-button" href="https://www.skidata.com/solutions/skidata-connect-platform">
+                                    <span>Read more</span>
+                                  </a>
+                                  
+                                </div>
+                              </div>
+                              
+                            </div>
+                            
+                            
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="sub_menu_container">
+                  
+                  <button class="secondary_nav_btn hd_nav_links"><span class="tab-nav-links-mobile">Sports &amp; Entertainment</span></button>
+                  <i class="fa fa-angle-down sub-open" aria-hidden="true"></i>
+                  <div class="sub_menu_tab">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-2">
+                          <ul role="menu">
+                            <li role="none"><a href="https://www.skidata.com/solutions/sports-entertainment-access-solutions" role="menuitem" target="_self">Overview</a></li>
+                            
+                            <li role="none"><button class="menu-link" data-ref="stadia-&amp;-sports">Stadia &amp; Sports</button></li>
+                            <div class="menu-panel" data-menu="stadia-&amp;-sports">
+                              <div class="menu-panel-top">
+                                <button type="button" class="menu-link menu-header">
+                                  <i class="fas fa-chevron-left"></i>
+                                  Stadia &amp; Sports
+                                </button>
+                                <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/stadia-attractions/access-control" role="menuitem" target="_self">Access Control</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/stadia-attractions/accreditation" role="menuitem" target="_self">Accreditation</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/stadia-attractions/pre-event-check" role="menuitem" target="_self">Pre-event Check</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/stadia-attractions/e-ticket" role="menuitem" target="_self">eTicket / NFC</a></li>
+ </ul>
+</div></span>
+                              </div>
+                              
+                              <div class="menu-panel-cta">
+                                <div>
+                                  <p><strong>SKIDATA Connect</strong></p>
+<p>the all-in-one proposition</p>
+                                </div>
+                                <div>
+                                  
+                                  
+                                  
+                                  <a class="btn quaternary-button" href="https://www.skidata.com/solutions/skidata-connect-platform">
+                                    <span>Read more</span>
+                                  </a>
+                                  
+                                </div>
+                              </div>
+                              
+                            </div>
+                            
+                            
+                            <li role="none"><button class="menu-link" data-ref="theme-&amp;-amusement-parks">Theme &amp; Amusement Parks</button></li>
+                            <div class="menu-panel" data-menu="theme-&amp;-amusement-parks">
+                              <div class="menu-panel-top">
+                                <button type="button" class="menu-link menu-header">
+                                  <i class="fas fa-chevron-left"></i>
+                                  Theme &amp; Amusement Parks
+                                </button>
+                                <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/attractions-industry/access-control" role="menuitem" target="_self">Access Control</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/attractions-industry/accreditation" role="menuitem" target="_self">Accreditation</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions/attractions-industry/e-ticket" role="menuitem" target="_self">eTicket / NFC</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/solutions-attraction-self-service-ticketing" role="menuitem" target="_self">Self Service Ticketing</a></li>
+ </ul>
+</div></span>
+                              </div>
+                              
+                              <div class="menu-panel-cta">
+                                <div>
+                                  <p><strong>SKIDATA Connect</strong></p>
+<p>the all-in-one proposition</p>
+                                </div>
+                                <div>
+                                  
+                                  
+                                  
+                                  <a class="btn quaternary-button" href="https://www.skidata.com/solutions/skidata-connect-platform">
+                                    <span>Read more</span>
+                                  </a>
+                                  
+                                </div>
+                              </div>
+                              
+                            </div>
+                            
+                            
+                            
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            
+          </li>
+          
+          <li>
+            
+            
+            
+            <a href="https://www.skidata.com/references" class="hd_nav_links">
+              References 
+            </a>
+            
+          </li>
+          
+          <li>
+            
+            
+            
+            <a href="https://www.skidata.com/service" class="hd_nav_links">
+              Service
+            </a>
+            
+          </li>
+          
+          <li>
+            
+            
+            
+            <a href="https://www.skidata.com/partner" class="hd_nav_links">
+              Partners
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="menu_right mobile_nav_drop">
+      <ul>
+        
+        <li>
+          
+          
+          
+          <a href="https://www.skidata.com/about" class="hd_nav_links">
+            About 
+          </a>
+          
+        </li>
+        
+        <li>
+          
+          
+          
+          <a href="javascript:void(0)" class="hd_mega_open hd_nav_links">
+            Careers
+          </a>
+          <i class="fa fa-angle-down main-open" aria-hidden="true"></i>
+          <div class="drop_down nav_mobile simple_dropdown">
+            <div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-2">
+                    
+                    <span id="hs_cos_wrapper_widget_1742900231035_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_widget_1742900231035_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/career" role="menuitem" target="_self">Why SKIDATA</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/jobs/career" role="menuitem" target="_self">Job Opportunities</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/career-blog" role="menuitem" target="_self">Career Blog</a></li>
+ </ul>
+</div></span>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </li>
+        
+        
+        <li class="secondary_items">
+          <span aria-hidden="true" data-toggle="modal" data-target="#languageSwitcher"><i class="fa fa-globe"></i> Region</span>
+          <!-- Modal -->
+          <div class="modal fade" id="languageSwitcher" tabindex="-1" role="dialog" aria-labelledby="languageSwitcherLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <main>
+                    <h2>
+                      Select your location
+                    </h2>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">Corporate</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>English</h6>
+                          
+                          
+                          <p><a href="/">English</a></p>
+                           
+                                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">APAC</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>Australasia</h6>
+                          
+                          
+                          <p><a href="/">English</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>日本</h6>
+                          
+                          
+                          <p><a href="/">日本語</a></p>
+                           
+                                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">MEA</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>South Africa</h6>
+                          
+                          
+                          <p><a href="/">English</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Tunisie</h6>
+                          
+                          
+                          <p><a href="/">Français</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Türkiye</h6>
+                          
+                          
+                          <p><a href="/">Türkçe</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>MEA (incl GCC)</h6>
+                          
+                          
+                          <p><a href="/">English</a></p>
+                           
+                                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">North America</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>United States</h6>
+                          
+                          
+                          <p><a href="/">English</a></p>
+                           
+                                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">Europe</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>Benelux</h6>
+                          
+                          
+                          <p><a href="/">Français</a></p>
+                           
+                          
+                          
+                          <p><a href="/">Nederlands</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Deutschland</h6>
+                          
+                          
+                          <p><a href="/">Deutsch</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>España</h6>
+                          
+                          
+                          <p><a href="/">Español</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>France</h6>
+                          
+                          
+                          <p><a href="/">Français</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Ireland</h6>
+                          
+                          
+                          <p><a href="/">English</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Italia</h6>
+                          
+                          
+                          <p><a href="/">Italiano</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Nordics</h6>
+                          
+                          
+                          <p><a href="/en-nordics/home">English</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Portugal</h6>
+                          
+                          
+                          <p><a href="/">Português</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Schweiz/Suisse/ Svizzera</h6>
+                          
+                          
+                          <p><a href="/">Deutsch</a></p>
+                           
+                          
+                          
+                          <p><a href="/">Français</a></p>
+                           
+                          
+                          
+                          <p><a href="/">Italiano</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>United Kingdom</h6>
+                          
+                          
+                          <p><a href="/">English</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Österreich</h6>
+                          
+                          
+                          <p><a href="/">Deutsch</a></p>
+                           
+                                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="region-heading">Central &amp; South America</h4>
+                        </div>
+                      </div>
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <h6>LATAM</h6>
+                          
+                          
+                          <p><a href="/">Español</a></p>
+                           
+                                          
+                        </div>
+                        
+                        <div class="col-lg-3">
+                          <h6>Brasil</h6>
+                          
+                          
+                          <p><a href="/">Português</a></p>
+                           
+                                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                  </main>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        
+        
+        <li class="secondary_items">
+          <span>
+            
+            <a href="https://www.skidata.com/customer-portal" class="menu_icons">
+<!--               <i class="fa fa-user-o" aria-hidden="true"></i>  -->
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" id="mdi-account-lock-open-outline" viewbox="0 0 20 19">
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #181715;
+                      }
+                    </style>
+                  </defs>
+                  <path class="cls-1" d="M8,8c2.21,0,4-1.79,4-4S10.21,0,8,0s-4,1.79-4,4,1.79,4,4,4M8,2c1.11,0,2,.9,2,2s-.89,2-2,2-2-.89-2-2,.9-2,2-2M10,16H0v-3c0-2.67,5.33-4,8-4,.91,0,2.13.16,3.35.47-.09.33-.15.68-.15,1.03v.89c-.98-.29-2.1-.49-3.2-.49-2.97,0-6.1,1.46-6.1,2.1v1.1h8.1v1.9M18.8,13h-4.3v-2.5c0-.8.7-1.3,1.5-1.3s1.5.5,1.5,1.3v.5h1.3v-.5c0-1.4-1.4-2.5-2.8-2.5s-2.8,1.1-2.8,2.5v2.5c-.6,0-1.2.6-1.2,1.2v3.5c0,.7.6,1.3,1.2,1.3h5.5c.7,0,1.3-.6,1.3-1.2v-3.5c0-.7-.6-1.3-1.2-1.3Z"></path>
+                </svg>
+              </span> Login
+            </a>
+          </span>
+        </li>
+        
+        
+        <li>
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="hs-search-field"> 
+                  <div class="hs-search-field__bar"> 
+                    <form action="/hs-search-results">
+                      
+                      <input type="text" class="hs-search-field__input" name="term" autocomplete="off" aria-label="Search" placeholder="Search">
+                      
+                      
+                      
+                      
+                      <button aria-label="Search" class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                  </div>
+                  <ul class="hs-search-field__suggestions"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        
+      </ul>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="button-wrapper">
+              
+              
+              <a class="btn secondary-button" href="https://www.skidata.com/contact">
+                <span>Contact Us</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div>
+</div>
+</div>
+</header></div>
+
+        
+        
+
+        
+        <main id="main-content" class="body-container-wrapper">
+          
+<section class="system-page-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div id="hs_cos_wrapper_content" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_content_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h3 class="lato-light">Error <span class="lato-bold">404</span></h3>
+          <p><span>We are sorry this site does not welcome you as it should. We apologize for this inconvenience — the page you requested is no longer available on skidata.com or has been moved.<br><br></span><span>But here are some options that might help you to get access to the topics you are looking for.<br><br></span><span></span><span>Try out our ticket to get access to the information you might be looking for.</span></p></span></div>
+        <div id="hs_cos_wrapper_button" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+
+
+
+
+<div class="button-wrapper">
+  <a class="btn secondary-button" href="//home">
+    <span>Go to Home Page</span>
+  </a>
+</div>
+
+
+</div>
+      </div>
+      <div class="col-lg-6 alignment-right">
+        <span class="system-big-content">404</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+        </main>
+
+        
+        
+        <div data-global-resource-path="skidata/templates/partials/footer.html"><footer id="footer" class="hd-footer">
+  <div class="container-fluid">
+<div class="row-fluid-wrapper">
+<div class="row-fluid">
+<div class="span12 widget-span widget-type-cell " style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 footer-row-0-background-color footer-row-0-max-width-section-centering dnd-section footer-row-0-padding footer-row-0-background-layers">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget module_17482377463784-flexbox-positioning dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_17482377463784" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+    
+
+
+
+
+
+
+  
+
+
+
+<span id="hs_cos_wrapper_module_17482377463784_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" style="" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image"><a href="/home" target="_parent" id="hs-link-module_17482377463784_" style="border-width:0px;border:0px;"><img src="https://www.skidata.com/hs-fs/hubfs/New_SKIDATA_Strong-endorsed-logo_RGB_white.png?width=165&amp;height=74&amp;name=New_SKIDATA_Strong-endorsed-logo_RGB_white.png" class="hs-image-widget " width="165" height="74" style="max-width: 100%; height: auto;" alt="New_SKIDATA_Strong-endorsed-logo_RGB_white" title="New_SKIDATA_Strong-endorsed-logo_RGB_white" loading="lazy" srcset="https://www.skidata.com/hs-fs/hubfs/New_SKIDATA_Strong-endorsed-logo_RGB_white.png?width=83&amp;height=37&amp;name=New_SKIDATA_Strong-endorsed-logo_RGB_white.png 83w, https://www.skidata.com/hs-fs/hubfs/New_SKIDATA_Strong-endorsed-logo_RGB_white.png?width=165&amp;height=74&amp;name=New_SKIDATA_Strong-endorsed-logo_RGB_white.png 165w, https://www.skidata.com/hs-fs/hubfs/New_SKIDATA_Strong-endorsed-logo_RGB_white.png?width=248&amp;height=111&amp;name=New_SKIDATA_Strong-endorsed-logo_RGB_white.png 248w, https://www.skidata.com/hs-fs/hubfs/New_SKIDATA_Strong-endorsed-logo_RGB_white.png?width=330&amp;height=148&amp;name=New_SKIDATA_Strong-endorsed-logo_RGB_white.png 330w, https://www.skidata.com/hs-fs/hubfs/New_SKIDATA_Strong-endorsed-logo_RGB_white.png?width=413&amp;height=185&amp;name=New_SKIDATA_Strong-endorsed-logo_RGB_white.png 413w, https://www.skidata.com/hs-fs/hubfs/New_SKIDATA_Strong-endorsed-logo_RGB_white.png?width=495&amp;height=222&amp;name=New_SKIDATA_Strong-endorsed-logo_RGB_white.png 495w" sizes="(max-width: 165px) 100vw, 165px"></a></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-3 footer-row-1-max-width-section-centering dnd-section footer-row-1-padding footer-row-1-background-layers footer-row-1-background-color">
+<div class="row-fluid ">
+<div class="span3 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="0" data-w="3">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-4 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_17477331357052" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_module_17477331357052_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h2><a href="https://www.assaabloyentrance.com/global/en" rel="noopener" target="_blank"><span style="color: #ffffff;">Part of ASSA ABLOY</span></a></h2></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+<div class="span3 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="3" data-w="3">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-5 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_17477331357055" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-header" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+<span id="hs_cos_wrapper_module_17477331357055_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_header" style="" data-hs-cos-general-type="widget" data-hs-cos-type="header"><h5>RESOURCES</h5></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-6 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_17477331357056" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_module_17477331357056_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_17477331357056_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-vertical" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/skidata-blog" role="menuitem" target="_self">BLOG</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/about/certificates" role="menuitem" target="_self">CERTIFICATES</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/about/experience-worlds-360-degrees" role="menuitem" target="_self">EXPERIENCE WORLD</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/opos-cash-download" role="menuitem" target="_self">OPOS.CASH DOWNLOAD</a></li>
+ </ul>
+</div></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+<div class="span3 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="6" data-w="3">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-7 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_17477331357059" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-header" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+<span id="hs_cos_wrapper_module_17477331357059_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_header" style="" data-hs-cos-general-type="widget" data-hs-cos-type="header"><h5>RESOURCES</h5></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-8 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_174773313570510" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_module_174773313570510_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_174773313570510_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-vertical" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/about" role="menuitem" target="_self">COMPANY</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/contact" role="menuitem" target="_self">CONTACT</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="/about#press" role="menuitem" target="_self">PRESS &amp; MEDIA</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.skidata.com/jobs/career" role="menuitem" target="_self">JOBS</a></li>
+ </ul>
+</div></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+<div class="span3 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="9" data-w="3">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-9 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_174773313570512" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+
+
+<div class="social-links">
+
+  
+
+  
+
+    
+
+    
+    
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <a class="social-links__link" href="https://www.facebook.com/Skidata/" target="_blank" rel="noopener">
+      
+      <span id="hs_cos_wrapper_module_174773313570512_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon social-links__icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 264 512" aria-labelledby="facebook-f1" role="img"><title id="facebook-f1">Follow us on Facebook</title><g id="facebook-f1_layer"><path d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229" /></g></svg></span>
+      
+    </a>
+
+  
+
+    
+
+    
+    
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <a class="social-links__link" href="https://www.linkedin.com/company/33626/" target="_blank" rel="noopener">
+      
+      <span id="hs_cos_wrapper_module_174773313570512__2" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon social-links__icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" aria-labelledby="linkedin-in2" role="img"><title id="linkedin-in2">Follow us on LinkedIn</title><g id="linkedin-in2_layer"><path d="M100.3 480H7.4V180.9h92.9V480zM53.8 140.1C24.1 140.1 0 115.5 0 85.8 0 56.1 24.1 32 53.8 32c29.7 0 53.8 24.1 53.8 53.8 0 29.7-24.1 54.3-53.8 54.3zM448 480h-92.7V334.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V480h-92.8V180.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V480z" /></g></svg></span>
+      
+    </a>
+
+  
+
+    
+
+    
+    
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <a class="social-links__link" href="https://www.youtube.com/@skidata" target="_blank" rel="noopener">
+      
+      <span id="hs_cos_wrapper_module_174773313570512__3" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon social-links__icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 576 512" aria-labelledby="youtube3" role="img"><title id="youtube3">Follow us on Instagram</title><g id="youtube3_layer"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z" /></g></svg></span>
+      
+    </a>
+
+  
+
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-10 footer-row-2-max-width-section-centering dnd-section footer-row-2-background-layers footer-row-2-background-color footer-row-2-padding">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-11 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_widget_1748237770870" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_widget_1748237770870_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><div class="copy-right">
+<p style="font-size: 14px;"><span style="color: #ffffff;"><a href="/data-privacy" rel="nofollow noopener">Data Privacy</a> | <a href="/alpr-policy" rel="noopener">ALPR Policy</a>&nbsp;| <a href="/gtc" rel="nofollow noopener">GTC</a> | <a href="/terms-of-use" rel="nofollow noopener">Legal/Accessibility/Data Notice</a> | <a href="https://www.assaabloy.com/group/en/sustainability/code-of-conduct/code-of-conduct-business-partners" rel="nofollow noopener" target="_blank">CoC</a> | <a href="/imprint" rel="nofollow noopener">Imprint</a> | <a href="https://www.skidata.com/ai" rel="noopener" target="_blank">Facts</a> </span><span style="color: #ffffff;">© ASSA ABLOY</span></p>
+</div></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div>
+</div>
+</div>
+</footer>
+<div id="back-to-top" class=""><i class="fas fa-angle-up"></i></div></div>
+        
+        
+      </div>
+      
+      
+      
+<!-- HubSpot performance collection script -->
+<script defer src="/hs/hsstatic/content-cwv-embed/static-1.1293/embed.js"></script>
+<script src="https://www.skidata.com/hubfs/hub_generated/template_assets/1/219639426247/1779275748977/template_main.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<script src="https://www.skidata.com/hubfs/hub_generated/module_assets/1/219639067835/1771858872915/module_hd-mega-menu.min.js"></script>
+<script src="https://www.skidata.com/hubfs/hub_generated/module_assets/1/219637945587/1744420988813/module_hd-social-follow.min.js"></script>
+
+
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/www.skidata.com\/404"]);
+_hsq.push(["setPageId", ""]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": null,
+    "legacyPageId": null,
+    "contentFolderId": null,
+    "contentGroupId": null,
+    "abTestId": null,
+    "languageVariantId": null,
+    "languageCode": "en",
+    
+    
+}]);
+</script>
+
+<script type="text/javascript" id="hs-script-loader" async defer src="/hs/scriptloader/145683135.js"></script>
+<!-- End of HubSpot Analytics Code -->
+
+
+<script type="text/javascript">
+var hsVars = {
+    render_id: "18a4d73e-0c91-4db5-934d-98e4ad40b4a2",
+    ticks: 1779275781598,
+    page_id: 0,
+    
+    content_group_id: 0,
+    portal_id: 145683135,
+    app_hs_base_url: "https://app-eu1.hubspot.com",
+    cp_hs_base_url: "https://cp-eu1.hubspot.com",
+    language: "en",
+    analytics_page_type: "standard-page",
+    scp_content_type: "",
+    
+    analytics_page_id: "null",
+    category_id: 1,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+
+
+<script defer src="/hs/hsstatic/HubspotToolsMenu/static-1.640/js/index.js"></script>
+
+ <script> (function(){ var s = document.createElement('script'); var h = document.querySelector('head') || document.body; s.src = 'https://acsbapp.com/apps/app/dist/js/app.js'; s.async = true; s.onload = function(){ acsbJS.init(); }; h.appendChild(s); })(); </script> 
+
+
+    
+    </body></html>

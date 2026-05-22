@@ -1,0 +1,951 @@
+    <!doctype html>
+    <html lang="">
+
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        
+                    <meta property="og:type" content="website">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Ferroli",
+                "alternateName": "Ferroli",
+                "url": "https://ferroli.com/",
+                "logo": "https://ferroli.com/favicon.ico"
+            }
+        </script>
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/><link rel="stylesheet" type="text/css" href="/css/themify-icons.css"/><link rel="stylesheet" type="text/css" href="/css/flexslider.css"/><link rel="stylesheet" type="text/css" href="/css/lightbox.min.css"/><link rel="stylesheet" type="text/css" href="/css/ytplayer.css"/><link rel="stylesheet" type="text/css" href="/admin/bower_components/font-awesome/css/font-awesome.css"/>        <link rel="stylesheet" href="/css/tiptop.css" type="text/css" />
+        <link rel="stylesheet" href="/css/theme.css?x=6655" type="text/css" />
+        <link rel="stylesheet" href="/css/custom.css?x=6655" type="text/css" />
+        <link rel="stylesheet" href="/css/ferroli-bonus.css?x=6655" type="text/css" />
+
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAOLHiwBJ6PdGWFxg89YC64_Op3OAARVQ&callback=Function.prototype" type="text/javascript"></script>
+
+        <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+        <!-- <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"> -->
+        <link rel="icon" sizes="96x96" href="/favicon.ico">
+        <!-- <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"> -->
+        <link rel="manifest" href="/favicon/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+
+        <!-- Google Tag Manager -->
+        <script>
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-5KC6HM7');
+        </script>
+        <!-- End Google Tag Manager -->
+
+        
+                <!-- <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="e2b119d2-febc-48c6-b929-a28c6a69bea6" data-blockingmode="auto" type="text/javascript"></script> -->
+
+    </head>
+
+    <body class="scroll-assist">
+
+        <div class="nav-container">
+            <a id="top"></a>
+            <nav class="bg-light">
+
+                <div class="nav-bar" >
+                    <div class="module left">
+                        <a href="/">
+                            <img class="logo logo-light" alt="Ferroli" src="/admin/img/logo_bianco.svg" />
+
+                            <img src="/img/logo-dark.png" class="logo logo-dark" alt="Ferroli"/>                        </a>
+                    </div>
+                    <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
+                        <i class="ti-menu"></i>
+                    </div>
+                    <div class="module-group right">
+
+                                                <div class="module social left">
+                            
+                            
+                            
+                            
+                            
+                            
+
+                        </div>
+
+                        <div class="module widget-handle search-widget-handle left">
+                            <div class="search">
+                                <a href="//search"><i class="ti-search"></i>
+                                    <span class="title">Search Site</span></a>
+                            </div>
+                        </div>
+
+                        <div class="module widget-handle language left">
+                            <ul class="menu langmenu">
+                                <li class="has-dropdown">
+                                    <a href="#"></a>
+                                    <ul style="max-width:200px;">
+                                        <li class="lang"><a href="/it">Italia</a></li>                                        <li class="lang"><a href="/int">EN-International</a></li>                                        <li class="lang"><a href="/en">EN-United Kingdom</a></li>                                        <li class="lang"><a href="/es">Espa&#209;a</a></li>                                        <li class="lang"><a href="/ro">Romania</a></li>                                        <!--?php if ($language <> 'ru') {
+                                            echo '<li class="lang"><a href="/ru">Россия</a></li>';
+                                        } ?-->
+                                        <li class="lang"><a href="/nl">Nederland</a></li>                                        
+
+
+                                        <!--<li class="lang">
+                                            <a href="/fr">French</a>
+                                        </li>
+                                        <li class="lang">
+                                            <a href="/ne">Olandese</a>
+                                        </li>-->
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module-group right mauro">
+                        <div class="module left">
+                            <ul class="menu">
+
+    
+
+</ul>                        </div>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+        <div class="main-container">
+
+            <div class="menuprodott">
+	<div class="container">
+		<ul class="menu">
+
+			
+
+</ul>
+	</div>
+</div>                        <h2>Missing Controller</h2>
+<p class="error">
+	<strong>Error: </strong>
+	<em>Apple-touch-icon.pngController</em> could not be found.</p>
+<p class="error">
+	<strong>Error: </strong>
+	Create the class <em>Apple-touch-icon.pngController</em> below in file: app/Controller/Apple-touch-icon.pngController.php</p>
+<pre>
+&lt;?php
+class Apple-touch-icon.pngController extends AppController {
+
+}
+</pre>
+<p class="notice">
+	<strong>Notice: </strong>
+	If you want to customize this error message, create app/View/Errors/missing_controller.ctp</p>
+
+<h3>Stack Trace</h3>
+<ul class="cake-stack-trace">
+	<li><a href="#" onclick="traceToggle(event, 'file-excerpt-0')">APP/webroot/index.php line 111</a> &rarr; <a href="#" onclick="traceToggle(event, 'trace-args-0')">Dispatcher->dispatch()</a> <div id="file-excerpt-0" class="cake-code-dump" style="display:none;"><pre><code><span style="color: #000000"><span style="color: #0000BB">$Dispatcher&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Dispatcher</span><span style="color: #007700">();</span></span></code>
+<code><span style="color: #000000"><span style="color: #0000BB">$Dispatcher</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">dispatch</span><span style="color: #007700">(</span></span></code>
+<code><span style="color: #000000"><span style="color: #0000BB">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">new&nbsp;</span><span style="color: #0000BB">CakeRequest</span><span style="color: #007700">(),</span></span></code>
+<span class="code-highlight"><code><span style="color: #000000"><span style="color: #0000BB">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">new&nbsp;</span><span style="color: #0000BB">CakeResponse</span><span style="color: #007700">()</span></span></code></span>
+<code><span style="color: #000000"><span style="color: #0000BB"></span><span style="color: #007700">);</span></span></code></pre></div> <div id="trace-args-0" class="cake-code-dump" style="display: none;"><pre></pre></div></li>
+</ul>
+<script type="text/javascript">
+function traceToggle(event, id) {
+	var el = document.getElementById(id);
+	el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+	event.preventDefault();
+	return false;
+}
+</script>
+
+            <footer class="footer-1 bg-dark">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <img alt="Logo" class="logo" src="/img/logo_su_nero.png" style="max-width:70%; margin-left:-30px; margin-top:-20px;" />
+                            <div>
+                                                                    Ferroli S.p.A.<br>
+                                    via Ritonda 78/a<br>
+                                    37047 San Bonifacio (VR)<br>
+                                    Tel: +39 045 6139411<br>
+                                    Fax: +39 045 6100933
+                                
+                                <br><br>
+                            </div>
+                            <div>
+                                                                <br>
+                                <br><br><br>
+                            </div>
+                        </div>
+                                                <div class="col-md-3 col-sm-6">
+                            <div class="widget">
+                                <h6 class="title"></h6>
+                                <hr>
+                                <ul class="recent-posts">
+                                    <li>
+                                        <b class="title"></b><br>
+                                                                            </li>
+
+                                </ul>
+                            </div>
+                            <!--end of widget-->
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="widget">
+                                <h6 class="title">&nbsp;</h6>
+                                <hr>
+                                <div>
+                                    <ul class="recent-posts">
+                                        
+                                        <!--<li><a>Sitemap</a></li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--end of widget-->
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="widget">
+                                <h6 class="title"></h6>
+                                <hr>
+                                <div>
+                                                                            <img src="/img/tuv.png?version=1" style="width:40px;; margin-right:20px;">
+                                        <img src="/img/certificazioni.png" style="width:55px;">
+                                                                    </div>
+                            </div>
+                            <!--end of widget-->
+                        </div>
+                    </div>
+                    <!--end of row-->
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <span class="sub"> <br> <a style="color:#fe7902;" href="//privacy">Privacy Policy</a> - <a style="color:#fe7902" href="//cookie-policy">Cookie Policy</a> - <a style="color:#fe7902;" href="//reports"></a></span> </span>
+                        </div>
+                        <div class="col-sm-3 text-right">
+                            <ul class="list-inline social-list">
+
+                                
+                                
+
+                                
+                                
+                                
+                                
+                                                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--end of container-->
+                <!--<a class="btn btn-sm fade-half back-to-top inner-link" href="#top">Top</a>-->
+            </footer>
+        </div>
+        <div id="tornasu"><img src="/img/tornasu.png"></div>
+
+
+
+                <!-- Global site tag (gtag.js) - Google Analytics -->
+        <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89649247-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-89649247-1');
+            gtag('config', 'AW-393532690');
+        </script> -->
+
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5KC6HM7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+
+        <script type="text/javascript" src="/js/jquery.min.js"></script><script type="text/javascript" src="/js/bootstrap.min.js"></script><script type="text/javascript" src="/js/flexslider.min.js"></script><script type="text/javascript" src="/js/lightbox.min.js"></script><script type="text/javascript" src="/js/masonry.min.js"></script><script type="text/javascript" src="/js/spectragram.min.js"></script><script type="text/javascript" src="/js/ytplayer.min.js"></script><script type="text/javascript" src="/js/countdown.min.js"></script><script type="text/javascript" src="/js/smooth-scroll.min.js"></script><script type="text/javascript" src="/js/parallax.js"></script><script type="text/javascript" src="/js/sweetalert.min.js"></script><script type="text/javascript" src="/js/scripts.js?v=1779411770"></script>        <script src="/js/tiptop.js"></script>
+        <!--<script src="/js/mauro.js"></script>-->
+
+
+        <script src="/js/jquery-steps.js"></script>
+        <script>
+            $('#demo').steps({
+                onFinish: function() {
+                    alert('Wizard Completed');
+                }
+            });
+        </script>
+
+
+        <script>
+            const setVisible = (elementOrSelector, visible) => (typeof elementOrSelector === 'string' ? document.querySelector(elementOrSelector) : elementOrSelector).style.display = visible ? 'block' : 'none';
+
+            function addGlobalEventListener(type, selector, callback, options = {}) {
+                document.addEventListener(type, e => {
+                    if (e.target.matches(selector)) {
+                        callback(e)
+                    }
+                }, options)
+            }
+
+            function removeOptions(selectElement) {
+                var i, L = selectElement.options.length - 1;
+                for (i = L; i >= 0; i--) {
+                    selectElement.remove(i);
+                }
+            }
+
+            async function ajaxCall(url = '', data = {}) {
+                var myHeaders = new Headers();
+                myHeaders.append('Content-Type', 'application/json');
+                myHeaders.append('X-Requested-With', 'XMLHttpRequest');
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: myHeaders,
+                    credentials: 'same-origin',
+                    body: JSON.stringify(data)
+                });
+                return response.json();
+            }
+
+
+            $('body').tooltip({
+                selector: 'a, i'
+            });
+            ///iscrizione nuova cambia ajax a seconda del tipo e il corso	
+            /*$('.iscriviti3').click(function(event){	
+            	var $valore = $(this).attr("id");
+            	$("#idcorso").val($valore);
+            	var method = "POST";
+            	
+            	$.ajax({
+                    url: '/ajax/iscrizione_corso_utente.php',
+                    data: 'idcorso='+ $valore + '&idutente=' + 0,
+                    type: method,
+                    success: function(msg) {
+            			//alert(msg);
+                        $("#mauromodal"+ $valore).html(msg);
+                    }
+                });
+            });
+            */
+
+            $('.scelta').click(function() {
+                var valore = $(this).attr("id");
+                $(".scelta").removeClass('scelto');
+                $(this).addClass('scelto');
+                $(".corso").hide();
+                $("." + valore).show();
+            });
+
+            $('.scelta2').click(function() {
+                var valore = $(this).attr("id");
+                $(".scelta2").removeClass('scelto');
+                $(this).addClass('scelto');
+                $(".corso2").hide();
+                $("." + valore).show();
+            });
+
+            $('.tab-title2').click(function() {
+                var valore = $(this).attr("id");
+                $(".tab-title2").removeClass("attivo2");
+                $(this).addClass("attivo2");
+                $(".tab-content2").removeClass("attivo");
+                $("#" + valore + "-1").addClass("attivo");
+            });
+
+            $('.tab-title3').click(function() {
+                var valore = $(this).attr("id");
+                $(".tab-title3").removeClass("attivo3");
+                $(this).addClass("attivo3");
+                $(".tab-content3").removeClass("attivo");
+                $("#" + valore + "-1").addClass("attivo");
+            });
+
+
+            jQuery(".contct3").submit(function(event) {
+                event.preventDefault();
+                jQuery.ajax({
+                    type: "POST",
+                    data: jQuery(this).serialize(),
+                    url: "/ajax/process2.php",
+                    success: function(data) {
+                        jQuery(".foundry_modal").html(data);
+                    }
+                });
+
+
+            });
+
+            $('a[href^="#"]').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('[name="' + $.attr(this, 'href').substr(1) + '"]').offset().top
+                }, 500);
+
+                return false;
+            });
+
+            $('#form-registra').submit(function(event) {
+                event.preventDefault();
+                var method = "POST";
+                var dati = $("#form-registra").serialize();
+                $.ajax({
+                    url: '/ajax/cerca_iscritto.php',
+                    data: dati,
+                    type: method,
+                    success: function(msg) {
+                        $("#risultato").html(msg);
+                        $('html,body').animate({
+                            scrollTop: $("#risultato").offset().top
+                        }, 'slow');
+                    }
+                });
+
+            });
+
+            $('#form-registra2').submit(function(event) {
+                event.preventDefault();
+                var method = "POST";
+                var dati = $("#form-registra2").serialize();
+                $.ajax({
+                    url: '/ajax/cerca_iscritto2020.php',
+                    data: dati,
+                    type: method,
+                    success: function(msg) {
+                        $("#risultato").html(msg);
+                        $('html,body').animate({
+                            scrollTop: $("#risultato").offset().top
+                        }, 'slow');
+                    }
+                });
+
+            });
+
+            $('#form-registra-progettisti').submit(function(event) {
+                event.preventDefault();
+                var method = "POST";
+                var dati = $("#form-registra-progettisti").serialize();
+                $.ajax({
+                    url: '/ajax/cerca_iscritto_progettista.php',
+                    data: dati,
+                    type: method,
+                    success: function(msg) {
+                        $("#risultato").html(msg);
+                        $('html,body').animate({
+                            scrollTop: $("#risultato").offset().top
+                        }, 'slow');
+                    }
+                });
+
+            });
+
+            $('.menuprinc').click(function(event) {
+                event.preventDefault();
+                $(".opacity").removeClass("opacity");
+                $(this).next("ul").addClass("opacity");
+            });
+
+            $('#cerca').click(function(event) {
+                var targetOffset = $("#eledown").offset().top - 100;
+                $('html,body').animate({
+                        scrollTop: targetOffset
+                    },
+                    'slow');
+            });
+
+
+            $('.iscriviti').click(function(event) {
+                var $valore = $(this).attr("id");
+                $("#formcorsi").css("display", "block");
+                $("#formpagamento").css("display", "none");
+                $("#formcancella").css("display", "none");
+                $("#idcorso").val($valore);
+
+                var method = "POST";
+                $.ajax({
+                    url: '/ajax/inseriscicorso.php',
+                    data: 'idcorso=' + $valore + '&idutente=' + 0,
+                    type: method,
+                    success: function(msg) {
+                        $("#formcorsi").html(msg);
+                        $('html,body').animate({
+                            scrollTop: $("#formcorsi").offset().top
+                        }, 'slow');
+                    }
+                });
+
+            });
+
+            $('.cancellati').click(function() {
+                var $valore = $(this).attr("id");
+                $("#formcorsi").css("display", "none");
+                $("#formpagamento").css("display", "none");
+                $("#formcancella").css("display", "block");
+                $("#idcorso2").val($valore);
+
+                var method = "POST";
+                $.ajax({
+                    url: '/ajax/modificacorso.php',
+                    data: 'idcorso=' + $valore + '&idutente=' + 0,
+                    type: method,
+                    success: function(msg) {
+                        $("#formcancella").html(msg);
+                    }
+                });
+            });
+
+            $('.cancellati2').click(function() {
+                var $valore = $(this).attr("id");
+                $("#formcorsi").css("display", "none");
+                $("#formpagamento").css("display", "none");
+                $("#formcancella").css("display", "block");
+                $("#idcorso2").val($valore);
+
+                var method = "POST";
+                $.ajax({
+                    url: '/ajax/cancellacorso.php',
+                    data: 'idcorso=' + $valore + '&idutente=' + 0,
+                    type: method,
+                    success: function(msg) {
+                        $("#formcancella").html(msg);
+                    }
+                });
+            });
+
+            $('.pagamento').on("click", function() {
+                var method = "POST";
+                var $valore = $(this).attr("id");
+                $("#formcorsi").css("display", "none");
+                $("#formpagamento").css("display", "block");
+                $("#formcancella").css("display", "none");
+                $.ajax({
+                    url: '/ajax/pagamento.php',
+                    data: 'idcorso=' + $valore + '&idutente=' + 0,
+                    type: method,
+                    success: function(msg) {
+                        $("#formpagamento").html(msg);
+                    }
+                });
+
+            });
+            /*
+            $("#cercacorso").click(function(event) {
+                var $form = $("#formcorsi");
+                var method = $form.attr("method") ? $form.attr("method").toUpperCase() : "POST";
+                $.ajax({
+                    url: '/ajax/corso.php',
+                    data: $form.serialize(),
+                    type: method,
+                    success: function(msg) {
+                        $("#rispostacorso").html(msg);
+                    }
+                });
+            });
+            */
+
+            $("#cancellacorso").click(function(event) {
+                var $form = $("#formcancella");
+                var method = $form.attr("method") ? $form.attr("method").toUpperCase() : "POST";
+                $.ajax({
+                    url: '/ajax/cancella.php',
+                    data: $form.serialize(),
+                    type: method,
+                    success: function(msg) {
+                        $("#rispostacorso").html(msg);
+                    }
+                });
+            });
+
+            $(".changepro").on("change", function() {
+                var $form = $("#myForm");
+                var method = $form.attr("method") ? $form.attr("method").toUpperCase() : "POST";
+                $.ajax({
+                    url: $form.attr("action"),
+                    data: $form.serialize(),
+                    type: method,
+                    success: function(msg) {
+                        $("#eleprod").html(msg);
+                    }
+                });
+                /*
+	var $valore = $(this).attr("value");
+	var $cartella = "#affina" + $(this).attr("value");
+	if($(this).is(":checked")) {
+	$.ajax({
+        url: '/ajax/affina.php',
+        data: "id=" + $valore,
+        type: method,
+        success: function(msg) {
+            $($cartella).html(msg);
+        }
+    });
+	}
+	else
+	{
+	$.ajax({
+        url: '/ajax/affina.php',
+        data: "del=" + $valore,
+        type: method,
+        success: function(msg) {
+            $($cartella).html(msg);
+        }
+    });
+	}
+	*/
+            });
+
+            $(".m1").click(function() {
+                $(".m1").css("background", "white");
+                $(this).css("background", "#e3bfae");
+            });
+
+
+
+            $(".conferma_iscrizione_corso").submit(function(event) {
+                event.preventDefault(); //prevent default action 
+                var post_url = '/ajax/iscrizione_corso.php'; //get form action url
+                var request_method = 'POST'; //get form GET/POST method
+                var form_data = $(this).serialize(); //Encode form elements for submission
+
+                $.ajax({
+                    url: post_url,
+                    type: request_method,
+                    data: form_data,
+                    success: function(msg) {
+                        $(".conferma_iscrizione_corso").html(msg);
+                        setTimeout(function() {
+                            location.reload(); //Refresh page
+                        }, 4000);
+                    }
+                });
+
+            });
+
+
+
+            $('.cancellati3').click(function(event) {
+                if (confirm('Sei sicuro di volerti cancellare?')) {
+                    var id = $(this).attr('id');
+                    $.ajax({
+                        url: '/ajax/cancellazione_corso.php',
+                        type: "POST",
+                        data: "idcorso=" + id + "&idutente=",
+                        success: function() {
+                            alert('cancellazione avvenuta con successo');
+                            setTimeout(function() {
+                                location.reload(); //Refresh page dopo 1 sec
+                            }, 4000);
+                        }
+                    });
+                }
+            });
+
+            $('.cancellati3r').click(function(event) {
+                if (confirm('Sei sicuro di volerti cancellare?')) {
+                    var id = $(this).attr('id');
+                    $.ajax({
+                        url: '/ajax/cancellazione_corso_road.php',
+                        type: "POST",
+                        data: "idcorso=" + id + "&idutente=",
+                        success: function() {
+                            alert('cancellazione avvenuta con successo');
+                            setTimeout(function() {
+                                location.reload(); //Refresh page dopo 1 sec
+                            }, 4000);
+                        }
+                    });
+                }
+            });
+
+
+
+            $("#nascondi").click(function() {
+                //$(this).hide();
+                setTimeout(function() {
+                    $("#appari").show();
+                }, 10000);
+            });
+
+
+            $('#richiestaz').change(function() {
+                var valore = $(this).val();
+                $(".B01").hide();
+                $(".B02").hide();
+                $("." + valore).show();
+            });
+
+            $('#cliente').change(function() {
+                var valore = $(this).val();
+                if (valore == 'A02' || valore == 'A03') {
+                    $('#rag_soc').prop('required', true)
+                } else {
+                    $('#rag_soc').prop('required', false)
+                }
+            })
+
+
+
+            $(document).ready(function() {
+                $('.help').tipTop();
+            });
+        </script>
+                        
+                <script>
+            $("#playaudio").click(function() {
+                document.getElementById('linkAudio').play();
+            });
+        </script>
+                        <script>
+            $("#invialink").click(function() {
+                window.location.href = '/it/news/ferroli-fa-squadra-con-microsoft-ed-hevolus';
+            });
+        </script>
+        <script>
+            $("#invialink2").click(function() {
+                window.location.href = '/it/sportello-incentivi';
+            });
+        </script>
+
+        <script>
+            $("#invialink3").click(function() {
+                window.location.href = '/it/news/ferroli-vince-il-premio-innovazione-smau-per-il-progetto-mixed-reality';
+            });
+        </script>
+
+        <script>
+            $("#invialink4").click(function() {
+                window.location.href = '/it/news/ferroli-sigla-un-accordo-speciale-con-poste-italiane-per-sostenere-la-crescente-richiesta-di-mercato-per-la-cessione-del-credito-con-il-superbonus-110-e-l%E2%80%99ecobonus-65';
+            });
+        </script>
+        </script>
+
+        <script>
+            $("#invialink5").click(function() {
+                window.location.href = '/it/news/realta-aumentata-alla-massima-potenza-al-servizio-degli-installatori-e-dei-clienti-ferroli';
+            });
+        </script>
+
+        <script>
+            $("#invialink6").click(function() {
+                window.location.href = '/it/news/accendi-la-nuova-caldaia-ferroli-e-stupisciti';
+            });
+        </script>
+
+        <script>
+            $("#invialink8").click(function() {
+                window.location.href = '/it/news/il-calore-di-ferroli-scalda-il-cuore-dei-bambini-delle-fate';
+            });
+        </script>
+
+        <script>
+            $("#invialink9").click(function() {
+                window.location.href = '/it/news/bluehelix-tech-rrt-migliore-del-test-e-migliore-acquisto-per-altroconsumo';
+            });
+        </script>
+
+        <script>
+            $("#invialink10").click(function() {
+                window.location.href = '/it/hevolus-live';
+            });
+            $("#invialink110").click(function() {
+                window.location.href = '/it/news/ferroli-inaugura-la_virtual-expo';
+            });
+        </script>
+
+        <script>
+            $("#invialink11").click(function() {
+                window.location.href = '/it/idrogeno-nuova-frontiera';
+            });
+        </script>
+
+        <script>
+            $("#invialink102").click(function() {
+                window.location.href = '/int/news/efficiency-%E2%80%93-the-ultimate-challenge';
+            });
+        </script>
+
+        <script>
+            $("#invialink103").click(function() {
+                window.location.href = '/int/news/champions-of-service-in-italy-in-2022';
+            });
+        </script>
+
+        <script>
+            $("#invialink104").click(function() {
+                window.location.href = '/int/news/move-to-the-next-generation-of-ecological-refrigerants-ferroli-is-taking-part-into-the-“lc150-project”%E2%80%A8for-the-development-of-sustainable-heat-pumps';
+            });
+        </script>
+
+        <script>
+            $("#invialink105").click(function() {
+                window.location.href = '/int/news/inaugurated-ferroli-academy';
+            });
+        </script>
+
+
+        <script type="text/javascript">
+            $(function() {
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() != 0) {
+                        $('#tornasu').fadeIn(); //faccio apparire il box	
+                    } else {
+                        $('#tornasu').fadeOut(); //Il box scompare
+                    }
+                }); //Allo scroll function
+                $('#tornasu').click(function() {
+                    //Se clicco sul box torno su (scrollTop:0) con un timing di animazione.
+                    $('body,html').animate({
+                        scrollTop: 0
+                    }, 800);
+                }); //Click
+            }); //DOM
+        </script>
+        <style>
+            #tornasu {
+                text-align: center;
+                padding: 5px;
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+                cursor: pointer;
+                display: none;
+                color: #333;
+                font-family: verdana;
+                font-size: 12px;
+                z-index: 10000;
+            }
+        </style>
+
+        <style>
+            .langmenu>li:hover>ul {
+                opacity: 1;
+                transform: translate3d(0, 0px, 0);
+                -webkit-transform: translate3d(0, 0px, 0);
+                -moz-transform: translate3d(0, 0px, 0);
+                visibility: visible;
+            }
+
+            .langmenu>li>ul>li:hover>ul,
+            .has-dropdown:hover .mega-menu ul {
+                opacity: 1;
+                transform: translate3d(0, 0px, 0);
+                -webkit-transform: translate3d(0, 0px, 0);
+                -moz-transform: translate3d(0, 0px, 0);
+                visibility: visible;
+            }
+        </style>
+
+        <style>
+            .menu>li:hover>ul {
+                opacity: 1;
+                transform: translate3d(0, 0px, 0);
+                -webkit-transform: translate3d(0, 0px, 0);
+                -moz-transform: translate3d(0, 0px, 0);
+                visibility: visible;
+            }
+
+            .menu>li>ul>li:hover>ul,
+            .has-dropdown:hover .mega-menu ul {
+                opacity: 1;
+                transform: translate3d(0, 0px, 0);
+                -webkit-transform: translate3d(0, 0px, 0);
+                -moz-transform: translate3d(0, 0px, 0);
+                visibility: visible;
+            }
+        </style>
+        <script>
+            $('.toggle').click(function(e) {
+                e.preventDefault();
+
+                var $this = $(this);
+
+                if ($this.next().hasClass('show')) {
+                    $this.next().removeClass('show');
+                    $this.next().slideUp(350);
+                } else {
+                    $this.parent().parent().find('li .inner').removeClass('show');
+                    $this.parent().parent().find('li .inner').slideUp(350);
+                    $this.next().toggleClass('show');
+                    $this.next().slideToggle(350);
+                }
+            });
+        </script>
+        <style>
+            .inner {
+                padding-left: 0px;
+                overflow: hidden;
+                display: none;
+            }
+
+            a.toggle {
+                width: 100%;
+                display: block;
+            }
+        </style>
+        <script>
+            function toggleFullscreen(elem) {
+                elem = elem || document.documentElement;
+                if (!document.fullscreenElement && !document.mozFullScreenElement &&
+                    !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen();
+                    } else if (elem.msRequestFullscreen) {
+                        elem.msRequestFullscreen();
+                    } else if (elem.mozRequestFullScreen) {
+                        elem.mozRequestFullScreen();
+                    } else if (elem.webkitRequestFullscreen) {
+                        elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+            }
+            /*
+            document.getElementsByClassName('openfull')[0].addEventListener('click', function() {
+              toggleFullscreen();
+            });
+            */
+        </script>
+
+
+        
+        
+        
+    </body>
+
+    </html>
