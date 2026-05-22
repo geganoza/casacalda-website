@@ -205,10 +205,10 @@
     <script>
     (function(){
         var projects = [
-            { name:'EAST POINT', img:'assets/project-main.jpg', tag:'სრული სერვისი', client:'East Point Group', cat:'კომერციული', area:'45,000 მ²', year:'2024', pins:['ელექტრო · HVAC','45,000 მ²','უსაფრთხოება'] },
-            { name:'ბიზნეს ცენტრი ვერე', img:'assets/project-2.jpg', tag:'ელექტრო სისტემა', client:'Vere Group', cat:'კომერციული', area:'28,000 მ²', year:'2023', pins:['ელექტროობა','28,000 მ²','განათება'] },
-            { name:'პრემიუმ სასტუმრო', img:'assets/project-3.jpg', tag:'სრული სერვისი', client:'Batumi Hotels', cat:'სასტუმრო', area:'62,000 მ²', year:'2024', pins:['HVAC · ელექტრო','62,000 მ²','Smart Building'] },
-            { name:'საწარმოო კომპლექსი', img:'assets/about-photo.jpg', tag:'მექანიკური სისტემა', client:'Industrial Georgia', cat:'ინდუსტრიული', area:'35,000 მ²', year:'2023', pins:['HVAC · ვენტილაცია','35,000 მ²','სახანძრო'] }
+            { name:'EAST POINT', img:'assets/project-main.jpg', tag:'სრული სერვისი', client:'East Point Group', cat:'კომერციული', area:'45,000 მ²', year:'2024', pins:['ელექტრო · HVAC','45,000 მ²','უსაფრთხოება'], pos:[[28,38],[52,22],[75,48]] },
+            { name:'ბიზნეს ცენტრი ვერე', img:'assets/project-2.jpg', tag:'ელექტრო სისტემა', client:'Vere Group', cat:'კომერციული', area:'28,000 მ²', year:'2023', pins:['ელექტროობა','28,000 მ²','განათება'], pos:[[35,30],[60,18],[22,55]] },
+            { name:'პრემიუმ სასტუმრო', img:'assets/project-3.jpg', tag:'სრული სერვისი', client:'Batumi Hotels', cat:'სასტუმრო', area:'62,000 მ²', year:'2024', pins:['HVAC · ელექტრო','62,000 მ²','Smart Building'], pos:[[20,32],[48,52],[70,25]] },
+            { name:'საწარმოო კომპლექსი', img:'assets/about-photo.jpg', tag:'მექანიკური სისტემა', client:'Industrial Georgia', cat:'ინდუსტრიული', area:'35,000 მ²', year:'2023', pins:['HVAC · ვენტილაცია','35,000 მ²','სახანძრო'], pos:[[40,28],[65,45],[25,60]] }
         ];
         var idx = 0, count = projects.length;
         var img = document.getElementById('projHudImg');
@@ -228,6 +228,15 @@
             if(p.pins[0]) document.getElementById('pinLabel1').textContent = p.pins[0];
             if(p.pins[1]) document.getElementById('pinLabel2').textContent = p.pins[1];
             if(p.pins[2]) document.getElementById('pinLabel3').textContent = p.pins[2];
+            // Reposition pins per project
+            if(p.pos) {
+                document.getElementById('pin1').style.left = p.pos[0][0]+'%';
+                document.getElementById('pin1').style.top = p.pos[0][1]+'%';
+                document.getElementById('pin2').style.left = p.pos[1][0]+'%';
+                document.getElementById('pin2').style.top = p.pos[1][1]+'%';
+                document.getElementById('pin3').style.left = p.pos[2][0]+'%';
+                document.getElementById('pin3').style.top = p.pos[2][1]+'%';
+            }
         }
         if(prev) prev.addEventListener('click', function(){ idx = (idx-1+count)%count; render(); });
         if(next) next.addEventListener('click', function(){ idx = (idx+1)%count; render(); });
