@@ -709,19 +709,34 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .proj-hero-hud__row span:last-child { color: #fff; font-weight: 600; }
 .proj-hero-hud__btn { display: inline-block; margin-top: 16px; font-size: 13px; font-weight: 600; color: #fff; background: var(--orange); padding: 10px 20px; border-radius: 100px; transition: background .3s; }
 .proj-hero-hud__btn:hover { background: var(--orange-dark); }
+/* Switcher nav */
+.proj-hero-hud__nav { position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%); z-index: 5; display: flex; align-items: center; gap: 12px; }
+.proj-hero-hud__counter { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.6); font-variant-numeric: tabular-nums; letter-spacing: .05em; min-width: 56px; text-align: center; }
+.proj-hero-hud__arrow { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.3); background: transparent; color: rgba(255,255,255,.7); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: .3s; }
+.proj-hero-hud__arrow:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,.1); }
+.proj-hero-hud__arrow--next { background: var(--orange); border-color: var(--orange); color: #fff; }
+.proj-hero-hud__arrow--next:hover { background: var(--orange-dark); border-color: var(--orange-dark); }
+.proj-hero-hud__arrow svg { width: 18px; height: 18px; }
+/* Callout pins — branded */
+.proj-hero-hud__pin { position: absolute; z-index: 4; transform: translate(-50%,-50%); }
+.proj-hero-hud__pin-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--orange); border: 3px solid rgba(255,255,255,.8); box-shadow: 0 0 0 4px rgba(239,104,37,.3); animation: hudPinPulse 2.5s ease-in-out infinite; position: relative; z-index: 2; }
+@keyframes hudPinPulse { 0%,100%{ box-shadow: 0 0 0 4px rgba(239,104,37,.3); } 50%{ box-shadow: 0 0 0 12px rgba(239,104,37,0); } }
+.proj-hero-hud__pin-line { position: absolute; top: 100%; left: 50%; width: 1.5px; height: 36px; background: linear-gradient(to bottom, rgba(255,255,255,.6), rgba(255,255,255,.1)); margin-left: -.75px; margin-top: 4px; }
+.proj-hero-hud__pin-line--up { top: auto; bottom: 100%; margin-top: 0; margin-bottom: 4px; background: linear-gradient(to top, rgba(255,255,255,.6), rgba(255,255,255,.1)); }
+.proj-hero-hud__pin-label { position: absolute; top: calc(100% + 44px); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 12px; font-weight: 700; color: #fff; background: var(--navy); padding: 6px 14px; border-radius: 6px; letter-spacing: .3px; box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+.proj-hero-hud__pin-label::before { content: ""; position: absolute; top: -4px; left: 50%; margin-left: -4px; width: 8px; height: 8px; background: var(--navy); transform: rotate(45deg); }
+.proj-hero-hud__pin-label--top { top: auto; bottom: calc(100% + 44px); }
+.proj-hero-hud__pin-label--top::before { top: auto; bottom: -4px; }
 /* Hotspot dots */
-.proj-hero-hud__dot { position: absolute; z-index: 4; transform: translate(-50%,-50%); }
-.proj-hero-hud__dot-pin { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.3); border: 2px solid rgba(255,255,255,.6); animation: dotPulse 2.5s ease-in-out infinite; }
-@keyframes dotPulse { 0%,100%{ box-shadow: 0 0 0 0 rgba(255,255,255,.25); } 50%{ box-shadow: 0 0 0 10px rgba(255,255,255,0); } }
-.proj-hero-hud__dot-label { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 11px; font-weight: 600; color: rgba(255,255,255,.7); background: rgba(22,35,75,.7); padding: 4px 10px; border-radius: 4px; backdrop-filter: blur(8px); }
 @media (max-width: 900px) {
     .proj-hero-hud { height: 60vh; min-height: 400px; margin: 10px 10px 0; border-radius: 16px; }
     .proj-hero-hud__title { font-size: 36px; }
     .proj-hero-hud__content { bottom: 32px; left: 24px; }
     .proj-hero-hud__panel { bottom: 32px; right: 24px; width: 240px; padding: 20px; }
     .proj-hero-hud__name { font-size: 18px; }
-    .proj-hero-hud__dot { display: none; }
     .proj-hero-hud__bracket { width: 32px; height: 32px; }
+    .proj-hero-hud__pin { display: none; }
+    .proj-hero-hud__nav { bottom: 32px; }
 }
 @media (max-width: 600px) {
     .proj-hero-hud { height: 70vh; min-height: 360px; margin: 8px 8px 0; }
