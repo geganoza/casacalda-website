@@ -674,7 +674,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .proj-grid__card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.08); }
 .proj-grid__img img { width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform .5s var(--ease); }
 .proj-grid__card:hover .proj-grid__img img { transform: scale(1.04); }
-.proj-grid__info { padding: 20px 0; }
+.proj-grid__info { padding: 20px 20px; }
 .proj-grid__tag { font-size: 12px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 4px; }
 
 /* HUD Hero for projects page */
