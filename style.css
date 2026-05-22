@@ -39,8 +39,8 @@
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; overflow-x: clip; background: var(--bg); }
-body { font-family: var(--font); color: var(--black); background: var(--bg); overflow-x: clip; width: 100%; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; background: var(--bg); }
+body { font-family: var(--font); color: var(--black); background: var(--bg); overflow-x: hidden; width: 100%; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
@@ -735,7 +735,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 /* Sticky sidebar */
 .about-sidebar {
     position: relative;
-    align-self: start;
 }
 .about-sidebar__nav {
     position: sticky; top: 100px;
@@ -1606,9 +1605,18 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .team-card__img img { height: 300px; }
     .team-card__name { font-size: 17px; }
     .team { padding: 0 0 64px; }
-    .cta-band { border-radius: 16px; padding: 48px 20px; margin: 0 8px; }
-    .cta-band__title { font-size: 24px; line-height: 28px; }
-    .cta-band__desc { font-size: 14px; margin-bottom: 20px; }
+    .cta-band {
+        border-radius: 16px; padding: 48px 24px; margin: 0 8px;
+        min-height: 320px; text-align: center;
+        align-items: center; justify-content: center;
+    }
+    .cta-band__overlay {
+        background: rgba(5,11,31,0.7);
+    }
+    .cta-band__content { max-width: 100%; text-align: center; }
+    .cta-band__title { font-size: 24px; line-height: 30px; }
+    .cta-band__desc { font-size: 14px; margin-bottom: 24px; }
+    .cta-band .nav__cta { font-size: 14px; }
     .footer { padding: 48px 0 0; margin-top: 64px; border-radius: 24px 24px 0 0; }
     .footer__top { gap: 40px; padding-bottom: 40px; }
     .footer__cols { grid-template-columns: 1fr; gap: 28px; }
