@@ -137,26 +137,6 @@
         document.getElementById('teamWrap')
     );
 
-    // ---- SERVICE CARDS — align left edge with .wrap via spacer ----
-    var svcCardsEl = document.getElementById('svcCards');
-    if (svcCardsEl) {
-        // Insert an invisible spacer as the first child
-        var spacer = document.createElement('div');
-        spacer.className = 'svc-spacer';
-        spacer.style.cssText = 'flex-shrink:0;height:1px;';
-        svcCardsEl.insertBefore(spacer, svcCardsEl.firstChild);
-
-        var svcWrap = svcCardsEl.closest('section').querySelector('.wrap');
-        function alignSvcCards() {
-            if (svcWrap) {
-                var wrapLeft = svcWrap.getBoundingClientRect().left + parseFloat(getComputedStyle(svcWrap).paddingLeft);
-                spacer.style.width = (wrapLeft - 16) + 'px'; // minus gap
-            }
-        }
-        alignSvcCards();
-        window.addEventListener('resize', alignSvcCards);
-    }
-
     // ---- SERVICE CARDS arrow buttons ----
     var svcCards = document.getElementById('svcCards');
     var svcPrev = document.getElementById('svcPrev');

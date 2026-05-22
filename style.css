@@ -218,14 +218,16 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 
 /* ============ SERVICES ============ */
 .services { padding: 100px 0 0; }
+.services > .wrap { overflow: visible; }
 .svc-cards {
     display: flex; gap: 16px; overflow-x: auto;
     scrollbar-width: none; -ms-overflow-style: none;
     scroll-snap-type: x mandatory;
+    margin-top: 20px;
+    /* Extend right past .wrap, keep left aligned with content */
+    margin-right: calc(-48px - max(0px, (100vw - 1406px) / 2));
     padding-right: 48px;
-    margin-top: 20px; margin-left: 0;
 }
-.svc-spacer { pointer-events: none; }
 .svc-cards::-webkit-scrollbar { display: none; }
 .svc-card {
     flex: 0 0 339.5px; height: 390px;
@@ -1572,8 +1574,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .stats__num { font-size: 32px; line-height: 32px; letter-spacing: -1px; }
     .stats__plus { font-size: 20px; line-height: 32px; }
     .stats__label { font-size: 12px; margin-top: 10px; }
-    .stats { padding: 60px 0; }
-    .projects { padding: 80px 0; }
+    .services { padding: 64px 0 0; }
+    .stats { padding: 64px 0; }
+    .projects { padding: 64px 0; }
+    .about { padding: 64px 0; }
     .team-card { flex: 0 0 200px; }
     .team-card__img { height: 300px; }
     .team-card:hover .team-card__img { height: 200px; }
@@ -1591,6 +1595,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .footer__bottom { flex-direction: column; gap: 16px; text-align: center; }
     .footer__social { gap: 24px; }
     .footer__social a { width: 24px; height: 24px; padding: 3px; }
+    .svc-cards-section { padding-bottom: 64px !important; }
     /* inner pages */
     .page-hero { height: 300px; margin: 8px 8px 0; border-radius: 16px; }
     .page-hero__title { font-size: 28px; line-height: 36px; }
@@ -1939,6 +1944,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .hud-proj-nav { padding: 0 16px; margin: 48px auto; padding-top: 32px; }
 }
 @media (max-width: 600px) {
+    .hud-hero { padding: 64px 0 0; }
     .hud-hero__title { font-size: 24px; }
     .hud-hero__sub { font-size: 14px; }
     .hud-switcher { gap: 16px; }
