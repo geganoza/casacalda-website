@@ -7,9 +7,11 @@
         var hasDarkHero = document.querySelector('.hero, .page-hero');
         if (hasDarkHero) {
             // Pages with dark hero image behind nav: glass pill → solid on scroll
-            window.addEventListener('scroll', function () {
+            var updateNav = function () {
                 nav.classList.toggle('nav--scrolled', window.scrollY > 60);
-            }, { passive: true });
+            };
+            window.addEventListener('scroll', updateNav, { passive: true });
+            updateNav(); // run once on load
         } else {
             // Pages without dark hero (projects HUD, etc): always solid
             nav.classList.add('nav--scrolled');
