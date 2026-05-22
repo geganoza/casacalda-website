@@ -1568,7 +1568,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .eyebrow { font-size: 13px; letter-spacing: 1px; }
     .sec-title { font-size: 26px; line-height: 34px; }
     /* Services: 2-column grid on mobile */
-    .services { padding: 64px 0 0; }
+    .statement { padding: 80px 0 40px; }
+    .services { padding: 40px 0 0; }
     .services > .wrap { overflow: hidden; }
     .svc-cards {
         display: grid !important; grid-template-columns: 1fr 1fr;
@@ -1637,6 +1638,16 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
         flex: 0 0 260px; scroll-snap-align: start;
     }
     .team-grid__bio { display: none; }
+    /* about projects → horizontal scroll */
+    .about-proj-scroll {
+        display: flex; gap: 16px;
+        overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        cursor: grab;
+    }
+    .about-proj-scroll .about-proj-card {
+        flex: 0 0 280px; scroll-snap-align: start;
+    }
     /* inner pages */
     .page-hero { height: 300px; margin: 8px 8px 0; border-radius: 16px; }
     .page-hero__title { font-size: 28px; line-height: 36px; }
