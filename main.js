@@ -144,7 +144,7 @@
         function alignSvcCards() {
             if (svcWrap) {
                 var wrapLeft = svcWrap.getBoundingClientRect().left + parseFloat(getComputedStyle(svcWrap).paddingLeft);
-                svcCardsEl.style.paddingLeft = wrapLeft + 'px';
+                svcCardsEl.style.marginLeft = wrapLeft + 'px';
             }
         }
         alignSvcCards();
