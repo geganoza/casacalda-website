@@ -670,7 +670,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .proj-featured__tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .proj-featured__tags span { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; padding: 6px 14px; border-radius: 100px; border: 1px solid var(--g200); color: var(--g600); }
 .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-.proj-grid__card { border-radius: 14px; overflow: hidden; transition: transform .3s var(--ease), box-shadow .3s; }
+.proj-grid__card { border-radius: 14px; overflow: hidden; background: rgba(255,255,255,.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 2px 16px rgba(0,0,0,.04); transition: transform .3s var(--ease), box-shadow .3s; }
 .proj-grid__card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.08); }
 .proj-grid__img { position: relative; overflow: hidden; }
 .proj-grid__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.35) 0%, transparent 50%); pointer-events: none; }
