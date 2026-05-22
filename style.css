@@ -702,13 +702,13 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .proj-hero-hud__scan { position: absolute; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,.3), transparent); z-index: 3; animation: projScan 5s ease-in-out infinite; }
 @keyframes projScan { 0%,100%{ top: 10%; } 50%{ top: 85%; } }
 /* Info panel */
-.proj-hero-hud__panel { position: absolute; bottom: 48px; right: 48px; z-index: 5; background: rgba(22,35,75,.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 28px; width: 300px; }
-.proj-hero-hud__tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,.5); display: block; margin-bottom: 6px; }
-.proj-hero-hud__name { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 16px; }
-.proj-hero-hud__row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.08); font-size: 13px; }
+.proj-hero-hud__panel { position: absolute; bottom: 48px; right: 48px; z-index: 5; background: rgba(255,255,255,.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.3); border-radius: 14px; padding: 28px; width: 300px; }
+.proj-hero-hud__tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--orange); display: block; margin-bottom: 6px; }
+.proj-hero-hud__name { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--black); margin-bottom: 16px; }
+.proj-hero-hud__row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--g100); font-size: 13px; }
 .proj-hero-hud__row:last-of-type { border-bottom: none; }
-.proj-hero-hud__row span:first-child { color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .3px; }
-.proj-hero-hud__row span:last-child { color: #fff; font-weight: 600; }
+.proj-hero-hud__row span:first-child { color: var(--g400); text-transform: uppercase; letter-spacing: .3px; }
+.proj-hero-hud__row span:last-child { color: var(--black); font-weight: 600; }
 .proj-hero-hud__btn { display: inline-block; margin-top: 16px; font-size: 13px; font-weight: 600; color: #fff; background: var(--orange); padding: 10px 20px; border-radius: 100px; transition: background .3s; }
 .proj-hero-hud__btn:hover { background: var(--orange-dark); }
 /* Switcher nav */
