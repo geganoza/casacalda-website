@@ -1567,27 +1567,29 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .statement { padding: 64px 0 0; }
     .eyebrow { font-size: 13px; letter-spacing: 1px; }
     .sec-title { font-size: 26px; line-height: 34px; }
-    /* Services: 2-column grid on mobile instead of horizontal scroll */
+    /* Services: 2-column grid on mobile */
+    .services { padding: 64px 0 0; }
+    .services > .wrap { overflow: hidden; }
     .svc-cards {
-        display: grid; grid-template-columns: 1fr 1fr;
-        gap: 12px; overflow-x: visible;
-        margin-right: 0; padding: 0;
+        display: grid !important; grid-template-columns: 1fr 1fr;
+        gap: 10px; overflow: visible;
+        margin: 16px 0 0 0; padding: 0;
     }
     .svc-card {
-        flex: none; height: 220px; width: auto;
+        flex: none; width: auto; height: auto;
+        min-height: 160px; padding: 20px 12px;
         scroll-snap-align: none;
     }
     .svc-card--empty { display: none; }
-    .svc-card__icon { width: 56px; height: 56px; }
-    .svc-card__title { font-size: 14px; }
-    .svc-card__desc { font-size: 12px; line-height: 1.5; }
-    .svc-card__title { font-size: 17px; }
-    .svc-card__icon { width: 80px; height: 80px; }
+    .svc-card__inner { width: auto; }
+    .svc-card__icon { width: 48px; height: 48px; margin-bottom: 12px; }
+    .svc-card__icon--circle { width: 48px; height: 48px; padding: 10px; border-radius: 24px; }
+    .svc-card__title { font-size: 13px; line-height: 1.3; margin-bottom: 4px; }
+    .svc-card__desc { font-size: 11px; line-height: 1.4; }
     .stats__grid { gap: 24px; }
     .stats__num { font-size: 32px; line-height: 32px; letter-spacing: -1px; }
     .stats__plus { font-size: 20px; line-height: 32px; }
     .stats__label { font-size: 12px; margin-top: 10px; }
-    .services { padding: 64px 0 0; }
     .stats { padding: 64px 0; }
     .projects { padding: 64px 0; }
     .about { padding: 64px 0; }
@@ -2150,11 +2152,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .stats__num { font-size: 28px; line-height: 28px; }
     .stats__plus { font-size: 16px; }
     .stats__label { font-size: 12px; }
-    .svc-card { height: 180px; }
-    .svc-card__title { font-size: 13px; }
-    .svc-card__icon { width: 44px; height: 44px; }
-    .svc-card__icon { width: 60px; height: 60px; }
-    .svc-card__title { font-size: 15px; }
+    .svc-card { min-height: 140px; padding: 16px 10px; }
+    .svc-card__title { font-size: 12px; }
+    .svc-card__icon { width: 40px; height: 40px; margin-bottom: 8px; }
+    .svc-card__desc { font-size: 10px; }
     .team-card { flex: 0 0 180px; }
     .team-card__img { height: 240px; }
     .team-card:hover .team-card__img { height: 160px; }
