@@ -287,10 +287,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 
 /* ============ PROJECTS — Ribbon carousel (matching reference) ============ */
 :root {
-    --r-idle: 360px;
-    --r-active-w: 940px;
-    --r-active-h: 540px;
-    --r-gap: 24px;
+    --r-idle: 240px;
+    --r-active-w: 700px;
+    --r-active-h: 440px;
+    --r-gap: 20px;
     --r-pad: 48px;
     --r-dur: 2000ms;
     --r-ease: cubic-bezier(.22,1,.36,1);
@@ -366,16 +366,19 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 @media (max-width: 1440px) {
     :root { --r-pad: 48px; }
 }
+@media (max-width: 1200px) {
+    :root { --r-idle: 200px; --r-active-w: 560px; --r-active-h: 380px; }
+}
 @media (max-width: 900px) {
     :root {
-        --r-idle: 40vw; --r-active-w: 75vw; --r-active-h: 50vw;
-        --r-gap: 16px; --r-pad: 20px;
+        --r-idle: 30vw; --r-active-w: 65vw; --r-active-h: 45vw;
+        --r-gap: 12px; --r-pad: 20px;
     }
 }
 @media (max-width: 600px) {
     :root {
-        --r-idle: 35vw; --r-active-w: 80vw; --r-active-h: 55vw;
-        --r-gap: 12px; --r-pad: 16px;
+        --r-idle: 28vw; --r-active-w: 75vw; --r-active-h: 50vw;
+        --r-gap: 10px; --r-pad: 16px;
     }
     .ribbon__title { font-size: 16px; }
 }
@@ -1553,8 +1556,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 @media (max-width: 600px) {
     .wrap { padding: 0 16px; }
     .nav { top: 16px; padding: 24px 24px; width: calc(100% - 36px); border-radius: 16px; }
-    .nav--scrolled { border-radius: 0; top: 0; width: 100%; max-width: 100%; padding: 14px 16px; }
-    .nav__logo { height: 26px; }
+    .nav--scrolled { border-radius: 0; top: 0; width: 100%; max-width: 100%; padding: 24px; }
+    .nav__logo { height: 28px; }
+    .nav__logo img { height: 28px; }
     .nav__cta { display: none; }
     .nav__burger { margin-right: 0; }
     .hero { height: 70svh; min-height: 420px; margin: 8px 8px 0; border-radius: 16px; align-items: center; }
@@ -1599,7 +1603,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .section { padding: 64px 0; }
     .svc-page-grid { grid-template-columns: 1fr; gap: 12px; }
     .svc-page-card { flex-direction: row; align-items: center; padding: 20px; gap: 16px; }
-    .svc-page-card__icon { width: 44px; height: 44px; margin-bottom: 0; flex-shrink: 0; }
+    .svc-page-card__icon { width: 56px; height: 56px; margin-bottom: 0; flex-shrink: 0; }
     .svc-page-card h3 { font-size: 15px; margin-bottom: 0; }
     .svc-page-card p { display: none; }
     .svc-page-card__arrow { margin-top: 0; margin-left: auto; flex-shrink: 0; }
@@ -1616,7 +1620,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .contact-form h3 { font-size: 20px; }
     .contact-form { padding: 24px 16px; }
     .contact-map { height: 240px; border-radius: 12px; }
-    .about-split { padding: 64px 0; gap: 32px; }
+    .about-split { padding: 0; gap: 32px; }
     .about-split__body { font-size: 15px; }
     .timeline { padding: 64px 0; }
     .timeline__line { padding-left: 28px; }
