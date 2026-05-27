@@ -40,10 +40,10 @@
     var stText = document.getElementById('statementText');
     if (stText) {
         var words = stText.textContent.trim().split(/\s+/);
-        var last = words.pop(); // last word gets <em>
-        stText.innerHTML = words.map(function (w, i) {
-            return '<span class="statement__word" style="transition-delay:' + (i * .07).toFixed(2) + 's">' + w + '</span>';
-        }).join(' ') + ' <em><span class="statement__word" style="transition-delay:' + (words.length * .07).toFixed(2) + 's">' + last + '</span></em>';
+        var first = words.shift(); // first word gets <em>
+        stText.innerHTML = '<em><span class="statement__word" style="transition-delay:0s">' + first + '</span></em> ' + words.map(function (w, i) {
+            return '<span class="statement__word" style="transition-delay:' + ((i + 1) * .07).toFixed(2) + 's">' + w + '</span>';
+        }).join(' ');
     }
 
     // ---- SCROLL REVEAL ----
@@ -171,6 +171,51 @@
         svcNext.addEventListener('click', function () {
             svcCards.scrollBy({ left: 356, behavior: 'smooth' });
         });
+    }
+
+    // ---- SERVICE CARDS auto-marquee (slow leftward cycle) ----
+    if (svcCards && svcCards.children.length > 1) {
+        // Clone the original card set once so the scroll can wrap seamlessly
+        var svcOriginals = Array.prototype.slice.call(svcCards.children);
+        svcOriginals.forEach(function (c) { svcCards.appendChild(c.cloneNode(true)); });
+        // Snap would jump during continuous motion
+        svcCards.style.scrollSnapType = 'none';
+
+        var svcHalf = 0;
+        function svcMeasure() { svcHalf = svcCards.scrollWidth / 2; }
+        svcMeasure();
+        window.addEventListener('resize', svcMeasure);
+
+        var svcPaused = false;
+        var svcResumeTimer;
+        function svcPauseTemp(ms) {
+            svcPaused = true; clearTimeout(svcResumeTimer);
+            svcResumeTimer = setTimeout(function () { svcPaused = false; }, ms || 4000);
+        }
+        svcCards.addEventListener('mouseenter', function () { svcPaused = true; });
+        svcCards.addEventListener('mouseleave', function () { svcPaused = false; });
+        svcCards.addEventListener('wheel', function () { svcPauseTemp(); }, { passive: true });
+        svcCards.addEventListener('touchstart', function () { svcPauseTemp(); }, { passive: true });
+        if (svcPrev) svcPrev.addEventListener('click', function () { svcPauseTemp(); });
+        if (svcNext) svcNext.addEventListener('click', function () { svcPauseTemp(); });
+
+        // Sub-pixel accumulator so very slow motion still progresses each frame
+        var svcAccum = 0;
+        var svcSpeed = 0.5; // px/frame ≈ 30 px/sec at 60fps
+        function svcTick() {
+            if (!svcPaused && svcHalf > 0) {
+                svcAccum += svcSpeed;
+                if (svcAccum >= 1) {
+                    var step = Math.floor(svcAccum);
+                    svcAccum -= step;
+                    var sl = svcCards.scrollLeft + step;
+                    if (sl >= svcHalf) sl -= svcHalf;
+                    svcCards.scrollLeft = sl;
+                }
+            }
+            requestAnimationFrame(svcTick);
+        }
+        requestAnimationFrame(svcTick);
     }
 
     // ---- RIBBON PROJECT CAROUSEL (matching reference) ----
