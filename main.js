@@ -555,4 +555,12 @@
         });
     });
 
+    // ---- STAFF VIDEOS: play on hover only ----
+    document.querySelectorAll('.team-card__img video, .team-grid__img video').forEach(function (v) {
+        v.pause();
+        var card = v.closest('.team-card, .team-grid__card') || v.parentElement;
+        card.addEventListener('mouseenter', function () { var p = v.play(); if (p && p.catch) { p.catch(function () {}); } });
+        card.addEventListener('mouseleave', function () { v.pause(); v.currentTime = 0; });
+    });
+
 })();
