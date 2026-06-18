@@ -313,7 +313,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     font-variant-numeric: tabular-nums; font-size: 14px;
     color: var(--g400); letter-spacing: .04em;
 }
-.ribbon__viewport { width: 100%; overflow: hidden; padding-left: var(--r-pad); }
+.ribbon__viewport { width: 100%; overflow: hidden; padding-left: var(--r-pad); min-height: calc(var(--r-active-h) + 84px); }
 .ribbon__track {
     display: flex; align-items: flex-start;
     gap: var(--r-gap); will-change: transform;
