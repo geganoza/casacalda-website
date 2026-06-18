@@ -227,7 +227,7 @@
 
     if (ribbonTrack) {
         var DUR = 2000;
-        var AUTO_DELAY = 7000;
+        var AUTO_DELAY = 2500;
         var COPIES = 5;
         var IDLE_W, GAP, PAD, STEP;
 

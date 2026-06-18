@@ -107,7 +107,8 @@
                 <div class="contact-form anim">
                     <h3>გამოგვიგზავნე შეტყობინება</h3>
                     <p>შეავსე ფორმა და ჩვენ დაგიკავშირდებით უმოკლეს ვადაში</p>
-                    <form>
+                    <form id="contactForm" novalidate>
+                        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="fname">სახელი</label>
@@ -151,6 +152,7 @@
                         </div>
                         <div class="form-submit">
                             <button type="submit" class="btn-pill">გაგზავნა</button>
+                            <p id="formStatus" role="status" style="margin-top:14px;font-weight:600"></p>
                         </div>
                     </form>
                 </div>
@@ -215,5 +217,38 @@
 
     <button class="btt" id="btt" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 15l-6-6-6 6"/></svg></button>
     <script src="main.js"></script>
+    <script src="cms.js"></script>
+    <script>
+    (function(){
+        var form = document.getElementById('contactForm');
+        if(!form || !window.CC_CMS) return;
+        var statusEl = document.getElementById('formStatus');
+        var btn = form.querySelector('button[type=submit]');
+        function show(msg, ok){ if(statusEl){ statusEl.textContent = msg; statusEl.style.color = ok ? 'var(--orange)' : '#c0392b'; } }
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            var data = {
+                fname: form.fname.value.trim(),
+                lname: form.lname.value.trim(),
+                email: form.email.value.trim(),
+                phone: form.phone.value.trim(),
+                service: form.service.value,
+                message: form.message.value.trim(),
+                company: form.company ? form.company.value : ''
+            };
+            if(!data.fname || (!data.email && !data.phone)){
+                show('გთხოვთ შეავსოთ სახელი და ელ-ფოსტა ან ტელეფონი.', false); return;
+            }
+            var label = btn.textContent;
+            btn.disabled = true; btn.textContent = 'იგზავნება...'; show('', true);
+            CC_CMS.sendContact(data).then(function(res){
+                if(res.ok){ show('მადლობა! თქვენი შეტყობინება მიღებულია.', true); form.reset(); }
+                else { show('დაფიქსირდა შეცდომა. სცადეთ თავიდან ან დაგვირეკეთ.', false); }
+            }).catch(function(){
+                show('კავშირი ვერ დამყარდა. სცადეთ მოგვიანებით.', false);
+            }).then(function(){ btn.disabled = false; btn.textContent = label; });
+        });
+    })();
+    </script>
 </body>
 </html>

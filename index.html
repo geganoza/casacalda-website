@@ -267,7 +267,7 @@
             <div class="scroll-wrap" id="teamWrap">
             <div class="team__cards anim" id="teamCards">
                 <div class="team-card">
-                    <div class="team-card__img"><img src="assets/team-1.jpg" alt="გიორგი გელაშვილი"></div>
+                    <div class="team-card__img"><video src="assets/videos/staff-01.mp4" autoplay muted loop playsinline></video></div>
                     <div class="team-card__info">
                         <p class="team-card__role">დირექტორი</p>
                         <h3 class="team-card__name">გიორგი გელაშვილი</h3>
@@ -275,7 +275,7 @@
                     </div>
                 </div>
                 <div class="team-card">
-                    <div class="team-card__img"><img src="assets/team-2.jpg" alt="მარიამ ნოზაძე"></div>
+                    <div class="team-card__img"><video src="assets/videos/staff-02.mp4" autoplay muted loop playsinline></video></div>
                     <div class="team-card__info">
                         <p class="team-card__role">მთავარი არქიტექტორი</p>
                         <h3 class="team-card__name">მარიამ ნოზაძე</h3>
@@ -283,7 +283,7 @@
                     </div>
                 </div>
                 <div class="team-card">
-                    <div class="team-card__img"><img src="assets/team-3.jpg" alt="დავით ხუციშვილი"></div>
+                    <div class="team-card__img"><video src="assets/videos/staff-03.mp4" autoplay muted loop playsinline></video></div>
                     <div class="team-card__info">
                         <p class="team-card__role">მთავარი ინჟინერი</p>
                         <h3 class="team-card__name">დავით ხუციშვილი</h3>
@@ -291,7 +291,7 @@
                     </div>
                 </div>
                 <div class="team-card">
-                    <div class="team-card__img"><img src="assets/team-4.jpg" alt="ნინო მაქარიძე"></div>
+                    <div class="team-card__img"><video src="assets/videos/staff-04.mp4" autoplay muted loop playsinline></video></div>
                     <div class="team-card__info">
                         <p class="team-card__role">პროექტ მენეჯერი</p>
                         <h3 class="team-card__name">ნინო მაქარიძე</h3>
@@ -299,7 +299,7 @@
                     </div>
                 </div>
                 <div class="team-card">
-                    <div class="team-card__img"><img src="assets/team-5.jpg" alt="ალექსი ფარცხალაძე"></div>
+                    <div class="team-card__img"><video src="assets/videos/staff-05.mp4" autoplay muted loop playsinline></video></div>
                     <div class="team-card__info">
                         <p class="team-card__role">ელექტრო ინჟინერი</p>
                         <h3 class="team-card__name">ალექსი ფარცხალაძე</h3>
@@ -307,7 +307,7 @@
                     </div>
                 </div>
                 <div class="team-card">
-                    <div class="team-card__img"><img src="assets/team-6.jpg" alt="ანა კვარაცხელია"></div>
+                    <div class="team-card__img"><video src="assets/videos/staff-06.mp4" autoplay muted loop playsinline></video></div>
                     <div class="team-card__info">
                         <p class="team-card__role">HVAC ინჟინერი</p>
                         <h3 class="team-card__name">ანა კვარაცხელია</h3>
@@ -381,6 +381,31 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 15l-6-6-6 6"/></svg>
     </button>
 
-    <script src="main.js"></script>
+    <script src="cms.js"></script>
+    <script>
+    (function(){
+        // Click a ribbon card → open that single project (delegated, so it also covers the clones main.js makes)
+        document.addEventListener('click', function(e){
+            var card = e.target.closest ? e.target.closest('.ribbon__card') : null;
+            if(card && card.getAttribute('data-slug')){
+                window.location.href = 'project.html?slug=' + encodeURIComponent(card.getAttribute('data-slug'));
+            }
+        });
+        function loadMain(){ var s = document.createElement('script'); s.src = 'main.js'; document.body.appendChild(s); }
+        function cardHTML(p){
+            return '<article class="ribbon__card" data-slug="' + (p.slug||'') + '">'
+                + '<div class="ribbon__media"><img src="' + (p.image||'') + '" alt="' + (p.name||'') + '" loading="lazy"></div>'
+                + '<div class="ribbon__meta"><span class="ribbon__subtitle">' + (p.tag||'') + '</span><h3 class="ribbon__title">' + (p.name||'') + '</h3></div>'
+                + '</article>';
+        }
+        // Populate the ribbon from WordPress, THEN load main.js so its carousel initializes
+        // with the live cards. Falls back to the static markup if WP is unreachable.
+        if(!window.CC_CMS){ loadMain(); return; }
+        CC_CMS.projects().then(function(list){
+            var track = document.getElementById('ribbonTrack');
+            if(list && list.length && track){ track.innerHTML = list.map(cardHTML).join(''); }
+        }).catch(function(){}).then(function(){ loadMain(); });
+    })();
+    </script>
 </body>
 </html>

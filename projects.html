@@ -202,13 +202,15 @@
 
     <button class="btt" id="btt" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 15l-6-6-6 6"/></svg></button>
     <script src="main.js"></script>
+    <script src="cms.js"></script>
     <script>
     (function(){
+        // Static fallback — shown only if WordPress is unreachable.
         var projects = [
-            { name:'EAST POINT', img:'assets/project-main.jpg', tag:'სრული ექსპერტიზა', client:'East Point Group', cat:'კომერციული', area:'45,000 მ²', year:'2024', pins:['ელექტრო · HVAC','45,000 მ²','უსაფრთხოება'], pos:[[28,38],[52,22],[75,48]] },
-            { name:'ბიზნეს ცენტრი ვერე', img:'assets/project-2.jpg', tag:'ელექტრო სისტემა', client:'Vere Group', cat:'კომერციული', area:'28,000 მ²', year:'2023', pins:['ელექტროობა','28,000 მ²','განათება'], pos:[[35,30],[60,18],[22,55]] },
-            { name:'პრემიუმ სასტუმრო', img:'assets/project-3.jpg', tag:'სრული ექსპერტიზა', client:'Batumi Hotels', cat:'სასტუმრო', area:'62,000 მ²', year:'2024', pins:['HVAC · ელექტრო','62,000 მ²','Smart Building'], pos:[[20,32],[48,52],[70,25]] },
-            { name:'საწარმოო კომპლექსი', img:'assets/about-photo.jpg', tag:'მექანიკური სისტემა', client:'Industrial Georgia', cat:'ინდუსტრიული', area:'35,000 მ²', year:'2023', pins:['HVAC · ვენტილაცია','35,000 მ²','სახანძრო'], pos:[[40,28],[65,45],[25,60]] }
+            { name:'EAST POINT', img:'assets/project-main.jpg', tag:'სრული ექსპერტიზა', client:'East Point Group', cat:'კომერციული', area:'45,000 მ²', year:'2024', slug:'east-point', pins:['ელექტრო · HVAC','45,000 მ²','უსაფრთხოება'], pos:[[28,38],[52,22],[75,48]] },
+            { name:'ბიზნეს ცენტრი ვერე', img:'assets/project-2.jpg', tag:'ელექტრო სისტემა', client:'Vere Group', cat:'კომერციული', area:'28,000 მ²', year:'2023', slug:'vere', pins:['ელექტროობა','28,000 მ²','განათება'], pos:[[35,30],[60,18],[22,55]] },
+            { name:'პრემიუმ სასტუმრო', img:'assets/project-3.jpg', tag:'სრული ექსპერტიზა', client:'Batumi Hotels', cat:'სასტუმრო', area:'62,000 მ²', year:'2024', slug:'premium-hotel', pins:['HVAC · ელექტრო','62,000 მ²','Smart Building'], pos:[[20,32],[48,52],[70,25]] },
+            { name:'საწარმოო კომპლექსი', img:'assets/about-photo.jpg', tag:'მექანიკური სისტემა', client:'Industrial Georgia', cat:'ინდუსტრიული', area:'35,000 მ²', year:'2023', slug:'industrial', pins:['HVAC · ვენტილაცია','35,000 მ²','სახანძრო'], pos:[[40,28],[65,45],[25,60]] }
         ];
         var idx = 0, count = projects.length;
         var img = document.getElementById('projHudImg');
@@ -225,6 +227,8 @@
             document.getElementById('projHudCat').textContent = p.cat;
             document.getElementById('projHudArea').textContent = p.area;
             document.getElementById('projHudYear').textContent = p.year;
+            var detailBtn = document.querySelector('.proj-hero-hud__btn');
+            if(detailBtn && p.slug) detailBtn.setAttribute('href','project.html?slug='+encodeURIComponent(p.slug));
             if(p.pins[0]) document.getElementById('pinLabel1').textContent = p.pins[0];
             if(p.pins[1]) document.getElementById('pinLabel2').textContent = p.pins[1];
             if(p.pins[2]) document.getElementById('pinLabel3').textContent = p.pins[2];
@@ -244,6 +248,42 @@
         var auto = setInterval(function(){ idx = (idx+1)%count; render(); }, 6000);
         var hud = document.getElementById('projHud');
         if(hud){ hud.addEventListener('mouseenter', function(){ clearInterval(auto); }); hud.addEventListener('mouseleave', function(){ auto = setInterval(function(){ idx = (idx+1)%count; render(); }, 6000); }); }
+
+        // ---- Render the "all projects" grid from a data array ----
+        function buildGrid(items){
+            var grid = document.querySelector('.proj-grid');
+            if(!grid || !items.length) return;
+            grid.innerHTML = items.map(function(p){
+                var meta = [p.location, p.year].filter(Boolean).join(' · ');
+                return '<a href="project.html?slug='+encodeURIComponent(p.slug||'')+'" class="proj-grid__card anim visible">'
+                     +   '<div class="proj-grid__img"><img src="'+(p.image||'')+'" alt="'+(p.name||'')+'" loading="lazy"></div>'
+                     +   '<div class="proj-grid__info">'
+                     +     '<span class="proj-grid__tag">'+(p.tag||'')+'</span>'
+                     +     '<h3>'+(p.name||'')+'</h3>'
+                     +     '<span class="proj-grid__meta">'+meta+'</span>'
+                     +   '</div>'
+                     + '</a>';
+            }).join('');
+        }
+
+        // ---- Pull live data from WordPress; fall back to the static array above ----
+        if(window.CC_CMS){
+            window.CC_CMS.projects().then(function(live){
+                if(!live || !live.length) return;
+                projects = live.map(function(p){
+                    return {
+                        name:p.name, img:p.image||'assets/project-main.jpg', tag:p.tag,
+                        client:p.client, cat:p.category, area:p.area, year:p.year, status:p.status, slug:p.slug,
+                        pins:[p.tag, p.area, p.status].filter(Boolean).slice(0,3),
+                        pos:[[28,38],[52,22],[75,48]]
+                    };
+                });
+                count = projects.length;
+                idx = 0;
+                render();
+                buildGrid(live);
+            });
+        }
     })();
     </script>
 </body>
