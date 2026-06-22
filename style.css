@@ -41,6 +41,8 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; background: var(--bg); }
 body { font-family: var(--font); color: var(--black); background: var(--bg); overflow-x: hidden; width: 100%; }
+/* Engineering-schematic watermark behind the content sections (vector, black-only, transparent) */
+.bg-schematic { background: url("assets/bg-schematic.svg") repeat-y center top / 150vw 150vh; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
@@ -301,7 +303,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     --r-ease: cubic-bezier(.22,1,.36,1);
 }
 .projects {
-    background: var(--g50); padding: 120px 0;
+    padding: 120px 0;
     overflow: hidden;
 }
 .ribbon { margin-top: 40px; }

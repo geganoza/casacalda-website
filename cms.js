@@ -36,6 +36,20 @@
 				});
 		},
 
+		// The site shell — brand, nav, footer, contact options, published pages.
+		site: function () {
+			return fetch(this.api + '/?rest_route=/casacalda/v1/site')
+				.then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); })
+				.catch(function (e) { console.warn('[CC CMS] site fetch failed:', e.message); return null; });
+		},
+
+		// One page with its sections fully resolved (media + entity sources expanded).
+		page: function (slug) {
+			return fetch(this.api + '/?rest_route=/casacalda/v1/page&slug=' + encodeURIComponent(slug))
+				.then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); })
+				.catch(function (e) { console.warn('[CC CMS] page fetch failed:', e.message); return null; });
+		},
+
 		// POST the contact form to WordPress (stored as an Inquiry + emailed).
 		// Sent as form-urlencoded so it's a "simple" CORS request (no preflight).
 		sendContact: function (data) {

@@ -563,4 +563,50 @@
         card.addEventListener('mouseleave', function () { v.pause(); v.currentTime = 0; });
     });
 
+    // ---- PROJECTS HUD HERO (cycling) ----
+    var projHud = document.getElementById('projHud');
+    if (projHud) {
+        var hudData = [];
+        try { hudData = JSON.parse((document.getElementById('projHudData') || {}).textContent || '[]'); } catch (e) {}
+        if (hudData.length) {
+            var hIdx = 0, hCount = hudData.length;
+            var hImg = document.getElementById('projHudImg');
+            var hCounter = document.getElementById('projHudCounter');
+            var pad = function (n) { return ('0' + n).slice(-2); };
+            var setT = function (id, v) { var el = document.getElementById(id); if (el) el.textContent = v || ''; };
+            var hudRender = function () {
+                var p = hudData[hIdx];
+                if (hImg) { hImg.src = p.image; hImg.alt = p.name || ''; }
+                if (hCounter) hCounter.textContent = pad(hIdx + 1) + ' / ' + pad(hCount);
+                setT('projHudName', p.name); setT('projHudTag', p.tag); setT('projHudClient', p.client);
+                setT('projHudCat', p.cat); setT('projHudArea', p.area); setT('projHudYear', p.year);
+                var btn = projHud.querySelector('.proj-hero-hud__btn');
+                if (btn && p.slug) btn.setAttribute('href', 'project.html?slug=' + encodeURIComponent(p.slug));
+                var pins = [p.tag, p.area, p.status].filter(Boolean);
+                setT('pinLabel1', pins[0]); setT('pinLabel2', pins[1]); setT('pinLabel3', pins[2]);
+            };
+            hudRender();
+            var hPrev = document.getElementById('projHudPrev'), hNext = document.getElementById('projHudNext');
+            var hStep = function (dir) { hIdx = (hIdx + dir + hCount) % hCount; hudRender(); };
+            if (hPrev) hPrev.addEventListener('click', function () { hStep(-1); });
+            if (hNext) hNext.addEventListener('click', function () { hStep(1); });
+            var hAuto = setInterval(function () { hStep(1); }, 6000);
+            projHud.addEventListener('mouseenter', function () { clearInterval(hAuto); });
+            projHud.addEventListener('mouseleave', function () { hAuto = setInterval(function () { hStep(1); }, 6000); });
+        }
+    }
+
+    // ---- ABOUT projects-preview grid (filled from WP) ----
+    var aboutProjGrid = document.getElementById('aboutProjGrid');
+    if (aboutProjGrid && window.CC_CMS) {
+        CC_CMS.projects().then(function (list) {
+            if (!list || !list.length) { return; }
+            aboutProjGrid.innerHTML = list.slice(0, 3).map(function (p) {
+                return '<a href="project.html?slug=' + encodeURIComponent(p.slug || '') + '" class="about-proj-card">' +
+                    '<img src="' + (p.image || '') + '" alt="' + (p.name || '') + '" loading="lazy">' +
+                    '<div class="about-proj-card__info"><span>' + (p.tag || '') + '</span><h4>' + (p.name || '') + '</h4></div></a>';
+            }).join('');
+        });
+    }
+
 })();
