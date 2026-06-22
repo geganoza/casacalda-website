@@ -74,6 +74,31 @@
             animation: rise .9s var(--ease) both;
         }
 
+        .tagline {
+            font-size: clamp(11px, 1.6vw, 14px);
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: clamp(2px, 0.6vw, 4.5px);
+            text-align: center;
+            position: relative;
+            padding: 0 32px;
+        }
+        .tagline strong {
+            color: var(--orange-bright);
+            font-weight: 700;
+        }
+        .tagline::before, .tagline::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 1px;
+            background: rgba(255,255,255,0.25);
+        }
+        .tagline::before { left: 0; }
+        .tagline::after { right: 0; }
+
         .logo-wrap {
             position: relative;
             width: min(560px, 82vw);
@@ -271,6 +296,8 @@
         <div class="logo-wrap">
             <img src="assets/logo-light.svg" alt="Casa Calda" width="560" height="116">
         </div>
+
+        <p class="tagline"><strong>25 Years</strong> of Engineering Excellence</p>
 
         <p class="eyebrow">მზადდება</p>
 
