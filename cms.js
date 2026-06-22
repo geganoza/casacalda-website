@@ -7,8 +7,14 @@
 	'use strict';
 
 	var CC = {
-		// WordPress REST root. Local dev = your Local site. Change for production.
-		api: 'http://casacalda.local',
+		// WordPress REST root. Local dev = the Local site; production = the
+		// headless WP backend on the cms subdomain.
+		api: (function () {
+			var h = location.hostname;
+			return (h === 'casacalda.local' || h === 'localhost' || h === '127.0.0.1')
+				? 'http://casacalda.local'
+				: 'https://cms.casacalda.com';
+		})(),
 
 		// Published projects, in the editor's chosen order. Resolves to an array
 		// of normalized objects (the plugin's "cc" payload), or null on failure

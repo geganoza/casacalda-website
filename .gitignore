@@ -1,0 +1,15 @@
+# Secrets — never commit
+.env
+.env.*
+*.env
+
+# Local / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# WP / deploy artifacts
+*.wpress
+*_archive.zip
+installer.php
+*.sql
