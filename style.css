@@ -748,10 +748,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .proj-hero-hud__nav { bottom: 32px; }
 }
 @media (max-width: 600px) {
-    .proj-hero-hud { height: 70vh; min-height: 360px; margin: 8px 8px 0; }
+    .proj-hero-hud { height: 70vh; min-height: 360px; margin: 8px 8px 0; display: flex; flex-direction: column; }
+    .proj-hero-hud__bg { inset: auto; }
     .proj-hero-hud__title { font-size: 28px; }
-    .proj-hero-hud__panel { position: relative; bottom: auto; right: auto; width: 100%; border-radius: 0 0 24px 24px; margin-top: auto; }
+    .proj-hero-hud__panel { position: relative; bottom: auto; right: auto; width: 100%; border-radius: 0 0 16px 16px; margin-top: auto; }
     .proj-hero-hud__content { bottom: auto; left: 24px; top: 80px; }
+    .proj-hero-hud__nav { top: calc(50% - 50px); bottom: auto; }
     .proj-hero-hud__bracket { display: none; }
     .proj-hero-hud__scan { display: none; }
 }
