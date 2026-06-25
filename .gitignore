@@ -13,3 +13,4 @@ Thumbs.db
 *_archive.zip
 installer.php
 *.sql
+.gstack/
