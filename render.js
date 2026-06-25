@@ -435,7 +435,7 @@
 						'<div class="form-field"><label for="lname">გვარი</label><input type="text" id="lname" name="lname" placeholder="თქვენი გვარი"></div></div>' +
 						'<div class="form-row"><div class="form-field"><label for="email">ელ-ფოსტა</label><input type="email" id="email" name="email" placeholder="info@example.com"></div>' +
 						'<div class="form-field"><label for="phone">ტელეფონი</label><input type="tel" id="phone" name="phone" placeholder="+995 5XX XXX XXX"></div></div>' +
-						'<div class="form-row form-row--full"><div class="form-field"><label for="service">ექსპერტიზა</label><select id="service" name="service"><option value="">აირჩიეთ ექსპერტიზა</option>' + opts + '<option>სხვა</option></select></div></div>' +
+						'<div class="form-row form-row--full"><div class="form-field"><label for="service">კომპეტენცია</label><select id="service" name="service"><option value="">აირჩიეთ კომპეტენცია</option>' + opts + '<option>სხვა</option></select></div></div>' +
 						'<div class="form-row form-row--full"><div class="form-field"><label for="message">შეტყობინება</label><textarea id="message" name="message" placeholder="აღწერეთ თქვენი პროექტი ან შეკითხვა..."></textarea></div></div>' +
 						'<div class="form-submit"><button type="submit" class="btn-pill">გაგზავნა</button><p id="formStatus" role="status" style="margin-top:14px;font-weight:600"></p></div>' +
 					'</form></div>' +
