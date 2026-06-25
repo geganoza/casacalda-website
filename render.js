@@ -19,7 +19,7 @@
 		/* Sentence-level overrides run first; they may contain words that the
 		   word-level rules below would otherwise rewrite. */
 		{ from: /უმაღლესი ხარისხის (ექსპერტიზა|კომპეტენცია|სერვისი) ჩვენთვის სტანდარტი არ არის — ეს ჩვენი ყოველდღიური საქმეა\./g,
-		  to: 'უმაღლესი ხარისხის სერვისი ჩვენი ყოველღიურობაა' },
+		  to: 'უმაღლესი ხარისხის სერვისი ჩვენი ყოველდღიურობაა' },
 		/* Word-level rules. */
 		{ from: /ექსპერტიზა/g, to: 'კომპეტენცია' }
 	];
