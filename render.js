@@ -42,6 +42,7 @@
 		{ from: /ვაჟა-ფშაველას 6/g, to: 'ლუბლიანას ქუჩა N56' },
 		/* Word-level rules. */
 		{ from: /ექსპერტიზა/g, to: 'კომპეტენცია' },
+		{ from: /სპეციალიზაცია/g, to: 'კომპეტენცია' },
 		{ from: /ჩვენი სამუშაოები/g, to: 'ჩვენი ნამუშევრები' },
 		/* Re-replace: 'ტექნიკური ექსპერტიზა' should keep ექსპერტიზა (the previous
 		   global rule would have turned it into 'ტექნიკური კომპეტენცია'). */
