@@ -73,7 +73,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     backdrop-filter: blur(20px);
     box-shadow: 0 1px 0 var(--g100);
 }
-.nav__logo { height: 24px; display: flex; align-items: center; }
+.nav__logo { height: 44px; display: flex; align-items: center; }
 .nav__logo img { height: 100%; width: auto; transition: filter .3s; }
 .nav--scrolled .nav__logo img { filter: brightness(0); }
 .nav__links {
@@ -778,7 +778,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     gap: 60px; padding-bottom: 61px;
     border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.footer__brand img { height: 36px; margin-bottom: 19px; }
+.footer__brand img { height: 64px; margin-bottom: 19px; }
 .footer__brand p { font-size: 14px; line-height: 23.8px; }
 .footer__cols {
     display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
