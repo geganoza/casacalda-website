@@ -35,8 +35,14 @@
 		  to: 'შეავსეთ ფორმა და ჩვენ დაგიკავშირდებით უმოკლეს ვადაში' },
 		{ from: /გაიმარტივე ცხოვ?ერება თბილ სახლთან ერთად/g,
 		  to: 'გაიმარტივეთ ცხოვრება თბილ სახლთან ერთად' },
+		/* Address override — old Vazha-Pshavela 6/0186 was wrong (different
+		   district). Correct HQ per BIA.ge + Yell.ge (high confidence): Lubliana 56. */
+		{ from: /საქართველო, თბილისი/g, to: 'საქართველო, თბილისი' },
+		{ from: /0186,?\s*ვაჟა-ფშაველას 6/g, to: '0159, ლუბლიანას ქუჩა N56' },
+		{ from: /ვაჟა-ფშაველას 6/g, to: 'ლუბლიანას ქუჩა N56' },
 		/* Word-level rules. */
 		{ from: /ექსპერტიზა/g, to: 'კომპეტენცია' },
+		{ from: /ჩვენი სამუშაოები/g, to: 'ჩვენი ნამუშევრები' },
 		/* Re-replace: 'ტექნიკური ექსპერტიზა' should keep ექსპერტიზა (the previous
 		   global rule would have turned it into 'ტექნიკური კომპეტენცია'). */
 		{ from: /ტექნიკური კომპეტენცია/g, to: 'ტექნიკური ექსპერტიზა' },
@@ -476,17 +482,7 @@
 					(socialLinks ? '<div class="contact-social anim">' + socialLinks + '</div>' : '') +
 					(d.map ? '<div class="contact-map anim" style="margin-top:16px"><iframe src="' + esc(d.map) + '" allowfullscreen loading="lazy"></iframe></div>' : '') +
 				'</div>' +
-				'<div class="contact-form anim"><h3>' + esc(d.form_title || 'გამოგვიგზავნე შეტყობინება') + '</h3>' + (d.form_intro ? '<p>' + esc(d.form_intro) + '</p>' : '') +
-					'<form id="contactForm" novalidate>' +
-						'<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">' +
-						'<div class="form-row"><div class="form-field"><label for="fname">სახელი</label><input type="text" id="fname" name="fname" placeholder="თქვენი სახელი"></div>' +
-						'<div class="form-field"><label for="lname">გვარი</label><input type="text" id="lname" name="lname" placeholder="თქვენი გვარი"></div></div>' +
-						'<div class="form-row"><div class="form-field"><label for="email">ელ-ფოსტა</label><input type="email" id="email" name="email" placeholder="info@example.com"></div>' +
-						'<div class="form-field"><label for="phone">ტელეფონი</label><input type="tel" id="phone" name="phone" placeholder="+995 5XX XXX XXX"></div></div>' +
-						'<div class="form-row form-row--full"><div class="form-field"><label for="service">კომპეტენცია</label><select id="service" name="service"><option value="">აირჩიეთ კომპეტენცია</option>' + opts + '<option>სხვა</option></select></div></div>' +
-						'<div class="form-row form-row--full"><div class="form-field"><label for="message">შეტყობინება</label><textarea id="message" name="message" placeholder="აღწერეთ თქვენი პროექტი ან შეკითხვა..."></textarea></div></div>' +
-						'<div class="form-submit"><button type="submit" class="btn-pill">გაგზავნა</button><p id="formStatus" role="status" style="margin-top:14px;font-weight:600"></p></div>' +
-					'</form></div>' +
+				/* Contact form removed per user request — info cards + map stay. */
 			'</div></div></section>';
 	};
 
