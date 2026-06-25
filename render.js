@@ -12,11 +12,27 @@
 (function () {
 	'use strict';
 
+	/* Frontend overrides for content still pending sync in WordPress.
+	   Georgian Mkhedruli codepoints cannot appear in URLs/attribute names, so the
+	   replace is safe to run on every string that flows through esc(). */
+	var TEXT_OVERRIDES = [
+		{ from: /ექსპერტიზა/g, to: 'კომპეტენცია' }
+	];
+	var LOGO_OVERRIDE = '/assets/logo-main-white.svg';
+
+	function applyOverrides(s) {
+		var out = String(s == null ? '' : s);
+		for (var i = 0; i < TEXT_OVERRIDES.length; i++) {
+			out = out.replace(TEXT_OVERRIDES[i].from, TEXT_OVERRIDES[i].to);
+		}
+		return out;
+	}
 	function esc(s) {
-		return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+		return applyOverrides(s).replace(/[&<>"']/g, function (c) {
 			return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
 		});
 	}
+	function txt(s) { return applyOverrides(s); }
 	function nl2br(s) { return esc(s).replace(/\n/g, '<br>'); }
 	function url(m) { return (m && m.url) ? m.url : ''; }
 	function isVid(m) { return !!(m && m.type === 'video'); }
@@ -43,7 +59,8 @@
 	/* ---------------- NAV / FOOTER / BTT ---------------- */
 
 	function nav(site) {
-		var brand = site.brand || {}, n = site.nav || { links: [], cta: {} };
+		var brand = Object.assign({}, site.brand || {}, { logo_light: LOGO_OVERRIDE });
+		var n = site.nav || { links: [], cta: {} };
 		var links = (n.links || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>'; }).join('');
 		var logo = brand.logo_light ? '<img src="' + esc(brand.logo_light) + '" alt="Casa Calda">' : 'Casa Calda';
 		return '' +
@@ -57,7 +74,8 @@
 	}
 
 	function footer(site) {
-		var f = site.footer || {}, brand = site.brand || {};
+		var f = site.footer || {};
+		var brand = Object.assign({}, site.brand || {}, { logo_footer: LOGO_OVERRIDE });
 		var cols = (f.cols || []).map(function (col) {
 			var links = (col.links || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>'; }).join('');
 			return '<div class="footer__col"><h5>' + esc(col.title) + '</h5>' + links + '</div>';
@@ -99,11 +117,12 @@
 	T.hero = function (d) {
 		var overlay = (d.overlay != null && d.overlay !== '') ? ' style="background:rgba(0,0,0,' + Number(d.overlay) + ')"' : '';
 		var actions = (d.actions || []).map(btnPill).join('');
+		var heroLogoUrl = LOGO_OVERRIDE;
 		return '<section class="hero">' +
 			'<div class="hero__bg">' + mediaTag(d.bg, { alt: d.title || 'Casa Calda' }) + '</div>' +
 			'<div class="hero__overlay"' + overlay + '></div>' +
 			'<div class="hero__content">' +
-				(d.logo && d.logo.url ? '<img class="hero__logo" src="' + esc(d.logo.url) + '" alt="Casa Calda">' : '') +
+				'<img class="hero__logo" src="' + esc(heroLogoUrl) + '" alt="Casa Calda">' +
 				(d.eyebrow ? '<p class="hero__eyebrow">' + esc(d.eyebrow) + '</p>' : '') +
 				(d.title ? '<h1 class="hero__title">' + esc(d.title) + '</h1>' : '') +
 				'<div class="hero__actions">' + actions + '</div>' +
@@ -369,7 +388,7 @@
 		'</section>';
 	};
 
-	T['custom-html'] = function (d) { return d.html || ''; };
+	T['custom-html'] = function (d) { return txt(d.html || ''); };
 
 	function projectMetaItem(label, val) {
 		return val ? '<div class="proj-hero__meta-item"><strong>' + esc(label) + '</strong><span>' + esc(val) + '</span></div>' : '';
@@ -388,7 +407,7 @@
 		function row(label, val) { return val ? '<div class="proj-specs__row"><span class="proj-specs__label">' + esc(label) + '</span><span class="proj-specs__val">' + esc(val) + '</span></div>' : ''; }
 		return '<section class="proj-overview"><div class="wrap"><div class="proj-overview__grid">' +
 			'<div class="proj-overview__text anim"><p class="eyebrow">პროექტის მიმოხილვა</p>' +
-			'<h2>' + esc(p.overview_heading || p.name) + '</h2><div>' + (p.overview || '') + '</div></div>' +
+			'<h2>' + esc(p.overview_heading || p.name) + '</h2><div>' + txt(p.overview || '') + '</div></div>' +
 			'<div class="proj-specs anim"><h3>პროექტის დეტალები</h3>' +
 				row('კლიენტი', p.client) + row('კატეგორია', p.category) + row('ფართობი', p.area) +
 				row('ხანგრძლივობა', p.duration) + row('მდებარეობა', p.location) + row('სტატუსი', p.status) +
@@ -446,7 +465,7 @@
 		return '<section class="section"><div class="wrap">' +
 			(d.eyebrow ? '<p class="eyebrow">' + esc(d.eyebrow) + '</p>' : '') +
 			(d.title ? '<h2 class="sec-title">' + esc(d.title) + '</h2>' : '') +
-			'<div class="rich-text">' + (d.html || '') + '</div></div></section>';
+			'<div class="rich-text">' + txt(d.html || '') + '</div></div></section>';
 	};
 
 	T.media = function (d) {
