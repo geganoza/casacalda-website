@@ -101,7 +101,7 @@
 
 	function loadMain() {
 		var s = document.createElement('script');
-		s.src = 'main.js';
+		s.src = 'main.js?v=20260625';
 		document.body.appendChild(s);
 	}
 })();

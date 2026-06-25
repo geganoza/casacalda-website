@@ -161,17 +161,11 @@
     );
 
     // ---- SERVICE CARDS arrow buttons ----
+    // (Looping Prev/Next are wired inside the auto-marquee block below, which has the
+    // cloned card set + svcHalf needed to wrap seamlessly past either end.)
     var svcCards = document.getElementById('svcCards');
     var svcPrev = document.getElementById('svcPrev');
     var svcNext = document.getElementById('svcNext');
-    if (svcCards && svcPrev && svcNext) {
-        svcPrev.addEventListener('click', function () {
-            svcCards.scrollBy({ left: -356, behavior: 'smooth' });
-        });
-        svcNext.addEventListener('click', function () {
-            svcCards.scrollBy({ left: 356, behavior: 'smooth' });
-        });
-    }
 
     // ---- SERVICE CARDS auto-marquee (slow leftward cycle) ----
     if (svcCards && svcCards.children.length > 1) {
@@ -196,8 +190,27 @@
         svcCards.addEventListener('mouseleave', function () { svcPaused = false; });
         svcCards.addEventListener('wheel', function () { svcPauseTemp(); }, { passive: true });
         svcCards.addEventListener('touchstart', function () { svcPauseTemp(); }, { passive: true });
-        if (svcPrev) svcPrev.addEventListener('click', function () { svcPauseTemp(); });
-        if (svcNext) svcNext.addEventListener('click', function () { svcPauseTemp(); });
+        // Looping Prev/Next: animate scrollLeft and wrap into [0, svcHalf) each frame,
+        // so the cloned second copy makes the motion seamless past either end.
+        var svcAnim = null;
+        function svcStep(delta) {
+            svcPauseTemp();
+            if (svcAnim) { cancelAnimationFrame(svcAnim); }
+            var start = svcCards.scrollLeft;
+            var t0 = null, dur = 450;
+            function frame(t) {
+                if (t0 === null) { t0 = t; }
+                var p = Math.min((t - t0) / dur, 1);
+                var ease = 1 - Math.pow(1 - p, 3);
+                var pos = start + delta * ease;
+                if (svcHalf > 0) { pos = ((pos % svcHalf) + svcHalf) % svcHalf; }
+                svcCards.scrollLeft = pos;
+                if (p < 1) { svcAnim = requestAnimationFrame(frame); }
+            }
+            svcAnim = requestAnimationFrame(frame);
+        }
+        if (svcPrev) svcPrev.addEventListener('click', function () { svcStep(-356); });
+        if (svcNext) svcNext.addEventListener('click', function () { svcStep(356); });
 
         // Sub-pixel accumulator so very slow motion still progresses each frame
         var svcAccum = 0;
@@ -463,16 +476,6 @@
         });
         document.addEventListener('mouseup', function () {
             if (sDrag) { sDrag = false; specCards.style.cursor = 'grab'; }
-        });
-    }
-
-    // ---- PARTNERS TOGGLE ----
-    var partnersToggle = document.getElementById('partnersToggle');
-    var partnersWrap = document.getElementById('partnersWrap');
-    if (partnersToggle && partnersWrap) {
-        partnersToggle.addEventListener('click', function () {
-            var open = partnersWrap.classList.toggle('partners-wrap--open');
-            partnersToggle.querySelector('.partners-toggle__text').textContent = open ? 'ნაკლების ნახვა' : 'მეტის ნახვა';
         });
     }
 
