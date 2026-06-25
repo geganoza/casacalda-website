@@ -16,6 +16,11 @@
 	   Georgian Mkhedruli codepoints cannot appear in URLs/attribute names, so the
 	   replace is safe to run on every string that flows through esc(). */
 	var TEXT_OVERRIDES = [
+		/* Sentence-level overrides run first; they may contain words that the
+		   word-level rules below would otherwise rewrite. */
+		{ from: /უმაღლესი ხარისხის (ექსპერტიზა|კომპეტენცია|სერვისი) ჩვენთვის სტანდარტი არ არის — ეს ჩვენი ყოველდღიური საქმეა\./g,
+		  to: 'უმაღლესი ხარისხის სერვისი ჩვენი ყოველღიურობაა' },
+		/* Word-level rules. */
 		{ from: /ექსპერტიზა/g, to: 'კომპეტენცია' }
 	];
 	var LOGO_OVERRIDE = '/assets/logo-main-white.svg';
