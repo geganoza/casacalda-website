@@ -450,6 +450,9 @@
 	}
 
 	T['cta-band'] = function (d) {
+		/* Skip the CTA banner on the contact page — it's redundant
+		   (the contact form is right there). */
+		if (typeof window !== 'undefined' && window.CC_PAGE === 'contact') return '';
 		return '<section class="cta-band"><div class="cta-band__bg">' + mediaTag(d.bg, { alt: d.title }) + '</div>' +
 			'<div class="cta-band__overlay"></div>' +
 			'<div class="cta-band__content"><h2 class="cta-band__title">' + esc(d.title) + '</h2>' +
@@ -482,7 +485,17 @@
 					(socialLinks ? '<div class="contact-social anim">' + socialLinks + '</div>' : '') +
 					(d.map ? '<div class="contact-map anim" style="margin-top:16px"><iframe src="' + esc(d.map) + '" allowfullscreen loading="lazy"></iframe></div>' : '') +
 				'</div>' +
-				/* Contact form removed per user request — info cards + map stay. */
+				'<div class="contact-form anim"><h3>' + esc(d.form_title || 'გამოგვიგზავნეთ შეტყობინება') + '</h3>' + (d.form_intro ? '<p>' + esc(d.form_intro) + '</p>' : '') +
+					'<form id="contactForm" novalidate>' +
+						'<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">' +
+						'<div class="form-row"><div class="form-field"><label for="fname">სახელი</label><input type="text" id="fname" name="fname" placeholder="თქვენი სახელი"></div>' +
+						'<div class="form-field"><label for="lname">გვარი</label><input type="text" id="lname" name="lname" placeholder="თქვენი გვარი"></div></div>' +
+						'<div class="form-row"><div class="form-field"><label for="email">ელ-ფოსტა</label><input type="email" id="email" name="email" placeholder="info@example.com"></div>' +
+						'<div class="form-field"><label for="phone">ტელეფონი</label><input type="tel" id="phone" name="phone" placeholder="+995 5XX XXX XXX"></div></div>' +
+						'<div class="form-row form-row--full"><div class="form-field"><label for="service">კომპეტენცია</label><select id="service" name="service"><option value="">აირჩიეთ კომპეტენცია</option>' + opts + '<option>სხვა</option></select></div></div>' +
+						'<div class="form-row form-row--full"><div class="form-field"><label for="message">შეტყობინება</label><textarea id="message" name="message" placeholder="აღწერეთ თქვენი პროექტი ან შეკითხვა..."></textarea></div></div>' +
+						'<div class="form-submit"><button type="submit" class="btn-pill">გაგზავნა</button><p id="formStatus" role="status" style="margin-top:14px;font-weight:600"></p></div>' +
+					'</form></div>' +
 			'</div></div></section>';
 	};
 
