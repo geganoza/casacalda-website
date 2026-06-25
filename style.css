@@ -76,7 +76,11 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .nav__logo { height: 24px; display: flex; align-items: center; }
 .nav__logo img { height: 100%; width: auto; transition: filter .3s; }
 .nav--scrolled .nav__logo img { filter: brightness(0); }
-.nav__links { display: flex; gap: 24px; }
+.nav__links {
+    display: flex; gap: 24px;
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+}
 .nav__links a {
     font-size: 13px; font-weight: 700; color: #fff;
     text-transform: uppercase; letter-spacing: .5px;
@@ -1086,22 +1090,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .about-proj-grid.visible .about-proj-card:nth-child(2) { transition-delay: .1s; }
 .about-proj-grid.visible .about-proj-card:nth-child(3) { transition-delay: .2s; }
 
-/* Partners collapsible */
-.partners-wrap { position: relative; }
-.partners-strip {
-    max-height: 96px; overflow: hidden;
-    transition: max-height .6s var(--ease);
-}
-.partners-wrap--open .partners-strip {
-    max-height: 1200px;
-}
-.partners-toggle {
-    display: block; width: 100%; margin-top: 16px; padding: 0;
-    font-family: var(--font); font-size: 13px; font-weight: 600;
-    color: var(--g400); background: none; border: none; cursor: pointer;
-    text-align: center; transition: color .3s;
-}
-.partners-toggle:hover { color: var(--orange); }
+/* Partners: always fully visible (collapsible toggle removed) */
 
 /* Stagger: first row of partner logos (rest appear on expand) */
 .partners-strip .partner-logo { opacity: 0; transform: translateY(15px); transition: opacity .4s var(--ease), transform .4s var(--ease); }
@@ -1224,7 +1213,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 }
 .svc-detail__text p {
     font-size: 16px; color: var(--g500); line-height: 1.8;
-    margin-bottom: 16px;
+    margin-top: 16px; margin-bottom: 16px;
 }
 .svc-detail__list { margin: 24px 0 0; }
 .svc-detail__list li {
@@ -1237,6 +1226,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 }
 .svc-detail__img { border-radius: 16px; overflow: hidden; }
 .svc-detail__img img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+/* Even-numbered details are reversed (content on the right) — match the big number on desktop. */
+@media (min-width: 901px) {
+    .svc-detail__num--right { text-align: right; }
+}
 
 /* Process steps */
 .process-grid {

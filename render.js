@@ -45,17 +45,14 @@
 	function nav(site) {
 		var brand = site.brand || {}, n = site.nav || { links: [], cta: {} };
 		var links = (n.links || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>'; }).join('');
-		var cta = n.cta || {};
 		var logo = brand.logo_light ? '<img src="' + esc(brand.logo_light) + '" alt="Casa Calda">' : 'Casa Calda';
 		return '' +
 			'<nav class="nav" id="nav">' +
 				'<a href="index.html" class="nav__logo">' + logo + '</a>' +
 				'<div class="nav__links">' + links + '</div>' +
-				'<a href="' + esc(cta.href || 'contact.html') + '" class="nav__cta">' + esc(cta.label || '') + '</a>' +
 				'<button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span></button>' +
 			'</nav>' +
 			'<div class="mob-nav" id="mobNav">' + links +
-				'<a href="' + esc(cta.href || 'contact.html') + '" class="nav__cta mob-nav__cta">' + esc(cta.label || '') + '</a>' +
 			'</div>';
 	}
 
@@ -150,11 +147,13 @@
 		var items = (d.source && d.source.items) || [];
 		return items.map(function (s, i) {
 			var num = ('0' + (i + 1)).slice(-2);
-			var rev = (i % 2 === 1) ? ' svc-detail__inner--reverse' : '';
+			var even = (i % 2 === 1);
+			var rev = even ? ' svc-detail__inner--reverse' : '';
+			var numCls = even ? ' svc-detail__num--right' : '';
 			var body = s.body ? s.body : (s.short ? '<p>' + esc(s.short) + '</p>' : '');
 			var feats = (s.features || []).map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('');
 			return '<section class="svc-detail" id="' + esc(s.anchor || s.slug) + '"><div class="wrap">' +
-				'<div class="svc-detail__num anim">' + num + '</div>' +
+				'<div class="svc-detail__num' + numCls + ' anim">' + num + '</div>' +
 				'<div class="svc-detail__inner' + rev + ' anim">' +
 					'<div class="svc-detail__text">' + (s.eyebrow ? '<p class="eyebrow">' + esc(s.eyebrow) + '</p>' : '') +
 						'<h3>' + esc(s.name) + '</h3>' + body +
