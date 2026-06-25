@@ -1630,7 +1630,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .nav > .nav__cta { display: none; }
     .nav { top: 12px; padding: 10px 16px; width: calc(100% - 24px); border-radius: 60px; }
     .nav--scrolled { border-radius: 0; top: 0; width: 100%; max-width: 100%; padding: 10px 16px; }
-    .nav__logo { height: 28px; }
+    .nav__logo { height: 40px; }
     .hero { height: 75svh; min-height: 500px; margin: 10px 10px 0; align-items: center; }
     .hero__title { font-size: 36px; line-height: 40px; max-width: 500px; }
     .hero__actions { flex-wrap: wrap; justify-content: center; }
@@ -1688,8 +1688,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .wrap { padding: 0 16px; }
     .nav { top: 16px; padding: 24px 24px; width: calc(100% - 36px); border-radius: 16px; }
     .nav--scrolled { border-radius: 0; top: 0; width: 100%; max-width: 100%; padding: 14px 16px; }
-    .nav__logo { height: 26px; }
-    .nav__logo img { height: 28px; }
+    .nav__logo { height: 38px; }
+    .nav__logo img { height: 38px; }
     .nav__cta { display: none; }
     .nav__burger { margin-right: 0; }
     .hero { height: 70svh; min-height: 420px; margin: 8px 8px 0; border-radius: 16px; align-items: center; }
