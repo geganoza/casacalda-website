@@ -21,7 +21,8 @@
 		{ from: /უმაღლესი ხარისხის (ექსპერტიზა|კომპეტენცია|სერვისი) ჩვენთვის სტანდარტი არ არის — ეს ჩვენი ყოველდღიური საქმეა\./g,
 		  to: 'უმაღლესი ხარისხის სერვისი ჩვენი ყოველდღიურობაა' },
 		/* Word-level rules. */
-		{ from: /ექსპერტიზა/g, to: 'კომპეტენცია' }
+		{ from: /ექსპერტიზა/g, to: 'კომპეტენცია' },
+		{ from: /პორტფოლიო/g, to: 'ჩვენი პროექტები' }
 	];
 	var LOGO_OVERRIDE = '/assets/logo-main-white.svg';
 
@@ -121,7 +122,7 @@
 
 	T.hero = function (d) {
 		var overlay = (d.overlay != null && d.overlay !== '') ? ' style="background:rgba(0,0,0,' + Number(d.overlay) + ')"' : '';
-		var actions = (d.actions || []).map(btnPill).join('');
+		// Hero buttons removed per user request — ignore d.actions from WP
 		var heroLogoUrl = LOGO_OVERRIDE;
 		return '<section class="hero">' +
 			'<div class="hero__bg">' + mediaTag(d.bg, { alt: d.title || 'Casa Calda' }) + '</div>' +
@@ -130,7 +131,6 @@
 				'<img class="hero__logo" src="' + esc(heroLogoUrl) + '" alt="Casa Calda">' +
 				(d.eyebrow ? '<p class="hero__eyebrow">' + esc(d.eyebrow) + '</p>' : '') +
 				(d.title ? '<h1 class="hero__title">' + esc(d.title) + '</h1>' : '') +
-				'<div class="hero__actions">' + actions + '</div>' +
 			'</div></section>';
 	};
 
