@@ -35,6 +35,8 @@
 		  to: 'შეავსეთ ფორმა და ჩვენ დაგიკავშირდებით უმოკლეს ვადაში' },
 		{ from: /გაიმარტივე ცხოვ?ერება თბილ სახლთან ერთად/g,
 		  to: 'გაიმარტივეთ ცხოვრება თბილ სახლთან ერთად' },
+		{ from: /ჩვენი ძალა ჩვენს ადამიანებშია\.?/g,
+		  to: 'ჩვენი ძალა ჩვენს გუნდშია!' },
 		/* Address override — old Vazha-Pshavela 6/0186 was wrong (different
 		   district). Correct HQ per BIA.ge + Yell.ge (high confidence): Lubliana 56. */
 		{ from: /საქართველო, თბილისი/g, to: 'საქართველო, თბილისი' },
