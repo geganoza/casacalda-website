@@ -30,12 +30,16 @@
 		details:       { ka: 'დეტალურად',         en: 'View project' },
 		proj_overview: { ka: 'პროექტის მიმოხილვა', en: 'Project Overview' },
 		proj_details:  { ka: 'პროექტის დეტალები',  en: 'Project Details' },
+		gallery:       { ka: 'გალერეა',           en: 'Gallery' },
+		gallery_title: { ka: 'პროექტის ფოტოები',   en: 'Project Photos' },
 
 		/* ---- contact info cards + footer fallback ---- */
 		address:       { ka: 'მისამართი',         en: 'Address' },
 		phone:         { ka: 'ტელეფონი',          en: 'Phone' },
 		email:         { ka: 'ელ-ფოსტა',          en: 'Email' },
 		footer_contact:{ ka: 'კონტაქტი',          en: 'Contact' },
+		footer_nav:    { ka: 'ნავიგაცია',         en: 'Navigation' },
+		footer_services:{ka: 'ექსპერტიზა',        en: 'Services' },
 
 		/* ---- contact form ---- */
 		form_title:    { ka: 'გამოგვიგზავნეთ შეტყობინება', en: 'Send us a message' },
