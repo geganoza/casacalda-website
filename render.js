@@ -461,7 +461,12 @@
 			return '<div class="vals__item"><span class="vals__num">' + esc(v.num) + '</span><div>' +
 				'<h4 class="vals__title">' + esc(v.title) + '</h4><p class="vals__desc">' + esc(v.desc) + '</p></div></div>';
 		}).join('');
-		var img = { url: ABOUT_SPLIT_IMG, type: 'image' };
+		/* Override is wired but the file is currently the wrong photo —
+		   waiting on the flag-on-Tbilisi banner from Giorgi. Fall back to
+		   whatever WP supplies until then. */
+		var img = (typeof window !== 'undefined' && window.CC_USE_OVERRIDE_ABOUT_IMG)
+			? { url: ABOUT_SPLIT_IMG, type: 'image' }
+			: d.image;
 		return '<section class="about" id="about"><div class="wrap" style="display:flex;gap:66px;align-items:center;flex-wrap:wrap">' +
 			'<div class="about__text anim"><div class="about__title-wrap">' +
 				(d.eyebrow ? '<p class="eyebrow">' + esc(d.eyebrow) + '</p>' : '') + '<h2 class="sec-title">' + esc(d.title) + '</h2></div>' +
