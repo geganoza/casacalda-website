@@ -135,6 +135,9 @@
 		services: '/assets/banners/intro-services.jpg',
 		team:     '/assets/banners/intro-team.jpg'
 	};
+	/* Homepage 'კომპანია' (Company / about) split section uses T['about-split'].
+	   Override its image regardless of what WP supplies. */
+	var ABOUT_SPLIT_IMG = '/assets/banners/home-company.jpg';
 	var CTA_BAND_BG = '/assets/banners/cta-band-desktop.jpg';
 	var SERVICE_DETAIL_IMG = {
 		electricity:  '/assets/banners/service-electricity.jpg',
@@ -426,6 +429,7 @@
 			return '<div class="vals__item"><span class="vals__num">' + esc(v.num) + '</span><div>' +
 				'<h4 class="vals__title">' + esc(v.title) + '</h4><p class="vals__desc">' + esc(v.desc) + '</p></div></div>';
 		}).join('');
+		var img = { url: ABOUT_SPLIT_IMG, type: 'image' };
 		return '<section class="about" id="about"><div class="wrap" style="display:flex;gap:66px;align-items:center;flex-wrap:wrap">' +
 			'<div class="about__text anim"><div class="about__title-wrap">' +
 				(d.eyebrow ? '<p class="eyebrow">' + esc(d.eyebrow) + '</p>' : '') + '<h2 class="sec-title">' + esc(d.title) + '</h2></div>' +
@@ -433,7 +437,7 @@
 				(d.body ? '<p class="about__body">' + esc(d.body) + '</p>' : '') +
 				(vals ? '<div class="vals">' + vals + '</div>' : '') +
 			'</div>' +
-			'<div class="about__img anim">' + mediaTag(d.image, { alt: d.title }) + '</div>' +
+			'<div class="about__img anim">' + mediaTag(img, { alt: d.title }) + '</div>' +
 		'</div></section>';
 	};
 
