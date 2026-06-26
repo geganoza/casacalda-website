@@ -89,6 +89,46 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .nav__links a:hover { color: var(--orange); }
 .nav--scrolled .nav__links a { color: var(--black); }
 .nav--scrolled .nav__links a:hover { color: var(--orange); }
+
+/* ============ LANGUAGE SWITCHER ============ */
+.lang-switcher {
+    display: inline-flex; align-items: center;
+    gap: 2px; padding: 3px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.lang-switcher__btn {
+    appearance: none; border: 0;
+    height: 30px; min-width: 38px; padding: 0 12px;
+    border-radius: 999px;
+    font-family: inherit; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    color: #fff;
+    background: transparent; cursor: pointer;
+    transition: background .25s, color .25s;
+}
+.lang-switcher__btn:hover { color: var(--orange); }
+.lang-switcher__btn--active {
+    background: var(--orange);
+    color: #fff;
+}
+.lang-switcher__btn--active:hover { color: #fff; }
+.nav--scrolled .lang-switcher {
+    background: var(--g100);
+}
+.nav--scrolled .lang-switcher__btn { color: var(--black); }
+.nav--scrolled .lang-switcher__btn:hover { color: var(--orange); }
+.nav--scrolled .lang-switcher__btn--active,
+.nav--scrolled .lang-switcher__btn--active:hover {
+    background: var(--orange); color: #fff;
+}
+.mob-nav .lang-switcher {
+    margin-top: 16px; align-self: center;
+    background: rgba(255,255,255,0.08);
+}
+
 .nav__cta {
     display: inline-flex; align-items: center; justify-content: center;
     height: 48px; padding: 0 40px;

@@ -95,18 +95,34 @@
 
 	/* ---------------- NAV / FOOTER / BTT ---------------- */
 
+	function langSwitcher() {
+		var cur = 'ka';
+		try { cur = localStorage.getItem('cc_lang') || 'ka'; } catch (e) {}
+		function btn(code, label) {
+			var active = (cur === code) ? ' lang-switcher__btn--active' : '';
+			return '<button type="button" class="lang-switcher__btn' + active +
+				'" data-cc-lang="' + code + '" aria-label="' + esc(label === 'KA' ? 'ქართული' : 'English') +
+				'"' + (cur === code ? ' aria-current="true"' : '') + '>' + label + '</button>';
+		}
+		return '<div class="lang-switcher" role="group" aria-label="Language">' +
+			btn('ka', 'KA') + btn('en', 'EN') +
+			'</div>';
+	}
+
 	function nav(site) {
 		var brand = Object.assign({}, site.brand || {}, { logo_light: LOGO_OVERRIDE });
 		var n = site.nav || { links: [], cta: {} };
 		var links = (n.links || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>'; }).join('');
 		var logo = brand.logo_light ? '<img src="' + esc(brand.logo_light) + '" alt="Casa Calda">' : 'Casa Calda';
+		var ls = langSwitcher();
 		return '' +
 			'<nav class="nav" id="nav">' +
 				'<a href="index.html" class="nav__logo">' + logo + '</a>' +
 				'<div class="nav__links">' + links + '</div>' +
+				ls +
 				'<button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span></button>' +
 			'</nav>' +
-			'<div class="mob-nav" id="mobNav">' + links +
+			'<div class="mob-nav" id="mobNav">' + links + ls +
 			'</div>';
 	}
 

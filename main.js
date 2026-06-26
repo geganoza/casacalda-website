@@ -1,6 +1,23 @@
 (function () {
     'use strict';
 
+    // ---- LANGUAGE SWITCHER ----
+    // Stores the user's pick in localStorage as `cc_lang` ('ka' or 'en').
+    // cms.js reads the same key and sends it as ?lang= on every WP fetch.
+    // Clicking a button writes the new value and reloads so the page re-fetches
+    // content in the chosen language.
+    document.querySelectorAll('.lang-switcher__btn').forEach(function (b) {
+        b.addEventListener('click', function () {
+            var picked = b.getAttribute('data-cc-lang');
+            if (!picked) return;
+            var cur = 'ka';
+            try { cur = localStorage.getItem('cc_lang') || 'ka'; } catch (e) {}
+            if (picked === cur) return;
+            try { localStorage.setItem('cc_lang', picked); } catch (e) {}
+            location.reload();
+        });
+    });
+
     // ---- NAV SCROLL ----
     var nav = document.getElementById('nav');
     if (nav) {
