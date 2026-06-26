@@ -20,8 +20,11 @@ const BYPASS_COOKIE = 'cc_preview';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 
 /* Paths the gate lets through unconditionally so /coming-soon.html itself
-   can load + so visitors don't see broken images on the gate page. */
-const PASSTHROUGH_PREFIXES = ['/assets/', '/coming-soon.html', '/robots.txt', '/favicon'];
+   can load + so visitors don't see broken images on the gate page. Both
+   /coming-soon and /coming-soon.html are listed because Cloudflare Pages'
+   "pretty URLs" strips the .html extension. */
+const PASSTHROUGH_PATHS = new Set(['/coming-soon', '/coming-soon.html', '/robots.txt']);
+const PASSTHROUGH_PREFIXES = ['/assets/', '/favicon'];
 const PASSTHROUGH_EXTS = ['.css', '.js', '.svg', '.woff2', '.woff', '.ttf', '.ico', '.png', '.jpg', '.jpeg', '.webp', '.gif', '.mp4'];
 
 function hasBypass(request) {
@@ -33,7 +36,8 @@ function hasBypass(request) {
 }
 
 function isPassthroughPath(pathname) {
-    if (PASSTHROUGH_PREFIXES.some(p => pathname === p || pathname.startsWith(p))) return true;
+    if (PASSTHROUGH_PATHS.has(pathname)) return true;
+    if (PASSTHROUGH_PREFIXES.some(p => pathname.startsWith(p))) return true;
     return PASSTHROUGH_EXTS.some(ext => pathname.endsWith(ext));
 }
 
