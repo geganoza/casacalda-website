@@ -105,7 +105,7 @@
 
 	function loadMain() {
 		var s = document.createElement('script');
-		s.src = 'main.js?v=20260640';
+		s.src = 'main.js?v=20260641';
 		document.body.appendChild(s);
 	}
 })();
