@@ -122,10 +122,19 @@
 	];
 
 	var OVERRIDES_BY_LANG = { ka: TEXT_OVERRIDES_KA, en: TEXT_OVERRIDES_EN };
-	var LOGO_OVERRIDE = '/assets/logo-main-white.svg';
-	/* Footer uses the same official BRAND DNA white logo as the nav.
-	   union.svg (the old split-wordmark) is kept in assets/ for revert. */
-	var FOOTER_LOGO_OVERRIDE = '/assets/logo-main-white.svg';
+	/* Logo files per language — both are the official BRAND DNA white version,
+	   the Georgian one says "თბილი სახლი / CASA CALDA", the English one says
+	   "CASA CALDA / WARM HOME" (or equivalent EN wordmark). Picked at render
+	   time based on the visitor's chosen language. union.svg (the old split
+	   wordmark) is kept in assets/ for revert. */
+	var LOGO_BY_LANG = {
+		ka: '/assets/logo-main-white.svg',
+		en: '/assets/logo-main-white-en.svg'
+	};
+	function currentLang() {
+		try { return localStorage.getItem('cc_lang') || 'ka'; } catch (e) { return 'ka'; }
+	}
+	function logoUrl() { return LOGO_BY_LANG[currentLang()] || LOGO_BY_LANG.ka; }
 
 	/* Media overrides — replaces WP-supplied image URLs with the approved
 	   banners committed to assets/banners/. Old assets stay in place; revert
@@ -230,7 +239,7 @@
 	}
 
 	function nav(site) {
-		var brand = Object.assign({}, site.brand || {}, { logo_light: LOGO_OVERRIDE });
+		var brand = Object.assign({}, site.brand || {}, { logo_light: logoUrl() });
 		var n = site.nav || { links: [], cta: {} };
 		var links = (n.links || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>'; }).join('');
 		var logo = brand.logo_light ? '<img src="' + esc(brand.logo_light) + '" alt="Casa Calda">' : 'Casa Calda';
@@ -248,7 +257,7 @@
 
 	function footer(site) {
 		var f = site.footer || {};
-		var brand = Object.assign({}, site.brand || {}, { logo_footer: FOOTER_LOGO_OVERRIDE });
+		var brand = Object.assign({}, site.brand || {}, { logo_footer: logoUrl() });
 		// Navigation column — every menu item, straight from the live nav config.
 		var navLinks = ((site.nav && site.nav.links) || []).map(function (l) {
 			return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>';
@@ -307,7 +316,7 @@
 	T.hero = function (d) {
 		var overlay = (d.overlay != null && d.overlay !== '') ? ' style="background:rgba(0,0,0,' + Number(d.overlay) + ')"' : '';
 		// Hero buttons removed per user request — ignore d.actions from WP
-		var heroLogoUrl = LOGO_OVERRIDE;
+		var heroLogoUrl = logoUrl();
 		return '<section class="hero">' +
 			'<div class="hero__bg">' + mediaTag(d.bg, { alt: d.title || 'Casa Calda' }) + '</div>' +
 			'<div class="hero__overlay"' + overlay + '></div>' +
