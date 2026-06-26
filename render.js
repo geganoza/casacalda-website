@@ -137,8 +137,9 @@
 		team:     '/assets/banners/intro-team.jpg'
 	};
 	/* Homepage 'კომპანია' (Company / about) split section uses T['about-split'].
-	   Override its image regardless of what WP supplies. */
-	var ABOUT_SPLIT_IMG = '/assets/banners/home-company.jpg';
+	   Re-uses the 1284×850 "ვინ ვართ ჩვენ" v2 banner — same brand visual as the
+	   About page hero, but cropped to a split-layout aspect. */
+	var ABOUT_SPLIT_IMG = '/assets/banners/hero-about-md.jpg';
 	var CTA_BAND_BG = '/assets/banners/cta-band-desktop.jpg';
 	var SERVICE_DETAIL_IMG = {
 		electricity:  '/assets/banners/service-electricity.jpg',
@@ -461,12 +462,7 @@
 			return '<div class="vals__item"><span class="vals__num">' + esc(v.num) + '</span><div>' +
 				'<h4 class="vals__title">' + esc(v.title) + '</h4><p class="vals__desc">' + esc(v.desc) + '</p></div></div>';
 		}).join('');
-		/* Override is wired but the file is currently the wrong photo —
-		   waiting on the flag-on-Tbilisi banner from Giorgi. Fall back to
-		   whatever WP supplies until then. */
-		var img = (typeof window !== 'undefined' && window.CC_USE_OVERRIDE_ABOUT_IMG)
-			? { url: ABOUT_SPLIT_IMG, type: 'image' }
-			: d.image;
+		var img = { url: ABOUT_SPLIT_IMG, type: 'image' };
 		return '<section class="about" id="about"><div class="wrap" style="display:flex;gap:66px;align-items:center;flex-wrap:wrap">' +
 			'<div class="about__text anim"><div class="about__title-wrap">' +
 				(d.eyebrow ? '<p class="eyebrow">' + esc(d.eyebrow) + '</p>' : '') + '<h2 class="sec-title">' + esc(d.title) + '</h2></div>' +

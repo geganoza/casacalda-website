@@ -138,7 +138,7 @@
 
 	function loadMain() {
 		var s = document.createElement('script');
-		s.src = 'main.js?v=20260646';
+		s.src = 'main.js?v=20260647';
 		document.body.appendChild(s);
 	}
 })();
