@@ -19,8 +19,9 @@
 
 	/* Frontend overrides for content still pending sync in WordPress.
 	   Georgian Mkhedruli codepoints cannot appear in URLs/attribute names, so the
-	   replace is safe to run on every string that flows through esc(). */
-	var TEXT_OVERRIDES = [
+	   replace is safe to run on every string that flows through esc().
+	   Language-aware: applyOverrides() picks the array matching localStorage.cc_lang. */
+	var TEXT_OVERRIDES_KA = [
 		/* Sentence-level overrides run first; they may contain words that the
 		   word-level rules below would otherwise rewrite. */
 		{ from: /უმაღლესი ხარისხის (ექსპერტიზა|კომპეტენცია|სერვისი) ჩვენთვის სტანდარტი არ არის — ეს ჩვენი ყოველდღიური საქმეა\./g,
@@ -69,12 +70,65 @@
 		   conjugations like დაგვიკავშირდით or დაგვიკავშირდება etc.). */
 		{ from: /დაგვიკავშირდი(?![ა-ჰ])/g, to: 'დაგვიკავშირდით' }
 	];
+
+	/* English override mirror — matches what WordPress + TranslatePress currently
+	   returns for known-stale fields, rewrites to the agreed new English copy.
+	   Mirrors the KA overrides one-for-one. Will become a no-op once the WP-side
+	   sync is done (issues #1, #2, and the larger content sync). */
+	var TEXT_OVERRIDES_EN = [
+		/* Hero / brand tagline. Live currently shows "Make life simpler with Casa Calda" —
+		   that's the translation of the new KA but with slightly different wording. */
+		{ from: /Make life simpler with (?:Casa Calda|Tbili Sakhli)/g,
+		  to: 'Simplify your life with Tbili Sakhli' },
+		{ from: /We design and build\s+your comfort\.?/g,
+		  to: 'Simplify your life with Tbili Sakhli' },
+		/* Services section description (matches a few plausible old translations). */
+		{ from: /(?:For\s+)?[Mm]any years (?:now,?\s*)?(?:through|with) our service[s]?,?\s*we (?:create|provide|build)[^.]*?(?:customers|clients)\.?/g,
+		  to: 'Our strength lies in a motivated team of seasoned professionals' },
+		/* Services tagline. */
+		{ from: /(?:Top|Premium|Highest)[- ]quality service[^.]*?(?:standard|daily|every day)[^.]*?\.?/g,
+		  to: 'Premium-quality service is what we deliver every day' },
+		/* Electricity service blurb. */
+		{ from: /Full electrical (?:system )?(?:design and )?(?:installation|deployment|setup)[^.]*?(?:residential|commercial)[^.]*?\.?/g,
+		  to: 'Complete electrical system design and installation for projects of any complexity.' },
+		/* CTA banner headline (was "Are you ready to cooperate with us?" / similar). */
+		{ from: /(?:Are you )?[Rr]eady (?:to (?:work|cooperate|collaborate) with us|to cooperate)\??/g,
+		  to: 'When quality matters, choose Tbili Sakhli' },
+		/* CTA banner sub. */
+		{ from: /(?:Fill (?:in|out) (?:the )?form and (?:send us your CV|we'?ll contact you[^.]*)|Send (?:us )?your CV)\.?/g,
+		  to: "Fill out the form and we'll be in touch shortly." },
+		/* Form heading. */
+		{ from: /Send (?:us )?a message/g, to: 'Send us a message' },
+		/* Team section. */
+		{ from: /Our people/g, to: 'Our Team' },
+		{ from: /Our strength is in our people\.?/g, to: 'Our strength is our team' },
+		/* Project section eyebrow + title. */
+		{ from: /Portfolio/g, to: 'Our' },
+		{ from: /Our (?:works|jobs)/gi, to: 'Our Work' },
+		/* Services nav / section label. The Georgian moved Service → Expertise → Competence,
+		   on the EN side TranslatePress currently shows "Expertise" everywhere — keep as
+		   "Expertise" (per pair n=10 we agreed to "Expertise" in EN). No override needed
+		   but listing intent here. */
+		/* Technical expertise — keep. */
+		/* Address ordering: Georgia/Tbilisi → Tbilisi/Georgia (English convention). */
+		{ from: /Georgia,\s*Tbilisi/g, to: 'Tbilisi, Georgia' },
+		/* CTA button. */
+		{ from: /Get in touch/g, to: 'Contact Us' }
+	];
+
+	var OVERRIDES_BY_LANG = { ka: TEXT_OVERRIDES_KA, en: TEXT_OVERRIDES_EN };
 	var LOGO_OVERRIDE = '/assets/logo-main-white.svg';
 
+	function activeOverrides() {
+		var lang = 'ka';
+		try { lang = localStorage.getItem('cc_lang') || 'ka'; } catch (e) {}
+		return OVERRIDES_BY_LANG[lang] || OVERRIDES_BY_LANG.ka;
+	}
 	function applyOverrides(s) {
 		var out = String(s == null ? '' : s);
-		for (var i = 0; i < TEXT_OVERRIDES.length; i++) {
-			out = out.replace(TEXT_OVERRIDES[i].from, TEXT_OVERRIDES[i].to);
+		var arr = activeOverrides();
+		for (var i = 0; i < arr.length; i++) {
+			out = out.replace(arr[i].from, arr[i].to);
 		}
 		return out;
 	}
