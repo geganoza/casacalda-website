@@ -117,10 +117,10 @@
 	var TEXT_OVERRIDES_EN = [
 		/* Hero / brand tagline. Live currently shows "Make life simpler with Casa Calda" —
 		   that's the translation of the new KA but with slightly different wording. */
-		{ from: /Make life simpler with (?:Casa Calda|Tbili Sakhli)/g,
-		  to: 'Simplify your life with Tbili Sakhli' },
+		{ from: /Make life simpler with (?:Casa Calda|Casa Calda)/g,
+		  to: 'Simplify your life with Casa Calda' },
 		{ from: /We design and build\s+your comfort\.?/g,
-		  to: 'Simplify your life with Tbili Sakhli' },
+		  to: 'Simplify your life with Casa Calda' },
 		/* Services section description (matches a few plausible old translations). */
 		{ from: /(?:For\s+)?[Mm]any years (?:now,?\s*)?(?:through|with) our service[s]?,?\s*we (?:create|provide|build)[^.]*?(?:customers|clients)\.?/g,
 		  to: 'Our strength lies in a motivated team of seasoned professionals' },
@@ -132,7 +132,7 @@
 		  to: 'Complete electrical system design and installation for projects of any complexity.' },
 		/* CTA banner headline (was "Are you ready to cooperate with us?" / similar). */
 		{ from: /(?:Are you )?[Rr]eady (?:to (?:work|cooperate|collaborate) with us|to cooperate)\??/g,
-		  to: 'When quality matters, choose Tbili Sakhli' },
+		  to: 'When quality matters, choose Casa Calda' },
 		/* CTA banner sub. */
 		{ from: /(?:Fill (?:in|out) (?:the )?form and (?:send us your CV|we'?ll contact you[^.]*)|Send (?:us )?your CV)\.?/g,
 		  to: "Fill out the form and we'll be in touch shortly." },
