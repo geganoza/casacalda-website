@@ -54,7 +54,7 @@
 			if (pslug && CC_CMS.project) {
 				CC_CMS.project(pslug).then(function (proj) {
 					var lead = '';
-					if (proj) { document.title = proj.name + ' — ' + t('brand_suffix'); lead = CCRender.projectHero(proj) + CCRender.projectOverview(proj); }
+					if (proj) { document.title = proj.name + ' — ' + t('brand_suffix'); lead = CCRender.projectHero(proj) + CCRender.projectOverview(proj) + CCRender.projectGallery(proj); }
 					build(lead);
 				}).catch(function () { build(''); });
 			} else { build(''); }
@@ -66,8 +66,41 @@
 
 	function afterRender() {
 		bindRibbonNav();
+		bindServiceNav();
 		bindContactForm();
+		scrollToHash();
 		loadMain();
+	}
+
+	/* Service items (home services carousel + project page service grid) carry a
+	   data-svc-anchor; clicking one jumps to that service on the services page. */
+	function bindServiceNav() {
+		root.addEventListener('click', function (e) {
+			var el = e.target.closest ? e.target.closest('[data-svc-anchor]') : null;
+			if (!el) { return; }
+			var a = el.getAttribute('data-svc-anchor');
+			if (a) { location.href = 'services.html#' + encodeURIComponent(a); }
+		});
+	}
+
+	/* Deep-link scroll. Content renders async, so by the time the browser tries to
+	   jump to location.hash (e.g. services.html#electricity) the target doesn't
+	   exist yet. Re-run the jump after render, accounting for the fixed nav, and
+	   again once images settle so the target lands in the right place. */
+	function scrollToHash() {
+		var raw = location.hash;
+		if (!raw || raw.length < 2) { return; }
+		var id;
+		try { id = decodeURIComponent(raw.slice(1)); } catch (e) { id = raw.slice(1); }
+		var el = document.getElementById(id);
+		if (!el) { return; }
+		function go() {
+			var top = el.getBoundingClientRect().top + (window.pageYOffset || window.scrollY) - 80;
+			window.scrollTo({ top: Math.max(top, 0), behavior: 'auto' });
+		}
+		requestAnimationFrame(function () { requestAnimationFrame(go); });
+		window.addEventListener('load', go);
+		setTimeout(go, 400);
 	}
 
 	function bindRibbonNav() {
@@ -105,7 +138,7 @@
 
 	function loadMain() {
 		var s = document.createElement('script');
-		s.src = 'main.js?v=20260640';
+		s.src = 'main.js?v=20260643';
 		document.body.appendChild(s);
 	}
 })();

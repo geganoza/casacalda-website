@@ -64,6 +64,7 @@
 		{ from: /დაგვიკავშირდი(?![ა-ჰ])/g, to: 'დაგვიკავშირდით' }
 	];
 	var LOGO_OVERRIDE = '/assets/logo-main-white.svg';
+	var FOOTER_LOGO_OVERRIDE = '/assets/union.svg';
 
 	function applyOverrides(s) {
 		var out = String(s == null ? '' : s);
@@ -81,6 +82,19 @@
 	function nl2br(s) { return esc(s).replace(/\n/g, '<br>'); }
 	function url(m) { return (m && m.url) ? m.url : ''; }
 	function isVid(m) { return !!(m && m.type === 'video'); }
+
+	/* Find a service's anchor by display name — used to link the home service
+	   cards and project feature-grid items to services.html#<anchor>. '' if none. */
+	function serviceAnchorByName(site, name) {
+		var svcs = (site && site.services) || [];
+		var n = String(name == null ? '' : name).trim();
+		for (var i = 0; i < svcs.length; i++) {
+			if (String(svcs[i].name == null ? '' : svcs[i].name).trim() === n) {
+				return svcs[i].anchor || svcs[i].slug || '';
+			}
+		}
+		return '';
+	}
 
 	function mediaTag(m, opts) {
 		opts = opts || {};
@@ -130,17 +144,33 @@
 				ls +
 				'<button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span></button>' +
 			'</nav>' +
-			'<div class="mob-nav" id="mobNav">' + links + ls +
+			'<div class="mob-nav" id="mobNav">' + links +
 			'</div>';
 	}
 
 	function footer(site) {
 		var f = site.footer || {};
-		var brand = Object.assign({}, site.brand || {}, { logo_footer: LOGO_OVERRIDE });
-		var cols = (f.cols || []).map(function (col) {
-			var links = (col.links || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>'; }).join('');
-			return '<div class="footer__col"><h5>' + esc(col.title) + '</h5>' + links + '</div>';
+		var brand = Object.assign({}, site.brand || {}, { logo_footer: FOOTER_LOGO_OVERRIDE });
+		// Navigation column — every menu item, straight from the live nav config.
+		var navLinks = ((site.nav && site.nav.links) || []).map(function (l) {
+			return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>';
 		}).join('');
+		var navCol = '<div class="footer__col"><h5>' + esc(t('footer_nav')) + '</h5>' + navLinks + '</div>';
+		// Services column — every service, deep-linking to services.html#<anchor>.
+		var svcLinks = (site.services || []).map(function (s) {
+			var anchor = s.anchor || s.slug || '';
+			return '<a href="services.html' + (anchor ? '#' + esc(anchor) : '') + '">' + esc(s.name) + '</a>';
+		}).join('');
+		var svcCol = svcLinks ? '<div class="footer__col"><h5>' + esc(t('footer_services')) + '</h5>' + svcLinks + '</div>' : '';
+		// Graceful fallback: a backend that predates the `services` payload (e.g.
+		// production before the plugin update) gets the CMS-configured footer
+		// columns instead, so the footer never loses its columns. Auto-upgrades to
+		// the dynamic nav+services columns the moment the API provides services.
+		var legacyCols = (f.cols || []).map(function (col) {
+			var clinks = (col.links || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>'; }).join('');
+			return '<div class="footer__col"><h5>' + esc(col.title) + '</h5>' + clinks + '</div>';
+		}).join('');
+		var colsHtml = (site.services || []).length ? (navCol + svcCol) : legacyCols;
 		var c = f.contacts || {};
 		var contactCol = '<div class="footer__col"><h5>' + esc(c.title || t('footer_contact')) + '</h5>' +
 			(c.address1 ? '<span>' + esc(c.address1) + '</span>' : '') +
@@ -149,7 +179,8 @@
 			(c.phone ? '<a href="tel:' + esc((c.phone || '').replace(/\s/g, '')) + '">' + esc(c.phone) + '</a>' : '') +
 			'</div>';
 		var socials = (f.socials || []).map(function (s) {
-			return '<a href="' + esc(s.href || '#') + '"><img src="assets/social-' + esc(s.type) + '.svg" alt="' + esc(s.type) + '"></a>';
+			var ext = /^https?:/i.test(s.href || '') ? ' target="_blank" rel="noopener"' : '';
+			return '<a href="' + esc(s.href || '#') + '"' + ext + '><img src="assets/social-' + esc(s.type) + '.svg" alt="' + esc(s.type) + '"></a>';
 		}).join('');
 		return '' +
 			'<footer class="footer" id="footer"><div class="wrap">' +
@@ -158,7 +189,7 @@
 						(brand.logo_footer ? '<img src="' + esc(brand.logo_footer) + '" alt="Casa Calda">' : '') +
 						'<p>' + nl2br(f.brand_text || '') + '</p>' +
 					'</div>' +
-					'<div class="footer__cols">' + cols + contactCol + '</div>' +
+					'<div class="footer__cols">' + colsHtml + contactCol + '</div>' +
 				'</div>' +
 				'<div class="footer__bottom">' +
 					'<span class="footer__copy">' + esc(f.copy || '') + '</span>' +
@@ -265,7 +296,8 @@
 	T.services = function (d) {
 		var items = (d.source && d.source.items) || [];
 		var cards = items.map(function (s) {
-			return '<div class="svc-card svc-card--' + esc(s.variant || 'navy') + '"><div class="svc-card__inner">' +
+			var anchor = s.anchor || s.slug || '';
+			return '<div class="svc-card svc-card--' + esc(s.variant || 'navy') + '"' + (anchor ? ' data-svc-anchor="' + esc(anchor) + '"' : '') + '><div class="svc-card__inner">' +
 				'<div class="svc-card__icon">' + (s.icon ? '<img src="' + esc(s.icon) + '" alt="">' : '') + '</div>' +
 				'<h3 class="svc-card__title">' + esc(s.name) + '</h3>' +
 				'<p class="svc-card__desc">' + esc(s.short) + '</p>' +
@@ -388,9 +420,10 @@
 			'</div></section>';
 	};
 
-	T['feature-grid'] = function (d) {
+	T['feature-grid'] = function (d, site) {
 		var cards = (d.items || []).map(function (c) {
-			return '<div class="proj-svc-card anim"><div class="proj-svc-card__icon">' + (c.icon && c.icon.url ? '<img src="' + esc(c.icon.url) + '" alt="">' : '') + '</div>' +
+			var anchor = serviceAnchorByName(site, c.title);
+			return '<div class="proj-svc-card anim"' + (anchor ? ' data-svc-anchor="' + esc(anchor) + '"' : '') + '><div class="proj-svc-card__icon">' + (c.icon && c.icon.url ? '<img src="' + esc(c.icon.url) + '" alt="">' : '') + '</div>' +
 				'<h4>' + esc(c.title) + '</h4>' + (c.desc ? '<p>' + esc(c.desc) + '</p>' : '') + '</div>';
 		}).join('');
 		return '<section class="proj-services"><div class="wrap">' +
@@ -427,7 +460,6 @@
 			'<div class="proj-hero-hud__bg"><img id="projHudImg" src="' + esc(first.image || 'assets/project-main.jpg') + '" alt="' + esc(first.name || '') + '"></div>' +
 			'<div class="proj-hero-hud__overlay"></div>' +
 			'<div class="proj-hero-hud__bracket proj-hero-hud__bracket--tl"></div><div class="proj-hero-hud__bracket proj-hero-hud__bracket--tr"></div><div class="proj-hero-hud__bracket proj-hero-hud__bracket--bl"></div><div class="proj-hero-hud__bracket proj-hero-hud__bracket--br"></div>' +
-			'<div class="proj-hero-hud__scan"></div>' +
 			'<div class="proj-hero-hud__content"><p class="proj-hero-hud__crumb">' + crumb + '</p><h1 class="proj-hero-hud__title">' + esc(d.title || '') + '</h1></div>' +
 			'<div class="proj-hero-hud__nav"><span class="proj-hero-hud__counter" id="projHudCounter">01 / ' + ('0' + items.length).slice(-2) + '</span>' +
 				'<button class="proj-hero-hud__arrow" id="projHudPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>' +
@@ -472,6 +504,27 @@
 				row(t('client'), p.client) + row(t('category'), p.category) + row(t('area'), p.area) +
 				row(t('duration'), p.duration) + row(t('location'), p.location) + row(t('status'), p.status) +
 			'</div></div></div></section>';
+	}
+	/* Project photo gallery. Images come from the project entity's `gallery`
+	   (cc_media_list → [{url,type,alt}, …]); also tolerates a plain URL array.
+	   Renders nothing when empty, so projects without a gallery are unaffected.
+	   First item is the tall feature cell, matching the original layout. */
+	function projectGallery(p) {
+		var imgs = (p && p.gallery) || [];
+		if (!imgs.length) { return ''; }
+		var cells = imgs.map(function (m, i) {
+			var u = (m && m.url) ? m.url : (typeof m === 'string' ? m : '');
+			if (!u) { return ''; }
+			var tall = (i === 0) ? ' proj-gallery__item--tall' : '';
+			var inner = (m && m.type === 'video')
+				? '<video src="' + esc(u) + '" muted loop playsinline preload="metadata"></video>'
+				: '<img src="' + esc(u) + '" alt="' + esc((m && m.alt) || '') + '" loading="lazy">';
+			return '<div class="proj-gallery__item' + tall + '">' + inner + '</div>';
+		}).join('');
+		return '<section class="proj-gallery"><div class="wrap">' +
+			'<div class="anim"><p class="eyebrow">' + t('gallery') + '</p><h2>' + t('gallery_title') + '</h2></div>' +
+			'<div class="proj-gallery__grid anim">' + cells + '</div>' +
+		'</div></section>';
 	}
 
 	T['cta-band'] = function (d) {
@@ -545,5 +598,5 @@
 		catch (e) { console.warn('[CCRender] failed for', sec.type, e); return ''; }
 	}
 
-	window.CCRender = { nav: nav, footer: footer, btt: btt, section: section, projectHero: projectHero, projectOverview: projectOverview };
+	window.CCRender = { nav: nav, footer: footer, btt: btt, section: section, projectHero: projectHero, projectOverview: projectOverview, projectGallery: projectGallery };
 })();
