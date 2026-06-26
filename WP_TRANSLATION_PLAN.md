@@ -1,12 +1,39 @@
 # Casa Calda — WordPress translation plan (Track 2)
 
 **For:** Thomas (WP backend) · **Audience:** whoever owns `cms.casacalda.com`
-**Status:** plan — not yet implemented · **Last updated:** 2026-06-26
+**Status:** ✅ IMPLEMENTED & LIVE (2026-06-26) — via a translation-dictionary mu-plugin, not the per-field plan below.
+
+> ## ✅ What actually shipped (2026-06-26)
+>
+> English is **live** on `cms.casacalda.com`. When a request carries `?lang=en`,
+> the REST output (`casacalda/v1/*` and `wp/v2/projects`) is translated to English;
+> without `lang` (or `lang=ka`) nothing changes, so the Georgian site is untouched.
+>
+> **How:** a self-contained must-use plugin **`wp-content/mu-plugins/cc-i18n.php`**
+> hooks `rest_post_dispatch`, and when `?lang=en` is present, recursively replaces
+> each Georgian string in the response with its English from an exact-match
+> dictionary (181 entries) baked into the same file. Missing keys fall back to
+> Georgian. No existing plugin was modified; delete the one file to disable.
+>
+> **Source of truth / restorability:** the file + its generator live in git at
+> `website/wordpress/plugins-live-backup/mu-plugins/` (`cc-i18n.php`,
+> `build_dict.py`, `dict-en.json`). To edit a translation: change `dict-en.json`
+> (or `build_dict.py`'s map), re-run the generator, re-upload `cc-i18n.php`.
+>
+> **Why a dictionary instead of the per-field `_en` plan below:** content is plain
+> strings delivered as custom JSON with no per-field English storage and no admin
+> UI for it. A dictionary translates everything (globals, pages, projects, staff,
+> services, even the About page's custom-HTML blob) with one filter, zero schema
+> changes, and a safe Georgian fallback — shippable in one pass. Trade-off: it's
+> keyed on the exact source string, so if Georgian copy is edited in WP the English
+> for that string falls back to Georgian until the dictionary is regenerated. The
+> per-field approach below remains the "proper" long-term option if editors need to
+> manage English inside wp-admin.
 
 This is the **content** half of the bilingual rollout. The **frontend** half
 (Track 1) is already done and live — see "What's already done on the frontend"
-below. This doc says how the WordPress side delivers English so the frontend's
-`?lang=en` requests actually return English content.
+below. The plan below documents the original per-field design (kept for reference);
+the dictionary mu-plugin above is what is actually running.
 
 > **This supersedes the TranslatePress lean in `THOMAS_TRANSLATION.md`.**
 > That doc assumed a normal rendered WP front-end. We went **headless** — all
