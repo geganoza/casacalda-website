@@ -814,7 +814,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     gap: 60px; padding-bottom: 61px;
     border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.footer__brand img { margin-bottom: 19px; }
+.footer__brand img { max-width: 160px; height: auto; margin-bottom: 19px; }
 /* Clickable service cards (home carousel + project feature-grid) → services page */
 [data-svc-anchor] { cursor: pointer; }
 .footer__brand p { font-size: 14px; line-height: 23.8px; }
