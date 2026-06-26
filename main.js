@@ -604,16 +604,19 @@
 
     // Lazy-promote preload from "metadata" → "auto" once the team section is in/near viewport,
     // so first-frame paints quickly without forcing every visitor to download 8 portrait videos.
+    // NB: just flipping `preload` is enough — DON'T call v.load(), which resets currentTime and
+    // would undo the prime-first-frame seek that already ran.
     var teamObserverTargets = document.querySelectorAll('.team, .team-grid');
     if (teamObserverTargets.length && 'IntersectionObserver' in window) {
         var teamPreloadObserver = new IntersectionObserver(function (entries, obs) {
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
                 entry.target.querySelectorAll('video').forEach(function (v) {
-                    if (v.preload !== 'auto') {
-                        v.preload = 'auto';
-                        try { v.load(); } catch (e) {}
-                    }
+                    if (v.preload !== 'auto') v.preload = 'auto';
+                    // Re-prime once data is in — seek to 0.05 forces Safari to paint that frame.
+                    var reprime = function () { try { if (v.paused) v.currentTime = 0.05; } catch (e) {} };
+                    if (v.readyState >= 2) reprime();
+                    else v.addEventListener('loadeddata', reprime, { once: true });
                 });
                 obs.unobserve(entry.target);
             });
