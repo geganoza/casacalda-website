@@ -1,6 +1,6 @@
 # Casa Calda Website — Runbook
 
-Operational playbook for casacalda.com. **Current as of 2026-06-26.**
+Operational playbook for casacalda.com. **Current as of 2026-06-26 (end of day).**
 
 For the deeper migration backstory (why we moved off Hostinger for the
 frontend) see [`HANDOVER_CLOUDFLARE_MIGRATION.md`](./HANDOVER_CLOUDFLARE_MIGRATION.md).
@@ -32,11 +32,19 @@ website-static/
 ├── THOMAS_TRANSLATION.md            # TranslatePress strategy
 ├── .github/workflows/deploy-pages.yml # Auto-deploy to Cloudflare Pages
 ├── index.html | services.html | …   # Page shells (each one sets window.CC_PAGE)
-├── cms.js     | render.js | app.js  # Headless render layer
+├── cms.js                           # WordPress REST client (sends ?lang= per cc_lang)
+├── render.js                        # Section templates + override layer (TEXT_OVERRIDES_KA/EN, MEDIA_OVERRIDES, LOGO_OVERRIDE)
+├── app.js                           # Page boot: read CC_PAGE → fetch → render
 ├── style.css                         # All styles
-├── main.js                           # Carousels / scroll-reveal / counters
+├── main.js                           # Nav, language switcher, carousels, scroll-reveal
 ├── coming-soon.html                  # Standalone under-construction page
-└── assets/                           # Logos, photos, fonts, partner marks, etc.
+└── assets/
+    ├── banners/                     # v2 banners wired to page heroes / CTA / intros (HERO_BG_BY_PAGE, CTA_BAND_BG, etc.)
+    ├── logo-main-white.svg          # Official brand mark (used by LOGO_OVERRIDE)
+    ├── logo-light.svg / logo-footer.svg  # Legacy logos (kept for revert)
+    ├── partners/                    # Partner brand logos
+    ├── fonts/                       # Gilroy GEO + Noto Sans Georgian
+    └── …                            # Misc photos, icons, stock images
 ```
 
 ---
@@ -83,14 +91,14 @@ gh run watch -R geganoza/casacalda-website
 When you touch `render.js`, `style.css`, `cms.js`, `app.js`, or `main.js`:
 
 ```bash
-NEW=$(date +%Y%m%d%H)
 OLD=$(grep -oE 'render\.js\?v=[0-9]+' index.html | head -1 | sed 's/.*=//')
+NEW=$((OLD + 1))   # or just bump to YYYYMMDD<seq>
 for f in *.html app.js; do
   sed -i '' "s/?v=$OLD/?v=$NEW/g" "$f"
 done
 ```
 
-Then commit + push as normal.
+Cache-bust history: started `?v=20260624` (Thomas), now at `?v=2026064x` (incremented per commit). Then commit + push as normal.
 
 ### Force a specific browser to bypass cache
 
@@ -150,7 +158,123 @@ So if you want to change a heading, footer text, nav label, etc.:
 - **Right place:** WordPress admin at `https://cms.casacalda.com/wp-admin/` (Thomas has the login). Find the field in the relevant page or in the global site options.
 - **Wrong place:** the repo. Editing HTML files only changes the shell, not the content.
 
-**Exception:** the override layer in `render.js`. There's a `TEXT_OVERRIDES` array that lets us rewrite WP-sourced strings client-side without waiting for Thomas to update WP. This is documented in detail in `HANDOVER_CLOUDFLARE_MIGRATION.md`. Use this when you need an instant change and Thomas isn't around. Long-term, sync the override into WP and remove the rule.
+**Exception — the override layer in `render.js`.** Three independent stop-gap systems that let us change the live site without touching WordPress. All of them collapse to no-ops once Thomas syncs WP to match.
+
+### 1. `TEXT_OVERRIDES_KA` / `TEXT_OVERRIDES_EN` — copy rewrites
+
+Language-aware string substitution. `cms.js` writes `localStorage.cc_lang = 'ka'|'en'`; `render.js`'s `activeOverrides()` picks the matching array. Every WP string flows through `esc()` (HTML-escaped) or `txt()` (raw HTML emitters: `T['custom-html']`, `T['rich-text']`, `projectOverview`), both of which run the array first.
+
+```js
+// render.js top of IIFE
+var TEXT_OVERRIDES_KA = [
+  { from: /…regex…/g, to: 'new copy' },
+  …
+];
+var TEXT_OVERRIDES_EN = [
+  { from: /old English string from TranslatePress/g, to: 'new English copy' },
+  …
+];
+```
+
+Add a new rule = append to the right array, bump cache-bust, push. Remove a rule = delete the line, push.
+
+**Safety:** Georgian Mkhedruli codepoints can't appear in URLs/attribute names, so KA rules are safe to run on every string (URLs included). EN rules need a tighter regex because English words can appear inside URLs.
+
+### 2. `MEDIA_OVERRIDES` — image swaps
+
+```js
+// render.js
+var HERO_BG_BY_PAGE = {
+  about:    '/assets/banners/hero-about-desktop.jpg',
+  services: '/assets/banners/hero-services-desktop.jpg',
+  team:     '/assets/banners/hero-team-desktop.jpg',
+  contact:  '/assets/banners/hero-contact-desktop.jpg',
+};
+var INTRO_SPLIT_BY_PAGE = {
+  services: '/assets/banners/intro-services.jpg',
+  team:     '/assets/banners/intro-team.jpg',
+};
+var ABOUT_SPLIT_IMG = '/assets/banners/hero-about-md.jpg';  // homepage company section
+var CTA_BAND_BG    = '/assets/banners/cta-band-desktop.jpg';
+var SERVICE_DETAIL_IMG = {
+  electricity:  '/assets/banners/service-electricity.jpg',
+  plumbing:     '/assets/banners/service-plumbing.jpg',
+  safety:       '/assets/banners/service-safety.jpg',
+  mechanical:   '/assets/banners/service-mechanical.jpg',
+  automation:   '/assets/banners/service-automation.jpg',
+  consulting:   '/assets/banners/service-consulting.jpg',
+  consultation: '/assets/banners/service-consulting.jpg',
+};
+```
+
+Each map keys off `window.CC_PAGE` (set in the HTML shell — e.g. `<script>window.CC_PAGE = 'home'</script>`) or the service slug. Empty key = WP-supplied image renders.
+
+To revert a slot: delete that entry. To add a new slot: add the file to `assets/banners/`, add the key, bump cache-bust, push.
+
+### 3. `LOGO_OVERRIDE` — single constant
+
+```js
+var LOGO_OVERRIDE = '/assets/logo-main-white.svg';
+```
+
+Used by `nav()`, `footer()`, `T.hero` (3 emit points) so the brand mark is always the official BRAND DNA white SVG. To revert: delete the constant and restore the original `brand.logo_light` / `brand.logo_footer` reads.
+
+### Override audit + cleanup
+
+Run `grep -c "from:" render.js` to count active KA + EN rules. As WP syncs land, prune. Issues #1 (word swap) and #2 (logo swap) track the current backlog.
+
+---
+
+## Banners
+
+All v2 banners committed to `assets/banners/`. Total 25 files / ~5 MB. Sourced from `~/Downloads/Website Banners/` with the `Website Banners_v2_` prefix, then resized + compressed via `sips`.
+
+Naming convention is English kebab-case so I can grep + map reliably:
+
+| Repo file | Source v2 filename | Size | Where it serves |
+|---|---|---|---|
+| `hero-about-desktop.jpg`   | `ვინ ვართ ჩვენ 1888x838.jpg`           | 2200px wide max | About page hero |
+| `hero-about-tablet.jpg`    | `ვინ ვართ ჩვენ 992x832.jpg`            | 1100px max      | About page hero (responsive — not yet wired into srcset) |
+| `hero-about-mobile.jpg`    | `ვინ ვართ ჩვენ 363x300.jpg`            | 400px max       | About page hero mobile (responsive — not yet wired) |
+| `hero-about-md.jpg`        | `ვინ ვართ ჩვენ 1284x850.jpg`           | 1400px max      | **Homepage company (about-split) section** |
+| `hero-services-{desktop,tablet,mobile}.jpg` | `სერვისები 1888/992/363.jpg` | as above | Services page hero |
+| `hero-team-{desktop,tablet,mobile}.jpg`     | `ჩვენი ხალხი 1888/992/363.jpg`         | as above | Team page hero |
+| `hero-contact-{desktop,tablet,mobile}.jpg`  | `კონტაქტი 1888/992/363.jpg`            | as above | Contact page hero |
+| `cta-band-{xl,desktop,mobile}.jpg` | `მზად ხარ თანამშრომლობისთვის 2828/2048/726.jpg` | as above | CTA band (every page except contact) |
+| `intro-team.jpg`           | `ჩვენი ძალა ჩვენს ადამიანებშია.jpg`     | 1400px max      | Team page intro-split |
+| `intro-services.jpg`       | (v1 only — no v2 supplied)              | 1400px max      | Services page intro-split |
+| `service-{electricity,plumbing,safety,mechanical,automation,consulting}.jpg` | (v1) | 1400px max | Services page detail card images |
+
+The 1 GB `.ai` source files stay in Drive, NEVER committed.
+
+### Refresh banners from a new v2 batch
+
+```bash
+cd ~/Projects/CASACALDA\ Local/website-static
+SRC="$HOME/Downloads/Website Banners"
+# Paste the MAP array (see commit 9701397 for the full list) then loop:
+for entry in "${MAP[@]}"; do
+  IFS='|' read -r src dst maxw <<< "$entry"
+  sips -Z $maxw -s format jpeg -s formatOptions 82 "$SRC/$src" --out "assets/banners/$dst"
+done
+# bump cache-bust, commit, push
+```
+
+Check sync at any time by md5-comparing the source (through the same sips pipeline) against the repo file. The pipeline is deterministic so identical-content banners produce identical md5s.
+
+---
+
+## Language switcher
+
+Top-nav has a `KA` / `EN` button group (see `langSwitcher()` in `render.js`). Click → writes `localStorage.cc_lang` → reloads → `cms.js` appends `&lang=en` to every WP REST fetch → TranslatePress on WP returns English → `render.js` applies `TEXT_OVERRIDES_EN`.
+
+Currently TP is wired for `ka` (default) + `en`. To verify TP REST is alive:
+
+```bash
+curl -s "https://cms.casacalda.com/?rest_route=/casacalda/v1/site&lang=en" | jq '.brand'
+```
+
+If `lang=en` returns identical content to `lang=ka`, TP REST isn't translating — see `THOMAS_TRANSLATION.md`.
 
 ---
 
