@@ -123,7 +123,9 @@
 
 	var OVERRIDES_BY_LANG = { ka: TEXT_OVERRIDES_KA, en: TEXT_OVERRIDES_EN };
 	var LOGO_OVERRIDE = '/assets/logo-main-white.svg';
-	var FOOTER_LOGO_OVERRIDE = '/assets/union.svg';
+	/* Footer uses the same official BRAND DNA white logo as the nav.
+	   union.svg (the old split-wordmark) is kept in assets/ for revert. */
+	var FOOTER_LOGO_OVERRIDE = '/assets/logo-main-white.svg';
 
 	/* Media overrides — replaces WP-supplied image URLs with the approved
 	   banners committed to assets/banners/. Old assets stay in place; revert
