@@ -278,6 +278,125 @@ If `lang=en` returns identical content to `lang=ka`, TP REST isn't translating �
 
 ---
 
+## Team videos — hover-to-play with first-frame poster (no `<img>` poster file needed)
+
+**The design.** Each team-card on the homepage and `team.html` shows a portrait. On hover the portrait animates (it's actually a short MP4 looping); on mouse-leave it pauses and returns to the first frame.
+
+**The video tags** are emitted by `T.team` (render.js:480) and `T['team-grid']` (render.js:535) — plus the same shape in `T['about-proj-card']` (render.js:617). All three render:
+
+```html
+<video src="…cms.casacalda.com/…/portrait.mp4" muted loop playsinline preload="metadata"></video>
+```
+
+No `autoplay`, no `poster=` attribute — that's intentional. The play/pause logic lives in `main.js` ("STAFF VIDEOS: play on hover only" block, ~line 578).
+
+### The bug we hit (2026-06-26)
+
+On Safari (both macOS and iOS) the team cards rendered as blank black rectangles until the user moused over them. Reason:
+
+- `preload="metadata"` only downloads the MP4 headers, not any frame data.
+- A `<video>` element that is paused, has no `poster=`, and hasn't decoded a frame yet renders its background color (black in Safari, sometimes transparent in Chrome).
+- Chrome was lenient and usually decoded frame 0 anyway. Safari was strict and showed nothing.
+
+### The fix (committed in `a4378c8` + `c58b835`)
+
+Two cooperating pieces, both in `main.js` inside the "STAFF VIDEOS: play on hover only" block. **No template change, no CSS change, no backend change, no `poster=` file needed.**
+
+**1. Prime the first frame by seeking to `0.05s`.**
+
+For every `.team-card__img video` and `.team-grid__img video`, on `loadeddata` (or immediately if already loaded), set `video.currentTime = 0.05`. Browsers decode and paint the seeked frame even while paused — that becomes the visible "poster". Same seek runs on `mouseleave` so the card returns to the first frame after the video plays.
+
+Why `0.05` and not `0`: Safari sometimes ignores `currentTime = 0` for the paint step (treats it as "you were already there, no repaint needed"). A hair past zero forces a fresh seek + decode + paint.
+
+**2. Lazy-promote `preload` from `metadata` to `auto`.**
+
+An `IntersectionObserver` watches `.team` and `.team-grid` sections. When either is ~300px from entering the viewport, it bumps `video.preload = 'auto'` on every video inside, so the data is actually present to seek into. Visitors who never scroll to the team section don't download the 8 portrait videos (each ~1.5–3 MB).
+
+Critical: **do NOT call `v.load()`** in this block. `v.load()` resets `currentTime` back to zero and undoes the prime-first-frame seek. Just flipping `preload` is enough to trigger background download.
+
+Fallback if `IntersectionObserver` isn't supported (very old Safari): just set `preload = 'auto'` immediately for all team videos.
+
+### What the JS looks like
+
+```js
+// main.js, ~line 578 — abridged
+document.querySelectorAll('.team-card__img video, .team-grid__img video').forEach(function (v) {
+    v.pause();
+    var primeFirstFrame = function () { try { v.currentTime = 0.05; } catch (e) {} };
+    if (v.readyState >= 2) primeFirstFrame();
+    else {
+        v.addEventListener('loadeddata', primeFirstFrame, { once: true });
+        v.addEventListener('canplay',    primeFirstFrame, { once: true });
+    }
+    var card = v.closest('.team-card, .team-grid__card') || v.parentElement;
+    card.addEventListener('mouseenter', function () {
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+    });
+    card.addEventListener('mouseleave', function () { v.pause(); v.currentTime = 0.05; });
+});
+
+if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.querySelectorAll('video').forEach(function (v) {
+                if (v.preload !== 'auto') v.preload = 'auto';
+                var reprime = function () { try { if (v.paused) v.currentTime = 0.05; } catch (e) {} };
+                if (v.readyState >= 2) reprime();
+                else v.addEventListener('loadeddata', reprime, { once: true });
+            });
+            obs.unobserve(entry.target);
+        });
+    }, { rootMargin: '300px' });
+    document.querySelectorAll('.team, .team-grid').forEach(function (el) { io.observe(el); });
+}
+```
+
+### How to verify it works
+
+In headless Chrome via `gstack browse`:
+
+```bash
+B=~/.claude/skills/gstack/browse/dist/browse
+$B viewport 1440x900
+T=$(date +%s%N)
+$B goto "https://casacalda-website.pages.dev/?cb=$T"
+$B wait --networkidle
+sleep 3
+$B scroll .team
+sleep 4
+$B js "var vids = document.querySelectorAll('.team-card video'); var r = ''; vids.forEach(function(v,i){ r += 'v'+i+': preload='+v.preload+' t='+v.currentTime.toFixed(2)+' paused='+v.paused+' rs='+v.readyState+' '; }); r;"
+```
+
+Expected: `preload=auto`, `t=0.05`, `paused=true`, `rs=4` for all eight videos.
+
+Then simulate hover/leave:
+
+```bash
+$B js "var c=document.querySelector('.team-card'); c.dispatchEvent(new MouseEvent('mouseenter', {bubbles:true})); 'hover'"
+sleep 1
+$B js "var v=document.querySelector('.team-card video'); 'paused='+v.paused+' t='+v.currentTime.toFixed(2);"
+# expected: paused=false, currentTime > 0.5
+$B js "var c=document.querySelector('.team-card'); c.dispatchEvent(new MouseEvent('mouseleave',{bubbles:true})); 'leave'"
+sleep 1
+$B js "var v=document.querySelector('.team-card video'); 'paused='+v.paused+' t='+v.currentTime.toFixed(2);"
+# expected: paused=true, currentTime=0.05
+```
+
+For Safari testing, open `https://casacalda-website.pages.dev/` on a Mac (or iPhone via the same URL), hard-refresh (⌘+Shift+R on macOS Safari), scroll to the team section, and confirm portraits appear immediately (not blank/black).
+
+### Known constraints / future improvements
+
+- **Videos are served from `cms.casacalda.com`** (Hostinger). Each portrait is 1.5–3 MB. If Hostinger flaps (see `site-flapping.md`), the first-frame seek can fail silently; cards stay blank. The IO observer means we only hit Hostinger when the visitor scrolls there, so this only affects people who actually look at the team section.
+- **No `poster=` attribute is set.** We deliberately don't extract poster JPGs from each video — would require a build step or a WP field. The seek-to-0.05 trick gets the same visual result with zero asset overhead.
+- **`preload="metadata"` is the initial value** (set in render.js). The IntersectionObserver upgrades it to `auto`. If you ever want to make team videos visible above the fold (e.g. a hero featuring a portrait), change the initial value in render.js to `auto` for that specific emit site — don't rip the IO observer out, it still does the right thing.
+
+### How to revert
+
+Delete the entire "STAFF VIDEOS: play on hover only" block in `main.js` (~lines 578–630) and restore the original 6-line version (committed in `c58b835`'s parent — see `git log -- main.js`). The video tags in render.js don't need to change. Bump cache-bust, push.
+
+---
+
 ## Performance budget (target)
 
 - TTFB target: < 100ms globally (Cloudflare edge)
