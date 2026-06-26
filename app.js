@@ -5,6 +5,10 @@
 (function () {
 	'use strict';
 
+	/* UI-string translator (chrome only). Falls back to the key if i18n.js is
+	   missing — but i18n.js always loads first, so this resolves to ka/en. */
+	function t(k) { return (window.CC_I18N && window.CC_I18N.t) ? window.CC_I18N.t(k) : k; }
+
 	var slug = window.CC_PAGE || (new URLSearchParams(location.search)).get('page') || 'home';
 	var root = document.getElementById('cc-root') || document.body;
 
@@ -17,17 +21,17 @@
 
 	function showError(msg) {
 		root.innerHTML = '<div style="min-height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;color:#555;font-family:sans-serif">' +
-			'<div><h2>' + msg + '</h2><p>დარწმუნდი, რომ WordPress (Local) გაშვებულია.</p></div></div>';
+			'<div><h2>' + msg + '</h2><p>' + t('err_wp_hint') + '</p></div></div>';
 	}
 
 	Promise.all([CC_CMS.site(), CC_CMS.page(slug)]).then(function (res) {
 		var site = res[0], page = res[1];
-		if (!site) { showError('საიტი ვერ ჩაიტვირთა'); return; }
+		if (!site) { showError(t('err_site_load')); return; }
 
 		if (!page) {
 			root.innerHTML = CCRender.nav(site) +
 				'<section class="page-hero"><div class="page-hero__overlay"></div><div class="page-hero__content wrap">' +
-				'<h1 class="page-hero__title">გვერდი ვერ მოიძებნა</h1></div></section>' +
+				'<h1 class="page-hero__title">' + t('err_page_404') + '</h1></div></section>' +
 				CCRender.footer(site) + CCRender.btt();
 			afterRender();
 			return;
@@ -50,7 +54,7 @@
 			if (pslug && CC_CMS.project) {
 				CC_CMS.project(pslug).then(function (proj) {
 					var lead = '';
-					if (proj) { document.title = proj.name + ' — თბილი სახლი'; lead = CCRender.projectHero(proj) + CCRender.projectOverview(proj); }
+					if (proj) { document.title = proj.name + ' — ' + t('brand_suffix'); lead = CCRender.projectHero(proj) + CCRender.projectOverview(proj); }
 					build(lead);
 				}).catch(function () { build(''); });
 			} else { build(''); }
@@ -58,7 +62,7 @@
 		}
 
 		build('');
-	}).catch(function (e) { showError('შეცდომა: ' + (e.message || e)); });
+	}).catch(function (e) { showError(t('err_prefix') + (e.message || e)); });
 
 	function afterRender() {
 		bindRibbonNav();
@@ -87,14 +91,14 @@
 			e.preventDefault();
 			var data = {};
 			new FormData(form).forEach(function (v, k) { data[k] = v; });
-			if (!data.fname || (!data.email && !data.phone)) { show('გთხოვთ შეავსოთ სახელი და ელ-ფოსტა ან ტელეფონი.', false); return; }
+			if (!data.fname || (!data.email && !data.phone)) { show(t('form_required'), false); return; }
 			var label = btn ? btn.textContent : '';
-			if (btn) { btn.disabled = true; btn.textContent = 'იგზავნება...'; }
+			if (btn) { btn.disabled = true; btn.textContent = t('form_sending'); }
 			show('', true);
 			CC_CMS.sendContact(data).then(function (r) {
-				if (r && r.ok) { show('მადლობა! თქვენი შეტყობინება მიღებულია.', true); form.reset(); }
-				else { show('დაფიქსირდა შეცდომა. სცადეთ თავიდან ან დაგვირეკეთ.', false); }
-			}).catch(function () { show('კავშირი ვერ დამყარდა. სცადეთ მოგვიანებით.', false); })
+				if (r && r.ok) { show(t('form_thanks'), true); form.reset(); }
+				else { show(t('form_error'), false); }
+			}).catch(function () { show(t('form_noconn'), false); })
 				.then(function () { if (btn) { btn.disabled = false; btn.textContent = label; } });
 		});
 	}

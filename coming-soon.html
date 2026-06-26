@@ -225,6 +225,42 @@
             stroke-linejoin: round;
         }
 
+        /* Language toggle — top-right, matches the dark glass theme */
+        .lang-toggle {
+            position: fixed;
+            top: calc(16px + env(safe-area-inset-top));
+            right: calc(16px + env(safe-area-inset-right));
+            z-index: 10;
+            display: inline-flex;
+            gap: 2px;
+            padding: 3px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 100px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .lang-toggle button {
+            appearance: none;
+            border: 0;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            font: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 6px 12px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all .25s var(--ease);
+        }
+        .lang-toggle button:hover { color: var(--orange-bright); }
+        .lang-toggle button[aria-current="true"] {
+            background: var(--orange);
+            color: var(--white);
+        }
+        .lang-toggle button:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+
         footer {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -275,24 +311,29 @@
 </head>
 <body>
 
+    <div class="lang-toggle" role="group" aria-label="Language / ენა">
+        <button type="button" data-cc-lang="ka" aria-label="ქართული">KA</button>
+        <button type="button" data-cc-lang="en" aria-label="English">EN</button>
+    </div>
+
     <main class="stage">
         <div class="logo-wrap">
             <img src="assets/logo-main-white.svg" alt="Casa Calda" width="560" height="270">
         </div>
 
-        <p class="tagline"><strong>25 Years</strong> of Engineering Excellence</p>
+        <p class="tagline" data-ka="<strong>25 წელი</strong> საინჟინრო ბრწყინვალება" data-en="<strong>25 Years</strong> of Engineering Excellence"><strong>25 წელი</strong> საინჟინრო ბრწყინვალება</p>
 
-        <p class="eyebrow">მზადდება</p>
+        <p class="eyebrow" data-ka="მზადდება" data-en="Coming soon">მზადდება</p>
 
-        <h1>ჩვენი ახალი ვებსაიტი <em>მალე</em> გაიხსნება</h1>
+        <h1 data-ka="ჩვენი ახალი ვებსაიტი <em>მალე</em> გაიხსნება" data-en="Our new website is <em>launching soon</em>">ჩვენი ახალი ვებსაიტი <em>მალე</em> გაიხსნება</h1>
 
-        <p class="sub">ვაუმჯობესებთ თბილი სახლის ციფრულ გამოცდილებას. დაგვიკავშირდით პროექტებთან დაკავშირებით ნებისმიერ დროს.</p>
+        <p class="sub" data-ka="ვაუმჯობესებთ თბილი სახლის ციფრულ გამოცდილებას. დაგვიკავშირდით პროექტებთან დაკავშირებით ნებისმიერ დროს." data-en="We're upgrading Casa Calda's digital experience. Reach out about your project anytime.">ვაუმჯობესებთ თბილი სახლის ციფრულ გამოცდილებას. დაგვიკავშირდით პროექტებთან დაკავშირებით ნებისმიერ დროს.</p>
 
         <div class="progress" aria-hidden="true">
             <div class="progress__track">
                 <div class="progress__fill"></div>
             </div>
-            <div class="progress__label">In progress</div>
+            <div class="progress__label" data-ka="მიმდინარეობს" data-en="In progress">მიმდინარეობს</div>
         </div>
 
         <div class="contact">
@@ -310,6 +351,44 @@
     <footer>
         © <span>Casa Calda</span>
     </footer>
+
+    <script>
+        /* Standalone bilingual toggle. Shares localStorage.cc_lang with the main
+           site (i18n.js), so a visitor's choice carries over. Georgian default. */
+        (function () {
+            'use strict';
+            var TITLES = { ka: 'Casa Calda — მალე', en: 'Casa Calda — Coming soon' };
+            function readLang() {
+                try {
+                    var q = new URLSearchParams(location.search).get('lang');
+                    if (q === 'en' || q === 'ka') { localStorage.setItem('cc_lang', q); }
+                    return localStorage.getItem('cc_lang') === 'en' ? 'en' : 'ka';
+                } catch (e) { return 'ka'; }
+            }
+            function apply(lang) {
+                document.documentElement.lang = lang;
+                document.title = TITLES[lang] || TITLES.ka;
+                var nodes = document.querySelectorAll('[data-' + lang + ']');
+                for (var i = 0; i < nodes.length; i++) {
+                    var v = nodes[i].getAttribute('data-' + lang);
+                    if (v != null) { nodes[i].innerHTML = v; }
+                }
+                var btns = document.querySelectorAll('.lang-toggle button');
+                for (var j = 0; j < btns.length; j++) {
+                    var active = btns[j].getAttribute('data-cc-lang') === lang;
+                    btns[j].setAttribute('aria-current', active ? 'true' : 'false');
+                }
+            }
+            apply(readLang());
+            document.querySelectorAll('.lang-toggle button').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    var picked = b.getAttribute('data-cc-lang');
+                    try { localStorage.setItem('cc_lang', picked); } catch (e) {}
+                    apply(picked);
+                });
+            });
+        })();
+    </script>
 
 </body>
 </html>

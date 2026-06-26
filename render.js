@@ -12,6 +12,11 @@
 (function () {
 	'use strict';
 
+	/* UI-string translator (chrome only — CMS content is translated WP-side).
+	   Falls back to the Georgian default if i18n.js is missing or a key is
+	   absent, so Georgian rendering can never break. */
+	function t(k) { return (window.CC_I18N && window.CC_I18N.t) ? window.CC_I18N.t(k) : k; }
+
 	/* Frontend overrides for content still pending sync in WordPress.
 	   Georgian Mkhedruli codepoints cannot appear in URLs/attribute names, so the
 	   replace is safe to run on every string that flows through esc(). */
@@ -137,7 +142,7 @@
 			return '<div class="footer__col"><h5>' + esc(col.title) + '</h5>' + links + '</div>';
 		}).join('');
 		var c = f.contacts || {};
-		var contactCol = '<div class="footer__col"><h5>' + esc(c.title || 'კონტაქტი') + '</h5>' +
+		var contactCol = '<div class="footer__col"><h5>' + esc(c.title || t('footer_contact')) + '</h5>' +
 			(c.address1 ? '<span>' + esc(c.address1) + '</span>' : '') +
 			(c.address2 ? '<span>' + esc(c.address2) + '</span>' : '') +
 			(c.email ? '<a href="mailto:' + esc(c.email) + '">' + esc(c.email) + '</a>' : '') +
@@ -430,11 +435,11 @@
 			'<div class="proj-hero-hud__panel">' +
 				'<span class="proj-hero-hud__tag" id="projHudTag">' + esc(first.tag || '') + '</span>' +
 				'<h3 class="proj-hero-hud__name" id="projHudName">' + esc(first.name || '') + '</h3>' +
-				'<div class="proj-hero-hud__row"><span>კლიენტი</span><span id="projHudClient">' + esc(first.client || '') + '</span></div>' +
-				'<div class="proj-hero-hud__row"><span>კატეგორია</span><span id="projHudCat">' + esc(first.category || '') + '</span></div>' +
-				'<div class="proj-hero-hud__row"><span>ფართობი</span><span id="projHudArea">' + esc(first.area || '') + '</span></div>' +
-				'<div class="proj-hero-hud__row"><span>წელი</span><span id="projHudYear">' + esc(first.year || '') + '</span></div>' +
-				'<a href="project.html?slug=' + esc(first.slug || '') + '" class="proj-hero-hud__btn">დეტალურად &rarr;</a>' +
+				'<div class="proj-hero-hud__row"><span>' + t('client') + '</span><span id="projHudClient">' + esc(first.client || '') + '</span></div>' +
+				'<div class="proj-hero-hud__row"><span>' + t('category') + '</span><span id="projHudCat">' + esc(first.category || '') + '</span></div>' +
+				'<div class="proj-hero-hud__row"><span>' + t('area') + '</span><span id="projHudArea">' + esc(first.area || '') + '</span></div>' +
+				'<div class="proj-hero-hud__row"><span>' + t('year') + '</span><span id="projHudYear">' + esc(first.year || '') + '</span></div>' +
+				'<a href="project.html?slug=' + esc(first.slug || '') + '" class="proj-hero-hud__btn">' + t('details') + ' &rarr;</a>' +
 			'</div>' +
 			'<div class="proj-hero-hud__pin" style="left:28%;top:38%" id="pin1"><div class="proj-hero-hud__pin-dot"></div><div class="proj-hero-hud__pin-line"></div><div class="proj-hero-hud__pin-label" id="pinLabel1"></div></div>' +
 			'<div class="proj-hero-hud__pin" style="left:52%;top:22%" id="pin2"><div class="proj-hero-hud__pin-dot"></div><div class="proj-hero-hud__pin-line proj-hero-hud__pin-line--up"></div><div class="proj-hero-hud__pin-label proj-hero-hud__pin-label--top" id="pinLabel2"></div></div>' +
@@ -454,18 +459,18 @@
 			(p.tag ? '<span class="proj-hero__tag">' + esc(p.tag) + '</span>' : '') +
 			'<h1 class="proj-hero__title">' + esc(p.name) + '</h1>' +
 			'<div class="proj-hero__meta">' +
-				projectMetaItem('მდებარეობა', p.location) + projectMetaItem('წელი', p.year) +
-				projectMetaItem('ფართობი', p.area) + projectMetaItem('სტატუსი', p.status) +
+				projectMetaItem(t('location'), p.location) + projectMetaItem(t('year'), p.year) +
+				projectMetaItem(t('area'), p.area) + projectMetaItem(t('status'), p.status) +
 			'</div></div></section>';
 	}
 	function projectOverview(p) {
 		function row(label, val) { return val ? '<div class="proj-specs__row"><span class="proj-specs__label">' + esc(label) + '</span><span class="proj-specs__val">' + esc(val) + '</span></div>' : ''; }
 		return '<section class="proj-overview"><div class="wrap"><div class="proj-overview__grid">' +
-			'<div class="proj-overview__text anim"><p class="eyebrow">პროექტის მიმოხილვა</p>' +
+			'<div class="proj-overview__text anim"><p class="eyebrow">' + t('proj_overview') + '</p>' +
 			'<h2>' + esc(p.overview_heading || p.name) + '</h2><div>' + txt(p.overview || '') + '</div></div>' +
-			'<div class="proj-specs anim"><h3>პროექტის დეტალები</h3>' +
-				row('კლიენტი', p.client) + row('კატეგორია', p.category) + row('ფართობი', p.area) +
-				row('ხანგრძლივობა', p.duration) + row('მდებარეობა', p.location) + row('სტატუსი', p.status) +
+			'<div class="proj-specs anim"><h3>' + t('proj_details') + '</h3>' +
+				row(t('client'), p.client) + row(t('category'), p.category) + row(t('area'), p.area) +
+				row(t('duration'), p.duration) + row(t('location'), p.location) + row(t('status'), p.status) +
 			'</div></div></div></section>';
 	}
 
@@ -499,22 +504,22 @@
 			'<section><div class="wrap"><div class="contact-grid">' +
 				'<div class="contact-info">' +
 					'<div class="contact-info__card anim"><div class="contact-info__icon">' + ICON_PIN + '</div>' +
-						'<div class="contact-info__detail"><h4>' + esc(d.addr_title || 'მისამართი') + '</h4><p>' + nl2br(d.address || '') + '</p></div></div>' +
-					(d.phone ? '<div class="contact-info__card anim"><div class="contact-info__icon">' + ICON_PHONE + '</div><div class="contact-info__detail"><h4>ტელეფონი</h4><a href="tel:' + esc(tel) + '">' + esc(d.phone) + '</a></div></div>' : '') +
-					(d.email ? '<div class="contact-info__card anim"><div class="contact-info__icon">' + ICON_MAIL + '</div><div class="contact-info__detail"><h4>ელ-ფოსტა</h4><a href="mailto:' + esc(d.email) + '">' + esc(d.email) + '</a></div></div>' : '') +
+						'<div class="contact-info__detail"><h4>' + esc(d.addr_title || t('address')) + '</h4><p>' + nl2br(d.address || '') + '</p></div></div>' +
+					(d.phone ? '<div class="contact-info__card anim"><div class="contact-info__icon">' + ICON_PHONE + '</div><div class="contact-info__detail"><h4>' + t('phone') + '</h4><a href="tel:' + esc(tel) + '">' + esc(d.phone) + '</a></div></div>' : '') +
+					(d.email ? '<div class="contact-info__card anim"><div class="contact-info__icon">' + ICON_MAIL + '</div><div class="contact-info__detail"><h4>' + t('email') + '</h4><a href="mailto:' + esc(d.email) + '">' + esc(d.email) + '</a></div></div>' : '') +
 					(socialLinks ? '<div class="contact-social anim">' + socialLinks + '</div>' : '') +
 					(d.map ? '<div class="contact-map anim" style="margin-top:16px"><iframe src="' + esc(d.map) + '" allowfullscreen loading="lazy"></iframe></div>' : '') +
 				'</div>' +
-				'<div class="contact-form anim"><h3>' + esc(d.form_title || 'გამოგვიგზავნეთ შეტყობინება') + '</h3>' + (d.form_intro ? '<p>' + esc(d.form_intro) + '</p>' : '') +
+				'<div class="contact-form anim"><h3>' + esc(d.form_title || t('form_title')) + '</h3>' + (d.form_intro ? '<p>' + esc(d.form_intro) + '</p>' : '') +
 					'<form id="contactForm" novalidate>' +
 						'<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">' +
-						'<div class="form-row"><div class="form-field"><label for="fname">სახელი</label><input type="text" id="fname" name="fname" placeholder="თქვენი სახელი"></div>' +
-						'<div class="form-field"><label for="lname">გვარი</label><input type="text" id="lname" name="lname" placeholder="თქვენი გვარი"></div></div>' +
-						'<div class="form-row"><div class="form-field"><label for="email">ელ-ფოსტა</label><input type="email" id="email" name="email" placeholder="info@example.com"></div>' +
-						'<div class="form-field"><label for="phone">ტელეფონი</label><input type="tel" id="phone" name="phone" placeholder="+995 5XX XXX XXX"></div></div>' +
-						'<div class="form-row form-row--full"><div class="form-field"><label for="service">კომპეტენცია</label><select id="service" name="service"><option value="">აირჩიეთ კომპეტენცია</option>' + opts + '<option>სხვა</option></select></div></div>' +
-						'<div class="form-row form-row--full"><div class="form-field"><label for="message">შეტყობინება</label><textarea id="message" name="message" placeholder="აღწერეთ თქვენი პროექტი ან შეკითხვა..."></textarea></div></div>' +
-						'<div class="form-submit"><button type="submit" class="btn-pill">გაგზავნა</button><p id="formStatus" role="status" style="margin-top:14px;font-weight:600"></p></div>' +
+						'<div class="form-row"><div class="form-field"><label for="fname">' + t('f_fname') + '</label><input type="text" id="fname" name="fname" placeholder="' + esc(t('ph_fname')) + '"></div>' +
+						'<div class="form-field"><label for="lname">' + t('f_lname') + '</label><input type="text" id="lname" name="lname" placeholder="' + esc(t('ph_lname')) + '"></div></div>' +
+						'<div class="form-row"><div class="form-field"><label for="email">' + t('email') + '</label><input type="email" id="email" name="email" placeholder="info@example.com"></div>' +
+						'<div class="form-field"><label for="phone">' + t('phone') + '</label><input type="tel" id="phone" name="phone" placeholder="+995 5XX XXX XXX"></div></div>' +
+						'<div class="form-row form-row--full"><div class="form-field"><label for="service">' + t('f_service') + '</label><select id="service" name="service"><option value="">' + esc(t('ph_service')) + '</option>' + opts + '<option>' + esc(t('opt_other')) + '</option></select></div></div>' +
+						'<div class="form-row form-row--full"><div class="form-field"><label for="message">' + t('f_message') + '</label><textarea id="message" name="message" placeholder="' + esc(t('ph_message')) + '"></textarea></div></div>' +
+						'<div class="form-submit"><button type="submit" class="btn-pill">' + t('btn_send') + '</button><p id="formStatus" role="status" style="margin-top:14px;font-weight:600"></p></div>' +
 					'</form></div>' +
 			'</div></div></section>';
 	};
