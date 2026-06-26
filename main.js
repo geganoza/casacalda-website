@@ -576,12 +576,55 @@
     });
 
     // ---- STAFF VIDEOS: play on hover only ----
+    // First-frame visibility: Safari (and Chrome inconsistently) won't paint the
+    // first frame of a paused video with preload="metadata" — it stays a blank
+    // box until something tells it to render a frame. Two-step fix:
+    //   1. When the team section is about to enter the viewport, bump preload
+    //      to "auto" so the video data downloads (avoid eager-load when the
+    //      visitor never scrolls there).
+    //   2. On `canplay`, seek currentTime to a hair past zero. Safari/Chrome
+    //      both decode and paint the seeked frame even while paused, so the
+    //      poster-like first-frame appears with no `poster` attribute needed.
     document.querySelectorAll('.team-card__img video, .team-grid__img video').forEach(function (v) {
         v.pause();
+        var primeFirstFrame = function () {
+            // 0.05s avoids Safari edge-case where currentTime=0 doesn't trigger a paint
+            try { v.currentTime = 0.05; } catch (e) {}
+        };
+        if (v.readyState >= 2) {
+            primeFirstFrame();
+        } else {
+            v.addEventListener('loadeddata', primeFirstFrame, { once: true });
+            v.addEventListener('canplay', primeFirstFrame, { once: true });
+        }
         var card = v.closest('.team-card, .team-grid__card') || v.parentElement;
         card.addEventListener('mouseenter', function () { var p = v.play(); if (p && p.catch) { p.catch(function () {}); } });
-        card.addEventListener('mouseleave', function () { v.pause(); v.currentTime = 0; });
+        card.addEventListener('mouseleave', function () { v.pause(); v.currentTime = 0.05; });
     });
+
+    // Lazy-promote preload from "metadata" → "auto" once the team section is in/near viewport,
+    // so first-frame paints quickly without forcing every visitor to download 8 portrait videos.
+    var teamObserverTargets = document.querySelectorAll('.team, .team-grid');
+    if (teamObserverTargets.length && 'IntersectionObserver' in window) {
+        var teamPreloadObserver = new IntersectionObserver(function (entries, obs) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.querySelectorAll('video').forEach(function (v) {
+                    if (v.preload !== 'auto') {
+                        v.preload = 'auto';
+                        try { v.load(); } catch (e) {}
+                    }
+                });
+                obs.unobserve(entry.target);
+            });
+        }, { rootMargin: '300px' });
+        teamObserverTargets.forEach(function (el) { teamPreloadObserver.observe(el); });
+    } else {
+        // No IO support → just upgrade preload immediately
+        document.querySelectorAll('.team-card__img video, .team-grid__img video').forEach(function (v) {
+            v.preload = 'auto';
+        });
+    }
 
     // ---- PROJECTS HUD HERO (cycling) ----
     var projHud = document.getElementById('projHud');
