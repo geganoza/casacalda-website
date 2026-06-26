@@ -68,46 +68,12 @@
 		   'დაგვიკავშირდით' (plural). Negative lookahead avoids matching when
 		   followed by another Georgian letter (so we don't corrupt longer
 		   conjugations like დაგვიკავშირდით or დაგვიკავშირდება etc.). */
-		{ from: /დაგვიკავშირდი(?![ა-ჰ])/g, to: 'დაგვიკავშირდით' },
-		/* Homepage team-card identities — real names + positions (from
-		   საშტატო ნუსხა.xlsx) replacing the WP placeholder names that came with
-		   the initial template. Identification done by matching first frames
-		   of the 8 site videos to the named videos in ~/Downloads/თბილი სახლი/.
-		   Site card slot 0..7 = video A7S30015..30035, identified as:
-		     0 გოჩა ვაშაკიძე  → საწყობის უფროსი
-		     1 მიხეილ ახობაძე → HVAC ინჟინერ-პროექტანტი
-		     2 ზურაბ ბახტაძე  → ინჟინერი
-		     3 დენის გარმაში  → HVAC ინჟინერ-პროექტანტი
-		     4 გელა კეკელია   → ელექტროობის HVAC ინჟინერ-პროექტანტი
-		     5 მაია გოგია     → ხარჯთაღმრიცხველი
-		     6 ვერიკო მაკიევი → საპროექტო დეპარტამენტის ხელმძღვანელის ასისტენტი
-		     7 ია მაკაროვა    → უფროსი იურისტი
-		   Long-term: Thomas should update these in WP, then this block becomes
-		   no-ops (placeholders no longer in WP response → regex never matches). */
-		// slot 0 — გოჩა ვაშაკიძე
-		{ from: /გიორგი გელაშვილი/g, to: 'გოჩა ვაშაკიძე' },
-		{ from: /^დირექტორი$/g, to: 'საწყობის უფროსი' },
-		// slot 1 — მიხეილ ახობაძე
-		{ from: /მარიამ ნოზაძე/g, to: 'მიხეილ ახობაძე' },
-		{ from: /მთავარი არქიტექტორი/g, to: 'HVAC ინჟინერ-პროექტანტი' },
-		// slot 2 — ზურაბ ბახტაძე
-		{ from: /დავით ხუციშვილი/g, to: 'ზურაბ ბახტაძე' },
-		{ from: /მთავარი ინჟინერი/g, to: 'ინჟინერი' },
-		// slot 3 — დენის გარმაში (role overlaps with slot 1, single rule covers both)
-		{ from: /ნინო მაქარიძე/g, to: 'დენის გარმაში' },
-		{ from: /პროექტ მენეჯერი/g, to: 'HVAC ინჟინერ-პროექტანტი' },
-		// slot 4 — გელა კეკელია
-		{ from: /ალექსი ფარცხალაძე/g, to: 'გელა კეკელია' },
-		{ from: /ელექტრო ინჟინერი/g, to: 'ელექტროობის HVAC ინჟინერ-პროექტანტი' },
-		// slot 5 — მაია გოგია
-		{ from: /ანა კვარაცხელია/g, to: 'მაია გოგია' },
-		{ from: /HVAC ინჟინერი/g, to: 'ხარჯთაღმრიცხველი' },
-		// slot 6 — ვერიკო მაკიევი
-		{ from: /ნიკა ჩხეიძე/g, to: 'ვერიკო მაკიევი' },
-		{ from: /სახანძრო სპეციალისტი/g, to: 'საპროექტო დეპარტამენტის ხელმძღვანელის ასისტენტი' },
-		// slot 7 — ია მაკაროვა
-		{ from: /გიგა მეტრეველი/g, to: 'ია მაკაროვა' },
-		{ from: /სანტექნიკის ინჟინერი/g, to: 'უფროსი იურისტი' }
+		{ from: /დაგვიკავშირდი(?![ა-ჰ])/g, to: 'დაგვიკავშირდით' }
+		/* Removed: the 16 placeholder team-card overrides. WordPress now holds
+		   the real 20 staff entries (uploaded + created via wp-admin form
+		   driver on 2026-06-26). Keeping the rules active would WRONGLY rewrite
+		   legitimately-saved data — e.g. "მთავარი ინჟინერი" (now დავით ჭაფოძე's
+		   real role) would have been silently downgraded to "ინჟინერი". */
 	];
 
 	/* English override mirror — matches what WordPress + TranslatePress currently
