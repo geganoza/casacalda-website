@@ -19,8 +19,9 @@
 
 	/* Frontend overrides for content still pending sync in WordPress.
 	   Georgian Mkhedruli codepoints cannot appear in URLs/attribute names, so the
-	   replace is safe to run on every string that flows through esc(). */
-	var TEXT_OVERRIDES = [
+	   replace is safe to run on every string that flows through esc().
+	   Language-aware: applyOverrides() picks the array matching localStorage.cc_lang. */
+	var TEXT_OVERRIDES_KA = [
 		/* Sentence-level overrides run first; they may contain words that the
 		   word-level rules below would otherwise rewrite. */
 		{ from: /უმაღლესი ხარისხის (ექსპერტიზა|კომპეტენცია|სერვისი) ჩვენთვის სტანდარტი არ არის — ეს ჩვენი ყოველდღიური საქმეა\./g,
@@ -35,9 +36,15 @@
 		   Per user's global instruction; converted via the `ka` Gemini tool. */
 		{ from: /გამოგვიგზავნე შეტყობინება/g, to: 'გამოგვიგზავნეთ შეტყობინება' },
 		{ from: /მზად ხარ ჩვენთან თანამშრომლობისთვის\?/g, to: 'მზად ხართ ჩვენთან თანამშრომლობისთვის?' },
+		/* New CTA copy — replace the polite question with a direct invitation. */
+		{ from: /მზად ხართ ჩვენთან თანამშრომლობისთვის\?/g,
+		  to: 'თუ ხარისხი გჭირდებათ, მოდით თბილ სახლში!' },
 		{ from: /შეავსე ფორმა და გამოგვიგზავნე შენი CV/g, to: 'შეავსეთ ფორმა და გამოგვიგზავნეთ თქვენი CV' },
+		/* New CTA copy — drop the "send CV" line, replace with "we will contact you soon". */
+		{ from: /შეავსეთ ფორმა და გამოგვიგზავნეთ თქვენი CV\.?/g,
+		  to: 'შეავსეთ ფორმა და ჩვენ მალე დაგიკავშირდებით.' },
 		{ from: /შეავსე ფორმა და ჩვენ დაგიკავშირდებით უმოკლეს ვადაში/g,
-		  to: 'შეავსეთ ფორმა და ჩვენ დაგიკავშირდებით უმოკლეს ვადაში' },
+		  to: 'შეავსეთ ფორმა და ჩვენ მალე დაგიკავშირდებით.' },
 		{ from: /გაიმარტივე ცხოვ?ერება თბილ სახლთან ერთად/g,
 		  to: 'გაიმარტივეთ ცხოვრება თბილ სახლთან ერთად' },
 		{ from: /ჩვენი ძალა ჩვენს ადამიანებშია\.?/g,
@@ -63,13 +70,93 @@
 		   conjugations like დაგვიკავშირდით or დაგვიკავშირდება etc.). */
 		{ from: /დაგვიკავშირდი(?![ა-ჰ])/g, to: 'დაგვიკავშირდით' }
 	];
+
+	/* English override mirror — matches what WordPress + TranslatePress currently
+	   returns for known-stale fields, rewrites to the agreed new English copy.
+	   Mirrors the KA overrides one-for-one. Will become a no-op once the WP-side
+	   sync is done (issues #1, #2, and the larger content sync). */
+	var TEXT_OVERRIDES_EN = [
+		/* Hero / brand tagline. Live currently shows "Make life simpler with Casa Calda" —
+		   that's the translation of the new KA but with slightly different wording. */
+		{ from: /Make life simpler with (?:Casa Calda|Tbili Sakhli)/g,
+		  to: 'Simplify your life with Tbili Sakhli' },
+		{ from: /We design and build\s+your comfort\.?/g,
+		  to: 'Simplify your life with Tbili Sakhli' },
+		/* Services section description (matches a few plausible old translations). */
+		{ from: /(?:For\s+)?[Mm]any years (?:now,?\s*)?(?:through|with) our service[s]?,?\s*we (?:create|provide|build)[^.]*?(?:customers|clients)\.?/g,
+		  to: 'Our strength lies in a motivated team of seasoned professionals' },
+		/* Services tagline. */
+		{ from: /(?:Top|Premium|Highest)[- ]quality service[^.]*?(?:standard|daily|every day)[^.]*?\.?/g,
+		  to: 'Premium-quality service is what we deliver every day' },
+		/* Electricity service blurb. */
+		{ from: /Full electrical (?:system )?(?:design and )?(?:installation|deployment|setup)[^.]*?(?:residential|commercial)[^.]*?\.?/g,
+		  to: 'Complete electrical system design and installation for projects of any complexity.' },
+		/* CTA banner headline (was "Are you ready to cooperate with us?" / similar). */
+		{ from: /(?:Are you )?[Rr]eady (?:to (?:work|cooperate|collaborate) with us|to cooperate)\??/g,
+		  to: 'When quality matters, choose Tbili Sakhli' },
+		/* CTA banner sub. */
+		{ from: /(?:Fill (?:in|out) (?:the )?form and (?:send us your CV|we'?ll contact you[^.]*)|Send (?:us )?your CV)\.?/g,
+		  to: "Fill out the form and we'll be in touch shortly." },
+		/* Form heading. */
+		{ from: /Send (?:us )?a message/g, to: 'Send us a message' },
+		/* Team section. */
+		{ from: /Our people/g, to: 'Our Team' },
+		{ from: /Our strength is in our people\.?/g, to: 'Our strength is our team' },
+		/* Project section eyebrow + title. */
+		{ from: /Portfolio/g, to: 'Our' },
+		{ from: /Our (?:works|jobs)/gi, to: 'Our Work' },
+		/* Services nav / section label. The Georgian moved Service → Expertise → Competence,
+		   on the EN side TranslatePress currently shows "Expertise" everywhere — keep as
+		   "Expertise" (per pair n=10 we agreed to "Expertise" in EN). No override needed
+		   but listing intent here. */
+		/* Technical expertise — keep. */
+		/* Address ordering: Georgia/Tbilisi → Tbilisi/Georgia (English convention). */
+		{ from: /Georgia,\s*Tbilisi/g, to: 'Tbilisi, Georgia' },
+		/* CTA button. */
+		{ from: /Get in touch/g, to: 'Contact Us' }
+	];
+
+	var OVERRIDES_BY_LANG = { ka: TEXT_OVERRIDES_KA, en: TEXT_OVERRIDES_EN };
 	var LOGO_OVERRIDE = '/assets/logo-main-white.svg';
 	var FOOTER_LOGO_OVERRIDE = '/assets/union.svg';
 
+	/* Media overrides — replaces WP-supplied image URLs with the approved
+	   banners committed to assets/banners/. Old assets stay in place; revert
+	   any item by deleting the matching entry. */
+	function ccPage() {
+		return (typeof window !== 'undefined' && window.CC_PAGE) || '';
+	}
+	var HERO_BG_BY_PAGE = {
+		about:    '/assets/banners/hero-about-desktop.jpg',
+		services: '/assets/banners/hero-services-desktop.jpg',
+		team:     '/assets/banners/hero-team-desktop.jpg',
+		contact:  '/assets/banners/hero-contact-desktop.jpg'
+	};
+	var INTRO_SPLIT_BY_PAGE = {
+		services: '/assets/banners/intro-services.jpg',
+		team:     '/assets/banners/intro-team.jpg'
+	};
+	var CTA_BAND_BG = '/assets/banners/cta-band-desktop.jpg';
+	var SERVICE_DETAIL_IMG = {
+		electricity:  '/assets/banners/service-electricity.jpg',
+		plumbing:     '/assets/banners/service-plumbing.jpg',
+		safety:       '/assets/banners/service-safety.jpg',
+		mechanical:   '/assets/banners/service-mechanical.jpg',
+		automation:   '/assets/banners/service-automation.jpg',
+		consulting:   '/assets/banners/service-consulting.jpg',
+		consultation: '/assets/banners/service-consulting.jpg'
+	};
+
+	function activeOverrides() {
+		var lang = 'ka';
+		try { lang = localStorage.getItem('cc_lang') || 'ka'; } catch (e) {}
+		return OVERRIDES_BY_LANG[lang] || OVERRIDES_BY_LANG.ka;
+	}
 	function applyOverrides(s) {
 		var out = String(s == null ? '' : s);
-		for (var i = 0; i < TEXT_OVERRIDES.length; i++) {
-			out = out.replace(TEXT_OVERRIDES[i].from, TEXT_OVERRIDES[i].to);
+		var arr = activeOverrides();
+		for (var i = 0; i < arr.length; i++) {
+			out = out.replace(arr[i].from, arr[i].to);
 		}
 		return out;
 	}
@@ -225,7 +312,9 @@
 			return c.href ? '<a href="' + esc(c.href) + '">' + esc(c.label) + '</a>' : esc(c.label);
 		}).join(' &nbsp;/&nbsp; ');
 		var overlay = (d.overlay != null && d.overlay !== '') ? ' style="background:rgba(0,0,0,' + Number(d.overlay) + ')"' : '';
-		return '<section class="page-hero"><div class="page-hero__bg">' + mediaTag(d.bg, { alt: d.title }) + '</div>' +
+		var heroBgOverride = HERO_BG_BY_PAGE[ccPage()];
+		var bg = heroBgOverride ? { url: heroBgOverride, type: 'image' } : d.bg;
+		return '<section class="page-hero"><div class="page-hero__bg">' + mediaTag(bg, { alt: d.title }) + '</div>' +
 			'<div class="page-hero__overlay"' + overlay + '></div>' +
 			'<div class="page-hero__content">' +
 				(crumb ? '<p class="page-hero__crumb">' + crumb + '</p>' : '') +
@@ -234,11 +323,13 @@
 	};
 
 	T['intro-split'] = function (d) {
+		var introOverride = INTRO_SPLIT_BY_PAGE[ccPage()];
+		var imgUrl = introOverride || (d.image && d.image.url);
 		return '<section class="section" style="padding-bottom:60px"><div class="wrap"><div class="about-split" style="padding:0">' +
 			'<div class="anim">' + (d.eyebrow ? '<p class="eyebrow">' + esc(d.eyebrow) + '</p>' : '') +
 				'<h2 class="sec-title" style="margin-bottom:20px">' + esc(d.title) + '</h2>' +
 				(d.body ? '<p class="about-split__body">' + esc(d.body) + '</p>' : '') + '</div>' +
-			'<div class="about-split__img anim">' + (d.image && d.image.url ? '<img src="' + esc(d.image.url) + '" alt="" style="aspect-ratio:16/10;border-radius:12px">' : '') + '</div>' +
+			'<div class="about-split__img anim">' + (imgUrl ? '<img src="' + esc(imgUrl) + '" alt="" style="aspect-ratio:16/10;border-radius:12px">' : '') + '</div>' +
 		'</div></div></section>';
 	};
 
@@ -262,13 +353,15 @@
 			var numCls = even ? ' svc-detail__num--right' : '';
 			var body = s.body ? s.body : (s.short ? '<p>' + esc(s.short) + '</p>' : '');
 			var feats = (s.features || []).map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('');
+			var imgKey = String(s.anchor || s.slug || '').toLowerCase();
+			var imgUrl = SERVICE_DETAIL_IMG[imgKey] || s.image;
 			return '<section class="svc-detail" id="' + esc(s.anchor || s.slug) + '"><div class="wrap">' +
 				'<div class="svc-detail__num' + numCls + ' anim">' + num + '</div>' +
 				'<div class="svc-detail__inner' + rev + ' anim">' +
 					'<div class="svc-detail__text">' + (s.eyebrow ? '<p class="eyebrow">' + esc(s.eyebrow) + '</p>' : '') +
 						'<h3>' + esc(s.name) + '</h3>' + body +
 						(feats ? '<ul class="svc-detail__list">' + feats + '</ul>' : '') + '</div>' +
-					'<div class="svc-detail__img">' + (s.image ? '<img src="' + esc(s.image) + '" alt="' + esc(s.name) + '">' : '') + '</div>' +
+					'<div class="svc-detail__img">' + (imgUrl ? '<img src="' + esc(imgUrl) + '" alt="' + esc(s.name) + '">' : '') + '</div>' +
 				'</div></div></section>';
 		}).join('');
 	};
@@ -531,7 +624,8 @@
 		/* Skip the CTA banner on the contact page — it's redundant
 		   (the contact form is right there). */
 		if (typeof window !== 'undefined' && window.CC_PAGE === 'contact') return '';
-		return '<section class="cta-band"><div class="cta-band__bg">' + mediaTag(d.bg, { alt: d.title }) + '</div>' +
+		var bg = { url: CTA_BAND_BG, type: 'image' };
+		return '<section class="cta-band"><div class="cta-band__bg">' + mediaTag(bg, { alt: d.title }) + '</div>' +
 			'<div class="cta-band__overlay"></div>' +
 			'<div class="cta-band__content"><h2 class="cta-band__title">' + esc(d.title) + '</h2>' +
 			(d.desc ? '<p class="cta-band__desc">' + esc(d.desc) + '</p>' : '') +
