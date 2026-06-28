@@ -84,7 +84,7 @@
 		/* Hero / brand tagline. Live currently shows "Make life simpler with Casa Calda" —
 		   that's the translation of the new KA but with slightly different wording. */
 		{ from: /Make life simpler with (?:Casa Calda|Casa Calda)/g,
-		  to: 'Simplify your life with Casa Calda' },
+		  to: 'Make life easy with CASA CALDA' },
 		{ from: /We design and build\s+your comfort\.?/g,
 		  to: 'Simplify your life with Casa Calda' },
 		/* Services section description (matches a few plausible old translations). */

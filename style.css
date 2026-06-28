@@ -216,7 +216,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .statement__line { display: none; }
 /* Words animate in individually */
 .statement__word {
-    display: inline-block; opacity: 0; transform: translateY(30px);
+    display: inline-block; opacity: 0; transform: none;
     transition: opacity .6s var(--ease), transform .6s var(--ease);
 }
 .statement__text.visible .statement__word { opacity: 1; transform: translateY(0); }
@@ -1582,7 +1582,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .contact-map.visible { opacity: 1; transform: translateY(0); }
 
 /* Statement text — words clip in */
-.statement__text.anim { transform: translateY(60px); transition: opacity 1.2s var(--ease), transform 1.2s var(--ease); }
+.statement__text.anim { transform: none; transition: opacity 1.2s var(--ease); }
 
 /* Service cards stagger */
 .svc-cards .svc-card { opacity: 0; transform: translateY(30px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
