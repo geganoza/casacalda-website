@@ -11,6 +11,7 @@
 
 	var slug = window.CC_PAGE || (new URLSearchParams(location.search)).get('page') || 'home';
 	var root = document.getElementById('cc-root') || document.body;
+	if (root && root.classList) { root.classList.add('cc-page-' + slug); } // per-page CSS hook
 
 	function setMeta(name, val) {
 		if (!val) { return; }
@@ -138,7 +139,7 @@
 
 	function loadMain() {
 		var s = document.createElement('script');
-		s.src = 'main.js?v=20260651';
+		s.src = 'main.js?v=20260652';
 		document.body.appendChild(s);
 	}
 })();

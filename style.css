@@ -143,7 +143,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     position: relative; z-index: 101;
 }
 .nav__burger span {
-    display: block; width: 100%; height: 2px; background: #fff;
+    display: block; width: 100%; height: 2px; background: var(--black) !important;
     position: absolute; left: 0;
     transition: transform .3s var(--ease), opacity .2s;
 }
@@ -1737,11 +1737,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .btn-pill { height: 46px; padding: 0 24px; font-size: 13px; }
     .hero__actions { gap: 10px; justify-content: center; }
     .statement__text { font-size: 32px; }
-    .statement { padding: 100px 0 80px; }
+    .statement { padding: 30px 0 0; }
     .eyebrow { font-size: 13px; letter-spacing: 1px; }
     .sec-title { font-size: 26px; line-height: 34px; }
     /* Services: scrollable cards on mobile */
-    .services { padding: 60px 0 0; }
+    .services { padding: 30px 0; }
+    .services .sec-head__desc { padding-bottom: 16px; }
     .svc-cards { margin-right: 0; padding: 0 16px; margin-top: 16px; }
     .svc-card { flex: 0 0 220px; height: 280px; }
     .svc-card--empty { display: none; }
@@ -1752,17 +1753,18 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .stats__num { font-size: 32px; line-height: 32px; letter-spacing: -1px; }
     .stats__plus { font-size: 20px; line-height: 32px; }
     .stats__label { font-size: 12px; margin-top: 10px; }
-    .stats { padding: 64px 0; }
-    .projects { padding: 64px 0; }
-    .about { padding: 64px 0; }
+    .stats { padding: 30px 0; }
+    .projects { padding: 30px 0; }
+    .ribbon { margin-top: 30px; }
+    .about { padding: 0 0 30px; }
     .team-card { flex: 0 0 200px; }
     .team-card__img { height: 300px; }
     .team-card:hover .team-card__img { height: 200px; }
     .team-card__img img { height: 300px; }
     .team-card__name { font-size: 17px; }
-    .team { padding: 0 0 64px; }
+    .team { padding: 30px 0; }
     .cta-band {
-        border-radius: 16px; padding: 48px 24px; margin: 0 8px;
+        border-radius: 16px; padding: 30px 24px; margin: 0 8px;
         min-height: 320px; text-align: center;
         align-items: center; justify-content: center;
     }
@@ -1783,6 +1785,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .footer__social a { width: 24px; height: 24px; padding: 3px; }
     .svc-cards-section { padding-bottom: 64px !important; }
     .section { padding: 64px 0; }
+    .section--gray { padding: 30px 0; }
     .svc-page-grid { grid-template-columns: 1fr; gap: 12px; }
     .svc-page-card { flex-direction: row; align-items: center; padding: 20px; gap: 16px; }
     .svc-page-card__icon { width: 56px; height: 56px; margin-bottom: 0; flex-shrink: 0; }
@@ -1816,7 +1819,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .page-hero__title { font-size: 28px; line-height: 36px; }
     .page-hero__content { padding: 0 16px 36px; }
     .page-hero__crumb { font-size: 12px; margin-bottom: 10px; }
-    .svc-detail { padding: 64px 0; }
+    /* Team page: the two sections right after the hero (intro-split + team-grid) */
+    .cc-page-team .page-hero + .section,
+    .cc-page-team .page-hero + .section + .section { padding: 30px 0 !important; }
+    .about-section { margin-bottom: 0; }
+    .svc-detail { padding: 0 0 64px; }
+    #consulting { padding-bottom: 30px; }
     .svc-detail__text h3 { font-size: 22px; }
     .svc-detail__icon { width: 48px; height: 48px; margin-bottom: 16px; }
     .contact-grid { padding: 64px 0; gap: 40px; }
@@ -1842,15 +1850,15 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .proj-hero__meta { gap: 12px; }
     .proj-hero__meta-item { font-size: 12px; }
     .proj-hero__meta-item strong { font-size: 13px; }
-    .proj-overview { padding: 64px 0; }
+    .proj-overview { padding: 30px 0; }
     .proj-overview__text h2 { font-size: 24px; }
     .proj-specs { padding: 20px; }
     .proj-specs h3 { font-size: 17px; }
     .proj-specs__label { font-size: 12px; }
     .proj-specs__val { font-size: 14px; }
-    .proj-services { padding: 64px 0; }
+    .proj-services { padding: 30px 0; }
     .proj-svc-card { padding: 28px 20px; }
-    .proj-gallery { padding: 64px 0; }
+    .proj-gallery { padding: 30px 0; }
     .proj-gallery h2 { font-size: 24px; margin-bottom: 24px; }
     .proj-gallery__grid { grid-template-columns: 1fr; gap: 12px; }
     .proj-gallery__item--tall { grid-row: span 1; aspect-ratio: 4/3; }
