@@ -1827,7 +1827,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     #consulting { padding-bottom: 30px; }
     .svc-detail__text h3 { font-size: 22px; }
     .svc-detail__icon { width: 48px; height: 48px; margin-bottom: 16px; }
-    .contact-grid { padding: 64px 0; gap: 40px; }
+    .contact-grid { padding: 30px 0; gap: 40px; }
     .contact-info h3 { font-size: 22px; }
     .contact-form h3 { font-size: 20px; }
     .contact-form { padding: 24px 16px; }

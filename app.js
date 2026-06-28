@@ -139,7 +139,7 @@
 
 	function loadMain() {
 		var s = document.createElement('script');
-		s.src = 'main.js?v=20260653';
+		s.src = 'main.js?v=20260654';
 		document.body.appendChild(s);
 	}
 })();
