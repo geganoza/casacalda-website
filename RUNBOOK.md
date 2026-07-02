@@ -397,6 +397,170 @@ Delete the entire "STAFF VIDEOS: play on hover only" block in `main.js` (~lines 
 
 ---
 
+## Pre-launch gate (Cloudflare Pages Functions middleware)
+
+The site sits behind a preview-token gate — visitors without the bypass cookie are 302'd to `/coming-soon.html`. The gate is one file: `functions/_middleware.js`. Any request to a Pages Function file at the repo root runs at the CF edge before the static asset is served.
+
+### How the flow works
+
+```
+Visitor → CF edge runs functions/_middleware.js
+              │
+              ├─ Cookie cc_preview=1 present?    → next() → real site
+              │
+              ├─ ?preview=<TOKEN> in URL?        → 302 + Set-Cookie (Max-Age=1yr) → clean URL
+              │
+              ├─ path is /coming-soon /assets/ *.mp4 etc?  → next() → static asset
+              │
+              └─ everything else                 → 302 → /coming-soon.html
+```
+
+### The current preview URL
+
+```
+https://casacalda.com/?preview=casa-prelaunch-0f81db5d
+```
+
+Works on any page — just append `?preview=…` to any URL. First click sets a 1-year cookie; subsequent visits from that browser skip the gate.
+
+### Rotating the token
+
+1. Edit `PREVIEW_TOKEN` in `functions/_middleware.js` (top of file)
+2. Bump cache-bust, commit, push
+3. Old links stop working immediately
+4. Existing cookie holders keep working until their cookie expires or they clear cookies
+
+### Force-revoke EVERY existing bypass cookie (nuclear)
+
+Change BOTH `PREVIEW_TOKEN` AND `BYPASS_COOKIE` (e.g. `cc_preview` → `cc_preview2`) in the same commit. The renamed cookie name means no one's existing cookie matches, so every browser has to re-preview with the new token.
+
+### Removing the gate at launch
+
+Delete `functions/_middleware.js`, replace `robots.txt` with a normal `User-agent: * / Allow: /` (or whatever indexing policy you want), commit, push. Next deploy resumes plain static serving.
+
+Detailed pass-through rules and passthrough exts are documented inline in the middleware file itself.
+
+---
+
+## Homepage hero video
+
+The `.hero` section on `index.html` renders a locally-hosted looping video (repo-served, not from WP media). Everything about it lives in three places:
+
+| Piece | Where |
+|---|---|
+| Video file | `assets/hero-home.mp4` (currently ~22 MB, 1920×1080 @ 50 fps, 49 s) |
+| Poster JPG | `assets/hero-home-poster.jpg` (~65 KB, frame at 0.5 s) |
+| Emitter | `render.js` `T.hero` (bypasses `mediaTag`, hard-emits `<video>` with `poster=` attribute) |
+| CSS | `.hero__bg video` (extended from the `img` rule at style.css:162) |
+| Mobile shape | Below 600 px viewport, `.hero { aspect-ratio: 1/1; height: auto; }` — square, not tall vertical |
+| Logo fade | `main.js` sets `.hero__logo--faded` on `.hero__logo` after 5 s; CSS transitions opacity + scale over 1.2 s |
+
+### Swap the video
+
+```bash
+# Fresh 4K/HD source → transcode to hero-home.mp4
+SRC=/path/to/new-hero.mp4
+DST="$(pwd)/assets/hero-home.mp4"
+POSTER="$(pwd)/assets/hero-home-poster.jpg"
+
+ffmpeg -y -i "$SRC" \
+  -vf "scale='min(1920,iw)':'min(1080,ih)':force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2" \
+  -c:v libx264 -crf 22 -preset slow -profile:v high -level 4.0 \
+  -g 30 -keyint_min 30 -sc_threshold 0 \
+  -movflags +faststart -pix_fmt yuv420p -an \
+  "$DST"
+
+ffmpeg -y -ss 0.5 -i "$SRC" -frames:v 1 -vf "scale=1920:-1" -q:v 4 "$POSTER"
+
+# Bump cache-bust, commit, push. That's it.
+```
+
+CRF 22 is high quality; drop to 24 or 26 for smaller file. `-g 30 -keyint_min 30 -sc_threshold 0` puts a keyframe every ~0.6 s so scrubbing/looping is smooth.
+
+### Revert to a static image hero
+
+Delete the `HERO_HOME_VIDEO` / `HERO_HOME_POSTER` constants and the `bgHtml = '<video …>'` block in `T.hero`, restore the original `mediaTag(d.bg, …)` call. The WP-supplied image bg comes back automatically.
+
+---
+
+## WordPress-side operations (Thomas's headless WP + `casacalda/v1/` plugin)
+
+The static site fetches data from `cms.casacalda.com` — a headless WP install on Hostinger. Thomas owns the plugin; a few operational quick refs:
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /wp-json/casacalda/v1/site` (also `?rest_route=/casacalda/v1/site`) | Brand + nav + footer config |
+| `GET /wp-json/casacalda/v1/page&slug=<x>` | Page sections (media/entity refs resolved) |
+| `GET /wp/v2/staff` | Team members CPT (`cc_staff`), all published |
+| `GET /wp/v2/projects` | Project CPT |
+| `POST /wp-json/casacalda/v1/contact` | Contact form submit |
+
+### Bulk-managing staff without wp-admin clicks
+
+The `cc_staff` post type stores `cc_role`, `cc_group`, `cc_video` as post_meta that WP REST doesn't expose (not registered with `show_in_rest`). To bulk-update:
+
+1. Log in via `wp-login.php` with a WP user's password to get session cookies
+2. Fetch `/wp-admin/post.php?post=<id>&action=edit` to scrape `_wpnonce`, `cc_staff_nonce`, and all hidden inputs (keep the FIRST occurrence of each name — a meta-box adds a second `action` input that will clobber the real `editpost`)
+3. POST the same form back to `/wp-admin/post.php` with your new title, `cc_role`, `cc_group`, `cc_video`, plus `save=Update`
+
+Full working script preserved in `/tmp/staff-driver-v2.py` from the 2026-06-26 bulk import — check commit `f6a693a` for context if you need to redo this.
+
+### Team-portrait video upload (WP media library)
+
+Videos go through `POST /wp-json/wp/v2/media` with:
+```
+Content-Type: video/mp4
+Content-Disposition: attachment; filename="<ascii-only-name>.mp4"
+X-WP-Nonce: <scraped from /wp-admin/ page>
+Cookie: <session cookies from wp-login.php>
+User-Agent: Mozilla/…  (Cloudflare's bot filter blocks Python-urllib/curl defaults on some paths)
+```
+
+Georgian filenames are rejected — WP wants ASCII in `Content-Disposition`. Transliterate the person's name (see `/tmp/translit.py` from the same commit) and put the real Georgian in the `title` field of the staff post afterwards.
+
+### Cloudflare Cache Rule for the REST API
+
+**Not yet in place** — Thomas is scheduled to add this per `THOMAS_WP_FLAP_FIXES.md`. Once shipped, `/casacalda/v1/*` responses will be edge-cached for 30 min and the site will be immune to Hostinger flaps for cacheable content. See that doc for the exact CF rule.
+
+---
+
+## Cloudflare access
+
+The Casa Calda Cloudflare account is under `d.baliashvili@itcraft.ge` (ITcraft, not Martivi). We manage it via:
+
+- **Global API Key** (email + `cfk_…` key) — stored in `../.env` as `CF_EMAIL` + `CF_GLOBAL_KEY`, gitignored, chmod 600. Full account access. Do NOT commit or share.
+- **Toma's scoped token** (`cfut_EGI9…`) — created via the Global Key, permissions: Pages Write + DNS Write + Rulesets Write + Cache Purge + Zone Read. Toma should use this in his GitHub Actions, `wrangler`, and `casacalda/v1/` plugin's CF purge hook.
+
+### Common operations
+
+```bash
+# Load
+CF=$(grep CF_GLOBAL_KEY ../.env | cut -d= -f2)
+EMAIL=$(grep CF_EMAIL ../.env | cut -d= -f2)
+ACCOUNT=4c05de69627ec8453970a2c40a3a54f9
+ZONE_COM=a19e1a001741e382a060ba9121beb562
+ZONE_GE=54320e7e8491fa2d4aa6ce6244ffd2d1
+
+# List DNS records for casacalda.com
+curl -sH "X-Auth-Email: $EMAIL" -H "X-Auth-Key: $CF" \
+  "https://api.cloudflare.com/client/v4/zones/$ZONE_COM/dns_records?per_page=100" | jq '.result[] | {name,type,content}'
+
+# Purge everything on casacalda.com
+curl -sH "X-Auth-Email: $EMAIL" -H "X-Auth-Key: $CF" -X POST \
+  "https://api.cloudflare.com/client/v4/zones/$ZONE_COM/purge_cache" \
+  -H "Content-Type: application/json" -d '{"purge_everything":true}'
+
+# Mint a new scoped token (equal-or-less permissions than the parent)
+# See the "Toma's token" recipe in the 2026-07-02 chat transcript,
+# or just re-run the exact permission_groups block from commit history
+```
+
+### Rotate the Global Key (nuclear)
+
+dash.cloudflare.com → click profile avatar → My Profile → API Tokens → **Global API Key** → **Roll**. Old key dies instantly. Paste new key into `.env`. Any downstream scripts that referenced the old key stop working — includes any wp-cron in the WP plugin.
+
+---
+
 ## Performance budget (target)
 
 - TTFB target: < 100ms globally (Cloudflare edge)
