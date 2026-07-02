@@ -262,13 +262,13 @@
 		var navLinks = ((site.nav && site.nav.links) || []).map(function (l) {
 			return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>';
 		}).join('');
-		var navCol = '<div class="footer__col"><h5>' + esc(t('footer_nav')) + '</h5>' + navLinks + '</div>';
+		var navCol = '<div class="footer__col footer__col--nav"><h5>' + esc(t('footer_nav')) + '</h5>' + navLinks + '</div>';
 		// Services column — every service, deep-linking to services.html#<anchor>.
 		var svcLinks = (site.services || []).map(function (s) {
 			var anchor = s.anchor || s.slug || '';
 			return '<a href="services.html' + (anchor ? '#' + esc(anchor) : '') + '">' + esc(s.name) + '</a>';
 		}).join('');
-		var svcCol = svcLinks ? '<div class="footer__col"><h5>' + esc(t('footer_services')) + '</h5>' + svcLinks + '</div>' : '';
+		var svcCol = svcLinks ? '<div class="footer__col footer__col--services"><h5>' + esc(t('footer_services')) + '</h5>' + svcLinks + '</div>' : '';
 		// Graceful fallback: a backend that predates the `services` payload (e.g.
 		// production before the plugin update) gets the CMS-configured footer
 		// columns instead, so the footer never loses its columns. Auto-upgrades to
@@ -279,7 +279,7 @@
 		}).join('');
 		var colsHtml = (site.services || []).length ? (navCol + svcCol) : legacyCols;
 		var c = f.contacts || {};
-		var contactCol = '<div class="footer__col"><h5>' + esc(c.title || t('footer_contact')) + '</h5>' +
+		var contactCol = '<div class="footer__col footer__col--contact"><h5>' + esc(c.title || t('footer_contact')) + '</h5>' +
 			(c.address1 ? '<span>' + esc(c.address1) + '</span>' : '') +
 			(c.address2 ? '<span>' + esc(c.address2) + '</span>' : '') +
 			(c.email ? '<a href="mailto:' + esc(c.email) + '">' + esc(c.email) + '</a>' : '') +

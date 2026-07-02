@@ -2307,8 +2307,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .sec-head--split { flex-direction: row; align-items: flex-end; }
     .sec-head__right { align-items: flex-start; text-align: left; }
     .about-split { grid-template-columns: 1fr; gap: 40px; }
-    .footer__top { grid-template-columns: 1fr; }
-    .footer__cols { grid-template-columns: 1fr 1fr; gap: 24px; }
 }
 
 /* 7. MISSING 375px SMALL PHONE BREAKPOINT */
@@ -2381,4 +2379,20 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .footer__bottom { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
     .btt { bottom: calc(16px + env(safe-area-inset-bottom)); }
     .mob-nav { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* 9. MOBILE FOOTER (<=600px): drop the Navigation + Services columns and
+   center the remaining brand + contact. Structure-based (targets column
+   classes, not text), so Georgian and English both inherit it. Placed last
+   so it wins the cascade over the earlier footer breakpoints. */
+@media (max-width: 600px) {
+    .footer__col--nav,
+    .footer__col--services { display: none; }
+
+    .footer__top { text-align: center; justify-items: center; }
+    .footer__brand { text-align: center; }
+    .footer__brand img { margin-left: auto; margin-right: auto; }
+    .footer__cols { text-align: center; }
+    .footer__col--contact a,
+    .footer__col--contact span { justify-content: center; }
 }
