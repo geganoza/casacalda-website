@@ -156,6 +156,11 @@
 	   Re-uses the 1284×850 "ვინ ვართ ჩვენ" v2 banner — same brand visual as the
 	   About page hero, but cropped to a split-layout aspect. */
 	var ABOUT_SPLIT_IMG = '/assets/banners/hero-about-md.jpg';
+	/* Homepage hero background — user-supplied looping video, transcoded 4K→1080p
+	   (4.3 MB) and served from Cloudflare Pages CDN, not WP. Poster JPG paints
+	   instantly before the MP4 decodes so visitors never see a black rectangle. */
+	var HERO_HOME_VIDEO = '/assets/hero-home.mp4';
+	var HERO_HOME_POSTER = '/assets/hero-home-poster.jpg';
 	var CTA_BAND_BG = '/assets/banners/cta-band-desktop.jpg';
 	var SERVICE_DETAIL_IMG = {
 		electricity:  '/assets/banners/service-electricity.jpg',
@@ -317,8 +322,15 @@
 		var overlay = (d.overlay != null && d.overlay !== '') ? ' style="background:rgba(0,0,0,' + Number(d.overlay) + ')"' : '';
 		// Hero buttons removed per user request — ignore d.actions from WP
 		var heroLogoUrl = logoUrl();
+		/* Emit a full <video> tag directly (not via mediaTag) so we can attach a
+		   poster attribute — the JPG paints instantly while the MP4 downloads,
+		   so visitors never see a black rectangle before the video starts. */
+		var bgHtml = '<video src="' + esc(HERO_HOME_VIDEO) + '"' +
+			' poster="' + esc(HERO_HOME_POSTER) + '"' +
+			' autoplay muted loop playsinline preload="auto"' +
+			' aria-hidden="true"></video>';
 		return '<section class="hero">' +
-			'<div class="hero__bg">' + mediaTag(d.bg, { alt: d.title || 'Casa Calda' }) + '</div>' +
+			'<div class="hero__bg">' + bgHtml + '</div>' +
 			'<div class="hero__overlay"' + overlay + '></div>' +
 			'<div class="hero__content">' +
 				'<img class="hero__logo" src="' + esc(heroLogoUrl) + '" alt="Casa Calda">' +
