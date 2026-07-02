@@ -180,6 +180,14 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     display: block; width: min(820px, 78vw); height: auto;
     margin: 0 auto 40px;
     filter: drop-shadow(0 6px 24px rgba(0,0,0,0.35));
+    /* Fade-out is triggered by main.js adding .hero__logo--faded after 5s.
+       Once faded the class stays, so it doesn't reappear on video loop. */
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.hero__logo--faded {
+    opacity: 0;
+    transform: scale(0.98);
+    pointer-events: none;
 }
 .hero__actions { display: flex; gap: 16px; justify-content: center; }
 .btn-pill {
@@ -1731,7 +1739,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .nav__logo img { height: 38px; }
     .nav__cta { display: none; }
     .nav__burger { margin-right: 0; }
-    .hero { height: 70svh; min-height: 420px; margin: 8px 8px 0; border-radius: 16px; align-items: center; }
+    /* Mobile phones: square hero shows more of the video's landscape frame than
+       a tall-vertical would (cover-fit crops less on square than on 9:19). */
+    .hero { aspect-ratio: 1 / 1; height: auto; min-height: 0; margin: 8px 8px 0; border-radius: 16px; align-items: center; }
     .hero__content { text-align: center; padding: 0 20px; }
     .hero__title { font-size: 26px; line-height: 30px; letter-spacing: -1px; margin: 0 auto 20px; max-width: 320px; }
     .hero__eyebrow { font-size: 11px; letter-spacing: 1px; text-align: center; }
@@ -2322,7 +2332,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .btn-pill { height: 44px; padding: 0 20px; font-size: 13px; }
     .nav { top: 8px; padding: 8px 12px; width: calc(100% - 12px); border-radius: 40px; }
     .nav--scrolled { border-radius: 0; top: 0; width: 100%; max-width: 100%; padding: 8px 14px; }
-    .hero { height: 65svh; min-height: 380px; margin: 6px 6px 0; }
+    .hero { aspect-ratio: 1 / 1; height: auto; min-height: 0; margin: 6px 6px 0; }
     .hero__title { font-size: 22px; line-height: 26px; max-width: 280px; }
     .nav__logo { height: 24px; }
     .nav__burger { margin-right: 8px; }

@@ -53,6 +53,16 @@
         });
     }
 
+    // ---- HERO LOGO FADE ----
+    // The Casa Calda logo is centered over the hero video. On the first paint it
+    // "brands" the page; after 5s it fades out so the video (which loops) gets
+    // clean space to breathe. Once faded the class stays — no reappearance
+    // during loop playback, no reappearance until the visitor reloads.
+    var heroLogo = document.querySelector('.hero__logo');
+    if (heroLogo) {
+        setTimeout(function () { heroLogo.classList.add('hero__logo--faded'); }, 5000);
+    }
+
     // ---- STATEMENT WORD SPLIT ----
     var stText = document.getElementById('statementText');
     if (stText) {
