@@ -69,8 +69,42 @@
 		bindRibbonNav();
 		bindServiceNav();
 		bindContactForm();
-		scrollToHash();
-		loadMain();
+		// Populate real staff on the About page before main.js binds its video
+		// handlers, so the injected cards get the same first-frame + hover behaviour.
+		loadAboutStaff(function () {
+			scrollToHash();
+			loadMain();
+		});
+	}
+
+	function esc(s) {
+		return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+			return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+		});
+	}
+
+	/* The About page's custom-html body ships static placeholder team cards that
+	   point at video files which don't exist (assets/videos/staff-0N.mp4). Swap
+	   them for the live staff from WordPress — the same source the Team page uses.
+	   No-op off the About page; a 2.5s timeout guarantees a slow/failed staff
+	   fetch never blocks the rest of the page from becoming interactive. */
+	function loadAboutStaff(done) {
+		var wrap = slug === 'about' ? document.querySelector('#team .team__cards') : null;
+		if (!wrap || !window.CC_CMS || !CC_CMS.staff) { done(); return; }
+		var called = false, finish = function () { if (!called) { called = true; done(); } };
+		setTimeout(finish, 2500);
+		CC_CMS.staff().then(function (staff) {
+			if (!staff || !staff.length) { return; }
+			wrap.innerHTML = staff.map(function (m) {
+				var media = m.video ? '<video src="' + esc(m.video) + '" muted loop playsinline preload="metadata"></video>'
+					: (m.photo ? '<img src="' + esc(m.photo) + '" alt="' + esc(m.name) + '">' : '');
+				return '<div class="team-card"><div class="team-card__img">' + media + '</div>' +
+					'<div class="team-card__info"><p class="team-card__role">' + esc(m.role) + '</p>' +
+					'<h3 class="team-card__name">' + esc(m.name) + '</h3>' +
+					(m.bio ? '<div class="team-card__bio"><p>' + esc(m.bio) + '</p></div>' : '') +
+					'</div></div>';
+			}).join('');
+		}).catch(function () {}).then(finish);
 	}
 
 	/* Service items (home services carousel + project page service grid) carry a

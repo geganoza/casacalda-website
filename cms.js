@@ -58,6 +58,15 @@
 				});
 		},
 
+		// Published staff (Team + About), in the editor's chosen order. Resolves to
+		// normalized "cc" objects, or null on failure so callers keep their markup.
+		staff: function () {
+			return fetch(this.api + '/?rest_route=/wp/v2/staff&per_page=50&orderby=menu_order&order=asc' + langSuffix())
+				.then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); })
+				.then(function (rows) { return rows.map(function (r) { var o = r.cc || {}; o.id = r.id; return o; }); })
+				.catch(function (e) { console.warn('[CC CMS] staff fetch failed:', e.message); return null; });
+		},
+
 		// The site shell — brand, nav, footer, contact options, published pages.
 		site: function () {
 			return fetch(this.api + '/?rest_route=/casacalda/v1/site' + langSuffix())
