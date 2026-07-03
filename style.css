@@ -39,8 +39,13 @@
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; background: var(--bg); }
-body { font-family: var(--font); color: var(--black); background: var(--bg); overflow-x: hidden; width: 100%; }
+/* overflow-x: clip on the root (not just body) bulletproofs against a transient
+   wide element expanding the mobile layout viewport on load — which would lay the
+   fixed nav out too wide and push its right side (burger) off-screen. `clip`
+   (unlike `hidden`) doesn't create a scroll container, so sticky/anchor scroll
+   are unaffected; body keeps `hidden` as the pre-Safari-16 fallback. */
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; background: var(--bg); overflow-x: clip; }
+body { font-family: var(--font); color: var(--black); background: var(--bg); overflow-x: hidden; width: 100%; max-width: 100%; }
 /* Engineering-schematic watermark behind the content sections (vector, black-only, transparent) */
 .bg-schematic { background: url("assets/bg-schematic.svg") repeat-y center top / 150vw 150vh; }
 a { color: inherit; text-decoration: none; }
@@ -1678,6 +1683,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .nav { top: 12px; padding: 10px 16px; width: calc(100% - 24px); border-radius: 60px; }
     .nav--scrolled { border-radius: 0; top: 0; width: 100%; max-width: 100%; padding: 10px 16px; }
     .nav__logo { height: 40px; }
+    /* Center the KA/EN toggle in the mobile top bar, independent of the logo
+       and burger widths (same absolute-centering trick .nav__links uses on
+       desktop). Logo stays flush-left, burger flush-right via space-between. */
+    .lang-switcher { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
     .hero { height: 75svh; min-height: 500px; margin: 10px 10px 0; align-items: center; }
     .hero__title { font-size: 36px; line-height: 40px; max-width: 500px; }
     .hero__actions { flex-wrap: wrap; justify-content: center; }
@@ -1913,6 +1922,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .nav__burger--open span:first-child { top: 50%; transform: translateY(-50%) rotate(45deg); }
 .nav__burger--open span:last-child { bottom: auto; top: 50%; transform: translateY(-50%) rotate(-45deg); }
 .nav__burger--open span { background: #fff !important; }
+/* ...but in the scrolled (solid-white) header, the nav bar sits ABOVE the dark
+   overlay (z-index 100 > 99), so the open X rests on white and must be dark to
+   stay visible. Also covers always-solid headers (dark-hero-less pages). */
+.nav--scrolled .nav__burger--open span { background: var(--black) !important; }
 
 /* ============ PROJECTS PAGE — HUD ============ */
 .pg-projects { background: var(--bg); color: var(--black); overflow-x: hidden; }

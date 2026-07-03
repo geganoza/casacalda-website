@@ -24,6 +24,22 @@
 		// WordPress REST root. Local dev = the Local site; production = the
 		// headless WP backend on the cms subdomain.
 		api: (function () {
+			// Dev-only backend toggle: ?api=prod or ?api=local lets a locally-served
+			// frontend point at either known backend (persisted so it survives page-to-
+			// page navigation; ?api=clear or any other value forgets it). Whitelisted to
+			// the two real backends — never an arbitrary URL — so it stays inert and safe
+			// in production, where normal visitors set nothing and the hostname logic
+			// below governs.
+			try {
+				var ov = new URLSearchParams(location.search).get('api');
+				if (ov !== null) {
+					if (ov === 'prod' || ov === 'local') { localStorage.setItem('cc_api', ov); }
+					else { localStorage.removeItem('cc_api'); }
+				}
+				var saved = localStorage.getItem('cc_api');
+				if (saved === 'prod') { return 'https://cms.casacalda.com'; }
+				if (saved === 'local') { return 'http://casacalda.local'; }
+			} catch (e) { /* no localStorage (private mode) — fall through */ }
 			var h = location.hostname;
 			return (h === 'casacalda.local' || h === 'localhost' || h === '127.0.0.1')
 				? 'http://casacalda.local'

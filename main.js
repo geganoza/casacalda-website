@@ -271,14 +271,21 @@
         var COPIES = 5;
         var IDLE_W, GAP, PAD, STEP;
 
-        // Measure actual pixel values from the DOM — works with vw/px/any unit
+        // Measure actual pixel values from the DOM — works with vw/px/any unit.
+        // The sizer goes INSIDE the ribbon viewport (which is overflow:hidden), not
+        // on document.body: appending a var(--r-idle)-wide box to <body> during init
+        // could momentarily exceed the mobile viewport width and expand the layout
+        // viewport (shifting the fixed nav). The var is inherited, so it resolves the
+        // same, and the clip guarantees it can never affect page width.
         function measure() {
-            // Temporarily create a sizer div that inherits the CSS var
+            // Host = the .ribbon__viewport (overflow:hidden). A normal-flow, zero-height
+            // box here is width-clamped by the viewport and can never overflow the page.
+            var host = ribbonTrack.parentElement || ribbonTrack;
             var sizer = document.createElement('div');
-            sizer.style.cssText = 'position:absolute;visibility:hidden;width:var(--r-idle);height:0;';
-            document.body.appendChild(sizer);
+            sizer.style.cssText = 'width:var(--r-idle);height:0;visibility:hidden;';
+            host.appendChild(sizer);
             IDLE_W = sizer.offsetWidth || 360;
-            document.body.removeChild(sizer);
+            host.removeChild(sizer);
 
             var trackStyle = getComputedStyle(ribbonTrack);
             GAP = parseFloat(trackStyle.gap) || 24;
