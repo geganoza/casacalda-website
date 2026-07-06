@@ -619,29 +619,37 @@
         card.addEventListener('mouseleave', function () { v.pause(); v.currentTime = 0.05; });
     });
 
-    // Lazy-promote preload metadata→auto and paint the first frame PER VIDEO, only
-    // as each nears the viewport. Observing individual videos (not the whole
-    // section) is essential for the About team scroller: 20 staff would otherwise
-    // fire 20 simultaneous loads, get throttled, and most stay blank. Intersection
-    // is viewport-relative, so horizontally-scrolled cards load as they come in.
-    var lazyVideos = document.querySelectorAll('.team-card__img video, .team-grid__img video');
-    if (lazyVideos.length && 'IntersectionObserver' in window) {
-        var videoPreloadObserver = new IntersectionObserver(function (entries, obs) {
+    // Lazy-promote preload metadata→auto and paint the first frame by observing
+    // the section CONTAINER, not each video. This is essential for mobile:
+    //   - iOS Safari + iOS Chrome (both WebKit) strictly honor preload="metadata"
+    //     and fetch zero frame bytes, so a currentTime seek can't paint anything.
+    //   - The About page uses a horizontal team-grid scroller; cards past the
+    //     viewport's right edge never individually intersect, so per-video
+    //     observation would leave them blank forever on mobile.
+    // Observing the section means every video inside gets promoted the moment
+    // the section itself intersects — regardless of individual card position.
+    // (Prior implementation at commit 3523767 observed individual videos and
+    // caused this exact regression; reverting per the 2026-07-06 investigation.)
+    var teamContainers = document.querySelectorAll('.team, .team-grid');
+    var allTeamVideos = document.querySelectorAll('.team-card__img video, .team-grid__img video');
+    if (teamContainers.length && 'IntersectionObserver' in window) {
+        var teamSectionObserver = new IntersectionObserver(function (entries, obs) {
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
-                var v = entry.target;
-                if (v.preload !== 'auto') v.preload = 'auto';
-                // Seek a hair past zero so Safari/Chrome paint that frame while paused.
-                var reprime = function () { try { if (v.paused) v.currentTime = 0.05; } catch (e) {} };
-                if (v.readyState >= 2) reprime();
-                else v.addEventListener('loadeddata', reprime, { once: true });
-                obs.unobserve(v);
+                entry.target.querySelectorAll('video').forEach(function (v) {
+                    if (v.preload !== 'auto') v.preload = 'auto';
+                    // Seek a hair past zero so Safari/Chrome paint that frame while paused.
+                    var reprime = function () { try { if (v.paused) v.currentTime = 0.05; } catch (e) {} };
+                    if (v.readyState >= 2) reprime();
+                    else v.addEventListener('loadeddata', reprime, { once: true });
+                });
+                obs.unobserve(entry.target);
             });
         }, { rootMargin: '300px' });
-        lazyVideos.forEach(function (v) { videoPreloadObserver.observe(v); });
+        teamContainers.forEach(function (c) { teamSectionObserver.observe(c); });
     } else {
         // No IO support → just upgrade preload immediately
-        lazyVideos.forEach(function (v) { v.preload = 'auto'; });
+        allTeamVideos.forEach(function (v) { v.preload = 'auto'; });
     }
 
     // ---- PROJECTS HUD HERO (cycling) ----

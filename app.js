@@ -173,7 +173,7 @@
 
 	function loadMain() {
 		var s = document.createElement('script');
-		s.src = 'main.js?v=20260661';
+		s.src = 'main.js?v=20260662';
 		document.body.appendChild(s);
 	}
 })();
