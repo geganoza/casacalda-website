@@ -282,118 +282,137 @@ If `lang=en` returns identical content to `lang=ka`, TP REST isn't translating �
 
 **The design.** Each team-card on the homepage and `team.html` shows a portrait. On hover the portrait animates (it's actually a short MP4 looping); on mouse-leave it pauses and returns to the first frame.
 
-**The video tags** are emitted by `T.team` (render.js:480) and `T['team-grid']` (render.js:535) — plus the same shape in `T['about-proj-card']` (render.js:617). All three render:
+**The video tags** are emitted by `T.team` (render.js:480), `T['team-grid']` (render.js:535), and `T['about-proj-card']` (render.js:617). All three render:
 
 ```html
 <video src="…cms.casacalda.com/…/portrait.mp4" muted loop playsinline preload="metadata"></video>
 ```
 
-No `autoplay`, no `poster=` attribute — that's intentional. The play/pause logic lives in `main.js` ("STAFF VIDEOS: play on hover only" block, ~line 578).
+No `autoplay`, no `poster=` attribute in the tag — that's intentional. The first-frame paint + hover play/pause logic lives in `main.js` ("STAFF VIDEOS: play on hover only" block).
 
-### The bug we hit (2026-06-26)
+### The problem (mobile-Safari specific)
 
-On Safari (both macOS and iOS) the team cards rendered as blank black rectangles until the user moused over them. Reason:
+Team cards render as blank black rectangles until the user hovers/taps. On desktop Chrome/Firefox this rarely shows up. On **iOS Safari + iOS Chrome** (both WebKit) it's guaranteed:
 
-- `preload="metadata"` only downloads the MP4 headers, not any frame data.
-- A `<video>` element that is paused, has no `poster=`, and hasn't decoded a frame yet renders its background color (black in Safari, sometimes transparent in Chrome).
-- Chrome was lenient and usually decoded frame 0 anyway. Safari was strict and showed nothing.
+- WebKit strictly honors `preload="metadata"` and fetches ONLY the moov atom, zero frame data.
+- Runtime `v.preload = 'auto'` flips don't force a re-fetch — WebKit treats `preload` as a load-time hint.
+- A paused `<video>` with no decoded frames renders its background color (black on iOS).
 
-### The fix (committed in `a4378c8` + `c58b835`)
+### Current fix (2026-07-06, commit `b371e15`) — the play-then-pause dance
 
-Two cooperating pieces, both in `main.js` inside the "STAFF VIDEOS: play on hover only" block. **No template change, no CSS change, no backend change, no `poster=` file needed.**
-
-**1. Prime the first frame by seeking to `0.05s`.**
-
-For every `.team-card__img video` and `.team-grid__img video`, on `loadeddata` (or immediately if already loaded), set `video.currentTime = 0.05`. Browsers decode and paint the seeked frame even while paused — that becomes the visible "poster". Same seek runs on `mouseleave` so the card returns to the first frame after the video plays.
-
-Why `0.05` and not `0`: Safari sometimes ignores `currentTime = 0` for the paint step (treats it as "you were already there, no repaint needed"). A hair past zero forces a fresh seek + decode + paint.
-
-**2. Lazy-promote `preload` from `metadata` to `auto`.**
-
-An `IntersectionObserver` watches `.team` and `.team-grid` sections. When either is ~300px from entering the viewport, it bumps `video.preload = 'auto'` on every video inside, so the data is actually present to seek into. Visitors who never scroll to the team section don't download the 8 portrait videos (each ~1.5–3 MB).
-
-Critical: **do NOT call `v.load()`** in this block. `v.load()` resets `currentTime` back to zero and undoes the prime-first-frame seek. Just flipping `preload` is enough to trigger background download.
-
-Fallback if `IntersectionObserver` isn't supported (very old Safari): just set `preload = 'auto'` immediately for all team videos.
-
-### What the JS looks like
+For every observed video: force a fetch, then briefly `.play()` so WebKit is compelled to buffer + decode + composite a frame, then immediately pause and seek slightly forward.
 
 ```js
-// main.js, ~line 578 — abridged
-document.querySelectorAll('.team-card__img video, .team-grid__img video').forEach(function (v) {
-    v.pause();
-    var primeFirstFrame = function () { try { v.currentTime = 0.05; } catch (e) {} };
-    if (v.readyState >= 2) primeFirstFrame();
-    else {
-        v.addEventListener('loadeddata', primeFirstFrame, { once: true });
-        v.addEventListener('canplay',    primeFirstFrame, { once: true });
-    }
-    var card = v.closest('.team-card, .team-grid__card') || v.parentElement;
-    card.addEventListener('mouseenter', function () {
-        var p = v.play(); if (p && p.catch) p.catch(function () {});
-    });
-    card.addEventListener('mouseleave', function () { v.pause(); v.currentTime = 0.05; });
-});
+// main.js — abridged
+function primeVideoForPaint(v) {
+    // Force WebKit to re-evaluate preload strategy + actually fetch bytes.
+    try { v.preload = 'auto'; v.load(); } catch (e) {}
+    var done = false;
+    var finish = function () {
+        if (done) return; done = true;
+        try { v.pause(); v.currentTime = 0.05; } catch (e) {}
+    };
+    var attemptPlay = function () {
+        if (done) return;
+        var p = v.play();
+        if (p && p.then) {
+            // muted + playsinline = autoplay is permitted → play() succeeds
+            // → WebKit paints a frame → pause 60ms later.
+            p.then(function () { setTimeout(finish, 60); })
+             .catch(function () { try { v.currentTime = 0.05; } catch (e) {} });
+        } else {
+            try { v.currentTime = 0.05; } catch (e) {}
+        }
+    };
+    if (v.readyState >= 2) attemptPlay();
+    else v.addEventListener('loadeddata', attemptPlay, { once: true });
+}
 
-if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries, obs) {
+// Observation is at SECTION level (not per-video) — horizontal scrollers
+// on the About page put many cards off-viewport where per-video IO never fires.
+var teamContainers = document.querySelectorAll('.team, .team-grid');
+if (teamContainers.length && 'IntersectionObserver' in window) {
+    var teamSectionObserver = new IntersectionObserver(function (entries, obs) {
         entries.forEach(function (entry) {
             if (!entry.isIntersecting) return;
-            entry.target.querySelectorAll('video').forEach(function (v) {
-                if (v.preload !== 'auto') v.preload = 'auto';
-                var reprime = function () { try { if (v.paused) v.currentTime = 0.05; } catch (e) {} };
-                if (v.readyState >= 2) reprime();
-                else v.addEventListener('loadeddata', reprime, { once: true });
-            });
+            entry.target.querySelectorAll('video').forEach(primeVideoForPaint);
             obs.unobserve(entry.target);
         });
     }, { rootMargin: '300px' });
-    document.querySelectorAll('.team, .team-grid').forEach(function (el) { io.observe(el); });
+    teamContainers.forEach(function (c) { teamSectionObserver.observe(c); });
 }
 ```
 
-### How to verify it works
+### Fix history — read before touching this code
 
-In headless Chrome via `gstack browse`:
+Three iterations, each catching a real-device failure the previous one missed:
+
+1. **2026-06-26 (`a4378c8`, `c58b835`)** — Original fix. Seek `currentTime = 0.05` in `loadeddata`; observe `.team`/`.team-grid` sections; flip `preload` to `auto`. Comment said "do NOT call `v.load()`" because it would reset the seek. **Worked on Mac Safari + desktop Chrome/Firefox.** Verified via headless Chromium.
+
+2. **2026-07-02 (`3523767`, Thomas)** — Rewrote observer to watch INDIVIDUAL video elements instead of sections. Rationale: don't fire 20 simultaneous fetches for the About page team-grid. **Broke on all mobile.** Horizontal-scroll cards past the viewport's right edge never intersect individually → their preload never gets promoted → blank forever.
+
+3. **2026-07-06 (`4c00f8e`)** — Reverted to section-container observation. Headless-Chromium test showed 34/34 videos painting. **User reported real iPhone was still blank in incognito.** Root cause: headless Chromium ignores strict `preload="metadata"` semantics; real WebKit doesn't. Seek-to-0.05 without frame bytes is a no-op.
+
+4. **2026-07-06 (`b371e15`)** — Current. Adds explicit `v.load()` before the seek (forces WebKit to actually re-fetch) and switches to **play-then-pause dance** (real WebKit composites a frame during `.play()`, guaranteed).
+
+**Do not** revert to per-video observation. Do not remove the `.load()`. Do not remove the `.play()` call — the seek alone is not enough on real iOS.
+
+### Why play-then-pause works everywhere
+
+- **Desktop Chrome/Firefox**: fetches on `preload="auto"` flip anyway; `.play()`+pause visibly paints a frame; the `currentTime=0.05` seek at the end lands on the desired frame. Net effect: same as before.
+- **iOS Safari**: `.load()` triggers real fetch; `.play()` (allowed because `muted+playsinline`) forces decode+composite; pause 60 ms later leaves the decoded frame on screen; seek nudges to 0.05. The visible "flash" is imperceptible.
+- **iOS Chrome (WebKit under the hood)**: same as iOS Safari.
+
+### How to verify on desktop
 
 ```bash
 B=~/.claude/skills/gstack/browse/dist/browse
 $B viewport 1440x900
-T=$(date +%s%N)
-$B goto "https://casacalda-website.pages.dev/?cb=$T"
+$B goto "https://casacalda.com/?cb=$(date +%s%N)"
 $B wait --networkidle
 sleep 3
 $B scroll .team
 sleep 4
-$B js "var vids = document.querySelectorAll('.team-card video'); var r = ''; vids.forEach(function(v,i){ r += 'v'+i+': preload='+v.preload+' t='+v.currentTime.toFixed(2)+' paused='+v.paused+' rs='+v.readyState+' '; }); r;"
+$B js "var vids = document.querySelectorAll('.team-card video, .team-grid__img video'); var stats = { total: vids.length, painted: 0, blank: 0 }; vids.forEach(function(v){ (v.readyState >= 2 && v.currentTime > 0 ? stats.painted++ : stats.blank++); }); JSON.stringify(stats);"
 ```
 
-Expected: `preload=auto`, `t=0.05`, `paused=true`, `rs=4` for all eight videos.
+Expected: `painted: N, blank: 0` where N = total videos.
 
-Then simulate hover/leave:
+### How to verify on real iOS (the only reliable check)
+
+Headless Chromium **cannot** distinguish the play-then-pause fix from a broken one. Only a real iPhone can. Steps:
+
+1. Open `https://casacalda.com/` in Safari or Chrome on an actual iPhone
+2. Open a fresh incognito/private tab (rules out cache staleness)
+3. Scroll to "ჩვენი გუნდი"
+4. Every card should show a portrait immediately — no blank rectangles
+5. Also visit `casacalda.com/team.html` and scroll through the horizontal team-grid — same check
+6. Tap a card → it should start playing full-motion; release → it should snap back to the paused first frame
+
+If any card is still blank, the fix hasn't landed — check cache-bust in served HTML matches the repo:
 
 ```bash
-$B js "var c=document.querySelector('.team-card'); c.dispatchEvent(new MouseEvent('mouseenter', {bubbles:true})); 'hover'"
-sleep 1
-$B js "var v=document.querySelector('.team-card video'); 'paused='+v.paused+' t='+v.currentTime.toFixed(2);"
-# expected: paused=false, currentTime > 0.5
-$B js "var c=document.querySelector('.team-card'); c.dispatchEvent(new MouseEvent('mouseleave',{bubbles:true})); 'leave'"
-sleep 1
-$B js "var v=document.querySelector('.team-card video'); 'paused='+v.paused+' t='+v.currentTime.toFixed(2);"
-# expected: paused=true, currentTime=0.05
+LIVE=$(curl -s https://casacalda.com/ | grep -oE 'main\.js\?v=[0-9]+' | head -1)
+REPO=$(grep -oE 'main\.js\?v=[0-9]+' index.html | head -1)
+echo "live: $LIVE   repo: $REPO"
 ```
 
-For Safari testing, open `https://casacalda-website.pages.dev/` on a Mac (or iPhone via the same URL), hard-refresh (⌘+Shift+R on macOS Safari), scroll to the team section, and confirm portraits appear immediately (not blank/black).
+### Known constraints
 
-### Known constraints / future improvements
+- **Videos served from `cms.casacalda.com`** (Hostinger). Each portrait is 0.2–1 MB. Cloudflare Pages is planned to eventually front these too, but for now they hit Hostinger. If WP is flapping (see `site-flapping.md`) the video URLs 5xx and cards stay blank — no JS can fix that.
+- **Section observation loads ALL videos** in the section when it enters viewport. For the current 20-staff About page that's ~10 MB simultaneous. Per-video lazy-load would save bandwidth but breaks on mobile horizontal scrollers. Section-level observation is the correct trade-off.
+- **Play-then-pause loads slightly more per video** than pure seek would (an extra ~100 KB per video to reach `canplay`). That's the price of iOS compatibility.
 
-- **Videos are served from `cms.casacalda.com`** (Hostinger). Each portrait is 1.5–3 MB. If Hostinger flaps (see `site-flapping.md`), the first-frame seek can fail silently; cards stay blank. The IO observer means we only hit Hostinger when the visitor scrolls there, so this only affects people who actually look at the team section.
-- **No `poster=` attribute is set.** We deliberately don't extract poster JPGs from each video — would require a build step or a WP field. The seek-to-0.05 trick gets the same visual result with zero asset overhead.
-- **`preload="metadata"` is the initial value** (set in render.js). The IntersectionObserver upgrades it to `auto`. If you ever want to make team videos visible above the fold (e.g. a hero featuring a portrait), change the initial value in render.js to `auto` for that specific emit site — don't rip the IO observer out, it still does the right thing.
+### How to revert to the June 26 version (only if this fix breaks something worse)
 
-### How to revert
+```bash
+git show c58b835:main.js > /tmp/main-known-good.js
+# ...manual patch of the STAFF VIDEOS block, or:
+git checkout c58b835 -- main.js
+# Then bump cache-bust and push. But: this reintroduces the mobile-blank bug.
+```
 
-Delete the entire "STAFF VIDEOS: play on hover only" block in `main.js` (~lines 578–630) and restore the original 6-line version (committed in `c58b835`'s parent — see `git log -- main.js`). The video tags in render.js don't need to change. Bump cache-bust, push.
+Prefer: iterate on `primeVideoForPaint` — don't full-revert.
 
 ---
 
