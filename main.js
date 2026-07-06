@@ -619,37 +619,70 @@
         card.addEventListener('mouseleave', function () { v.pause(); v.currentTime = 0.05; });
     });
 
-    // Lazy-promote preload metadata→auto and paint the first frame by observing
-    // the section CONTAINER, not each video. This is essential for mobile:
-    //   - iOS Safari + iOS Chrome (both WebKit) strictly honor preload="metadata"
-    //     and fetch zero frame bytes, so a currentTime seek can't paint anything.
-    //   - The About page uses a horizontal team-grid scroller; cards past the
-    //     viewport's right edge never individually intersect, so per-video
-    //     observation would leave them blank forever on mobile.
-    // Observing the section means every video inside gets promoted the moment
-    // the section itself intersects — regardless of individual card position.
-    // (Prior implementation at commit 3523767 observed individual videos and
-    // caused this exact regression; reverting per the 2026-07-06 investigation.)
+    // First-frame paint strategy — the whole point of this block is that mobile
+    // Safari (WebKit) renders a blank rectangle for a paused <video> with
+    // preload="metadata" until *something* actually decodes and paints a frame.
+    // The seek-to-0.05 trick works on desktop Chrome/Firefox but does nothing on
+    // iOS: WebKit strictly honors preload="metadata" (zero frame bytes fetched)
+    // AND ignores runtime preload="auto" flips (they don't re-trigger fetch).
+    //
+    // Reliable idiom on iOS: **play-then-pause dance**. With muted + playsinline
+    // + autoplay-allowed context, calling .play() forces WebKit to buffer + decode
+    // + composite a frame. We immediately pause. Net effect: the frame stays on
+    // screen, video is paused, everything below the fold quietly primes as its
+    // section scrolls into view.
+    //
+    // Observation is at the SECTION level (.team, .team-grid), not per-video,
+    // because horizontal scroll containers (About page) can hide cards past
+    // the viewport's right edge — per-video IO never fires for those.
+    function primeVideoForPaint(v) {
+        // Explicit .load() forces WebKit to re-evaluate preload = "auto".
+        try { v.preload = 'auto'; v.load(); } catch (e) {}
+        var done = false;
+        var finish = function () {
+            if (done) return; done = true;
+            try {
+                v.pause();
+                // Seek slightly forward so the paused frame is a proper decoded
+                // frame, not the first-byte black.
+                v.currentTime = 0.05;
+            } catch (e) {}
+        };
+        var attemptPlay = function () {
+            if (done) return;
+            var p = v.play();
+            if (p && p.then) {
+                p.then(function () {
+                    // Give WebKit ~1-2 frames to paint, then pause.
+                    setTimeout(finish, 60);
+                }).catch(function () {
+                    // Autoplay blocked (very rare when muted+playsinline).
+                    // Fall back to plain seek — better than nothing.
+                    try { v.currentTime = 0.05; } catch (e) {}
+                });
+            } else {
+                // No promise (older browsers) — just seek and hope.
+                try { v.currentTime = 0.05; } catch (e) {}
+            }
+        };
+        if (v.readyState >= 2) attemptPlay();
+        else v.addEventListener('loadeddata', attemptPlay, { once: true });
+    }
+
     var teamContainers = document.querySelectorAll('.team, .team-grid');
     var allTeamVideos = document.querySelectorAll('.team-card__img video, .team-grid__img video');
     if (teamContainers.length && 'IntersectionObserver' in window) {
         var teamSectionObserver = new IntersectionObserver(function (entries, obs) {
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
-                entry.target.querySelectorAll('video').forEach(function (v) {
-                    if (v.preload !== 'auto') v.preload = 'auto';
-                    // Seek a hair past zero so Safari/Chrome paint that frame while paused.
-                    var reprime = function () { try { if (v.paused) v.currentTime = 0.05; } catch (e) {} };
-                    if (v.readyState >= 2) reprime();
-                    else v.addEventListener('loadeddata', reprime, { once: true });
-                });
+                entry.target.querySelectorAll('video').forEach(primeVideoForPaint);
                 obs.unobserve(entry.target);
             });
         }, { rootMargin: '300px' });
         teamContainers.forEach(function (c) { teamSectionObserver.observe(c); });
     } else {
-        // No IO support → just upgrade preload immediately
-        allTeamVideos.forEach(function (v) { v.preload = 'auto'; });
+        // No IO support → prime all videos immediately
+        allTeamVideos.forEach(primeVideoForPaint);
     }
 
     // ---- PROJECTS HUD HERO (cycling) ----
