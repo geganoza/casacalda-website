@@ -57,9 +57,9 @@
 		/* ---- app.js: bootstrap + form status messages ---- */
 		brand_suffix:  { ka: 'თბილი სახლი',        en: 'Casa Calda' },
 		err_prefix:    { ka: 'შეცდომა: ',          en: 'Error: ' },
-		err_site_load: { ka: 'საიტი ვერ ჩაიტვირთა', en: 'The site could not be loaded' },
+		err_site_load: { ka: 'საიტი დროებით მიუწვდომელია', en: 'The site is temporarily unavailable' },
 		err_page_404:  { ka: 'გვერდი ვერ მოიძებნა', en: 'Page not found' },
-		err_wp_hint:   { ka: 'დარწმუნდი, რომ WordPress (Local) გაშვებულია.', en: 'Make sure the WordPress backend is running.' },
+		err_wp_hint:   { ka: 'გთხოვთ სცადოთ ერთი წუთის შემდეგ.', en: 'Please try again in a moment.' },
 		form_required: { ka: 'გთხოვთ შეავსოთ სახელი და ელ-ფოსტა ან ტელეფონი.', en: 'Please enter your name and an email or phone number.' },
 		form_sending:  { ka: 'იგზავნება...',       en: 'Sending…' },
 		form_thanks:   { ka: 'მადლობა! თქვენი შეტყობინება მიღებულია.', en: 'Thank you! Your message has been received.' },

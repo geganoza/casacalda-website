@@ -21,8 +21,17 @@
 	}
 
 	function showError(msg) {
-		root.innerHTML = '<div style="min-height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;color:#555;font-family:sans-serif">' +
-			'<div><h2>' + msg + '</h2><p>' + t('err_wp_hint') + '</p></div></div>';
+		// Graceful degradation: instead of a blank error page, keep the brand nav
+		// and hero video (both CDN-served, independent of WP) and show the message
+		// in a banner. Mirrors render.js's real nav/hero markup + classes.
+		var nav = '<nav class="nav" id="nav"><a href="index.html" class="nav__logo">' +
+			'<img src="/assets/logo-main-white.svg" alt="Casa Calda"></a></nav>';
+		var banner = '<div style="background:#f18227;color:#fff;padding:12px 16px;text-align:center;font:500 14px/1.5 sans-serif">' +
+			msg + ' ' + t('err_wp_hint') + '</div>';
+		var hero = '<section class="hero"><div class="hero__bg">' +
+			'<video src="/assets/hero-home.mp4" poster="/assets/hero-home-poster.jpg" autoplay muted loop playsinline></video>' +
+			'</div><div class="hero__overlay"></div></section>';
+		root.innerHTML = nav + banner + hero;
 	}
 
 	Promise.all([CC_CMS.site(), CC_CMS.page(slug)]).then(function (res) {

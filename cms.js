@@ -20,6 +20,22 @@
 		return l && l !== 'ka' ? '&lang=' + encodeURIComponent(l) : '';
 	}
 
+	// Wrap fetch with an 8s timeout so a hung/slow WP backend can't leave the page
+	// spinning forever — the AbortController rejects the promise and callers fall
+	// back to static markup or an error message. GET reads only; the contact POST
+	// is left un-timed so a slow submit isn't aborted mid-flight. Degrades to plain
+	// fetch on browsers without AbortController (no regression there).
+	function ccFetch(url, opts) {
+		if (typeof AbortController === 'undefined') { return fetch(url, opts); }
+		var ctrl = new AbortController();
+		var timer = setTimeout(function () { ctrl.abort(); }, 8000);
+		var clear = function () { clearTimeout(timer); };
+		return fetch(url, Object.assign({ signal: ctrl.signal }, opts)).then(
+			function (r) { clear(); return r; },
+			function (e) { clear(); throw e; }
+		);
+	}
+
 	var CC = {
 		// WordPress REST root. Local dev = the Local site; production = the
 		// headless WP backend on the cms subdomain.
@@ -52,7 +68,7 @@
 		// of normalized objects (the plugin's "cc" payload), or null on failure
 		// so callers can fall back to their existing static markup.
 		projects: function () {
-			return fetch(this.api + '/?rest_route=/wp/v2/projects&per_page=50&orderby=menu_order&order=asc' + langSuffix())
+			return ccFetch(this.api + '/?rest_route=/wp/v2/projects&per_page=50&orderby=menu_order&order=asc' + langSuffix())
 				.then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); })
 				.then(function (rows) {
 					return rows.map(function (r) { var o = r.cc || {}; o.id = r.id; return o; });
@@ -65,7 +81,7 @@
 
 		// A single project by slug (for project.html — used in the next step).
 		project: function (slug) {
-			return fetch(this.api + '/?rest_route=/wp/v2/projects&slug=' + encodeURIComponent(slug) + langSuffix())
+			return ccFetch(this.api + '/?rest_route=/wp/v2/projects&slug=' + encodeURIComponent(slug) + langSuffix())
 				.then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); })
 				.then(function (rows) { return rows[0] ? rows[0].cc : null; })
 				.catch(function (e) {
@@ -77,7 +93,7 @@
 		// Published staff (Team + About), in the editor's chosen order. Resolves to
 		// normalized "cc" objects, or null on failure so callers keep their markup.
 		staff: function () {
-			return fetch(this.api + '/?rest_route=/wp/v2/staff&per_page=50&orderby=menu_order&order=asc' + langSuffix())
+			return ccFetch(this.api + '/?rest_route=/wp/v2/staff&per_page=50&orderby=menu_order&order=asc' + langSuffix())
 				.then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); })
 				.then(function (rows) { return rows.map(function (r) { var o = r.cc || {}; o.id = r.id; return o; }); })
 				.catch(function (e) { console.warn('[CC CMS] staff fetch failed:', e.message); return null; });
@@ -85,14 +101,14 @@
 
 		// The site shell — brand, nav, footer, contact options, published pages.
 		site: function () {
-			return fetch(this.api + '/?rest_route=/casacalda/v1/site' + langSuffix())
+			return ccFetch(this.api + '/?rest_route=/casacalda/v1/site' + langSuffix())
 				.then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); })
 				.catch(function (e) { console.warn('[CC CMS] site fetch failed:', e.message); return null; });
 		},
 
 		// One page with its sections fully resolved (media + entity sources expanded).
 		page: function (slug) {
-			return fetch(this.api + '/?rest_route=/casacalda/v1/page&slug=' + encodeURIComponent(slug) + langSuffix())
+			return ccFetch(this.api + '/?rest_route=/casacalda/v1/page&slug=' + encodeURIComponent(slug) + langSuffix())
 				.then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); })
 				.catch(function (e) { console.warn('[CC CMS] page fetch failed:', e.message); return null; });
 		},
