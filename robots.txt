@@ -1,5 +1,7 @@
-# Pre-launch gate is active — block crawlers entirely while we're behind the
-# preview-token gate. Delete or replace this file at launch when the gate
-# in functions/_middleware.js is removed.
+# Casa Calda — allow all crawlers; block only the coming-soon page.
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /coming-soon
+Disallow: /coming-soon.html
+
+Sitemap: https://casacalda.com/sitemap.xml
