@@ -242,6 +242,7 @@
         // Sub-pixel accumulator so very slow motion still progresses each frame
         var svcAccum = 0;
         var svcSpeed = 0.5; // px/frame ≈ 30 px/sec at 60fps
+        var svcOn = false, svcRaf = null;
         function svcTick() {
             if (!svcPaused && svcHalf > 0) {
                 svcAccum += svcSpeed;
@@ -253,9 +254,16 @@
                     svcCards.scrollLeft = sl;
                 }
             }
-            requestAnimationFrame(svcTick);
+            svcRaf = requestAnimationFrame(svcTick);
         }
-        requestAnimationFrame(svcTick);
+        // Only run the per-frame auto-scroll while the carousel is on screen.
+        // Otherwise it writes scrollLeft every frame from page load (even behind
+        // the hero), starving the hero video's compositing during first paint.
+        function svcStart() { if (!svcOn) { svcOn = true; svcRaf = requestAnimationFrame(svcTick); } }
+        function svcStop() { svcOn = false; if (svcRaf) { cancelAnimationFrame(svcRaf); svcRaf = null; } }
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (es) { if (es[0].isIntersecting) { svcStart(); } else { svcStop(); } }).observe(svcCards);
+        } else { svcStart(); }
     }
 
     // ---- RIBBON PROJECT CAROUSEL (matching reference) ----
@@ -395,7 +403,11 @@
 
         // Init
         render(false);
-        startAuto();
+        // Auto-advance only while the ribbon is on screen — no timer/transform
+        // work behind the hero on load.
+        if ('IntersectionObserver' in window && ribbon) {
+            new IntersectionObserver(function (es) { if (es[0].isIntersecting) { startAuto(); } else { clearInterval(rAuto); } }).observe(ribbon);
+        } else { startAuto(); }
     }
 
     // ---- TEAM: hover bio reveal ----
