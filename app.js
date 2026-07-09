@@ -34,6 +34,47 @@
 		root.innerHTML = nav + banner + hero;
 	}
 
+	/* Privacy Policy is a legal document — it must render even if WP is down.
+	   We DON'T call CC_CMS.page(slug) for it; both KA + EN article bodies are
+	   pre-baked into privacy-policy.html and app.js just wraps them with nav
+	   (site data if available, minimal fallback otherwise) + a hero band +
+	   footer. Ships legal content instantly regardless of backend health. */
+	if (slug === 'privacy') {
+		var bakedArticles = root.innerHTML;   // both <article lang="ka"> + <article lang="en">
+		var pageHero =
+			'<section class="page-hero page-hero--legal">' +
+				'<div class="page-hero__overlay"></div>' +
+				'<div class="page-hero__content wrap">' +
+					'<h1 class="page-hero__title">' + t('privacy_title') + '</h1>' +
+					'<p class="page-hero__updated">' + t('privacy_updated') + '</p>' +
+				'</div>' +
+			'</section>';
+		Promise.resolve(CC_CMS.site()).then(function (site) {
+			// nav()/footer() both tolerate an empty {} — logo + langswitch + legal
+			// line always render, columns just come out empty. Good enough for a
+			// legal page during a WP outage.
+			var safeSite = site || {};
+			document.title = t('privacy_title') + ' — ' + t('brand_suffix');
+			root.innerHTML =
+				CCRender.nav(safeSite) +
+				pageHero +
+				'<main class="privacy-body wrap">' + bakedArticles + '</main>' +
+				CCRender.footer(safeSite) +
+				CCRender.btt();
+			afterRender();
+		}).catch(function () {
+			var safeSite = {};
+			root.innerHTML =
+				CCRender.nav(safeSite) +
+				pageHero +
+				'<main class="privacy-body wrap">' + bakedArticles + '</main>' +
+				CCRender.footer(safeSite) +
+				CCRender.btt();
+			afterRender();
+		});
+		return;
+	}
+
 	Promise.all([CC_CMS.site(), CC_CMS.page(slug)]).then(function (res) {
 		var site = res[0], page = res[1];
 		if (!site) { showError(t('err_site_load')); return; }
