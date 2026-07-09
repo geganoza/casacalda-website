@@ -1746,7 +1746,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     .nav--scrolled { border-radius: 0; top: 0; width: 100%; max-width: 100%; padding: 14px 16px; }
     .nav__logo { height: 38px; }
     .nav__logo img { height: 38px; }
-    .nav__cta { display: none; }
     .nav__burger { margin-right: 0; }
     /* Mobile phones: square hero shows more of the video's landscape frame than
        a tall-vertical would (cover-fit crops less on square than on 9:19). */
