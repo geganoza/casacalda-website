@@ -34,27 +34,30 @@
 		root.innerHTML = nav + banner + hero;
 	}
 
-	/* Privacy Policy is a legal document — it must render even if WP is down.
-	   We DON'T call CC_CMS.page(slug) for it; both KA + EN article bodies are
-	   pre-baked into privacy-policy.html and app.js just wraps them with nav
-	   (site data if available, minimal fallback otherwise) + a hero band +
-	   footer. Ships legal content instantly regardless of backend health. */
-	if (slug === 'privacy') {
+	/* Legal pages (privacy-policy.html, terms-of-use.html) are static documents —
+	   they must render even if WP is down. We DON'T call CC_CMS.page(slug); both
+	   KA + EN article bodies are pre-baked into the HTML file, and app.js just
+	   wraps them with nav (site data if available, minimal fallback otherwise) +
+	   a hero band + footer. Ships legal content instantly regardless of backend
+	   health. `slug` is 'privacy' or 'terms'; i18n keys share the same prefix. */
+	if (slug === 'privacy' || slug === 'terms') {
 		var bakedArticles = root.innerHTML;   // both <article lang="ka"> + <article lang="en">
+		var titleKey   = slug === 'privacy' ? 'privacy_title'   : 'terms_title';
+		var subKey     = slug === 'privacy' ? 'privacy_updated' : 'terms_effective';
 		var pageHero =
 			'<section class="page-hero page-hero--legal">' +
 				'<div class="page-hero__overlay"></div>' +
 				'<div class="page-hero__content wrap">' +
-					'<h1 class="page-hero__title">' + t('privacy_title') + '</h1>' +
-					'<p class="page-hero__updated">' + t('privacy_updated') + '</p>' +
+					'<h1 class="page-hero__title">' + t(titleKey) + '</h1>' +
+					'<p class="page-hero__updated">' + t(subKey) + '</p>' +
 				'</div>' +
 			'</section>';
-		Promise.resolve(CC_CMS.site()).then(function (site) {
+		var renderLegal = function (site) {
 			// nav()/footer() both tolerate an empty {} — logo + langswitch + legal
 			// line always render, columns just come out empty. Good enough for a
 			// legal page during a WP outage.
 			var safeSite = site || {};
-			document.title = t('privacy_title') + ' — ' + t('brand_suffix');
+			document.title = t(titleKey) + ' — ' + t('brand_suffix');
 			root.innerHTML =
 				CCRender.nav(safeSite) +
 				pageHero +
@@ -62,16 +65,8 @@
 				CCRender.footer(safeSite) +
 				CCRender.btt();
 			afterRender();
-		}).catch(function () {
-			var safeSite = {};
-			root.innerHTML =
-				CCRender.nav(safeSite) +
-				pageHero +
-				'<main class="privacy-body wrap">' + bakedArticles + '</main>' +
-				CCRender.footer(safeSite) +
-				CCRender.btt();
-			afterRender();
-		});
+		};
+		Promise.resolve(CC_CMS.site()).then(renderLegal).catch(function () { renderLegal({}); });
 		return;
 	}
 

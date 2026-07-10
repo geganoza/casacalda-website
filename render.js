@@ -305,7 +305,8 @@
 			'<span>' + esc(t('legal_address')) + '</span>' + sep +
 			'<a href="mailto:' + esc(t('legal_email')) + '">' + esc(t('legal_email')) + '</a>' + sep +
 			'<a href="tel:' + esc((t('legal_phone') || '').replace(/\s/g, '')) + '">' + esc(t('legal_phone')) + '</a>' + sep +
-			'<a href="privacy-policy.html">' + esc(t('legal_privacy')) + '</a>';
+			'<a href="privacy-policy.html">' + esc(t('legal_privacy')) + '</a>' + sep +
+			'<a href="terms-of-use.html">' + esc(t('legal_terms')) + '</a>';
 		return '' +
 			'<footer class="footer" id="footer"><div class="wrap">' +
 				'<div class="footer__top">' +

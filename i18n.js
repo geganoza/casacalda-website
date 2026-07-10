@@ -87,10 +87,18 @@
 			ka: 'კონფიდენციალურობის პოლიტიკა',
 			en: 'Privacy Policy'
 		},
+		legal_terms: {
+			ka: 'მოხმარების პირობები',
+			en: 'Terms of Use'
+		},
 
 		/* ---- privacy policy page ---- */
 		privacy_title:   { ka: 'კონფიდენციალურობის პოლიტიკა',    en: 'Privacy Policy' },
-		privacy_updated: { ka: 'ბოლო განახლება: 9 ივლისი, 2026', en: 'Last updated: 9 July 2026' }
+		privacy_updated: { ka: 'ბოლო განახლება: 9 ივლისი, 2026', en: 'Last updated: 9 July 2026' },
+
+		/* ---- terms of use page ---- */
+		terms_title:     { ka: 'მოხმარების პირობები',             en: 'Terms of Use' },
+		terms_effective: { ka: 'ძალაშია: 2026 წლის 10 ივლისიდან',  en: 'Effective date: 10 July 2026' }
 	};
 
 	/* Honor ?lang= on load so an English deep-link (e.g. casacalda.com/?lang=en)
