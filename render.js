@@ -505,7 +505,7 @@
 	T.team = function (d) {
 		var items = (d.source && d.source.items) || [];
 		var cards = items.map(function (m) {
-			var media = m.video ? '<video src="' + esc(m.video) + '" muted loop playsinline preload="metadata"></video>'
+			var media = m.video ? '<video src="' + esc(m.video) + '" muted loop playsinline preload="none"></video>'
 				: (m.photo ? '<img src="' + esc(m.photo) + '" alt="' + esc(m.name) + '">' : '');
 			return '<div class="team-card"><div class="team-card__img">' + media + '</div>' +
 				'<div class="team-card__info"><p class="team-card__role">' + esc(m.role) + '</p>' +
@@ -560,7 +560,7 @@
 	T['team-grid'] = function (d) {
 		var items = (d.source && d.source.items) || [];
 		var cards = items.map(function (m) {
-			var media = m.video ? '<video src="' + esc(m.video) + '" muted loop playsinline preload="metadata"></video>'
+			var media = m.video ? '<video src="' + esc(m.video) + '" muted loop playsinline preload="none"></video>'
 				: (m.photo ? '<img src="' + esc(m.photo) + '" alt="' + esc(m.name) + '">' : '');
 			return '<div class="team-grid__card anim"><div class="team-grid__img">' + media + '</div>' +
 				'<div class="team-grid__info"><p class="team-grid__role">' + esc(m.role) + '</p>' +
