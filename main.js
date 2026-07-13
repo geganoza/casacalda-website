@@ -688,30 +688,38 @@
 
     var teamContainers = document.querySelectorAll('.team, .team-grid');
     var allTeamVideos = document.querySelectorAll('.team-card__img video, .team-grid__img video');
-    // Concurrency-limited priming: prime at most PRIME_MAX videos at once, so
-    // scrolling into a team section with 30+ staff videos doesn't fire that many
-    // simultaneous loads/decodes (which stutters). Section-level trigger is kept
-    // (mobile WebKit + horizontal scrollers need it); the queue just paces it.
-    var primeQueue = [], primingNow = 0, PRIME_MAX = 3;
-    function pumpPrime() {
-        while (primingNow < PRIME_MAX && primeQueue.length) {
-            primingNow++;
-            primeVideoForPaint(primeQueue.shift(), function () { primingNow--; pumpPrime(); });
-        }
+    // Chunked priming: prime videos in batches of CHUNK, and only start the next
+    // batch once the current one has painted (+ a short gap for the browser to
+    // breathe), so scrolling into a team section with 30+ staff videos doesn't
+    // fire them all at once. Section-level trigger kept (mobile/horizontal-scroller
+    // safe); the chunking just paces the loads.
+    var primeQueue = [], chunkRunning = false, CHUNK = 6, CHUNK_GAP = 120;
+    function primeChunk() {
+        if (!primeQueue.length) { chunkRunning = false; return; }
+        chunkRunning = true;
+        var batch = primeQueue.splice(0, CHUNK);
+        var pending = batch.length;
+        batch.forEach(function (v) {
+            primeVideoForPaint(v, function () {
+                if (--pending === 0) { setTimeout(primeChunk, CHUNK_GAP); }
+            });
+        });
     }
-    function enqueuePrime(v) { primeQueue.push(v); pumpPrime(); }
     if (teamContainers.length && 'IntersectionObserver' in window) {
         var teamSectionObserver = new IntersectionObserver(function (entries, obs) {
+            var added = false;
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
-                entry.target.querySelectorAll('video').forEach(enqueuePrime);
+                entry.target.querySelectorAll('video').forEach(function (v) { primeQueue.push(v); added = true; });
                 obs.unobserve(entry.target);
             });
+            if (added && !chunkRunning) primeChunk();
         }, { rootMargin: '300px' });
         teamContainers.forEach(function (c) { teamSectionObserver.observe(c); });
     } else {
-        // No IO support → prime all (queued) immediately
-        allTeamVideos.forEach(enqueuePrime);
+        // No IO support → prime all (chunked) immediately
+        allTeamVideos.forEach(function (v) { primeQueue.push(v); });
+        primeChunk();
     }
 
     // ---- PROJECTS HUD HERO (cycling) ----
