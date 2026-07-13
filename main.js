@@ -647,18 +647,19 @@
     // Observation is at the SECTION level (.team, .team-grid), not per-video,
     // because horizontal scroll containers (About page) can hide cards past
     // the viewport's right edge — per-video IO never fires for those.
-    function primeVideoForPaint(v) {
+    function primeVideoForPaint(v, onDone) {
         // Explicit .load() forces WebKit to re-evaluate preload = "auto".
         try { v.preload = 'auto'; v.load(); } catch (e) {}
         var done = false;
+        var settle = function () { if (done) return; done = true; if (onDone) onDone(); };
         var finish = function () {
-            if (done) return; done = true;
             try {
                 v.pause();
                 // Seek slightly forward so the paused frame is a proper decoded
                 // frame, not the first-byte black.
                 v.currentTime = 0.05;
             } catch (e) {}
+            settle();
         };
         var attemptPlay = function () {
             if (done) return;
@@ -671,30 +672,46 @@
                     // Autoplay blocked (very rare when muted+playsinline).
                     // Fall back to plain seek — better than nothing.
                     try { v.currentTime = 0.05; } catch (e) {}
+                    settle();
                 });
             } else {
                 // No promise (older browsers) — just seek and hope.
                 try { v.currentTime = 0.05; } catch (e) {}
+                settle();
             }
         };
         if (v.readyState >= 2) attemptPlay();
         else v.addEventListener('loadeddata', attemptPlay, { once: true });
+        // Safety: never let a slow/broken video stall the priming queue.
+        setTimeout(settle, 4000);
     }
 
     var teamContainers = document.querySelectorAll('.team, .team-grid');
     var allTeamVideos = document.querySelectorAll('.team-card__img video, .team-grid__img video');
+    // Concurrency-limited priming: prime at most PRIME_MAX videos at once, so
+    // scrolling into a team section with 30+ staff videos doesn't fire that many
+    // simultaneous loads/decodes (which stutters). Section-level trigger is kept
+    // (mobile WebKit + horizontal scrollers need it); the queue just paces it.
+    var primeQueue = [], primingNow = 0, PRIME_MAX = 3;
+    function pumpPrime() {
+        while (primingNow < PRIME_MAX && primeQueue.length) {
+            primingNow++;
+            primeVideoForPaint(primeQueue.shift(), function () { primingNow--; pumpPrime(); });
+        }
+    }
+    function enqueuePrime(v) { primeQueue.push(v); pumpPrime(); }
     if (teamContainers.length && 'IntersectionObserver' in window) {
         var teamSectionObserver = new IntersectionObserver(function (entries, obs) {
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
-                entry.target.querySelectorAll('video').forEach(primeVideoForPaint);
+                entry.target.querySelectorAll('video').forEach(enqueuePrime);
                 obs.unobserve(entry.target);
             });
         }, { rootMargin: '300px' });
         teamContainers.forEach(function (c) { teamSectionObserver.observe(c); });
     } else {
-        // No IO support → prime all videos immediately
-        allTeamVideos.forEach(primeVideoForPaint);
+        // No IO support → prime all (queued) immediately
+        allTeamVideos.forEach(enqueuePrime);
     }
 
     // ---- PROJECTS HUD HERO (cycling) ----
