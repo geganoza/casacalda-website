@@ -64,7 +64,41 @@
 		form_sending:  { ka: 'იგზავნება...',       en: 'Sending…' },
 		form_thanks:   { ka: 'მადლობა! თქვენი შეტყობინება მიღებულია.', en: 'Thank you! Your message has been received.' },
 		form_error:    { ka: 'დაფიქსირდა შეცდომა. სცადეთ თავიდან ან დაგვირეკეთ.', en: 'Something went wrong. Please try again or call us.' },
-		form_noconn:   { ka: 'კავშირი ვერ დამყარდა. სცადეთ მოგვიანებით.', en: 'Connection failed. Please try again later.' }
+		form_noconn:   { ka: 'კავშირი ვერ დამყარდა. სცადეთ მოგვიანებით.', en: 'Connection failed. Please try again later.' },
+
+		/* ---- legal / footer legal line (compliance with Georgian E-commerce
+		   Law Art. 4(1) — persistent display of legal name + form + address +
+		   contact + registration ID). See legal/ source docs 2026-07-09. ---- */
+		legal_company: {
+			ka: 'შპს „თბილი სახლი"',
+			en: 'LLC "Tbili Sakhli"'
+		},
+		legal_id: {
+			ka: 'ს/კ 204976179',
+			en: 'ID No. 204976179'
+		},
+		legal_address: {
+			ka: 'ლუბლიანას ქ. 56, 0159 თბილისი, საქართველო',
+			en: '56 Ljubljana St., 0159 Tbilisi, Georgia'
+		},
+		legal_email:   { ka: 'info@casacalda.ge',     en: 'info@casacalda.ge' },
+		legal_phone:   { ka: '+995 32 2 311 325',     en: '+995 32 2 311 325' },
+		legal_privacy: {
+			ka: 'კონფიდენციალურობის პოლიტიკა',
+			en: 'Privacy Policy'
+		},
+		legal_terms: {
+			ka: 'მოხმარების პირობები',
+			en: 'Terms of Use'
+		},
+
+		/* ---- privacy policy page ---- */
+		privacy_title:   { ka: 'კონფიდენციალურობის პოლიტიკა',    en: 'Privacy Policy' },
+		privacy_updated: { ka: 'ბოლო განახლება: 9 ივლისი, 2026', en: 'Last updated: 9 July 2026' },
+
+		/* ---- terms of use page ---- */
+		terms_title:     { ka: 'მოხმარების პირობები',             en: 'Terms of Use' },
+		terms_effective: { ka: 'ძალაშია: 2026 წლის 10 ივლისიდან',  en: 'Effective date: 10 July 2026' }
 	};
 
 	/* Honor ?lang= on load so an English deep-link (e.g. casacalda.com/?lang=en)

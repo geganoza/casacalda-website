@@ -294,6 +294,19 @@
 			var ext = /^https?:/i.test(s.href || '') ? ' target="_blank" rel="noopener"' : '';
 			return '<a href="' + esc(s.href || '#') + '"' + ext + '><img src="assets/social-' + esc(s.type) + '.svg" alt="' + esc(s.type) + '"></a>';
 		}).join('');
+		/* Legal line — persistent display required by Georgian E-commerce Law
+		   Art. 4(1). Company name + legal form + address + email + phone + reg
+		   ID, ending in a link to the privacy policy. Emitted as span-separated
+		   items so it wraps cleanly on mobile with a "|" between each. */
+		var sep = '<span class="footer__legal-sep" aria-hidden="true">|</span>';
+		var legalHtml =
+			'<span>' + esc(t('legal_company')) + '</span>' + sep +
+			'<span>' + esc(t('legal_id')) + '</span>' + sep +
+			'<span>' + esc(t('legal_address')) + '</span>' + sep +
+			'<a href="mailto:' + esc(t('legal_email')) + '">' + esc(t('legal_email')) + '</a>' + sep +
+			'<a href="tel:' + esc((t('legal_phone') || '').replace(/\s/g, '')) + '">' + esc(t('legal_phone')) + '</a>' + sep +
+			'<a href="privacy-policy.html">' + esc(t('legal_privacy')) + '</a>' + sep +
+			'<a href="terms-of-use.html">' + esc(t('legal_terms')) + '</a>';
 		return '' +
 			'<footer class="footer" id="footer"><div class="wrap">' +
 				'<div class="footer__top">' +
@@ -307,6 +320,7 @@
 					'<span class="footer__copy">' + esc(f.copy || '') + '</span>' +
 					'<div class="footer__social">' + socials + '</div>' +
 				'</div>' +
+				'<div class="footer__legal">' + legalHtml + '</div>' +
 			'</div></footer>';
 	}
 
