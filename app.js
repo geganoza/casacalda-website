@@ -17,6 +17,43 @@
 		if (localStorage.getItem('cc_fxblur') === '1') { document.documentElement.classList.add('cc-fxblur'); }
 	} catch (e) {}
 
+	/* ?perf=1 — on-screen performance readout so we can SEE what's actually slow
+	   on the real device instead of guessing: main-thread FPS, the worst single
+	   frame time, a count of long frames, and — the key one — the hero VIDEO's
+	   dropped-frame ratio (the true measure of playback smoothness; a rAF FPS
+	   meter alone can read 60 while the video visibly stutters on the compositor).
+	   Screenshot it after ~10s and send it over. */
+	try {
+		if (new URLSearchParams(location.search).get('perf') === '1') {
+			var _hud = document.createElement('div');
+			_hud.style.cssText = 'position:fixed;top:8px;left:8px;z-index:2147483647;background:rgba(0,0,0,.82);color:#0f0;font:600 12px/1.5 monospace;padding:7px 10px;border-radius:7px;pointer-events:none;white-space:pre;box-shadow:0 2px 10px rgba(0,0,0,.4)';
+			var _mount = function () { if (document.body) { document.body.appendChild(_hud); } else { setTimeout(_mount, 50); } };
+			_mount();
+			var _last = performance.now(), _f = 0, _acc = 0, _worst = 0, _jank = 0, _base = null;
+			var _vid = function () { return document.querySelector('.hero__bg video') || document.querySelector('.hero video') || document.querySelector('video'); };
+			var _loop = function (now) {
+				var dt = now - _last; _last = now; _f++; _acc += dt;
+				if (dt > _worst) { _worst = dt; }
+				if (dt > 50) { _jank++; }
+				if (_acc >= 500) {
+					var line = 'FPS ' + Math.round(_f * 1000 / _acc) + '   worst ' + Math.round(_worst) + 'ms\nlong frames >50ms: ' + _jank;
+					var v = _vid();
+					if (v && v.getVideoPlaybackQuality) {
+						var q = v.getVideoPlaybackQuality();
+						if (_base === null) { _base = q.totalVideoFrames; }
+						line += '\nhero dropped: ' + q.droppedVideoFrames + ' / ' + q.totalVideoFrames;
+					} else if (v && typeof v.webkitDroppedFrameCount === 'number') {
+						line += '\nhero dropped: ' + v.webkitDroppedFrameCount + ' / ' + v.webkitDecodedFrameCount;
+					}
+					_hud.textContent = line;
+					_f = 0; _acc = 0; _worst = 0;
+				}
+				requestAnimationFrame(_loop);
+			};
+			requestAnimationFrame(_loop);
+		}
+	} catch (e) {}
+
 	/* UI-string translator (chrome only). Falls back to the key if i18n.js is
 	   missing — but i18n.js always loads first, so this resolves to ka/en. */
 	function t(k) { return (window.CC_I18N && window.CC_I18N.t) ? window.CC_I18N.t(k) : k; }
