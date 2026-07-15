@@ -604,123 +604,65 @@
         });
     });
 
-    // ---- STAFF VIDEOS: play on hover only ----
-    // First-frame visibility: Safari (and Chrome inconsistently) won't paint the
-    // first frame of a paused video with preload="metadata" — it stays a blank
-    // box until something tells it to render a frame. Two-step fix:
-    //   1. When the team section is about to enter the viewport, bump preload
-    //      to "auto" so the video data downloads (avoid eager-load when the
-    //      visitor never scrolls there).
-    //   2. On `canplay`, seek currentTime to a hair past zero. Safari/Chrome
-    //      both decode and paint the seeked frame even while paused, so the
-    //      poster-like first-frame appears with no `poster` attribute needed.
-    document.querySelectorAll('.team-card__img video, .team-grid__img video').forEach(function (v) {
-        v.pause();
-        var primeFirstFrame = function () {
-            // 0.05s avoids Safari edge-case where currentTime=0 doesn't trigger a paint
-            try { v.currentTime = 0.05; } catch (e) {}
-        };
-        if (v.readyState >= 2) {
-            primeFirstFrame();
-        } else {
-            v.addEventListener('loadeddata', primeFirstFrame, { once: true });
-            v.addEventListener('canplay', primeFirstFrame, { once: true });
-        }
-        var card = v.closest('.team-card, .team-grid__card') || v.parentElement;
-        card.addEventListener('mouseenter', function () { var p = v.play(); if (p && p.catch) { p.catch(function () {}); } });
-        card.addEventListener('mouseleave', function () { v.pause(); v.currentTime = 0.05; });
-    });
+    // ---- STAFF VIDEOS: poster + on-demand load/play ----
+    // Every staff card now ships a lightweight JPG poster (video poster="..."),
+    // so the card paints instantly from that bitmap with preload="none" — not a
+    // single video byte is fetched until we ask for it. The old play-then-pause
+    // "primeVideoForPaint" dance + section-level chunked loader existed ONLY to
+    // paint a first frame when there was no poster; both are now deleted. We load
+    // and play only the video(s) the visitor is actually looking at:
+    //   • hover-capable (desktop): play on mouseenter, pause + reset on mouseleave.
+    //     Calling .play() on a preload="none" video is what triggers its load.
+    //   • no-hover (touch): a per-card IntersectionObserver plays a card's video
+    //     when it scrolls into view and pauses it when it leaves. Per-card IO is
+    //     SAFE NOW (it was not before posters): a card past a horizontal
+    //     scroller's right edge that never intersects simply keeps showing its
+    //     poster instead of going blank — which is exactly the regression that
+    //     forced the old section-level priming. Do not "revert" this.
+    // Exposed on window so app.js can re-init the About cards it injects async
+    // (slow-path: staff fetch can resolve after the 2.5s timeout already ran
+    // loadMain(), so main.js's one-shot document pass would otherwise miss them).
+    window.CC_initStaffVideos = function (scopeEl) {
+        var scope = scopeEl || document;
+        var canHover = !(window.matchMedia && window.matchMedia('(hover: none)').matches);
+        var vids = scope.querySelectorAll('.team-card__img video, .team-grid__img video');
+        if (!vids.length) return;
 
-    // First-frame paint strategy — the whole point of this block is that mobile
-    // Safari (WebKit) renders a blank rectangle for a paused <video> with
-    // preload="metadata" until *something* actually decodes and paints a frame.
-    // The seek-to-0.05 trick works on desktop Chrome/Firefox but does nothing on
-    // iOS: WebKit strictly honors preload="metadata" (zero frame bytes fetched)
-    // AND ignores runtime preload="auto" flips (they don't re-trigger fetch).
-    //
-    // Reliable idiom on iOS: **play-then-pause dance**. With muted + playsinline
-    // + autoplay-allowed context, calling .play() forces WebKit to buffer + decode
-    // + composite a frame. We immediately pause. Net effect: the frame stays on
-    // screen, video is paused, everything below the fold quietly primes as its
-    // section scrolls into view.
-    //
-    // Observation is at the SECTION level (.team, .team-grid), not per-video,
-    // because horizontal scroll containers (About page) can hide cards past
-    // the viewport's right edge — per-video IO never fires for those.
-    function primeVideoForPaint(v, onDone) {
-        // Explicit .load() forces WebKit to re-evaluate preload = "auto".
-        try { v.preload = 'auto'; v.load(); } catch (e) {}
-        var done = false;
-        var settle = function () { if (done) return; done = true; if (onDone) onDone(); };
-        var finish = function () {
-            try {
-                v.pause();
-                // Seek slightly forward so the paused frame is a proper decoded
-                // frame, not the first-byte black.
-                v.currentTime = 0.05;
-            } catch (e) {}
-            settle();
+        var safePlay = function (v) {
+            var p = v.play();               // preload="none": .play() forces the load
+            if (p && p.catch) p.catch(function () {}); // autoplay-block/abort: harmless
         };
-        var attemptPlay = function () {
-            if (done) return;
-            var p = v.play();
-            if (p && p.then) {
-                p.then(function () {
-                    // Give WebKit ~1-2 frames to paint, then pause.
-                    setTimeout(finish, 60);
-                }).catch(function () {
-                    // Autoplay blocked (very rare when muted+playsinline).
-                    // Fall back to plain seek — better than nothing.
-                    try { v.currentTime = 0.05; } catch (e) {}
-                    settle();
+
+        var io = null;
+        if (!canHover && 'IntersectionObserver' in window) {
+            io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    var v = entry.target;
+                    if (entry.isIntersecting) safePlay(v);
+                    else { try { v.pause(); } catch (e) {} }
                 });
-            } else {
-                // No promise (older browsers) — just seek and hope.
-                try { v.currentTime = 0.05; } catch (e) {}
-                settle();
-            }
-        };
-        if (v.readyState >= 2) attemptPlay();
-        else v.addEventListener('loadeddata', attemptPlay, { once: true });
-        // Safety: never let a slow/broken video stall the priming queue.
-        setTimeout(settle, 4000);
-    }
+            }, { threshold: 0.5 });         // ~half-visible before we load/play
+        }
 
-    var teamContainers = document.querySelectorAll('.team, .team-grid');
-    var allTeamVideos = document.querySelectorAll('.team-card__img video, .team-grid__img video');
-    // Chunked priming: prime videos in batches of CHUNK, and only start the next
-    // batch once the current one has painted (+ a short gap for the browser to
-    // breathe), so scrolling into a team section with 30+ staff videos doesn't
-    // fire them all at once. Section-level trigger kept (mobile/horizontal-scroller
-    // safe); the chunking just paces the loads.
-    var primeQueue = [], chunkRunning = false, CHUNK = 6, CHUNK_GAP = 120;
-    function primeChunk() {
-        if (!primeQueue.length) { chunkRunning = false; return; }
-        chunkRunning = true;
-        var batch = primeQueue.splice(0, CHUNK);
-        var pending = batch.length;
-        batch.forEach(function (v) {
-            primeVideoForPaint(v, function () {
-                if (--pending === 0) { setTimeout(primeChunk, CHUNK_GAP); }
-            });
+        vids.forEach(function (v) {
+            if (v.dataset.ccStaffInit) return;   // idempotent — safe to re-run per subtree
+            v.dataset.ccStaffInit = '1';
+            try { v.pause(); } catch (e) {}
+
+            if (canHover) {
+                var card = v.closest('.team-card, .team-grid__card') || v.parentElement;
+                card.addEventListener('mouseenter', function () { safePlay(v); });
+                card.addEventListener('mouseleave', function () {
+                    try { v.pause(); v.currentTime = 0; } catch (e) {}
+                });
+            } else if (io) {
+                io.observe(v);
+            }
+            // No-hover + no IntersectionObserver (very old WebKit): leave the
+            // poster in place, load nothing. The poster is a complete visual.
         });
-    }
-    if (teamContainers.length && 'IntersectionObserver' in window) {
-        var teamSectionObserver = new IntersectionObserver(function (entries, obs) {
-            var added = false;
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                entry.target.querySelectorAll('video').forEach(function (v) { primeQueue.push(v); added = true; });
-                obs.unobserve(entry.target);
-            });
-            if (added && !chunkRunning) primeChunk();
-        }, { rootMargin: '300px' });
-        teamContainers.forEach(function (c) { teamSectionObserver.observe(c); });
-    } else {
-        // No IO support → prime all (chunked) immediately
-        allTeamVideos.forEach(function (v) { primeQueue.push(v); });
-        primeChunk();
-    }
+    };
+    window.CC_initStaffVideos(document);
 
     // ---- PROJECTS HUD HERO (cycling) ----
     var projHud = document.getElementById('projHud');

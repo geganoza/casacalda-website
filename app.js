@@ -141,7 +141,7 @@
 		CC_CMS.staff().then(function (staff) {
 			if (!staff || !staff.length) { return; }
 			wrap.innerHTML = staff.map(function (m) {
-				var media = m.video ? '<video src="' + esc(m.video) + '" muted loop playsinline preload="metadata"></video>'
+				var media = m.video ? '<video src="' + esc(m.video) + '"' + (m.photo ? ' poster="' + esc(m.photo) + '"' : '') + ' muted loop playsinline preload="none"></video>'
 					: (m.photo ? '<img src="' + esc(m.photo) + '" alt="' + esc(m.name) + '">' : '');
 				return '<div class="team-card"><div class="team-card__img">' + media + '</div>' +
 					'<div class="team-card__info"><p class="team-card__role">' + esc(m.role) + '</p>' +
@@ -149,6 +149,7 @@
 					(m.bio ? '<div class="team-card__bio"><p>' + esc(m.bio) + '</p></div>' : '') +
 					'</div></div>';
 			}).join('');
+				if (window.CC_initStaffVideos) { window.CC_initStaffVideos(wrap); }
 		}).catch(function () {}).then(finish);
 	}
 
@@ -218,7 +219,7 @@
 
 	function loadMain() {
 		var s = document.createElement('script');
-		s.src = 'main.js?v=20260663';
+		s.src = 'main.js?v=20260715';
 		document.body.appendChild(s);
 	}
 })();
