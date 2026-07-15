@@ -5,6 +5,18 @@
 (function () {
 	'use strict';
 
+	/* Debug / A-B for the hero stutter. Default OFF. The frosted blur on the nav
+	   pill, language switcher and ghost buttons re-blurs the PLAYING hero video
+	   every frame, which stutters the hero on phones. ?fxblur=1 puts the blur back
+	   (adds html.cc-fxblur — see style.css) so the difference is feelable on a real
+	   device; ?fxblur=0 clears it. Persisted so it survives page navigation. */
+	try {
+		var _fx = new URLSearchParams(location.search).get('fxblur');
+		if (_fx === '1') { localStorage.setItem('cc_fxblur', '1'); }
+		else if (_fx === '0') { localStorage.removeItem('cc_fxblur'); }
+		if (localStorage.getItem('cc_fxblur') === '1') { document.documentElement.classList.add('cc-fxblur'); }
+	} catch (e) {}
+
 	/* UI-string translator (chrome only). Falls back to the key if i18n.js is
 	   missing — but i18n.js always loads first, so this resolves to ka/en. */
 	function t(k) { return (window.CC_I18N && window.CC_I18N.t) ? window.CC_I18N.t(k) : k; }

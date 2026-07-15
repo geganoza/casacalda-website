@@ -57,6 +57,15 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 48px; }
 
+/* Frosted-glass blur over the hero VIDEO re-samples the moving frame on every
+   paint → the hero stutters, badly on phone GPUs. These vars default the three
+   hero-overlapping blurs (nav pill, language switcher, ghost buttons) to `none`;
+   add `?fxblur=1` (sets html.cc-fxblur, see app.js) to switch them back on for a
+   side-by-side A/B. The SCROLLED nav keeps its blur — once you've scrolled its
+   backdrop is static page content, not the moving video, so it's cheap. */
+:root { --nav-blur: none; --lang-blur: none; --ghost-blur: none; }
+html.cc-fxblur { --nav-blur: blur(16.65px); --lang-blur: blur(8px); --ghost-blur: blur(7.3px); }
+
 /* ============ HEADER / NAV ============ */
 .nav {
     position: fixed; top: 28px; left: 50%; transform: translateX(-50%);
@@ -64,7 +73,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 24px;
     background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(16.65px); -webkit-backdrop-filter: blur(16.65px);
+    backdrop-filter: var(--nav-blur); -webkit-backdrop-filter: var(--nav-blur);
     border-radius: 127px;
     z-index: 100;
     transition: all .5s cubic-bezier(.25,.8,.25,1);
@@ -90,9 +99,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     font-size: 13px; font-weight: 700; color: #fff;
     text-transform: uppercase; letter-spacing: .5px;
     transition: color .4s ease;
+    text-shadow: 0 1px 4px rgba(0,0,0,.35); /* legibility over the hero now the frost is gone */
 }
 .nav__links a:hover { color: var(--orange); }
-.nav--scrolled .nav__links a { color: var(--black); }
+.nav--scrolled .nav__links a { color: var(--black); text-shadow: none; }
 .nav--scrolled .nav__links a:hover { color: var(--orange); }
 
 /* ============ LANGUAGE SWITCHER ============ */
@@ -101,8 +111,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     gap: 2px; padding: 3px;
     background: rgba(255,255,255,0.18);
     border-radius: 999px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: var(--lang-blur);
+    -webkit-backdrop-filter: var(--lang-blur);
 }
 .lang-switcher__btn {
     appearance: none; border: 0;
@@ -206,7 +216,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
 .btn-pill--ghost {
     background: rgba(255,255,255,0.1); color: #fff;
     border: 1px solid rgba(255,255,255,0.4);
-    backdrop-filter: blur(7.3px);
+    backdrop-filter: var(--ghost-blur); -webkit-backdrop-filter: var(--ghost-blur);
 }
 .btn-pill--ghost:hover { background: rgba(255,255,255,0.2); }
 
