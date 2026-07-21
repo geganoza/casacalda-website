@@ -1,0 +1,32 @@
+name: Preview Deploy to Cloudflare Pages
+
+# Deploys every non-master branch as a Cloudflare Pages *preview* (its own URL,
+# e.g. https://<branch>.casacalda-website.pages.dev). Production (master) is
+# handled separately by deploy-pages.yml — this workflow never touches it.
+on:
+  push:
+    branches-ignore:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    name: Publish preview to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Publish preview
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Deploy this branch as a preview (branch alias = the branch name)
+          command: pages deploy . --project-name=casacalda-website --branch=${{ github.ref_name }} --commit-dirty=true

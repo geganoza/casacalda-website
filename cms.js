@@ -20,12 +20,23 @@
 		return l && l !== 'ka' ? '&lang=' + encodeURIComponent(l) : '';
 	}
 
+	// Build tag (this script's own ?v=) — appended to every GET below so each new
+	// deploy fetches FRESH CMS data instead of a stale ~30-min edge-cached copy
+	// (fixes content edits like staff posters not showing until the cache expires).
+	// Same-build visitors still share one cache key, so the edge cache still shields
+	// the WP origin from flaps within a given build.
+	var CC_BUILD = (function () {
+		try { var s = (document.currentScript && document.currentScript.src) || ''; var m = s.match(/[?&]v=([0-9]+)/); return m ? m[1] : ''; }
+		catch (e) { return ''; }
+	})();
+
 	// Wrap fetch with an 8s timeout so a hung/slow WP backend can't leave the page
 	// spinning forever — the AbortController rejects the promise and callers fall
 	// back to static markup or an error message. GET reads only; the contact POST
 	// is left un-timed so a slow submit isn't aborted mid-flight. Degrades to plain
 	// fetch on browsers without AbortController (no regression there).
 	function ccFetch(url, opts) {
+		if (CC_BUILD) { url += (url.indexOf('?') >= 0 ? '&' : '?') + '_v=' + CC_BUILD; }
 		if (typeof AbortController === 'undefined') { return fetch(url, opts); }
 		var ctrl = new AbortController();
 		var timer = setTimeout(function () { ctrl.abort(); }, 8000);
