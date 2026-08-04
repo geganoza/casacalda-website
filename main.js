@@ -635,18 +635,21 @@
     // Observation is at the SECTION level (.team, .team-grid), not per-video,
     // because horizontal scroll containers (About page) can hide cards past
     // the viewport's right edge — per-video IO never fires for those.
-    function primeVideoForPaint(v) {
+    // `onDone` fires once this video has settled (painted, failed, or timed out).
+    // The chunk scheduler below needs it — priming must be paced, not parallel.
+    function primeVideoForPaint(v, onDone) {
         // Explicit .load() forces WebKit to re-evaluate preload = "auto".
         try { v.preload = 'auto'; v.load(); } catch (e) {}
         var done = false;
+        var settle = function () { if (done) return; done = true; if (onDone) onDone(); };
         var finish = function () {
-            if (done) return; done = true;
             try {
                 v.pause();
                 // Seek slightly forward so the paused frame is a proper decoded
                 // frame, not the first-byte black.
                 v.currentTime = 0.05;
             } catch (e) {}
+            settle();
         };
         var attemptPlay = function () {
             if (done) return;
@@ -659,30 +662,66 @@
                     // Autoplay blocked (very rare when muted+playsinline).
                     // Fall back to plain seek — better than nothing.
                     try { v.currentTime = 0.05; } catch (e) {}
+                    settle();
                 });
             } else {
                 // No promise (older browsers) — just seek and hope.
                 try { v.currentTime = 0.05; } catch (e) {}
+                settle();
             }
         };
         if (v.readyState >= 2) attemptPlay();
         else v.addEventListener('loadeddata', attemptPlay, { once: true });
+        // Never let one slow or broken video stall the whole queue behind it.
+        setTimeout(settle, 4000);
+    }
+
+    // Prime in small batches, NOT all at once — this is the actual mobile/Safari
+    // fix, and it is load-bearing.
+    //
+    // Each primed <video> holds a media resource slot while it buffers, and the
+    // dance above pauses rather than releases it. Firing all ~39 staff videos
+    // concurrently from a cold cache exhausts WebKit's media pipeline: every
+    // element deadlocks at readyState 0 / networkState 2 (LOADING, forever) and
+    // the entire team section renders as blank rectangles.
+    //
+    // Measured on real Safari 26.5 against the live site, same page, same session:
+    //   all 39 at once      ->  0/39 painted
+    //   sequential chunks   -> 39/39 painted
+    //
+    // Chromium's cap is far higher, so it loads all 39 happily. That is exactly
+    // why this bug survived three "verified" fixes — headless Chromium CANNOT
+    // reproduce it. Verify Safari changes in Safari (see RUNBOOK "Team videos").
+    var primeQueue = [], chunkRunning = false, CHUNK = 6, CHUNK_GAP = 120;
+    function primeChunk() {
+        if (!primeQueue.length) { chunkRunning = false; return; }
+        chunkRunning = true;
+        var batch = primeQueue.splice(0, CHUNK);
+        var pending = batch.length;
+        batch.forEach(function (v) {
+            primeVideoForPaint(v, function () {
+                if (--pending === 0) setTimeout(primeChunk, CHUNK_GAP);
+            });
+        });
     }
 
     var teamContainers = document.querySelectorAll('.team, .team-grid');
     var allTeamVideos = document.querySelectorAll('.team-card__img video, .team-grid__img video');
     if (teamContainers.length && 'IntersectionObserver' in window) {
         var teamSectionObserver = new IntersectionObserver(function (entries, obs) {
+            var added = false;
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
-                entry.target.querySelectorAll('video').forEach(primeVideoForPaint);
+                entry.target.querySelectorAll('video').forEach(function (v) { primeQueue.push(v); added = true; });
                 obs.unobserve(entry.target);
             });
+            if (added && !chunkRunning) primeChunk();
         }, { rootMargin: '300px' });
         teamContainers.forEach(function (c) { teamSectionObserver.observe(c); });
     } else {
-        // No IO support → prime all videos immediately
-        allTeamVideos.forEach(primeVideoForPaint);
+        // No IO support → queue them all, still paced by primeChunk.
+        allTeamVideos.forEach(function (v) { primeQueue.push(v); });
+        primeChunk();
     }
 
     // ---- PROJECTS HUD HERO (cycling) ----

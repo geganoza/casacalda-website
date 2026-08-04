@@ -353,9 +353,26 @@ Three iterations, each catching a real-device failure the previous one missed:
 
 3. **2026-07-06 (`4c00f8e`)** — Reverted to section-container observation. Headless-Chromium test showed 34/34 videos painting. **User reported real iPhone was still blank in incognito.** Root cause: headless Chromium ignores strict `preload="metadata"` semantics; real WebKit doesn't. Seek-to-0.05 without frame bytes is a no-op.
 
-4. **2026-07-06 (`b371e15`)** — Current. Adds explicit `v.load()` before the seek (forces WebKit to actually re-fetch) and switches to **play-then-pause dance** (real WebKit composites a frame during `.play()`, guaranteed).
+4. **2026-07-06 (`b371e15`)** — Adds explicit `v.load()` before the seek (forces WebKit to actually re-fetch) and switches to **play-then-pause dance** (real WebKit composites a frame during `.play()`, guaranteed). **Still blank on real Safari** — it primed all 39 videos at once (see 5).
 
-**Do not** revert to per-video observation. Do not remove the `.load()`. Do not remove the `.play()` call — the seek alone is not enough on real iOS.
+5. **2026-08-04** — Current. **Chunked priming (`CHUNK = 6`, `CHUNK_GAP = 120`).** This is the fix that actually works, and it is the load-bearing one.
+
+   **Real root cause, finally measured.** Each primed `<video>` holds a media resource slot while it buffers, and the play-then-pause dance *pauses* rather than releases it. Priming all ~39 staff videos concurrently from a cold cache exhausts WebKit's media pipeline: every element deadlocks at `readyState 0` / `networkState 2` (LOADING, forever, no error) and the whole team section renders blank. Chromium's cap is far higher, so it loads all 39 without complaint.
+
+   Measured on **real Safari 26.5** against the live site, same page, same session:
+
+   | | Result |
+   |---|---|
+   | all 39 primed at once | **0 / 39 painted** |
+   | sequential chunks of 6 | **39 / 39 painted** |
+
+   It is **not** autoplay (a standalone muted video reports `autoplay: ALLOWED`), not the codec (H.264 High / yuv420p / faststart), not `preload`, not the server (Range returns 206).
+
+   Also fixed in the same change: `app.js` injects `main.js` at runtime and had its `?v=` **hardcoded at `20260663`** since June, while every HTML `<script>` tag got bumped. A shipped `main.js` fix stayed invisible to any browser holding the cached copy. (Commit `884ea19`, titled "bump cache-bust to ensure fresh main.js", bumped the HTML tags but not that line.) `main.js` now inherits `app.js`'s own `?v=`, so it can never drift again.
+
+   Note: Toma wrote this same chunking in `4aaee7c` / `ed7ed6f`; it was discarded in PR #4's revert of the hero/carousel lag experiments (preserved on `thom-lag-backup`). The right fix existed and was thrown away.
+
+**Do not** revert to per-video observation. Do not remove the `.load()`. Do not remove the `.play()` call — the seek alone is not enough on real iOS. **Do not prime all videos at once** — that is the bug, and Chromium will not show it to you.
 
 ### Why play-then-pause works everywhere
 
@@ -363,24 +380,48 @@ Three iterations, each catching a real-device failure the previous one missed:
 - **iOS Safari**: `.load()` triggers real fetch; `.play()` (allowed because `muted+playsinline`) forces decode+composite; pause 60 ms later leaves the decoded frame on screen; seek nudges to 0.05. The visible "flash" is imperceptible.
 - **iOS Chrome (WebKit under the hood)**: same as iOS Safari.
 
-### How to verify on desktop
+### How to verify — READ THIS FIRST
+
+**Never verify this code in headless Chromium.** Chromium loads all 39 videos happily and reports `painted: 39, blank: 0` whether the fix is present or not. Three separate "verified" fixes shipped broken because they were signed off on a Chromium run. A green Chromium result means nothing here.
+
+Two checks that do work, in order of reliability: real Safari (below), then a real iPhone.
+
+### How to verify in real Safari (desktop, automated)
+
+Drives actual Safari over WebDriver — the real media pipeline, not Playwright's relaxed WebKit build (Playwright loosens autoplay policy, which masks this class of bug).
+
+One-time setup, run by a human because it needs an admin password:
 
 ```bash
-B=~/.claude/skills/gstack/browse/dist/browse
-$B viewport 1440x900
-$B goto "https://casacalda.com/?cb=$(date +%s%N)"
-$B wait --networkidle
-sleep 3
-$B scroll .team
-sleep 4
-$B js "var vids = document.querySelectorAll('.team-card video, .team-grid__img video'); var stats = { total: vids.length, painted: 0, blank: 0 }; vids.forEach(function(v){ (v.readyState >= 2 && v.currentTime > 0 ? stats.painted++ : stats.blank++); }); JSON.stringify(stats);"
+sudo safaridriver --enable      # then Safari → Develop → Allow Remote Automation
 ```
 
-Expected: `painted: N, blank: 0` where N = total videos.
+Then:
 
-### How to verify on real iOS (the only reliable check)
+```bash
+safaridriver -p 4444 &
+```
 
-Headless Chromium **cannot** distinguish the play-then-pause fix from a broken one. Only a real iPhone can. Steps:
+Create a WebDriver session against `http://localhost:4444`, load the page, scroll `.team` / `.team-grid` into view, wait ~10s for the chunk queue to drain, and evaluate:
+
+```js
+var v = Array.prototype.slice.call(
+  document.querySelectorAll('.team-card__img video, .team-grid__img video'));
+var o = { total: v.length, painted: 0, blank: 0, stuck: 0 };
+v.forEach(function (x) {
+  if (x.readyState >= 2 && x.currentTime > 0) o.painted++;
+  else { o.blank++; if (x.networkState === 2 && x.readyState === 0) o.stuck++; }
+});
+JSON.stringify(o);
+```
+
+Expected: `painted: 39, blank: 0, stuck: 0`. **`stuck > 0` is the signature of this bug** — elements fetching forever because the media pipeline is saturated.
+
+Serving the frontend locally? Append **`?api=prod`** — `cms.js` points a `localhost` frontend at `http://casacalda.local`, which won't resolve, and the page renders an error instead of any team cards (`total: 0`).
+
+### How to verify on real iOS
+
+The last word on mobile. Steps:
 
 1. Open `https://casacalda.com/` in Safari or Chrome on an actual iPhone
 2. Open a fresh incognito/private tab (rules out cache staleness)

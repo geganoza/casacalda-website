@@ -5,6 +5,23 @@
 (function () {
 	'use strict';
 
+	/* Build tag for main.js.
+	 *
+	 * main.js is injected at runtime (see loadMain), so it never picked up the
+	 * ?v= bump that every <script> tag in the HTML gets. It sat pinned at
+	 * v=20260663 for months while everything else moved — meaning a shipped
+	 * main.js fix stayed invisible to any browser holding the cached copy.
+	 * Commit 884ea19 ("bump cache-bust to ensure fresh main.js") bumped the HTML
+	 * tags but not this line, so it didn't do what it said.
+	 *
+	 * Reading our OWN ?v= makes main.js inherit the bundle version, so it can
+	 * never drift again — bump the HTML and main.js follows automatically. */
+	var CC_BUILD = (function () {
+		var s = document.currentScript || document.querySelector('script[src*="app.js"]');
+		var m = s && s.src && s.src.match(/[?&]v=([^&#]+)/);
+		return m ? m[1] : '';
+	})();
+
 	/* UI-string translator (chrome only). Falls back to the key if i18n.js is
 	   missing — but i18n.js always loads first, so this resolves to ka/en. */
 	function t(k) { return (window.CC_I18N && window.CC_I18N.t) ? window.CC_I18N.t(k) : k; }
@@ -218,7 +235,7 @@
 
 	function loadMain() {
 		var s = document.createElement('script');
-		s.src = 'main.js?v=20260663';
+		s.src = 'main.js' + (CC_BUILD ? '?v=' + CC_BUILD : '');
 		document.body.appendChild(s);
 	}
 })();
