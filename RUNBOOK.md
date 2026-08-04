@@ -535,6 +535,15 @@ Measured before the 2026-08-04 fix: poster-vs-frame-0 difference **44.87**, post
 
 If the first frame is a bad still (black, mid-blink), **re-cut the video so it opens on a good frame**. Do not paper over it by picking a later poster.
 
+**Colour-match it too.** The video is limited-range `bt709`; a JPEG written without colour flags is full-range `bt601`, so the poster decodes ~3 levels brighter in green and you get a visible tint pop the moment the video takes over. The `in_color_matrix=bt709:in_range=tv:out_range=pc` in the recipe fixes that:
+
+| Poster | mean abs Δ vs frame 0 | G / B delta |
+|---|---|---|
+| No colour flags | 2.29 | +3.06 / +2.23 |
+| **Colour-matched** | **1.21** | **+0.74 / −0.02** |
+
+1.2 is the floor — that's 4:2:0 chroma subsampling, not compression. Raising JPEG quality past `-q:v 6` only grows the file (72 KB → 120 KB at `q:v 2`) without improving the match.
+
 ### The frame-rate rule — encode at 30 fps, always
 
 **`-r 30` is not optional.** The hero shipped at 50 fps for months (the recipe below had no `-r` flag, so it silently inherited whatever the source was) and it visibly stuttered in **both** Chrome and Safari on every load.
@@ -574,8 +583,12 @@ ffmpeg -y -i "$SRC" \
   -movflags +faststart -pix_fmt yuv420p -an \
   "$DST"
 
-# Poster MUST be the FIRST frame — no -ss. See the rule below.
-ffmpeg -y -i "$DST" -frames:v 1 -vf "scale=1920:-1" -q:v 4 "$POSTER"
+# Poster MUST be the FIRST frame (no -ss) AND colour-matched to the video.
+# in_color_matrix/in_range tell ffmpeg the source is limited-range bt709; without
+# them the JPEG lands ~3 levels bright and you get a colour pop at the handoff.
+ffmpeg -y -i "$DST" -frames:v 1 \
+  -vf "scale=1920:-1:in_color_matrix=bt709:in_range=tv:out_range=pc,format=rgb24" \
+  -q:v 6 "$POSTER"
 
 # Verify BEFORE committing — this must print 30/1:
 ffprobe -v error -select_streams v:0 -show_entries stream=r_frame_rate -of csv=p=0 "$DST"
