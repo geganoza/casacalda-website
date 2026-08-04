@@ -508,12 +508,64 @@ The `.hero` section on `index.html` renders a locally-hosted looping video (repo
 
 | Piece | Where |
 |---|---|
-| Video file | `assets/hero-home.mp4` (currently ~22 MB, 1920×1080 @ 50 fps, 49 s) |
-| Poster JPG | `assets/hero-home-poster.jpg` (~65 KB, frame at 0.5 s) |
+| Video file | `assets/hero-home.mp4` (~18 MB, 1920×1080 **@ 30 fps**, 49 s) — see the frame-rate rule below |
+| Poster JPG | `assets/hero-home-poster.jpg` (~64 KB, **frame at 0.0 s** — must match where playback starts) |
 | Emitter | `render.js` `T.hero` (bypasses `mediaTag`, hard-emits `<video>` with `poster=` attribute) |
 | CSS | `.hero__bg video` (extended from the `img` rule at style.css:162) |
 | Mobile shape | Below 600 px viewport, `.hero { aspect-ratio: 1/1; height: auto; }` — square, not tall vertical |
 | Logo fade | `main.js` sets `.hero__logo--faded` on `.hero__logo` after 5 s; CSS transitions opacity + scale over 1.2 s |
+
+### The poster rule — it must be the FIRST frame
+
+**Generate the poster with no `-ss`.** The old recipe used `-ss 0.5`, and that single flag was the cause of the long-running "hero glitches and restarts" complaint.
+
+`poster=` paints instantly, before a single video byte arrives. Playback then begins at `currentTime = 0`. If the poster is the frame at 0.5 s, the visitor sees the 0.5 s image, then the video snaps **backward** to 0.0 s and replays that half second. It reads exactly like a stutter-and-restart — on every load, in every browser, cached or not.
+
+That browser-independence is the tell, and it's why bandwidth, codec and `backdrop-filter` theories all came up empty for weeks: nothing about it is a *media* problem. It's two images shown in the wrong order.
+
+Verify with a pixel diff — the poster must match frame 0, not some later frame:
+
+```bash
+ffmpeg -y -v error -i assets/hero-home.mp4 -frames:v 1 -vf "scale=480:270,format=gray" /tmp/f0.png
+ffmpeg -y -v error -i assets/hero-home-poster.jpg -vf "scale=480:270,format=gray" /tmp/p.png
+# Compare /tmp/f0.png and /tmp/p.png — they should be near-identical.
+```
+
+Measured before the 2026-08-04 fix: poster-vs-frame-0 difference **44.87**, poster-vs-frame-0.5 **14.63** (i.e. it was the 0.5 s frame). After: poster-vs-frame-0 is **1.98** — JPEG noise only.
+
+If the first frame is a bad still (black, mid-blink), **re-cut the video so it opens on a good frame**. Do not paper over it by picking a later poster.
+
+**Colour-match it too.** The video is limited-range `bt709`; a JPEG written without colour flags is full-range `bt601`, so the poster decodes ~3 levels brighter in green and you get a visible tint pop the moment the video takes over. The `in_color_matrix=bt709:in_range=tv:out_range=pc` in the recipe fixes that:
+
+| Poster | mean abs Δ vs frame 0 | G / B delta |
+|---|---|---|
+| No colour flags | 2.29 | +3.06 / +2.23 |
+| **Colour-matched** | **1.21** | **+0.74 / −0.02** |
+
+1.2 is the floor — that's 4:2:0 chroma subsampling, not compression. Raising JPEG quality past `-q:v 6` only grows the file (72 KB → 120 KB at `q:v 2`) without improving the match.
+
+### The frame-rate rule — encode at 30 fps, always
+
+**`-r 30` is not optional.** The hero shipped at 50 fps for months (the recipe below had no `-r` flag, so it silently inherited whatever the source was) and it visibly stuttered in **both** Chrome and Safari on every load.
+
+A display can only present a frame on a refresh boundary. 50 fps divides evenly into no common refresh rate, so each frame is held for either one refresh or two, forever:
+
+| Video | 60 Hz | 75 Hz | 120 Hz |
+|---|---|---|---|
+| 50 fps | 1.2 ✗ | 1.5 ✗ | 2.4 ✗ |
+| **30 fps** | **2 ✓** | 2.5 ✗ | **4 ✓** |
+| 25 fps | 2.4 ✗ | **3 ✓** | 4.8 ✗ |
+
+Measured on real Safari (`requestVideoFrameCallback`, 6 s window, ~60 Hz display):
+
+| Encode | Frames presented | Target | Jitter (SD) |
+|---|---|---|---|
+| 50 fps | 272 / 280 → **~46 fps** | 300 | 7.4 – 7.9 |
+| **30 fps** | 181 → **30.0 fps** | 180 | **2.07** |
+
+At 50 fps the browser silently misses ~9 % of frames. At 30 fps it hits the target exactly and jitter drops 3.7×. This is display arithmetic, not a codec or bandwidth problem — which is why re-encoding at the same 50 fps (`6efd376`, later reverted in `34dc824`) never fixed it, and why it looked identical in Chrome and Safari.
+
+Dropping 50 → 30 fps also makes the file *better*, not worse: half the frames means each one gets more bits at a lower total bitrate. The 2026-08-04 swap went 23.0 MB → 18.3 MB (−21 %) while per-frame budget rose 74.5 → 98.3 kbit (+32 %), SSIM 0.9964 against the original.
 
 ### Swap the video
 
@@ -525,17 +577,26 @@ POSTER="$(pwd)/assets/hero-home-poster.jpg"
 
 ffmpeg -y -i "$SRC" \
   -vf "scale='min(1920,iw)':'min(1080,ih)':force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2" \
+  -r 30 \
   -c:v libx264 -crf 22 -preset slow -profile:v high -level 4.0 \
-  -g 30 -keyint_min 30 -sc_threshold 0 \
+  -g 60 -keyint_min 60 -sc_threshold 0 \
   -movflags +faststart -pix_fmt yuv420p -an \
   "$DST"
 
-ffmpeg -y -ss 0.5 -i "$SRC" -frames:v 1 -vf "scale=1920:-1" -q:v 4 "$POSTER"
+# Poster MUST be the FIRST frame (no -ss) AND colour-matched to the video.
+# in_color_matrix/in_range tell ffmpeg the source is limited-range bt709; without
+# them the JPEG lands ~3 levels bright and you get a colour pop at the handoff.
+ffmpeg -y -i "$DST" -frames:v 1 \
+  -vf "scale=1920:-1:in_color_matrix=bt709:in_range=tv:out_range=pc,format=rgb24" \
+  -q:v 6 "$POSTER"
 
-# Bump cache-bust, commit, push. That's it.
+# Verify BEFORE committing — this must print 30/1:
+ffprobe -v error -select_streams v:0 -show_entries stream=r_frame_rate -of csv=p=0 "$DST"
+
+# Bump cache-bust, commit, push.
 ```
 
-CRF 22 is high quality; drop to 24 or 26 for smaller file. `-g 30 -keyint_min 30 -sc_threshold 0` puts a keyframe every ~0.6 s so scrubbing/looping is smooth.
+CRF 22 is high quality; drop to 24 or 26 for a smaller file. `-g 60 -keyint_min 60 -sc_threshold 0` puts a keyframe every 2 s at 30 fps.
 
 ### Revert to a static image hero
 

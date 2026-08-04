@@ -12,6 +12,16 @@
 (function () {
 	'use strict';
 
+	/* Build tag, read off this file's own <script src="render.js?v=…">, so any
+	   repo-served asset emitted below inherits the bundle version automatically
+	   instead of needing a hand-edit that someone will forget. Empty string if
+	   the tag can't be read, which degrades to today's bare-path behaviour. */
+	var BUILD_Q = (function () {
+		var s = document.currentScript || document.querySelector('script[src*="render.js"]');
+		var m = s && s.src && s.src.match(/[?&]v=([^&#]+)/);
+		return m ? '?v=' + m[1] : '';
+	})();
+
 	/* UI-string translator (chrome only — CMS content is translated WP-side).
 	   Falls back to the Georgian default if i18n.js is missing or a key is
 	   absent, so Georgian rendering can never break. */
@@ -156,11 +166,20 @@
 	   Re-uses the 1284×850 "ვინ ვართ ჩვენ" v2 banner — same brand visual as the
 	   About page hero, but cropped to a split-layout aspect. */
 	var ABOUT_SPLIT_IMG = '/assets/banners/hero-about-md.jpg';
-	/* Homepage hero background — user-supplied looping video, transcoded 4K→1080p
-	   (4.3 MB) and served from Cloudflare Pages CDN, not WP. Poster JPG paints
-	   instantly before the MP4 decodes so visitors never see a black rectangle. */
-	var HERO_HOME_VIDEO = '/assets/hero-home.mp4';
-	var HERO_HOME_POSTER = '/assets/hero-home-poster.jpg';
+	/* Homepage hero background — user-supplied looping video, served from the
+	   Cloudflare Pages CDN, not WP. Poster JPG paints instantly before the MP4
+	   decodes so visitors never see a black rectangle.
+
+	   BOTH URLs carry the build tag. They used to be bare paths while every other
+	   asset was versioned, and Cloudflare serves them `max-age=14400,
+	   must-revalidate` — so a returning visitor kept the OLD poster and video for
+	   at least 4 hours after a deploy. Swapping the hero then looked like it had
+	   simply not worked, which is precisely how the poster/video mismatch survived
+	   as an unexplained "glitch" for weeks. The poster must always match frame 0
+	   of the video it sits on; shipping them uncached-busted lets that pairing
+	   silently break. */
+	var HERO_HOME_VIDEO = '/assets/hero-home.mp4' + BUILD_Q;
+	var HERO_HOME_POSTER = '/assets/hero-home-poster.jpg' + BUILD_Q;
 	var CTA_BAND_BG = '/assets/banners/cta-band-desktop.jpg';
 	var SERVICE_DETAIL_IMG = {
 		electricity:  '/assets/banners/service-electricity.jpg',
