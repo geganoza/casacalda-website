@@ -67,6 +67,51 @@ casacalda.com / www.casacalda.com / casacalda-website.pages.dev all serve new bu
 
 There is no manual upload step. There is no FTP, no hPanel. The repo IS production.
 
+### Branch previews
+
+Any non-master branch gets its own Cloudflare Pages deploy via `.github/workflows/preview-pages.yml`:
+
+```
+https://<branch-name>.casacalda-website.pages.dev/?preview=casa-prelaunch-0f81db5d
+```
+
+Branch names are slugified (`/` → `-`). The preview sits behind the same pre-launch gate, so the `?preview=` token is needed there too. **Review PRs at their preview URL** — PR #6 shipped without one and had to be reviewed off a local server, which cost several rounds.
+
+---
+
+## Cache-busting discipline — read this before shipping any asset
+
+Three separate bugs on 2026-08-04 had the same root cause: **a fix shipped correctly and the browser never fetched it.** A correct fix the browser doesn't load is indistinguishable from no fix, which is exactly how each survived multiple "it's still broken" rounds.
+
+| What | Was | Why it bit |
+|---|---|---|
+| `main.js` | hardcoded `?v=20260663` in `app.js`, never bumped since June | Team-video fixes shipped invisible. A commit titled *"bump cache-bust to ensure fresh main.js"* bumped the HTML tags but not that line. |
+| `hero-home.mp4` | bare path, no `?v=` | Hero swap appeared not to work |
+| `hero-home-poster.jpg` | bare path, no `?v=` | Poster/video mismatch persisted after being fixed |
+
+Cloudflare serves assets `public, max-age=14400, must-revalidate` — **4 hours with no revalidation.** A returning visitor keeps the old file for that long.
+
+**The rule: every repo-served asset referenced from JS must carry the build tag.** Don't hand-maintain the version — derive it from the referencing script's own `?v=`:
+
+```js
+var BUILD_Q = (function () {
+    var s = document.currentScript || document.querySelector('script[src*="render.js"]');
+    var m = s && s.src && s.src.match(/[?&]v=([^&#]+)/);
+    return m ? '?v=' + m[1] : '';
+})();
+```
+
+In place now: `app.js` (for `main.js`), `render.js` (hero video + poster), `cms.js` (appends `_v=` to every WordPress fetch, so CMS content edits appear on the next deploy instead of waiting out the ~30-min edge cache).
+
+Bumping the tag in the HTML `<script>`/`<link>` tags now cascades to all of it. **Grep before you ship:**
+
+```bash
+grep -rnE "'/assets/[^']*'" render.js | grep -v BUILD_Q   # bare asset paths — suspicious
+grep -n "\.js?v=" app.js                                   # must not be a literal
+```
+
+Paired assets are the sharp edge: the hero poster **must** match frame 0 of the hero video. Version them independently-or-not-at-all and a new video can pair with a cached old poster, silently reintroducing a fixed bug.
+
 ---
 
 ## Daily/routine tasks
@@ -616,6 +661,76 @@ The static site fetches data from `cms.casacalda.com` — a headless WP install 
 | `GET /wp/v2/projects` | Project CPT |
 | `POST /wp-json/casacalda/v1/contact` | Contact form submit |
 
+### Shell access (wp-cli)
+
+Everything below is faster and safer via `wp-cli` over SSH than through wp-admin:
+
+```bash
+ssh -i ~/.ssh/casacalda_hostinger -p 65002 u168788757@72.60.93.156
+cd ~/domains/casacalda.com/public_html/cms
+wp post list --post_type=project --post_status=any \
+   --fields=ID,post_title,post_status,menu_order --format=table
+```
+
+Post types are **singular**: `project`, `cc_staff`, `cc_service`, `cc_page`. The REST bases are plural (`/wp/v2/projects`) — `wp post list --post_type=projects` silently returns nothing, which looks like "no projects exist."
+
+**Always back up before mutating**, into `backups/cms-projects/` in this repo:
+
+```bash
+wp post list --post_type=project --post_status=any \
+   --fields=ID,post_title,post_name,post_status,menu_order --format=json > projects-all-$(date +%F-%H%M%S).json
+wp post meta list <ID> --format=json > <slug>-meta-BEFORE-$(date +%F-%H%M%S).json
+```
+
+### Hide a project from the site
+
+**Set it to `draft`. Never delete** — project data lives only in WordPress, not in git, so a delete is unrecoverable.
+
+```bash
+wp post update <ID> --post_status=draft
+wp cache flush; wp litespeed-purge all
+```
+
+Draft removes it from the public site immediately (the frontend only reads `publish`) while keeping the post, its photos and its `menu_order` intact in wp-admin. Reverse with `--post_status=publish`.
+
+This is the site's established convention — several projects are already parked as drafts. Verify against the endpoint the frontend actually calls, not just wp-admin:
+
+```bash
+curl -s "https://cms.casacalda.com/?rest_route=/wp/v2/projects&per_page=50&_cb=$(date +%s)" \
+  | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d),'published')"
+```
+
+Done 2026-08-04 for **კაკლები** (26) and **ლისი 2** (22) — note **ლისი 1** (20) is a *separate* project. Confirm which one is meant before touching either.
+
+### Swap a project's main photo
+
+The hero is the **featured image** (`_thumbnail_id`); the rest live in a serialized `cc_gallery` meta array of attachment IDs.
+
+```bash
+wp post meta get <ID> _thumbnail_id
+wp post meta get <ID> cc_gallery --format=json
+
+# Find an attachment ID from a filename:
+wp db query "SELECT ID, guid FROM wp_posts WHERE post_type='attachment' AND guid LIKE '%GM1Q9925%';" --skip-column-names
+```
+
+To swap the hero with a gallery image, use `wp eval` — `wp post meta update` will double-serialize a PHP array:
+
+```bash
+wp eval 'update_post_meta(14, "_thumbnail_id", 103);
+         update_post_meta(14, "cc_gallery", array(99,100,101,102,98));'
+wp cache flush; wp litespeed-purge all
+```
+
+Put the **outgoing** hero into the slot the incoming one vacated, so the gallery keeps its length and no image is silently dropped. Verify on the frontend's own payload — `cc.image` is what renders:
+
+```bash
+curl -s "https://cms.casacalda.com/?rest_route=/wp/v2/projects&slug=<slug>&_cb=$(date +%s)" \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)[0]['cc']['image'])"
+```
+
+Done 2026-08-04 for Axis Towers (14): hero 98 → 103 (`GM1Q9925`), and 98 took 103's gallery slot.
+
 ### Bulk-managing staff without wp-admin clicks
 
 The `cc_staff` post type stores `cc_role`, `cc_group`, `cc_video` as post_meta that WP REST doesn't expose (not registered with `show_in_rest`). To bulk-update:
@@ -775,6 +890,12 @@ These are tracked as GitHub issues on `geganoza/casacalda-website`:
 | #3 | 📘 Read me — Cloudflare Pages migration handover | Open (informational) | Pointer to `HANDOVER_CLOUDFLARE_MIGRATION.md`. |
 
 See also the **Short-term TODO list** for Thomas at the bottom of `HANDOVER_CLOUDFLARE_MIGRATION.md`.
+
+### Open as of 2026-08-04
+
+- **Team-card posters (recommended next).** The 39 staff videos are still primed by JS (`primeChunk`), which means the first frame depends on `.play()` succeeding. Give each card a first-frame JPG `poster=`, set `preload="none"`, and load the video on hover. That removes the whole failure class — no priming, no concurrency ceiling, no autoplay dependency — and cuts ~39 × 1.4 MB of MP4 to ~39 × 40 KB of JPG. Same reasoning as the hero poster.
+- **Hero cold-start weight.** 18 MB still stalls several seconds on a cold cache before playback. Frame rate is fixed; weight isn't. Options: shorten the loop, or serve a smaller mobile variant.
+- **Unreproduced Safari report (2026-08-04).** Hero not replaying and team cards blank on refresh, on one Mac's Safari only; Chrome fine. **Not reproducible** in `safaridriver` (clean profile gives 39/39 and a healthy hero across loads and refreshes), and ruled out: Range support (206 everywhere), the pre-launch gate (media passes through uncookied), and per-site Auto-Play (set to the permissive default). Remaining suspects are that profile's cache or a Safari-only **Content Blocker** — which would explain Chrome being unaffected. Next step is a Private Window test on the affected machine.
 
 ### Known instability
 
