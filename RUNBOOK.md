@@ -940,6 +940,7 @@ See also the **Short-term TODO list** for Thomas at the bottom of `HANDOVER_CLOU
 - [HANDOVER_CLOUDFLARE_MIGRATION.md](./HANDOVER_CLOUDFLARE_MIGRATION.md) — the full migration writeup
 - [THOMAS_HOSTINGER_DEPLOY.md](./THOMAS_HOSTINGER_DEPLOY.md) — original WordPress-on-Hostinger setup guide (mostly superseded but still relevant for the WP side)
 - [THOMAS_TRANSLATION.md](./THOMAS_TRANSLATION.md) — translation strategy via TranslatePress
+- [REPORTS_RUNBOOK.md](./REPORTS_RUNBOOK.md) — the monthly-reports pipeline at `reports.casacalda.com` (separate repo, separate host — Vercel + Meta Ads)
 
 The earlier `~/Projects/CASACALDA Local/website/RUNBOOK.md` and
 `~/Projects/CASACALDA Local/website/BACKEND_RUNBOOK.md` are **pre-migration planning docs** from May 2026.
