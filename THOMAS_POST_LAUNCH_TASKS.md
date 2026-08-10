@@ -310,7 +310,7 @@ Add to `index.html` `<head>`:
     "postalCode": "0159",
     "addressCountry": "GE"
   },
-  "telephone": "+995 32 2 311 325",
+  "telephone": "+995 32 2 311 525",
   "email": "info@casacalda.ge"
 }
 </script>

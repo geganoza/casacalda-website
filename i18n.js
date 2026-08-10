@@ -82,7 +82,7 @@
 			en: '56 Ljubljana St., 0159 Tbilisi, Georgia'
 		},
 		legal_email:   { ka: 'info@casacalda.ge',     en: 'info@casacalda.ge' },
-		legal_phone:   { ka: '+995 32 2 311 325',     en: '+995 32 2 311 325' },
+		legal_phone:   { ka: '+995 32 2 311 525',     en: '+995 32 2 311 525' },
 		legal_privacy: {
 			ka: 'კონფიდენციალურობის პოლიტიკა',
 			en: 'Privacy Policy'
