@@ -758,6 +758,72 @@ Georgian filenames are rejected — WP wants ASCII in `Content-Disposition`. Tra
 
 **Not yet in place** — Thomas is scheduled to add this per `THOMAS_WP_FLAP_FIXES.md`. Once shipped, `/casacalda/v1/*` responses will be edge-cached for 30 min and the site will be immune to Hostinger flaps for cacheable content. See that doc for the exact CF rule.
 
+### Editing footer contact info (phone / email / address / socials)
+
+The footer's contact column (top row: address + email + phone + socials) is CMS-driven from `wp_options.cc_site_globals.footer.contacts.*`. The plugin file `wp-content/plugins/casacalda-control/includes/globals.php` only supplies defaults — the DB option overrides it once set.
+
+**Wrong instinct:** editing the plugin file and pushing to git — the DB option wins and your file change is a no-op for the live site.
+
+**Right way — patch the nested key in the DB option:**
+
+```bash
+ssh -i ~/.ssh/casacalda_hostinger -p 65002 u168788757@72.60.93.156
+cd ~/domains/casacalda.com/public_html/cms
+
+# Back up first — cc_site_globals holds nav, brand, socials, copy, contact recipient, etc.
+mkdir -p ~/backups/globals-$(date +%Y%m%dT%H%M%SZ)
+wp option get cc_site_globals --format=json > ~/backups/globals-*/cc_site_globals.json
+
+# Patch a single nested key (leaves nav / brand / socials / etc. untouched)
+wp option patch update cc_site_globals footer contacts phone "+995 32 2 311 525"
+wp option patch update cc_site_globals footer contacts email "info@casacalda.ge"
+wp option patch update cc_site_globals footer contacts address1 "საქართველო, თბილისი"
+
+# Then fix the plugin default too (so a wipe/reinstall defaults to the right value)
+sed -i "s/OLD_VALUE/NEW_VALUE/g" wp-content/plugins/casacalda-control/includes/globals.php
+sed -i "s/OLD_VALUE/NEW_VALUE/g" wp-content/plugins/casacalda-control/includes/migrate.php
+
+wp cache flush
+```
+
+Mirror the two `.php` edits into `website/wordpress/plugins-live-backup/casacalda-control/includes/` in the outer repo so the local backup stays in sync.
+
+**Then purge Cloudflare — by HOST, not by URL.** The frontend calls `?rest_route=/casacalda/v1/site&_v=<version>` (not just `/wp-json/casacalda/v1/site`), and Cloudflare keys cache by full URL. If you purge only the pretty `/wp-json/...` variant, the frontend's actual request stays cached and the DB change is invisible for hours.
+
+```bash
+CF=$(grep CF_GLOBAL_KEY ../.env | cut -d= -f2)
+EMAIL=$(grep CF_EMAIL ../.env | cut -d= -f2)
+curl -sH "X-Auth-Email: $EMAIL" -H "X-Auth-Key: $CF" -X POST \
+  "https://api.cloudflare.com/client/v4/zones/a19e1a001741e382a060ba9121beb562/purge_cache" \
+  -H "Content-Type: application/json" -d '{"hosts":["cms.casacalda.com"]}'
+```
+
+Only the Global Key auth (`X-Auth-Email` + `X-Auth-Key`) has purge permission on this zone — the scoped `cfut_…` token in `.env` returns `Authentication error` on `/purge_cache`.
+
+**Verify in a real browser, not with curl.** curl one URL tests one URL; the browser executes the app's actual fetch, so it catches "curl on `/wp-json/...` says 525 but the frontend loads `?rest_route=...` cached at 325." Use `browse`:
+
+```bash
+$B goto https://casacalda.com/
+$B js "Array.from(document.querySelectorAll('a[href^=\"tel:\"]')).map(a=>({href:a.href,text:a.textContent.trim()}))"
+```
+
+Or ⌘⇧R on your own machine to bypass your local disk cache.
+
+**Bare-minimum change:** the phone can be updated via wp-admin → Settings → Casa Calda Control → Footer → Phone, but that skips the plugin-default fix and the CF purge, so the browser can keep serving the old value.
+
+Reference: phone 325 → 525 done 2026-08-10 this way — DB patch + plugin defaults + host purge. Server snapshot at `~/backups/phone-fix-20260810T154439Z/`.
+
+### Footer legal strip contents (render.js)
+
+The narrow strip at the very bottom of the footer is rendered in `render.js` (`legalHtml` block, ~line 320) from `i18n.js` keys, NOT from the CMS. As of 2026-08-10:
+
+- **Shown:** company name → address → email → phone → privacy policy link → terms of use link
+- **NOT shown:** reg ID (`ს/კ 204976179`) — removed 2026-08-10 per client. The ID still lives in the body text of `privacy-policy.html` and `terms-of-use.html`, which are one click away via the footer links.
+
+If legal ever asks to restore the reg ID in the strip:
+1. Uncomment / re-add the `legal_id` span in `render.js` (~line 323) — the `legal_id` translation is still in `i18n.js:76-79`
+2. Bump `?_v=` on the render.js load in `index.html` (see "Cache-busting discipline") so browsers pick it up
+
 ---
 
 ## Cloudflare access
