@@ -218,7 +218,7 @@
 
 	function loadMain() {
 		var s = document.createElement('script');
-		s.src = 'main.js?v=20260818d';
+		s.src = 'main.js?v=20260818e';
 		document.body.appendChild(s);
 	}
 })();

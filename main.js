@@ -426,7 +426,7 @@
 
         function t(k) { return (window.CC_I18N && window.CC_I18N.t) ? window.CC_I18N.t(k) : k; }
 
-        var page = 0, pages = 1, stride = 0, maxLeft = 0, dotCount = 0;
+        var page = 0, pages = 1, stride = 0, maxLeft = 0, dotCount = 0, unit = 0, perPage = 1;
 
         // Only so many dots read as a row rather than a smear. Above the cap they
         // become a proportional progress scrubber — each dot jumps to the page it
@@ -441,9 +441,10 @@
         function measure() {
             var cs = getComputedStyle(track);
             var gap = parseFloat(cs.columnGap || cs.gap) || 0;
-            var unit = track.children[0].getBoundingClientRect().width + gap;
-            if (!unit) return false;
-            var perPage = Math.max(1, Math.floor((track.clientWidth + gap) / unit));
+            var u = track.children[0].getBoundingClientRect().width + gap;
+            if (!u) return false;
+            unit = u;
+            perPage = Math.max(1, Math.floor((track.clientWidth + gap) / unit));
             stride = perPage * unit;
             pages = Math.max(1, Math.ceil(track.children.length / perPage));
             dotCount = Math.min(pages, MAX_DOTS);
@@ -466,15 +467,18 @@
         }
 
         function paint() {
-            if (dotsEl) {
-                var active = dotForPage(page);
-                var dots = dotsEl.querySelectorAll('.scroll-dot');
-                for (var i = 0; i < dots.length; i++) {
-                    dots[i].classList.toggle('scroll-dot--active', i === active);
-                    dots[i].setAttribute('aria-current', i === active ? 'true' : 'false');
-                }
+            if (!dotsEl) return;
+            var active = dotForPage(page);
+            var dots = dotsEl.querySelectorAll('.scroll-dot');
+            for (var i = 0; i < dots.length; i++) {
+                dots[i].classList.toggle('scroll-dot--active', i === active);
+                dots[i].setAttribute('aria-current', i === active ? 'true' : 'false');
             }
-            if (wrapEl) wrapEl.classList.toggle('scroll-wrap--ended', track.scrollLeft >= maxLeft - 2);
+            // No scroll-wrap--ended toggle here: initScrollDots sets that class for
+            // an end-of-strip fade, but no rule for it exists anywhere in style.css.
+            // Setting it would cost a layout-forcing scrollLeft read on every paint
+            // — and read the pre-scroll position anyway, since paint() runs
+            // synchronously after a smooth scrollTo() has only just been queued.
         }
 
         // Wraps at both ends, so neither arrow is ever a no-op.
@@ -489,7 +493,10 @@
             page = i;
             track.scrollTo({
                 left: Math.min(i * stride, maxLeft),
-                behavior: (smooth === false || wrapped) ? 'auto' : 'smooth'
+                // scrollTo({behavior:'smooth'}) is NOT suppressed by the OS
+                // reduce-motion setting the way CSS scroll-behavior is, so an
+                // arrow click would still animate a full ~1100px slide. Cut.
+                behavior: (smooth === false || wrapped || reduceMotion) ? 'auto' : 'smooth'
             });
             paint();
         }
@@ -520,12 +527,16 @@
         var autoTimer = null, onScreen = false, focused = false, held = false, holdTimer;
         var pointerOver = false;   // desktop: cursor is on the slider
         var tapPaused = false;     // touch: tapped to stop (tap again to resume)
-        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        /* Touch browsers fire a synthetic mouseenter on tap that never gets a
-           matching mouseleave, so a hover pause bound unconditionally would stick
-           forever on a phone. Gate it on the device actually having a pointer that
-           hovers, and give touch its own tap-to-pause instead. */
-        var canHover = !window.matchMedia || window.matchMedia('(hover: hover)').matches;
+        /* Watched, not sampled once: a visitor who turns reduce-motion on
+           mid-session would otherwise keep the 1.5s autoplay until they reload. */
+        var rmQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+        var reduceMotion = !!(rmQuery && rmQuery.matches);
+        if (rmQuery && rmQuery.addEventListener) {
+            rmQuery.addEventListener('change', function (e) {
+                reduceMotion = e.matches;
+                if (reduceMotion) { stopAuto(); } else { startAuto(); }
+            });
+        }
 
         function tick() {
             if (pointerOver || tapPaused || focused || held || document.hidden || !onScreen) return;
@@ -551,26 +562,54 @@
            dead for good, because nothing ever moved focus back out. mousedown on
            the track preventDefault()s, so a mouse click never focuses it either. */
         var sectionEl = document.getElementById('team') || wrapEl;
-        track.addEventListener('focusin', function () { focused = true; });
-        track.addEventListener('focusout', function () { focused = false; });
 
-        /* Desktop hover. Scoped to the slider itself — the card strip, its dots
-           and the two arrows — NOT the whole #team section: that's a full-width
-           ~600px band including the heading and its padding, and pausing on all
-           of it meant a visitor who had merely scrolled the section into view was
-           usually resting the cursor inside it, so it never moved. */
-        if (canHover) {
-            [wrapEl, prevBtn, nextBtn].forEach(function (el) {
-                if (!el) return;
-                el.addEventListener('mouseenter', function () { pointerOver = true; });
-                el.addEventListener('mouseleave', function () { pointerOver = false; });
-            });
+        /* Keyboard focus parks it indefinitely — the stop mechanism keyboard-only
+           visitors can reach (WCAG 2.2.2). Bound on the section so it covers the
+           dots and arrows, which sit OUTSIDE the track: tabbing onto a dot used to
+           leave the strip jumping every 1.5s under the very control you were
+           aiming at. Gated on :focus-visible so a MOUSE click on an arrow doesn't
+           latch it — that fires focusin too, and nothing would ever move focus
+           back out, which killed autoplay outright in an earlier revision. */
+        function keyboardFocused(el) {
+            if (!el || !el.matches) { return false; }
+            try { return el.matches(':focus-visible'); }
+            catch (e) { return true; }   // no :focus-visible support — err on pausing
         }
+        if (sectionEl) {
+            sectionEl.addEventListener('focusin', function (e) { focused = keyboardFocused(e.target); });
+            sectionEl.addEventListener('focusout', function () { focused = false; });
+        }
+
+        /* Hover pause, scoped to the slider itself — the card strip, its dots and
+           the two arrows — NOT the whole #team section, which is a full-width
+           ~600px band including the heading and its padding. Pausing on all of it
+           meant a visitor who had merely scrolled the section into view was
+           usually resting the cursor somewhere inside, so it never moved.
+
+           Keyed on pointerType rather than a (hover: hover) media query: a
+           touchscreen laptop reports hover:hover, so a query would bind the hover
+           branch AND skip tap-to-pause, and a finger tap there fires a synthetic
+           enter with no matching leave — autoplay stuck with no way back. Reading
+           the actual pointer that generated the event gets both inputs right on
+           the same device. */
+        var hoverEvents = ('PointerEvent' in window)
+            ? { enter: 'pointerenter', leave: 'pointerleave', mouseOnly: true }
+            : { enter: 'mouseenter', leave: 'mouseleave', mouseOnly: false };
+        [wrapEl, prevBtn, nextBtn].forEach(function (el) {
+            if (!el) return;
+            el.addEventListener(hoverEvents.enter, function (e) {
+                if (!hoverEvents.mouseOnly || e.pointerType === 'mouse') pointerOver = true;
+            });
+            el.addEventListener(hoverEvents.leave, function (e) {
+                if (!hoverEvents.mouseOnly || e.pointerType === 'mouse') pointerOver = false;
+            });
+        });
 
         /* Touch: a tap on the cards stops it, another tap starts it again. Tracked
            through the touch events rather than click so a swipe — or a page scroll
-           that happens to start on a card — isn't mistaken for a tap. */
-        if (!canHover) {
+           that happens to start on a card — isn't mistaken for a tap. Bound
+           unconditionally so hybrid devices get it alongside hover. */
+        {
             var tapX = 0, tapY = 0, tapMoved = false;
             track.addEventListener('touchstart', function (e) {
                 var p = e.touches[0];
@@ -594,7 +633,11 @@
 
         if (sectionEl && 'IntersectionObserver' in window) {
             new IntersectionObserver(function (entries) {
-                onScreen = entries[0].isIntersecting;
+                // LAST record, not the first: a fast flick past the section can
+                // queue an enter and a leave in one callback batch, and reading
+                // entries[0] latches the stale one — leaving autoplay either dead
+                // on a section sitting in view, or ticking on one that isn't.
+                onScreen = entries[entries.length - 1].isIntersecting;
             }, { threshold: 0.15 }).observe(sectionEl);
         } else {
             onScreen = true;   // no IO support — just run
@@ -608,14 +651,34 @@
 
         startAuto();
 
-        // Card widths come from CSS, so measuring at load is normally accurate —
-        // but if a webfont or the Georgian fallback reflows the strip, re-measure
-        // rather than leave the arrows stepping by a stale stride.
-        window.addEventListener('load', function () {
-            var wasDots = dotCount;
-            if (measure() && dotCount !== wasDots) buildDots();
-            paint();
-        });
+        /* One place that re-derives metrics after a reflow, so every caller gets
+           the same rebuild guard and the same autoplay bookkeeping.
+
+           Keeps the leftmost VISIBLE CARD, not the page index. perPage changes at
+           the 900/600px breakpoints, so page 3 is cards 12-15 at one width and
+           cards 6-7 at another — preserving the index alone throws the reader
+           backwards past six people with no visible cause. */
+        function remeasure() {
+            var leadingCard = unit ? Math.round(track.scrollLeft / unit) : 0;
+            var wasPages = pages, wasDots = dotCount;
+            if (!measure()) return false;
+            if (pages !== wasPages || dotCount !== wasDots) buildDots();
+            page = Math.max(0, Math.min(pages - 1, Math.floor(leadingCard / perPage)));
+            goTo(page, false);
+            // A first measure() that failed leaves pages at 1, so startAuto() bails
+            // and nothing ever retried it — autoplay was dead with no recovery.
+            if (pages < 2) { stopAuto(); } else { startAuto(); }
+            return true;
+        }
+
+        /* Card widths come from CSS, so the initial measure is normally right —
+           but a webfont swap can reflow the strip. NOT hung off window's load
+           event: app.js injects main.js only after the CMS fetch resolves, by
+           which point load has almost always already fired, so that listener would
+           never run. fonts.ready resolves either way. */
+        if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+            document.fonts.ready.then(remeasure).catch(function () {});
+        }
 
         if (prevBtn) prevBtn.addEventListener('click', function () { hold(); goTo(page - 1); });
         if (nextBtn) nextBtn.addEventListener('click', function () { hold(); goTo(page + 1); });
@@ -663,26 +726,28 @@
             if (Math.abs(dx) > 3) moved = true;
             track.scrollLeft = startLeft + dx;
         });
-        document.addEventListener('mouseup', function () {
+        function endDrag() {
             if (!dragging) return;
             dragging = false;
             track.style.scrollSnapType = '';
             track.style.cursor = '';
-            if (moved) goTo(Math.round(track.scrollLeft / stride));
-        });
+            // The `stride &&` guard matters: if the first measure() failed, stride
+            // is 0 and Math.round(0/0) is NaN. goTo(NaN) passes its re-measure
+            // guard, then fails every comparison, so page becomes NaN and the
+            // slider is stuck at scroll 0 for good — arrows and autoplay included.
+            if (moved && stride) goTo(Math.round(track.scrollLeft / stride));
+        }
+        document.addEventListener('mouseup', endDrag);
+        // Releasing outside the window never fires document.mouseup, which would
+        // leave dragging latched on and scroll-snap disabled: after that, merely
+        // moving the mouse anywhere on the page would drag the strip.
+        document.addEventListener('mouseleave', endDrag);
+        window.addEventListener('blur', endDrag);
 
-        // Card widths change at 900/600px, so re-derive the page size and rebuild
-        // the dots, keeping the leftmost visible card in view across the reflow.
         var rt;
         window.addEventListener('resize', function () {
             clearTimeout(rt);
-            rt = setTimeout(function () {
-                var wasPages = pages, wasDots = dotCount;
-                if (!measure()) return;
-                page = Math.min(page, pages - 1);
-                if (pages !== wasPages || dotCount !== wasDots) buildDots();
-                goTo(page, false);
-            }, 150);
+            rt = setTimeout(remeasure, 150);
         });
     }
     initTeamSlider();
@@ -881,10 +946,15 @@
     // screen, video is paused, everything below the fold quietly primes as its
     // section scrolls into view.
     //
-    // Observation is at the SECTION level (.team, .team-grid), not per-video,
-    // because horizontal scroll containers (About page) can hide cards past
-    // the viewport's right edge — per-video IO never fires for those.
+    // Observation is per CARD, rooted on the scroll container when there is one
+    // (see primeContainerProgressively below) — a viewport-rooted per-video
+    // observer never fires for cards parked past a horizontal strip's right edge,
+    // which is why this was originally written at section level instead.
     function primeVideoForPaint(v) {
+        // A poster paints the first frame for free, so there is nothing to force.
+        // Priming anyway would download the clip purely to show a frame the poster
+        // is already showing — the whole point of emitting poster= in render.js.
+        if (v.getAttribute('poster')) return;
         // Explicit .load() forces WebKit to re-evaluate preload = "auto".
         try { v.preload = 'auto'; v.load(); } catch (e) {}
         var done = false;

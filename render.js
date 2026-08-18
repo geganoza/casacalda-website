@@ -519,7 +519,15 @@
 	T.team = function (d) {
 		var items = (d.source && d.source.items) || [];
 		var cards = items.map(function (m) {
-			var media = m.video ? '<video src="' + esc(m.video) + '" muted loop playsinline preload="metadata"></video>'
+			/* Hand the <video> its poster JPG. WP already generates one per staff
+			   clip (poster-<id>.jpg) and we were throwing it away whenever a video
+			   existed — which is the ONLY reason main.js has to run its
+			   load()+play()+pause() dance to force a first frame. With a poster the
+			   browser paints instantly for zero video bytes, so the 39 clips stay
+			   unfetched until someone actually hovers a card. */
+			var media = m.video ? '<video src="' + esc(m.video) + '"' +
+					(m.photo ? ' poster="' + esc(m.photo) + '"' : '') +
+					' muted loop playsinline preload="none"></video>'
 				: (m.photo ? '<img src="' + esc(m.photo) + '" alt="' + esc(m.name) + '">' : '');
 			return '<div class="team-card"><div class="team-card__img">' + media + '</div>' +
 				'<div class="team-card__info"><p class="team-card__role">' + esc(m.role) + '</p>' +
