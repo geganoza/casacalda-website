@@ -526,17 +526,24 @@
 				'<h3 class="team-card__name">' + esc(m.name) + '</h3>' +
 				'<div class="team-card__bio"><p>' + esc(m.bio) + '</p></div></div></div>';
 		}).join('');
+		/* Paged slider: the track is a plain scroll container (native swipe +
+		   momentum on touch), and main.js pages it a whole screenful at a time,
+		   builds one dot per PAGE — not per card, which gave 39 dots for 39
+		   staff — and wraps around at either end. */
 		return '<section class="team" id="team"><div class="wrap">' +
 			'<div class="sec-head anim"><div class="sec-head__left">' +
 				(d.eyebrow ? '<p class="eyebrow">' + esc(d.eyebrow) + '</p>' : '') +
 				'<h2 class="sec-title">' + esc(d.title) + '</h2>' +
 				(d.desc ? '<p class="sec-head__desc" style="max-width:640px;margin-top:8px">' + esc(d.desc) + '</p>' : '') + '</div>' +
 				'<div class="sec-head__right"><div class="sec-head__controls">' +
-					'<button class="arrow-btn arrow-btn--prev" id="teamPrev">' + SVG_PREV + '</button>' +
-					'<button class="arrow-btn arrow-btn--next" id="teamNext">' + SVG_NEXT + '</button>' +
+					'<button type="button" class="arrow-btn arrow-btn--prev" id="teamPrev" aria-label="' + esc(t('slider_prev')) + '">' + SVG_PREV + '</button>' +
+					'<button type="button" class="arrow-btn arrow-btn--next" id="teamNext" aria-label="' + esc(t('slider_next')) + '">' + SVG_NEXT + '</button>' +
 				'</div></div></div>' +
-			'<div class="scroll-wrap" id="teamWrap"><div class="team__cards anim" id="teamCards">' + cards + '</div>' +
-			'<div class="scroll-dots" id="teamDots"></div></div>' +
+			'<div class="scroll-wrap team-slider" id="teamWrap">' +
+				'<div class="team__cards anim" id="teamCards" tabindex="0" role="region"' +
+					' aria-roledescription="carousel" aria-label="' + esc(d.title || t('team_slider')) + '">' + cards + '</div>' +
+				'<div class="scroll-dots team-slider__dots" id="teamDots"></div>' +
+			'</div>' +
 			'</div></section>';
 	};
 

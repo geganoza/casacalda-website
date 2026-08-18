@@ -524,6 +524,26 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.
     line-height: 20px; margin-top: 4px;
 }
 
+/* ---- home staff slider (paged; driven by initTeamSlider() in main.js) ----
+   Scoped to .team-slider so the About page's plain .team__cards strip — same
+   classes, rendered from a custom-html block with no slider chrome — keeps its
+   existing free scroll. */
+.team-slider .team__cards { scroll-snap-type: x mandatory; }
+.team-slider .team-card { scroll-snap-align: start; }
+/* Snap the tail to the RIGHT edge: the final page is usually a partial one, and
+   without this the browser pulls back to the previous card's start and clips the
+   last staff member off-screen. */
+.team-slider .team-card:last-child { scroll-snap-align: end; }
+.team-slider .team__cards:focus-visible {
+    outline: 2px solid var(--orange); outline-offset: 4px; border-radius: 12px;
+}
+/* Page dots show at every width. The shared .scroll-dots rule hides them above
+   900px, which is fine for the short strips elsewhere — but with 39 staff they
+   are the only read on how far through the slider you are. */
+.team-slider__dots { display: flex; flex-wrap: wrap; }
+.team-slider__dots:empty { display: none; }
+.team-slider__dots .scroll-dot { cursor: pointer; }
+
 /* ============ TEAM PAGE GRID ============ */
 .section { padding: 120px 0; }
 .section--gray { background: var(--g50); }

@@ -66,6 +66,12 @@
 		form_error:    { ka: 'დაფიქსირდა შეცდომა. სცადეთ თავიდან ან დაგვირეკეთ.', en: 'Something went wrong. Please try again or call us.' },
 		form_noconn:   { ka: 'კავშირი ვერ დამყარდა. სცადეთ მოგვიანებით.', en: 'Connection failed. Please try again later.' },
 
+		/* ---- home team slider (arrows + page dots, screen-reader labels) ---- */
+		team_slider:   { ka: 'ჩვენი გუნდი',        en: 'Our team' },
+		slider_prev:   { ka: 'წინა',              en: 'Previous' },
+		slider_next:   { ka: 'შემდეგი',           en: 'Next' },
+		slider_page:   { ka: 'გვერდი',            en: 'Page' },
+
 		/* ---- legal / footer legal line (compliance with Georgian E-commerce
 		   Law Art. 4(1) — persistent display of legal name + form + address +
 		   contact + registration ID). See legal/ source docs 2026-07-09. ---- */

@@ -166,11 +166,9 @@
         document.getElementById('svcDots'),
         document.getElementById('svcWrap')
     );
-    initScrollDots(
-        document.getElementById('teamCards'),
-        document.getElementById('teamDots'),
-        document.getElementById('teamWrap')
-    );
+    // NOTE: the home team strip is NOT wired here — initScrollDots builds one dot
+    // per card (39 dots for 39 staff). It's driven by initTeamSlider() below,
+    // which pages by the screenful and builds one dot per page.
     initScrollDots(
         document.getElementById('specCards'),
         document.getElementById('specDots'),
@@ -412,31 +410,166 @@
         });
     });
 
-    // ---- TEAM: drag to scroll + arrow buttons ----
-    var teamCards = document.getElementById('teamCards');
-    var teamPrev = document.getElementById('teamPrev');
-    var teamNext = document.getElementById('teamNext');
-    if (teamCards) {
-        if (teamPrev) teamPrev.addEventListener('click', function () {
-            teamCards.scrollBy({ left: -300, behavior: 'smooth' });
+    // ---- TEAM: paged slider (arrows + page dots + drag + keyboard) ----
+    // The old version scrolled a flat 300px per arrow click while cards are 276px
+    // wide (260 + 20 gap), so every click drifted further out of alignment, and the
+    // shared dots helper emitted one dot per staff member. This pages by whole
+    // screenfuls instead: arrows and dots both land on exact card boundaries, and
+    // the ends wrap around so the arrows are never dead.
+    function initTeamSlider() {
+        var track = document.getElementById('teamCards');
+        var dotsEl = document.getElementById('teamDots');
+        var wrapEl = document.getElementById('teamWrap');
+        var prevBtn = document.getElementById('teamPrev');
+        var nextBtn = document.getElementById('teamNext');
+        if (!track || !track.children.length) return;
+
+        function t(k) { return (window.CC_I18N && window.CC_I18N.t) ? window.CC_I18N.t(k) : k; }
+
+        var page = 0, pages = 1, stride = 0, maxLeft = 0, dotCount = 0;
+
+        // Only so many dots read as a row rather than a smear. Above the cap they
+        // become a proportional progress scrubber — each dot jumps to the page it
+        // sits over. This matters most on phones, where a single 180px card fills
+        // the track, so 39 staff = 39 pages and a 1:1 dot row is unusable.
+        var MAX_DOTS = 10;
+        function pageForDot(i) { return pages < 2 ? 0 : Math.round(i * (pages - 1) / (dotCount - 1)); }
+        function dotForPage(p) { return pages < 2 ? 0 : Math.round(p * (dotCount - 1) / (pages - 1)); }
+
+        // Card width + gap are set in CSS and change across breakpoints, so read
+        // them back from the DOM rather than hardcoding a step.
+        function measure() {
+            var cs = getComputedStyle(track);
+            var gap = parseFloat(cs.columnGap || cs.gap) || 0;
+            var unit = track.children[0].getBoundingClientRect().width + gap;
+            if (!unit) return false;
+            var perPage = Math.max(1, Math.floor((track.clientWidth + gap) / unit));
+            stride = perPage * unit;
+            pages = Math.max(1, Math.ceil(track.children.length / perPage));
+            dotCount = Math.min(pages, MAX_DOTS);
+            maxLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+            return true;
+        }
+
+        function buildDots() {
+            if (!dotsEl) return;
+            dotsEl.innerHTML = '';
+            if (pages < 2) return;
+            for (var i = 0; i < dotCount; i++) {
+                var d = document.createElement('button');
+                d.type = 'button';
+                d.className = 'scroll-dot' + (i === dotForPage(page) ? ' scroll-dot--active' : '');
+                d.setAttribute('aria-label', t('slider_page') + ' ' + (pageForDot(i) + 1) + ' / ' + pages);
+                d.dataset.idx = i;
+                dotsEl.appendChild(d);
+            }
+        }
+
+        function paint() {
+            if (dotsEl) {
+                var active = dotForPage(page);
+                var dots = dotsEl.querySelectorAll('.scroll-dot');
+                for (var i = 0; i < dots.length; i++) {
+                    dots[i].classList.toggle('scroll-dot--active', i === active);
+                    dots[i].setAttribute('aria-current', i === active ? 'true' : 'false');
+                }
+            }
+            if (wrapEl) wrapEl.classList.toggle('scroll-wrap--ended', track.scrollLeft >= maxLeft - 2);
+        }
+
+        // Wraps at both ends, so neither arrow is ever a no-op.
+        function goTo(i, smooth) {
+            if (!stride && !measure()) return;   // never measured (hidden at load) — retry now
+            if (i < 0) i = pages - 1;
+            if (i >= pages) i = 0;
+            page = i;
+            track.scrollTo({
+                left: Math.min(i * stride, maxLeft),
+                behavior: smooth === false ? 'auto' : 'smooth'
+            });
+            paint();
+        }
+
+        function syncFromScroll() {
+            if (!stride) return;
+            page = Math.max(0, Math.min(pages - 1, Math.round(track.scrollLeft / stride)));
+            paint();
+        }
+
+        measure();
+        buildDots();
+        paint();
+
+        // Card widths come from CSS, so measuring at load is normally accurate —
+        // but if a webfont or the Georgian fallback reflows the strip, re-measure
+        // rather than leave the arrows stepping by a stale stride.
+        window.addEventListener('load', function () {
+            var wasDots = dotCount;
+            if (measure() && dotCount !== wasDots) buildDots();
+            paint();
         });
-        if (teamNext) teamNext.addEventListener('click', function () {
-            teamCards.scrollBy({ left: 300, behavior: 'smooth' });
+
+        if (prevBtn) prevBtn.addEventListener('click', function () { goTo(page - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { goTo(page + 1); });
+
+        if (dotsEl) dotsEl.addEventListener('click', function (e) {
+            var dot = e.target.closest('.scroll-dot');
+            if (dot) goTo(pageForDot(parseInt(dot.dataset.idx, 10)));
         });
-        // Drag
-        var tDrag = false, tX = 0, tSL = 0;
-        teamCards.addEventListener('mousedown', function (e) {
-            tDrag = true; tX = e.clientX; tSL = teamCards.scrollLeft;
-            teamCards.style.cursor = 'grabbing'; e.preventDefault();
+
+        track.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') { e.preventDefault(); goTo(page + 1); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(page - 1); }
+        });
+
+        // Native scroll (touch swipe, trackpad, drag below) only moves the
+        // viewport — settle the page index once it stops so the dots agree.
+        var settle;
+        track.addEventListener('scroll', function () {
+            clearTimeout(settle);
+            settle = setTimeout(syncFromScroll, 90);
+        }, { passive: true });
+
+        // Mouse drag. Snapping is suspended mid-drag so the strip tracks the
+        // cursor 1:1, then restored on release so it settles on a card edge.
+        var dragging = false, startX = 0, startLeft = 0, moved = false;
+        track.addEventListener('mousedown', function (e) {
+            if (e.button !== 0) return;
+            dragging = true; moved = false;
+            startX = e.clientX; startLeft = track.scrollLeft;
+            track.style.scrollSnapType = 'none';
+            track.style.cursor = 'grabbing';
+            e.preventDefault();
         });
         document.addEventListener('mousemove', function (e) {
-            if (!tDrag) return;
-            teamCards.scrollLeft = tSL + (tX - e.clientX);
+            if (!dragging) return;
+            var dx = startX - e.clientX;
+            if (Math.abs(dx) > 3) moved = true;
+            track.scrollLeft = startLeft + dx;
         });
         document.addEventListener('mouseup', function () {
-            if (tDrag) { tDrag = false; teamCards.style.cursor = 'grab'; }
+            if (!dragging) return;
+            dragging = false;
+            track.style.scrollSnapType = '';
+            track.style.cursor = '';
+            if (moved) goTo(Math.round(track.scrollLeft / stride));
+        });
+
+        // Card widths change at 900/600px, so re-derive the page size and rebuild
+        // the dots, keeping the leftmost visible card in view across the reflow.
+        var rt;
+        window.addEventListener('resize', function () {
+            clearTimeout(rt);
+            rt = setTimeout(function () {
+                var wasPages = pages, wasDots = dotCount;
+                if (!measure()) return;
+                page = Math.min(page, pages - 1);
+                if (pages !== wasPages || dotCount !== wasDots) buildDots();
+                goTo(page, false);
+            }, 150);
         });
     }
+    initTeamSlider();
 
     // ---- ABOUT PROJECTS: drag to scroll + arrow buttons ----
     var aboutProjCards = document.getElementById('aboutProjCards');
