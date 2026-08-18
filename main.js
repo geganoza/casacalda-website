@@ -480,25 +480,89 @@
         // Wraps at both ends, so neither arrow is ever a no-op.
         function goTo(i, smooth) {
             if (!stride && !measure()) return;   // never measured (hidden at load) — retry now
+            // Past either end we cut straight back rather than animate: smooth-
+            // scrolling the full 39-card width reads as a violent blur, and at a
+            // 1.5s autoplay beat it would still be moving when the next tick fires.
+            var wrapped = (i < 0 || i >= pages);
             if (i < 0) i = pages - 1;
             if (i >= pages) i = 0;
             page = i;
             track.scrollTo({
                 left: Math.min(i * stride, maxLeft),
-                behavior: smooth === false ? 'auto' : 'smooth'
+                behavior: (smooth === false || wrapped) ? 'auto' : 'smooth'
             });
             paint();
         }
 
         function syncFromScroll() {
             if (!stride) return;
-            page = Math.max(0, Math.min(pages - 1, Math.round(track.scrollLeft / stride)));
+            // The final page is a partial one, so its scroll position is clamped to
+            // maxLeft — well short of (pages-1)*stride. Rounding alone reads that
+            // back as the page BEFORE last, which would leave autoplay ticking
+            // between the two forever instead of wrapping. Being at the end of the
+            // track is what defines the last page.
+            page = (track.scrollLeft >= maxLeft - 1)
+                ? pages - 1
+                : Math.max(0, Math.min(pages - 1, Math.round(track.scrollLeft / stride)));
             paint();
         }
 
         measure();
         buildDots();
         paint();
+
+        /* ---- autoplay: advance a page every 1.5s, wrapping at the end ----
+           Held back while the visitor is hovering or has just interacted, while
+           the tab is in the background, and while the section is off-screen —
+           that last one matters most: without it a visitor who takes 20s to
+           scroll down would arrive at page 8 of 10 instead of the start. */
+        var AUTO_MS = 1500;
+        var RESUME_MS = 4000;   // matches the services marquee's pause-after-touch
+        var autoTimer = null, onScreen = false, hovering = false, held = false, holdTimer;
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function tick() {
+            if (hovering || held || document.hidden || !onScreen) return;
+            goTo(page + 1);
+        }
+        function startAuto() {
+            if (autoTimer || reduceMotion || pages < 2) return;
+            autoTimer = setInterval(tick, AUTO_MS);
+        }
+        function stopAuto() { clearInterval(autoTimer); autoTimer = null; }
+        // Any deliberate move (arrow, dot, key, drag) holds autoplay off briefly so
+        // it doesn't yank the strip out from under someone mid-browse.
+        function hold() {
+            held = true;
+            clearTimeout(holdTimer);
+            holdTimer = setTimeout(function () { held = false; }, RESUME_MS);
+        }
+
+        // Hover and keyboard focus both pause — focus is what gives keyboard-only
+        // visitors a way to stop the motion (WCAG 2.2.2), since they can't hover.
+        var sectionEl = document.getElementById('team') || wrapEl;
+        if (sectionEl) {
+            sectionEl.addEventListener('mouseenter', function () { hovering = true; });
+            sectionEl.addEventListener('mouseleave', function () { hovering = false; });
+            sectionEl.addEventListener('focusin', function () { hovering = true; });
+            sectionEl.addEventListener('focusout', function () { hovering = false; });
+        }
+
+        if (sectionEl && 'IntersectionObserver' in window) {
+            new IntersectionObserver(function (entries) {
+                onScreen = entries[0].isIntersecting;
+            }, { threshold: 0.15 }).observe(sectionEl);
+        } else {
+            onScreen = true;   // no IO support — just run
+        }
+
+        // A background tab throttles timers and fires them in a burst on return;
+        // dropping the interval while hidden avoids that catch-up lurch.
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) { stopAuto(); } else { startAuto(); }
+        });
+
+        startAuto();
 
         // Card widths come from CSS, so measuring at load is normally accurate —
         // but if a webfont or the Georgian fallback reflows the strip, re-measure
@@ -509,18 +573,23 @@
             paint();
         });
 
-        if (prevBtn) prevBtn.addEventListener('click', function () { goTo(page - 1); });
-        if (nextBtn) nextBtn.addEventListener('click', function () { goTo(page + 1); });
+        if (prevBtn) prevBtn.addEventListener('click', function () { hold(); goTo(page - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { hold(); goTo(page + 1); });
 
         if (dotsEl) dotsEl.addEventListener('click', function (e) {
             var dot = e.target.closest('.scroll-dot');
-            if (dot) goTo(pageForDot(parseInt(dot.dataset.idx, 10)));
+            if (dot) { hold(); goTo(pageForDot(parseInt(dot.dataset.idx, 10))); }
         });
 
         track.addEventListener('keydown', function (e) {
-            if (e.key === 'ArrowRight') { e.preventDefault(); goTo(page + 1); }
-            else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(page - 1); }
+            if (e.key === 'ArrowRight') { e.preventDefault(); hold(); goTo(page + 1); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); hold(); goTo(page - 1); }
         });
+
+        // Touch swipe and trackpad scroll are deliberate moves too, but they never
+        // reach the handlers above — they just scroll the container natively.
+        track.addEventListener('touchstart', hold, { passive: true });
+        track.addEventListener('wheel', hold, { passive: true });
 
         // Native scroll (touch swipe, trackpad, drag below) only moves the
         // viewport — settle the page index once it stops so the dots agree.
@@ -535,6 +604,7 @@
         var dragging = false, startX = 0, startLeft = 0, moved = false;
         track.addEventListener('mousedown', function (e) {
             if (e.button !== 0) return;
+            hold();
             dragging = true; moved = false;
             startX = e.clientX; startLeft = track.scrollLeft;
             track.style.scrollSnapType = 'none';
