@@ -512,19 +512,23 @@
         paint();
 
         /* ---- autoplay: advance a page every 1.5s, wrapping at the end ----
-           It keeps running under the pointer. An earlier version paused on hover
-           anywhere in the section, which in practice meant it never moved at all:
-           the section is a full-width ~600px band, so a visitor who scrolls down
-           to look at it is almost always resting the cursor somewhere inside it.
-           Only three things stop it now — a deliberate interaction (4s), a
-           backgrounded tab, and the section being off-screen. */
+           Stops while the visitor is looking at it: hover on desktop, tap on
+           touch. Also stops on a deliberate interaction (4s), a backgrounded tab,
+           and the section being off-screen. */
         var AUTO_MS = 1500;
         var RESUME_MS = 4000;   // matches the services marquee's pause-after-touch
         var autoTimer = null, onScreen = false, focused = false, held = false, holdTimer;
+        var pointerOver = false;   // desktop: cursor is on the slider
+        var tapPaused = false;     // touch: tapped to stop (tap again to resume)
         var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        /* Touch browsers fire a synthetic mouseenter on tap that never gets a
+           matching mouseleave, so a hover pause bound unconditionally would stick
+           forever on a phone. Gate it on the device actually having a pointer that
+           hovers, and give touch its own tap-to-pause instead. */
+        var canHover = !window.matchMedia || window.matchMedia('(hover: hover)').matches;
 
         function tick() {
-            if (focused || held || document.hidden || !onScreen) return;
+            if (pointerOver || tapPaused || focused || held || document.hidden || !onScreen) return;
             goTo(page + 1);
         }
         function startAuto() {
@@ -549,6 +553,44 @@
         var sectionEl = document.getElementById('team') || wrapEl;
         track.addEventListener('focusin', function () { focused = true; });
         track.addEventListener('focusout', function () { focused = false; });
+
+        /* Desktop hover. Scoped to the slider itself — the card strip, its dots
+           and the two arrows — NOT the whole #team section: that's a full-width
+           ~600px band including the heading and its padding, and pausing on all
+           of it meant a visitor who had merely scrolled the section into view was
+           usually resting the cursor inside it, so it never moved. */
+        if (canHover) {
+            [wrapEl, prevBtn, nextBtn].forEach(function (el) {
+                if (!el) return;
+                el.addEventListener('mouseenter', function () { pointerOver = true; });
+                el.addEventListener('mouseleave', function () { pointerOver = false; });
+            });
+        }
+
+        /* Touch: a tap on the cards stops it, another tap starts it again. Tracked
+           through the touch events rather than click so a swipe — or a page scroll
+           that happens to start on a card — isn't mistaken for a tap. */
+        if (!canHover) {
+            var tapX = 0, tapY = 0, tapMoved = false;
+            track.addEventListener('touchstart', function (e) {
+                var p = e.touches[0];
+                if (!p) return;
+                tapX = p.clientX; tapY = p.clientY; tapMoved = false;
+            }, { passive: true });
+            track.addEventListener('touchmove', function (e) {
+                var p = e.touches[0];
+                if (!p) return;
+                if (Math.abs(p.clientX - tapX) > 8 || Math.abs(p.clientY - tapY) > 8) tapMoved = true;
+            }, { passive: true });
+            track.addEventListener('touchend', function () {
+                if (tapMoved) return;
+                tapPaused = !tapPaused;
+                // The touchstart above also fires hold(). Left alone, a tap meant
+                // to RESUME would sit still for another 4s and read as the tap
+                // having done nothing — so clear the hold when un-pausing.
+                if (!tapPaused) { held = false; clearTimeout(holdTimer); }
+            }, { passive: true });
+        }
 
         if (sectionEl && 'IntersectionObserver' in window) {
             new IntersectionObserver(function (entries) {
