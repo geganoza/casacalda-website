@@ -512,17 +512,19 @@
         paint();
 
         /* ---- autoplay: advance a page every 1.5s, wrapping at the end ----
-           Held back while the visitor is hovering or has just interacted, while
-           the tab is in the background, and while the section is off-screen —
-           that last one matters most: without it a visitor who takes 20s to
-           scroll down would arrive at page 8 of 10 instead of the start. */
+           It keeps running under the pointer. An earlier version paused on hover
+           anywhere in the section, which in practice meant it never moved at all:
+           the section is a full-width ~600px band, so a visitor who scrolls down
+           to look at it is almost always resting the cursor somewhere inside it.
+           Only three things stop it now — a deliberate interaction (4s), a
+           backgrounded tab, and the section being off-screen. */
         var AUTO_MS = 1500;
         var RESUME_MS = 4000;   // matches the services marquee's pause-after-touch
-        var autoTimer = null, onScreen = false, hovering = false, held = false, holdTimer;
+        var autoTimer = null, onScreen = false, focused = false, held = false, holdTimer;
         var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         function tick() {
-            if (hovering || held || document.hidden || !onScreen) return;
+            if (focused || held || document.hidden || !onScreen) return;
             goTo(page + 1);
         }
         function startAuto() {
@@ -530,23 +532,23 @@
             autoTimer = setInterval(tick, AUTO_MS);
         }
         function stopAuto() { clearInterval(autoTimer); autoTimer = null; }
-        // Any deliberate move (arrow, dot, key, drag) holds autoplay off briefly so
-        // it doesn't yank the strip out from under someone mid-browse.
+        // Any deliberate move (arrow, dot, key, swipe, drag) holds autoplay off
+        // briefly so it doesn't yank the strip out from under someone mid-browse.
         function hold() {
             held = true;
             clearTimeout(holdTimer);
             holdTimer = setTimeout(function () { held = false; }, RESUME_MS);
         }
 
-        // Hover and keyboard focus both pause — focus is what gives keyboard-only
-        // visitors a way to stop the motion (WCAG 2.2.2), since they can't hover.
+        /* Keyboard focus parks it indefinitely — that's the stop mechanism
+           keyboard-only visitors can actually reach (WCAG 2.2.2), since they
+           can't hover. Bound to the TRACK, not the section: focusin on the
+           section meant clicking an arrow left the button focused and autoplay
+           dead for good, because nothing ever moved focus back out. mousedown on
+           the track preventDefault()s, so a mouse click never focuses it either. */
         var sectionEl = document.getElementById('team') || wrapEl;
-        if (sectionEl) {
-            sectionEl.addEventListener('mouseenter', function () { hovering = true; });
-            sectionEl.addEventListener('mouseleave', function () { hovering = false; });
-            sectionEl.addEventListener('focusin', function () { hovering = true; });
-            sectionEl.addEventListener('focusout', function () { hovering = false; });
-        }
+        track.addEventListener('focusin', function () { focused = true; });
+        track.addEventListener('focusout', function () { focused = false; });
 
         if (sectionEl && 'IntersectionObserver' in window) {
             new IntersectionObserver(function (entries) {
@@ -586,10 +588,12 @@
             else if (e.key === 'ArrowLeft') { e.preventDefault(); hold(); goTo(page - 1); }
         });
 
-        // Touch swipe and trackpad scroll are deliberate moves too, but they never
-        // reach the handlers above — they just scroll the container natively.
+        // A touch swipe is a deliberate move that never reaches the handlers above
+        // — it just scrolls the container natively. Wheel events are NOT included:
+        // scrolling the page with the cursor over the strip fires wheel on the
+        // track, so holding on it meant autoplay was suppressed for 4s every time
+        // someone simply scrolled past the section.
         track.addEventListener('touchstart', hold, { passive: true });
-        track.addEventListener('wheel', hold, { passive: true });
 
         // Native scroll (touch swipe, trackpad, drag below) only moves the
         // viewport — settle the page index once it stops so the dots agree.
@@ -872,13 +876,39 @@
         else v.addEventListener('loadeddata', attemptPlay, { once: true });
     }
 
-    var teamContainers = document.querySelectorAll('.team, .team-grid');
-    var allTeamVideos = document.querySelectorAll('.team-card__img video, .team-grid__img video');
-    if (teamContainers.length && 'IntersectionObserver' in window) {
-        var teamSectionObserver = new IntersectionObserver(function (entries, obs) {
+    /* Prime CARD BY CARD, not the whole section at once. Priming is deliberately
+       expensive per video — preload="auto" + .load() + .play() + .pause() — and
+       the section holds 39 of them. Firing all 39 together meant 39 MP4s fighting
+       over a 6-connection pool and the video decoder the moment the section came
+       into view, which is exactly when the home slider is trying to animate. That
+       storm is what made it stutter.
+
+       The strip is a horizontal scroller, so a viewport-rooted observer never
+       fires for cards parked past its right edge (the reason this was written at
+       section level originally). Rooting the observer ON the scroller fixes that:
+       cards prime as they page into view, a handful at a time. */
+    function primeContainerProgressively(container) {
+        var horizontal = container.scrollWidth > container.clientWidth + 1;
+        var cardObserver = new IntersectionObserver(function (entries, obs) {
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
                 entry.target.querySelectorAll('video').forEach(primeVideoForPaint);
+                obs.unobserve(entry.target);
+            });
+        }, horizontal ? { root: container, rootMargin: '200px' } : { rootMargin: '300px' });
+        Array.prototype.forEach.call(container.children, function (card) { cardObserver.observe(card); });
+    }
+
+    var teamContainers = document.querySelectorAll('.team, .team-grid');
+    var allTeamVideos = document.querySelectorAll('.team-card__img video, .team-grid__img video');
+    if (teamContainers.length && 'IntersectionObserver' in window) {
+        // Outer gate stays: nothing loads at all until the section nears the
+        // viewport, so a visitor who never scrolls down pays nothing.
+        var teamSectionObserver = new IntersectionObserver(function (entries, obs) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var strip = entry.target.querySelector('.team__cards') || entry.target;
+                primeContainerProgressively(strip);
                 obs.unobserve(entry.target);
             });
         }, { rootMargin: '300px' });
