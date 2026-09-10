@@ -813,6 +813,103 @@ Or ⌘⇧R on your own machine to bypass your local disk cache.
 
 Reference: phone 325 → 525 done 2026-08-10 this way — DB patch + plugin defaults + host purge. Server snapshot at `~/backups/phone-fix-20260810T154439Z/`.
 
+### Contact info lives in TWO places — the footer fix does not cover the contact page
+
+**Read this before declaring any contact-detail change done.**
+
+`cc_site_globals.footer.contacts.*` (previous section) drives the **footer only**.
+Page bodies carry their own copy in the page-builder section data. The contact
+page has its own phone field, and the 2026-08-10 footer fix did not touch it — so
+for a month the site served the corrected number in the footer and the **old,
+wrong number in the contact page's own contact block**, as a live `tel:` link.
+
+| Where | Source | Fixed by |
+|---|---|---|
+| Footer, every page | `wp_options.cc_site_globals.footer.contacts.phone` | `wp option patch update` (previous section) |
+| Contact page body | page 60, `sections[1].data.phone` | the admin REST API below |
+
+**Always check both.** Grep the page payload, not just the site payload:
+
+```bash
+curl -s "https://cms.casacalda.com/?rest_route=/casacalda/v1/site"              | grep -oE '311[ .-]?[0-9]{3}'
+curl -s "https://cms.casacalda.com/?rest_route=/casacalda/v1/page&slug=contact" | grep -oE '311[ .-]?[0-9]{3}'
+```
+
+### Editing page-builder section data (no SSH, no wp-admin clicking)
+
+The `casacalda-control` plugin exposes an authenticated admin REST API. This is
+the supported way to change page body content programmatically.
+
+| Route | Method | Purpose |
+|---|---|---|
+| `/casacalda/v1/admin/bootstrap` | GET | Everything: page list, schema, section types, globals |
+| `/casacalda/v1/admin/page/<id>` | GET | One page with its sections |
+| `/casacalda/v1/admin/page/<id>/sections` | POST | Save sections — body is `{"sections": [...]}` |
+| `/casacalda/v1/admin/page/<id>/settings` | POST | Rename / re-slug |
+| `/casacalda/v1/admin/globals` | POST | Site globals |
+
+Auth is `cc_can_manage()` → `current_user_can('edit_pages')`. **No API key exists** —
+it needs a real logged-in WordPress user, i.e. cookies + an `X-WP-Nonce` header.
+
+**Page ids** (stable as of 2026-09-10):
+
+```
+54 home    55 services   56 projects   57 project
+58 team    59 about      60 contact
+```
+
+#### Getting a session — the credentials in `.env` do NOT work
+
+`WP_USER` / `WP_PASS` in `../.env` are **stale**. WordPress rejects that password
+outright (`The password you entered ... is incorrect`), and the WP login is
+`admin` — not the `martividigital@gmail.com` address stored there. Basic auth over
+REST would need an *application password*, which is not what is in that file.
+
+The working route is a Hostinger auto-login link, via the Hostinger MCP:
+
+```
+hosting_listWordPressInstallationsV1   -> id 29134885, username u168788757
+hosting_createLoginLinksV1(software=29134885, username=u168788757)
+   -> https://cms.casacalda.com/create_autologin_<token>.php
+```
+
+Open that URL with a cookie jar; it redirects into `/wp-admin/` and sets
+`wordpress_logged_in_*`. Then scrape the REST nonce out of the `/wp-admin/` HTML
+(`"nonce":"<10 hex>"`) and send it as `X-WP-Nonce` on every admin call.
+
+`hosting_getInstallationJWTTokenV1` returns **500** on this install — do not
+spend time on it; use the login link.
+
+#### The safe edit procedure
+
+1. `GET /casacalda/v1/admin/page/<id>` and **save the JSON to disk as a backup**.
+2. Change only the one field in the parsed object.
+3. Diff before/after and assert the delta is what you expect. For the phone fix
+   this was literally `payload delta chars: 1`. If the delta is larger than the
+   edit you intended, stop — the round-trip is dropping or reformatting data.
+4. `POST` the whole `{"sections": [...]}` array back.
+5. Purge Cloudflare **by host** (previous section — Global Key only).
+6. **Verify by rendering the page in a browser.**
+
+#### Why step 6 is not optional
+
+Page content is fetched and injected by JS at runtime. `curl` on
+`casacalda.com/contact.html` returns markup with **no phone number in it at all**,
+so a curl check will happily report "clean" while the live page shows a wrong
+number to every visitor. That is exactly how the 325 survived the August fix and
+every check afterwards.
+
+```bash
+$B goto "https://casacalda.com/contact.html?cb=$(date +%s)"
+$B js "Array.from(new Set(Array.from(document.querySelectorAll('a[href^=\"tel:\"]')).map(a=>a.getAttribute('href')))).join(' | ')"
+```
+
+Expect exactly one number back. Two means you fixed one copy and missed the other.
+
+Reference: contact-page phone 325 → 525 done 2026-09-10 via the admin API
+(page 60, `sections[1].data.phone`), host purge with the Global Key, verified in
+a rendered browser. Pre-edit page JSON captured before the write.
+
 ### Footer legal strip contents (render.js)
 
 The narrow strip at the very bottom of the footer is rendered in `render.js` (`legalHtml` block, ~line 320) from `i18n.js` keys, NOT from the CMS. As of 2026-08-10:
@@ -823,6 +920,48 @@ The narrow strip at the very bottom of the footer is rendered in `render.js` (`l
 If legal ever asks to restore the reg ID in the strip:
 1. Uncomment / re-add the `legal_id` span in `render.js` (~line 323) — the `legal_id` translation is still in `i18n.js:76-79`
 2. Bump `?_v=` on the render.js load in `index.html` (see "Cache-busting discipline") so browsers pick it up
+
+---
+
+## Client deliverables — Projects Excel for review
+
+Standalone workbook the client fills to complete/correct project metadata + services (competencies). Regeneratable from the current CMS backup.
+
+**Output file:** `~/Projects/CASACALDA Local/briefs/Casa Calda — Projects (for client review).xlsx`
+
+**Scripts:** `~/Projects/CASACALDA Local/briefs/_scripts/`
+- `extract_projects.py` — parses the WordPress SQL dump under `backups/cms/<latest date>/db.sql[.gz]`, resolves every `project` post + its `wp_postmeta`, extracts the "მიწოდებული სისტემები" list from each project's `post_content` HTML, and maps sub-items to Casa Calda's 8 canonical competencies. Writes `projects.json` alongside the script.
+- `build_projects_xlsx.py` — reads `projects.json`, builds the 3-sheet workbook (Projects matrix, Services master, Instructions). Data-source paths are self-contained (relative to script dir).
+
+**How to regenerate**
+```bash
+cd ~/Projects/CASACALDA\ Local/briefs/_scripts
+python3 -m venv .venv && .venv/bin/pip install openpyxl
+.venv/bin/python extract_projects.py    # -> projects.json  (uses latest backup)
+.venv/bin/python build_projects_xlsx.py # -> ../Casa Calda — Projects (for client review).xlsx
+```
+To force a specific dump: `CC_DB_SQL=/path/to/db.sql .venv/bin/python extract_projects.py`.
+
+**Data sources**
+| Data | Source | Notes |
+|---|---|---|
+| Project list, meta (title, location, area, tag) | `backups/cms/<date>/db.sql.gz` → `wp_posts` + `wp_postmeta` | Freshness depends on when the last CMS backup ran (see security-monitoring.md) |
+| Per-project services | Parsed from `post_content` HTML — the `<h3>მიწოდებული სისტემები</h3><ul><li>…` block | 17 of 23 projects had data at time of writing |
+| Competency taxonomy | Hard-coded from brand guideline (`Casa Calda Main Competence.pdf`) + 2 extras discovered on the live site | Hard-coded; edit `COMPETENCIES` in `build_projects_xlsx.py` to change |
+
+**Workbook layout**
+- **Sheet 1 — „პროექტები"** — one row per project. Client-fill columns highlight yellow when empty. Competencies rendered as an **8-column 1/0 matrix**; 1-cells auto-color green, 0-cells grey. Kaklebi + Lisi 2 marked red (Casa Calda Express, not main brand — matrix left blank). 10 reserved empty rows at the bottom carry the same dropdown + coloring so the client can add new projects. Header row is frozen; auto-filter on the whole table.
+- **Sheet 2 — „სერვისები"** — master list of 8 competencies + their sub-services. Column headers in Sheet 1 reference Sheet 2 via formula (`=სერვისები!$B$5`, etc.) — rename a competency here, main-sheet header updates. The 8 competencies: 6 official (მექანიკური HVAC / წყალმომარაგება / ელექტრო / სუსტი დენები, BMS / უსაფრთხოება / ენერგოეფექტ) + 2 discovered on the live site (გარე კომუნიკაციები, სხვა).
+- **Sheet 3 — „დანართი"** — client-facing instructions.
+
+**Known limits**
+- Cell-level multi-select in `.xlsx` needs VBA — we intentionally use a 1/0 matrix instead (cleaner + filterable).
+- Named-range `Kompetenciebi` covers Services sheet rows 5–24 (max 20 competencies). Extend the range in the builder if the client adds more.
+- Matrix width is fixed at 8 columns. Adding a 9th competency requires editing `COMPETENCIES` in the builder + rerunning.
+
+**When to regenerate**
+- After a CMS content edit that changes project titles/areas/systems and a fresh backup lands under `backups/cms/`.
+- When the client returns the filled sheet — reconcile against the WP admin (Thomas), then discard the regen (client's edits are the source of truth for that round).
 
 ---
 
@@ -997,6 +1136,9 @@ See also the **Short-term TODO list** for Thomas at the bottom of `HANDOVER_CLOU
 | Workspace root | `~/Projects/CASACALDA Local/` |
 | Working clone | `~/Projects/CASACALDA Local/website-static/` |
 | Local backup mirror | `~/Projects/CASACALDA Local/backups/casacalda-fork.git/` |
+| CMS backups | `~/Projects/CASACALDA Local/backups/cms/<date>/` (used by the Projects Excel generator) |
+| Client deliverables (briefs, Excel, forms) | `~/Projects/CASACALDA Local/briefs/` |
+| Projects Excel scripts | `~/Projects/CASACALDA Local/briefs/_scripts/` |
 | Brand DNA logos | `~/My Drive/Casa Calda/MARKETING/BRAND DNA/Logo/` |
 
 ---
