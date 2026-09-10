@@ -27,110 +27,40 @@
 	   absent, so Georgian rendering can never break. */
 	function t(k) { return (window.CC_I18N && window.CC_I18N.t) ? window.CC_I18N.t(k) : k; }
 
-	/* Frontend overrides for content still pending sync in WordPress.
-	   Georgian Mkhedruli codepoints cannot appear in URLs/attribute names, so the
-	   replace is safe to run on every string that flows through esc().
-	   Language-aware: applyOverrides() picks the array matching localStorage.cc_lang. */
+	/* Georgian copy that WordPress cannot express directly.
+
+	   This was 37 find-and-replace rules rewriting CMS text in the browser, which
+	   meant editing WordPress appeared to do nothing. 33 are now resolved by
+	   writing the intended text into WordPress itself, and deleted.
+
+	   The four below cannot be resolved that way, for a structural reason: English
+	   is served by a generated dictionary (cms wp-content/mu-plugins/cc-i18n.php)
+	   keyed on the EXACT Georgian source string, so two fields sharing a Georgian
+	   string cannot carry different English. Each rule unifies Georgian on screen
+	   for fields whose English must stay distinct:
+
+	     ექსპერტიზა / სპეციალიზაცია -> კომპეტენცია
+	         English keeps 'Expertise' and 'Competence' on separate fields.
+	     გაიმარტივე ცხოვერება ...   (the typo is in WordPress)
+	         home hero keeps 'Make life easy with CASA CALDA'; the footer keeps
+	         'Simplify your life with Casa Calda'.
+	     შეავსე ფორმა და ჩვენ დაგიკავშირდებით ...
+	         two contact CTAs share Georgian but not English.
+
+	   Removing these needs the dictionary keyed per field rather than per string.
+	   Until then, deleting a rule changes the English site, not just the Georgian
+	   one. See website/wordpress/i18n/README.md in the parent repo. */
 	var TEXT_OVERRIDES_KA = [
-		/* Sentence-level overrides run first; they may contain words that the
-		   word-level rules below would otherwise rewrite. */
-		{ from: /უმაღლესი ხარისხის (ექსპერტიზა|კომპეტენცია|სერვისი) ჩვენთვის სტანდარტი არ არის — ეს ჩვენი ყოველდღიური საქმეა\./g,
-		  to: 'უმაღლესი ხარისხის სერვისი ჩვენი ყოველდღიურობაა' },
-		{ from: /უკვე მრავალი წელია რაც ჩვენი მომსახურებით,?\s*ჩვენ ვუქმნით ჯანსაღ და კომფორტულ გარემოს,?\s*ჩვენს მომხმარებლებს\.?/g,
-		  to: 'ჩვენი სიძლიერე ჩვენს პროფესიონალებით დაკომპლექტებულ, მოტივირებულ გუნდშია' },
-		{ from: /ჩვენ ვგემავთ და ვაშენებთ[\s\n]+თქვენს სიმყუდროვეს\.?/g,
-		  to: 'გაიმარტივეთ ცხოვრება თბილ სახლთან ერთად' },
-		{ from: /სრული ელექტრო\s*სისტემების დაპროექტება და მონტაჟი საცხოვრებელი და კომერციული ობიექტებისთვის\.?/g,
-		  to: 'სრული ელექტროსისტემების დაბრუნება და მონტაჟი ნებისმიერი სირთულის ობიექტისთვის.' },
-		/* Polite/plural-form CTAs and copy (informal შენ form → formal თქვენ).
-		   Per user's global instruction; converted via the `ka` Gemini tool. */
-		{ from: /გამოგვიგზავნე შეტყობინება/g, to: 'გამოგვიგზავნეთ შეტყობინება' },
-		{ from: /მზად ხარ ჩვენთან თანამშრომლობისთვის\?/g, to: 'მზად ხართ ჩვენთან თანამშრომლობისთვის?' },
-		/* New CTA copy — replace the polite question with a direct invitation. */
-		{ from: /მზად ხართ ჩვენთან თანამშრომლობისთვის\?/g,
-		  to: 'თუ ხარისხი გჭირდებათ, მოდით თბილ სახლში!' },
-		{ from: /შეავსე ფორმა და გამოგვიგზავნე შენი CV/g, to: 'შეავსეთ ფორმა და გამოგვიგზავნეთ თქვენი CV' },
-		/* New CTA copy — drop the "send CV" line, replace with "we will contact you soon". */
-		{ from: /შეავსეთ ფორმა და გამოგვიგზავნეთ თქვენი CV\.?/g,
-		  to: 'შეავსეთ ფორმა და ჩვენ მალე დაგიკავშირდებით.' },
 		{ from: /შეავსე ფორმა და ჩვენ დაგიკავშირდებით უმოკლეს ვადაში/g,
 		  to: 'შეავსეთ ფორმა და ჩვენ მალე დაგიკავშირდებით.' },
 		{ from: /გაიმარტივე ცხოვ?ერება თბილ სახლთან ერთად/g,
 		  to: 'გაიმარტივეთ ცხოვრება თბილ სახლთან ერთად' },
-		{ from: /ჩვენი ძალა ჩვენს ადამიანებშია\.?/g,
-		  to: 'ჩვენი ძალა ჩვენს გუნდშია!' },
-		/* Address override — old Vazha-Pshavela 6/0186 was wrong (different
-		   district). Correct HQ per BIA.ge + Yell.ge (high confidence): Lubliana 56. */
-		{ from: /საქართველო, თბილისი/g, to: 'საქართველო, თბილისი' },
-		{ from: /0186,?\s*ვაჟა-ფშაველას 6/g, to: '0159, ლუბლიანას ქუჩა N56' },
-		{ from: /ვაჟა-ფშაველას 6/g, to: 'ლუბლიანას ქუჩა N56' },
-		/* Word-level rules. */
 		{ from: /ექსპერტიზა/g, to: 'კომპეტენცია' },
-		{ from: /სპეციალიზაცია/g, to: 'კომპეტენცია' },
-		{ from: /ჩვენი სამუშაოები/g, to: 'ჩვენი ნამუშევრები' },
-		{ from: /ჩვენი ხალხი/g, to: 'ჩვენი გუნდი' },
-		/* Re-replace: 'ტექნიკური ექსპერტიზა' should keep ექსპერტიზა (the previous
-		   global rule would have turned it into 'ტექნიკური კომპეტენცია'). */
-		{ from: /ტექნიკური კომპეტენცია/g, to: 'ტექნიკური ექსპერტიზა' },
-		{ from: /პორტფოლიო/g, to: 'ჩვენი' },
-		{ from: /ვუზრუნველყოფთ/g, to: 'უზრუნველვყოფთ' },
-		/* Standalone CTA button text: 'დაგვიკავშირდი' (singular imperative) →
-		   'დაგვიკავშირდით' (plural). Negative lookahead avoids matching when
-		   followed by another Georgian letter (so we don't corrupt longer
-		   conjugations like დაგვიკავშირდით or დაგვიკავშირდება etc.). */
-		{ from: /დაგვიკავშირდი(?![ა-ჰ])/g, to: 'დაგვიკავშირდით' }
-		/* Removed: the 16 placeholder team-card overrides. WordPress now holds
-		   the real 20 staff entries (uploaded + created via wp-admin form
-		   driver on 2026-06-26). Keeping the rules active would WRONGLY rewrite
-		   legitimately-saved data — e.g. "მთავარი ინჟინერი" (now დავით ჭაფოძე's
-		   real role) would have been silently downgraded to "ინჟინერი". */
+		{ from: /სპეციალიზაცია/g, to: 'კომპეტენცია' }
 	];
-
-	/* English override mirror — matches what WordPress + TranslatePress currently
-	   returns for known-stale fields, rewrites to the agreed new English copy.
-	   Mirrors the KA overrides one-for-one. Will become a no-op once the WP-side
-	   sync is done (issues #1, #2, and the larger content sync). */
-	var TEXT_OVERRIDES_EN = [
-		/* Hero / brand tagline. Live currently shows "Make life simpler with Casa Calda" —
-		   that's the translation of the new KA but with slightly different wording. */
-		{ from: /Make life simpler with (?:Casa Calda|Casa Calda)/g,
-		  to: 'Make life easy with CASA CALDA' },
-		{ from: /We design and build\s+your comfort\.?/g,
-		  to: 'Simplify your life with Casa Calda' },
-		/* Services section description (matches a few plausible old translations). */
-		{ from: /(?:For\s+)?[Mm]any years (?:now,?\s*)?(?:through|with) our service[s]?,?\s*we (?:create|provide|build)[^.]*?(?:customers|clients)\.?/g,
-		  to: 'Our strength lies in a motivated team of seasoned professionals' },
-		/* Services tagline. */
-		{ from: /(?:Top|Premium|Highest)[- ]quality service[^.]*?(?:standard|daily|every day)[^.]*?\.?/g,
-		  to: 'Premium-quality service is what we deliver every day' },
-		/* Electricity service blurb. */
-		{ from: /Full electrical (?:system )?(?:design and )?(?:installation|deployment|setup)[^.]*?(?:residential|commercial)[^.]*?\.?/g,
-		  to: 'Complete electrical system design and installation for projects of any complexity.' },
-		/* CTA banner headline (was "Are you ready to cooperate with us?" / similar). */
-		{ from: /(?:Are you )?[Rr]eady (?:to (?:work|cooperate|collaborate) with us|to cooperate)\??/g,
-		  to: 'When quality matters, choose Casa Calda' },
-		/* CTA banner sub. */
-		{ from: /(?:Fill (?:in|out) (?:the )?form and (?:send us your CV|we'?ll contact you[^.]*)|Send (?:us )?your CV)\.?/g,
-		  to: "Fill out the form and we'll be in touch shortly." },
-		/* Form heading. */
-		{ from: /Send (?:us )?a message/g, to: 'Send us a message' },
-		/* Team section. */
-		{ from: /Our people/g, to: 'Our Team' },
-		{ from: /Our strength is in our people\.?/g, to: 'Our strength is our team' },
-		/* Project section eyebrow + title. */
-		{ from: /Portfolio/g, to: 'Our' },
-		{ from: /Our (?:works|jobs)/gi, to: 'Our Work' },
-		/* Services nav / section label. The Georgian moved Service → Expertise → Competence,
-		   on the EN side TranslatePress currently shows "Expertise" everywhere — keep as
-		   "Expertise" (per pair n=10 we agreed to "Expertise" in EN). No override needed
-		   but listing intent here. */
-		/* Technical expertise — keep. */
-		/* Address ordering: Georgia/Tbilisi → Tbilisi/Georgia (English convention). */
-		{ from: /Georgia,\s*Tbilisi/g, to: 'Tbilisi, Georgia' },
-		/* CTA button. */
-		{ from: /Get in touch/g, to: 'Contact Us' }
-	];
-
+	/* English needs none: all 14 former EN rules are baked into the dictionary
+	   values in website/wordpress/i18n/translations.json. */
+	var TEXT_OVERRIDES_EN = [];
 	var OVERRIDES_BY_LANG = { ka: TEXT_OVERRIDES_KA, en: TEXT_OVERRIDES_EN };
 	/* Logo files per language — both are the official BRAND DNA white version,
 	   the Georgian one says "თბილი სახლი / CASA CALDA", the English one says
