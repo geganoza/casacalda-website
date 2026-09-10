@@ -56,7 +56,12 @@
 		{ from: /გაიმარტივე ცხოვ?ერება თბილ სახლთან ერთად/g,
 		  to: 'გაიმარტივეთ ცხოვრება თბილ სახლთან ერთად' },
 		{ from: /ექსპერტიზა/g, to: 'კომპეტენცია' },
-		{ from: /სპეციალიზაცია/g, to: 'კომპეტენცია' }
+		{ from: /სპეციალიზაცია/g, to: 'კომპეტენცია' },
+		/* Restorer: the two rules above are deliberately broad, and this one puts
+		   back the single phrase that must NOT be unified. Order matters - it has to
+		   run after them. Deleting it silently renames 'ტექნიკური ექსპერტიზა'
+		   (technical expertise) on the home and services pages. */
+		{ from: /ტექნიკური კომპეტენცია/g, to: 'ტექნიკური ექსპერტიზა' }
 	];
 	/* English needs none: all 14 former EN rules are baked into the dictionary
 	   values in website/wordpress/i18n/translations.json. */
